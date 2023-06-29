@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<textures>
+    <texture id="player_idle" source="assets/idle2.png"/>
+    <texture id="player_walking" source="assets/walking.png"/>
+    <texture id="player_jumping" source="assets/jumping.png"/>
+    <texture id="player_stand_hit" source="assets/stand_hit.png"/>
+    <texture id="player_walk_hit" source="assets/walk_hit.png"/>
+
+    <texture id="bg" source="assets/Forest_background_1.png"/>
+    
+</textures>
