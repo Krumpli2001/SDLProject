@@ -34,6 +34,8 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
     if (top_tile < 0) { top_tile = 0; }
     if (bottom_tile > rowCount) { bottom_tile = rowCount; }
 
+    if (a.x < 0 || a.x + a.w >= colCount * tileSize || a.y < 0 || a.y + a.h >= rowCount * tileSize) { return true; }
+
     for (int i = left_tile; i <= right_tile; i++)
     {
         for (int j = top_tile; j <= bottom_tile; j++)

@@ -73,14 +73,14 @@ void Player::Update(double dt)
 	//jobbra fut / ut
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE * 0.2);
+		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE);
 		GameObject_Flip = SDL_FLIP_NONE;
 	}
 
 	//balra fut / ut
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == BALRA and Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE * 0.2);
+		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 	}
 
@@ -155,8 +155,8 @@ void Player::Update(double dt)
 	GameObject_Origin->setX(GameObject_Transform->getX() + GameObject_Width / 2.0);
 	GameObject_Origin->setY(GameObject_Transform->getY() + GameObject_Height / 2.0);
 
-	if (GameObject_Transform->getX() > ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getColCount() * CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) - 240)) { GameObject_Transform->setX(Player_LastSafePosition.getX()); }
-	if (GameObject_Transform->getX() < 0) { GameObject_Transform->setX(Player_LastSafePosition.getX()); }
+	//if (GameObject_Transform->getX() > ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getColCount() * CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()))) { GameObject_Transform->setX(Player_LastSafePosition.getX()); }
+	//if (GameObject_Transform->getX() < 0) { GameObject_Transform->setX(Player_LastSafePosition.getX()); }
 
 	AnimationState();
 	Player_RigidBody->Update(dt);
