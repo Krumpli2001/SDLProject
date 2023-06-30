@@ -107,6 +107,7 @@ void Engine::Render()
 	SDL_RenderClear(Engine_Renderer);
 
 	TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 0.5, 0.5);
+
 	Engine_LevelMap->Render();
 
 	for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
