@@ -5,9 +5,7 @@ Enemy::Enemy(Properties* props) : Character(props)
 	Enemy_RigidBody = new RigidBody();
 	Enemy_RigidBody->setRigidBody_Gravity(3.0);
 	Enemy_Collider = new Collider();
-	Enemy_SeqAnimation = new SequentialAnimation(false);
-	Enemy_SeqAnimation->Parse("assets/enemy_animation.xml");
-	Enemy_SeqAnimation->setCurrentSequence("enemy_spawn");
+
 }
 
 void Enemy::Update(double dt)
@@ -32,19 +30,12 @@ void Enemy::Update(double dt)
 		GameObject_Transform->setY(Enemy_LastSafePosition.getY());
 	}
 
-	Enemy_SeqAnimation->Update(dt);
 
-	if (Enemy_SeqAnimation->getEnded())
-	{
-		Enemy_SeqAnimation->setCurrentSequence("enemy_idle");
-		Enemy_SeqAnimation->setRepeat(true);
-	}
 
 }
 
 void Enemy::Draw()
 {
-	Enemy_SeqAnimation->DrawFrame(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Flip, 0.3, 0.3);
 }
 
 void Enemy::Clean()

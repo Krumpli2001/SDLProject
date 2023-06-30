@@ -34,9 +34,7 @@ Player::Player(Properties* props) : Character(props)
 
 void Player::Draw()
 {
-	//TextureManager::GetInstance()->DrawFrame(p_TextureID, p_Transform->getX(), p_Transform->getY(), p_Width, p_Height, Row, Frame);
 	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip, 1.0, 1.0);
-	//Player_Collider->Draw();
 }
 
 void Player::Update(double dt)
@@ -155,14 +153,10 @@ void Player::Update(double dt)
 	GameObject_Origin->setX(GameObject_Transform->getX() + GameObject_Width / 2.0);
 	GameObject_Origin->setY(GameObject_Transform->getY() + GameObject_Height / 2.0);
 
-	//if (GameObject_Transform->getX() > ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getColCount() * CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()))) { GameObject_Transform->setX(Player_LastSafePosition.getX()); }
-	//if (GameObject_Transform->getX() < 0) { GameObject_Transform->setX(Player_LastSafePosition.getX()); }
-
 	AnimationState();
 	Player_RigidBody->Update(dt);
 	Player_SpriteAnimation->Update(dt);
 
-	//std::cout << GameObject_Transform->getX() << " " << GameObject_Transform->getY() << "\n";
 }
 
 void Player::AnimationState()
@@ -173,7 +167,7 @@ void Player::AnimationState()
 
 	if (Player_IsJumping or Player_IsFalling) { Player_SpriteAnimation->SetProps("player_jumping", 0, 1, 1); }
 
-	if (Player_IsAttacking) { Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, 200); }
+	if (Player_IsAttacking) { Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, 200, true); }
 
 	if (Player_IsWalkAttacking) { Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, 600); }
 }

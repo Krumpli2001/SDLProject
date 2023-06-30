@@ -107,8 +107,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\VisualP\source\repos\c++\SDLProject\SDLProject\include;C:\suli\szak\SDLProject\SDLProject\Tinyxml;E:\VisualP\source\repos\c++\SDLProject\SDLProject\Tinyxml;E:\letoltesek\SDL2-devel-2.26.4-VC\SDL2-2.26.4\include;E:\letoltesek\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\sarva\Downloads\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\sarva\Downloads\SDL2-devel-2.26.4-VC\SDLbin\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\suli\szak\SDLProject\SDLProject\include;E:\VisualP\source\repos\c++\SDLProject\SDLProject\include;C:\suli\szak\SDLProject\SDLProject\Tinyxml;E:\VisualP\source\repos\c++\SDLProject\SDLProject\Tinyxml;E:\letoltesek\SDL2-devel-2.26.4-VC\SDL2-2.26.4\include;E:\letoltesek\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\sarva\Downloads\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\sarva\Downloads\SDL2-devel-2.26.4-VC\SDLbin\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -146,7 +146,6 @@
     <ClCompile Include="src\MapParser.cpp" />
     <ClCompile Include="src\ObjectFactory.cpp" />
     <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\SequentialAnimation.cpp" />
     <ClCompile Include="src\SpriteAnimation.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\TileLayer.cpp" />
@@ -174,7 +173,6 @@
     <ClInclude Include="include\Player.hpp" />
     <ClInclude Include="include\Point.hpp" />
     <ClInclude Include="include\RigidBody.hpp" />
-    <ClInclude Include="include\SequentialAnimation.hpp" />
     <ClInclude Include="include\SpriteAnimation.hpp" />
     <ClInclude Include="include\TextureManager.hpp" />
     <ClInclude Include="include\TileLayer.hpp" />
