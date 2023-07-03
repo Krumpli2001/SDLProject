@@ -8,8 +8,8 @@
 #define S_WIDTH 1280
 #define S_HEIGHT 720
 
-#define M_WIDTH 60*120
-#define M_HEIGHT 20*120
+#define M_WIDTH 7200
+#define M_HEIGHT 2400
 
 class Camera
 {

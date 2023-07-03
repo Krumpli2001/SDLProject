@@ -19,14 +19,14 @@ void Camera::Update(double dt)
 			Camera_ViewBox.y = 0;
 		}
 
-		if (Camera_ViewBox.x > (2 * M_WIDTH - Camera_ViewBox.w))
+		if (Camera_ViewBox.x > (M_WIDTH - Camera_ViewBox.w))
 		{
-			Camera_ViewBox.x = (2 * M_WIDTH - Camera_ViewBox.w);
+			Camera_ViewBox.x = (M_WIDTH - Camera_ViewBox.w);
 		}
 
-		if (Camera_ViewBox.y > (2 * M_HEIGHT - Camera_ViewBox.h))
+		if (Camera_ViewBox.y > (M_HEIGHT - Camera_ViewBox.h))
 		{
-			Camera_ViewBox.y = (2 * M_HEIGHT - Camera_ViewBox.h);
+			Camera_ViewBox.y = (M_HEIGHT - Camera_ViewBox.h);
 		}
 
 		Camera_Position = Vector2D(Camera_ViewBox.x, Camera_ViewBox.y);

@@ -106,7 +106,7 @@ void Engine::Render()
 	SDL_SetRenderDrawColor(Engine_Renderer, 0, 0, 0, 255);
 	SDL_RenderClear(Engine_Renderer);
 
-	TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 0.5, 0.5);
+	TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
 
 	Engine_LevelMap->Render();
 

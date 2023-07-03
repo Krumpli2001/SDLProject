@@ -3,7 +3,6 @@
 #include "Player.hpp"
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
-//#include "Engine.hpp"
 
 static Registrar < Player > registrar("PLAYER");
 
@@ -16,7 +15,6 @@ Player::Player(Properties* props) : Character(props)
 	Player_IsGrounded = false;
 	Player_IsAttacking = false;
 	Player_IsWalkAttacking = false;
-
 
 	Player_JumpTime = JUMP_TIME;
 	Player_JumpForce = JUMP_FORCE;
@@ -39,8 +37,6 @@ void Player::Draw()
 
 void Player::Update(double dt)
 {
-	//GameObject_Transform->log("");
-
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
 
