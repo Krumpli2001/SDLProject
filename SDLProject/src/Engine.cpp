@@ -23,7 +23,7 @@ bool Engine::Init()
 	}
 
 	//ablak letrehozasa
-	Engine_Window = SDL_CreateWindow("Jatek", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, S_WIDTH, S_HEIGHT, SDL_WINDOW_RESIZABLE);
+	Engine_Window = SDL_CreateWindow("Jatek", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, CREATION_WIDTH, CREATION_HEIGHT, SDL_WINDOW_RESIZABLE);
 	if (Engine_Window == nullptr)
 	{
 		std::cout << "Failed to CreateWindow!\n" << SDL_GetError();

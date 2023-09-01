@@ -5,12 +5,12 @@
 class Point
 {
 private:
-	double Point_X;
-	double Point_Y;
+	int Point_X;
+	int Point_Y;
 public:
 
-	inline double getX() { return Point_X; }
-	inline double getY() { return Point_Y; }
+	inline int getX() { return Point_X; }
+	inline int getY() { return Point_Y; }
 
 	inline double setX(double x) { return Point_X = x; }
 	inline double setY(double y) { return Point_Y = y; }

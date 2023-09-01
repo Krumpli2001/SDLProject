@@ -6,8 +6,9 @@ void Camera::Update(double dt)
 {
 	if (Camera_Target != nullptr)
 	{
-		Camera_ViewBox.x = Camera_Target->getX() - S_WIDTH / 2;
-		Camera_ViewBox.y = Camera_Target->getY() - S_HEIGHT / 2;
+
+		Camera_ViewBox.x = Camera_Target->getX() - Camera_W / 2;
+		Camera_ViewBox.y = Camera_Target->getY() - Camera_H / 2;
 
 		if (Camera_ViewBox.x < 0)
 		{
@@ -32,4 +33,19 @@ void Camera::Update(double dt)
 		Camera_Position = Vector2D(Camera_ViewBox.x, Camera_ViewBox.y);
 
 	}
+
+	/*SDL_Event event;
+	SDL_PollEvent(&event);
+	std::cout << event.type << std::endl;*/
+	/*if ( == SDL_WINDOWEVENT) {
+		std::cout << "sajt";
+	}*/
+
+
+
+	/*if (event.window.windowID == SDL_WINDOWEVENT_SIZE_CHANGED)
+	{
+		delete Camera_Instance;
+		Camera_Instance = nullptr;
+	}*/
 }

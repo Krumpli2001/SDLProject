@@ -5,8 +5,9 @@
 #include "GameMap.hpp"
 #include "GameObject.hpp"
 
-#define S_WIDTH 1920
-#define S_HEIGHT 720
+
+#define CREATION_WIDTH 1280
+#define CREATION_HEIGHT 720
 
 class Engine
 {
@@ -35,6 +36,8 @@ public:
 	inline SDL_Renderer* GetRenderer() { return Engine_Renderer; }
 
 	inline GameMap* getLevelMap() { return Engine_LevelMap; }
+
+	inline SDL_Window* getWindow() { return Engine_Window; }
 
 	bool Init();
 	bool Clean();

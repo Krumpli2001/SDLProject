@@ -4,6 +4,7 @@
 
 #include "Point.hpp"
 #include "Vector2D.hpp"
+#include "Engine.hpp"
 
 #define S_WIDTH 1280
 #define S_HEIGHT 720
@@ -14,12 +15,18 @@
 class Camera
 {
 private:
-	Camera() { Camera_ViewBox = { 0, 0, S_WIDTH, S_HEIGHT }; }
+	Camera() {
+		SDL_GetWindowSizeInPixels(Engine::GetInstance()->getWindow(), &Camera_W, &Camera_H);
+		Camera_ViewBox = { 0, 0, Camera_W, Camera_H };
+	}
 	static Camera* Camera_Instance;
 	Point* Camera_Target;
 	Vector2D Camera_Position;
 
 	SDL_Rect Camera_ViewBox;
+
+	int Camera_W;
+	int Camera_H;
 
 public:
 	inline static Camera* GetInstance()
