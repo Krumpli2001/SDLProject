@@ -5,6 +5,7 @@
 #include "RigidBody.hpp"
 #include "Collider.hpp"
 #include "CollisionHandler.hpp"
+#include "Timer.hpp"
 
 #define JUMP_TIME 15.0
 #define JUMP_FORCE 30.0
@@ -24,6 +25,8 @@ private:
 	double Player_JumpTime;
 	double Player_JumpForce;
 	double Player_AttackTime;
+
+	double Player_DeltaTime;
 
 	Collider* Player_Collider;
 	SpriteAnimation* Player_SpriteAnimation;

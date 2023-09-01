@@ -1,15 +1,17 @@
 #pragma once
 
-const int TARGET_FPS = 60;
-const int TARGET_DeltaTime = 1.5;
+#include <SDL.h>
+
+const double TARGET_FPS = 60;
+const double TARGET_DeltaTime = 1.5;
 
 class Timer
 {
 private:
 	Timer() {};
 	static Timer* Timer_Instance;
-	double Timer_DeltaTime;
-	double Timer_LastTime;
+	Uint64 Timer_DeltaTime;
+	Uint64 Timer_LastTime;
 public:
 	inline static Timer* GetInstance()
 	{

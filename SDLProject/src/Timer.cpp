@@ -1,7 +1,6 @@
 #include "Timer.hpp"
 #include <iostream>
 
-#include <SDL.h>
 
 Timer* Timer::Timer_Instance = nullptr;
 
@@ -15,5 +14,5 @@ void Timer::getTick()
 	}
 
 	Timer_LastTime = SDL_GetTicks64();
-	//std::cout << Timer_DeltaTime;
+	//std::cout << Timer_DeltaTime << std::endl;;
 }

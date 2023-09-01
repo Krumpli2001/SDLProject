@@ -20,6 +20,8 @@ Player::Player(Properties* props) : Character(props)
 	Player_JumpForce = JUMP_FORCE;
 	Player_AttackTime = ATTACK_TIME;
 
+	Player_DeltaTime = Timer::GetInstance()->getTimer_DeltaTime();
+
 	Player_Collider = new Collider();
 	Player_Collider->setBuffer(0, 0, 0, 0);
 
