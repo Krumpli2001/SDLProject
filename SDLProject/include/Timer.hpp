@@ -10,8 +10,8 @@ class Timer
 private:
 	Timer() {};
 	static Timer* Timer_Instance;
-	Uint64 Timer_DeltaTime;
-	Uint64 Timer_LastTime;
+	double Timer_DeltaTime;
+	double Timer_LastTime;
 public:
 	inline static Timer* GetInstance()
 	{
