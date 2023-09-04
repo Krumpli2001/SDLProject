@@ -1,5 +1,6 @@
 #include "Input.hpp"
 #include "Engine.hpp"
+#include "Camera.hpp"
 
 Input* Input::Input_Instance = nullptr;
 
@@ -30,12 +31,17 @@ void Input::ClickDown()
 
 void Input::Listen()
 {
-	SDL_Event event;
 
 	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)
 		{
+			case SDL_WINDOWEVENT:
+				if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+					SDL_GetWindowSizeInPixels(Engine::GetInstance()->getWindow(), Camera::GetInstance()->getPCamera_W(), Camera::GetInstance()->getPCamera_H());
+					*Camera::GetInstance()->getCamera_ViewDox() = {0, 0, *Camera::GetInstance()->getPCamera_W(), *Camera::GetInstance()->getPCamera_H()};
+				}
+				break;
 			case SDL_QUIT:
 				Engine::GetInstance()->Quit();
 				break;
