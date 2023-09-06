@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 const double TARGET_FPS = 60;
-const double TARGET_DeltaTime = 1.5;
+const double TARGET_DeltaTime = 16.67;
 
 class Timer
 {
@@ -12,6 +12,7 @@ private:
 	static Timer* Timer_Instance;
 	double Timer_DeltaTime;
 	double Timer_LastTime;
+	int fps;
 public:
 	inline static Timer* GetInstance()
 	{
@@ -24,6 +25,7 @@ public:
 
 	void getTick();
 	inline double getTimer_DeltaTime() { return Timer_DeltaTime; }
+	inline int getFPS() { return fps; }
 
 };
 

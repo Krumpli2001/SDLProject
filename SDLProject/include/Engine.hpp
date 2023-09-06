@@ -5,7 +5,6 @@
 #include "GameMap.hpp"
 #include "GameObject.hpp"
 
-
 #define CREATION_WIDTH 1280
 #define CREATION_HEIGHT 720
 

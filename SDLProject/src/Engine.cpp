@@ -6,6 +6,8 @@
 #include "MapParser.hpp"
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
+#include "FPSCounter.hpp"
+
 #include "Timer.hpp"
 #include "Camera.hpp"
 #include "TextureManager.hpp"
@@ -21,6 +23,7 @@ bool Engine::Init()
 		std::cout << "Failed to inicialise!\n" << SDL_GetError();
 		return false;
 	}
+	TTF_Init();
 
 	//ablak letrehozasa
 	Engine_Window = SDL_CreateWindow("Jatek", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, CREATION_WIDTH, CREATION_HEIGHT, SDL_WINDOW_RESIZABLE);
@@ -77,6 +80,7 @@ bool Engine::Clean()
 	TextureManager::GetInstance()->Clean();
 	SDL_DestroyRenderer(Engine_Renderer);
 	SDL_DestroyWindow(Engine_Window);
+	FPSCounter::GetInstance()->clean();
 	IMG_Quit();
 	SDL_Quit();
 	return false;
@@ -115,6 +119,7 @@ void Engine::Render()
 		Enigine_GameObjects[i]->Draw();
 	}
 
+	FPSCounter::GetInstance()->kiir();
 	SDL_RenderPresent(Engine_Renderer);
 }
 
