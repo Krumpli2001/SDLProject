@@ -15,6 +15,7 @@ public:
 	inline void setBuffer(int x, int y, int w, int h) { Collider_Buffer = { x,y,w,h }; }
 	inline void setBox(int x, int y, int w, int h) { Collider_Box = { x - Collider_Buffer.x, y - Collider_Buffer.y, w - Collider_Buffer.w, h - Collider_Buffer.h }; }
 	inline bool CollideWithMap() { return CollisionHandler::GetInstance()->MapCollision(Collider_Box); }
+
 	/*inline void Draw()
 	{
 		Vector2D cam = Camera::GetInstance()->getPosition();

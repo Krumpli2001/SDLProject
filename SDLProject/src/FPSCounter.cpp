@@ -11,5 +11,5 @@ void FPSCounter::kiir() {
 void FPSCounter::clean() {
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
-	std::cout << "\nElv ez is takarult\n";
+	std::cout << "\nText is deleted\n";
 }

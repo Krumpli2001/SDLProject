@@ -14,7 +14,7 @@ public:
 	int Properties_Y;
 	SDL_RendererFlip Properties_Flip;
 
-	Properties(std::string textureID, int width, int height, double x, double y, SDL_RendererFlip flip = SDL_FLIP_NONE)
+	inline Properties(std::string textureID, int width, int height, double x, double y, SDL_RendererFlip flip = SDL_FLIP_NONE)
 	{
 		Properties_TextureID = textureID;
 		Properties_Width = width;
@@ -35,7 +35,7 @@ protected:
 	SDL_RendererFlip GameObject_Flip;
 	Point* GameObject_Origin;
 public:
-	GameObject(Properties* props)
+	inline GameObject(Properties* props)
 	{
 		GameObject_TextureID = props->Properties_TextureID;
 		GameObject_Width = props->Properties_Width;

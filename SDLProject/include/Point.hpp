@@ -8,6 +8,7 @@ private:
 	int Point_X;
 	int Point_Y;
 public:
+	inline Point(double x = 0, double y = 0) : Point_X(x), Point_Y(y) {};
 
 	inline int getX() { return Point_X; }
 	inline int getY() { return Point_Y; }
@@ -15,8 +16,6 @@ public:
 	inline double setX(double x) { return Point_X = x; }
 	inline double setY(double y) { return Point_Y = y; }
 
-
-	Point(double x = 0, double y = 0) : Point_X(x), Point_Y(y) {};
 
 	inline Point operator+(const Point& p2) const {
 		return Point(Point_X + p2.Point_X, Point_Y + p2.Point_Y);
@@ -42,7 +41,7 @@ public:
 		return Point(Point_X * scalar, Point_Y * scalar);
 	}
 
-	void Log(std::string msg) {
+	inline void Log(std::string msg) {
 		std::cout << msg << "(X, Y) = (" << Point_X << " " << Point_Y << ")\n";
 	}
 };
