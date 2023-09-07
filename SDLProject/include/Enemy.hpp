@@ -14,7 +14,7 @@ private:
 public:
 	Enemy(Properties* props);
 
-	virtual void Update(double dt);
+	virtual void Update(Uint64 dt);
 	virtual void Draw();
 	virtual void Clean();
 };

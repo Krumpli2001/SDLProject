@@ -10,7 +10,7 @@ public:
 	std::string Properties_TextureID;
 	int Properties_Width;
 	int Properties_Height;
-	double Properties_X;
+	int Properties_X;
 	int Properties_Y;
 	SDL_RendererFlip Properties_Flip;
 
@@ -48,6 +48,6 @@ public:
 	inline Point* getOrigin() { return GameObject_Origin; }
 
 	virtual void Draw() = 0;
-	virtual void Update(double dt) = 0;
+	virtual void Update(Uint64 dt) = 0;
 	virtual void Clean() = 0;
 };

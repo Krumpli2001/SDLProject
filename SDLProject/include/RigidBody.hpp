@@ -43,7 +43,7 @@ public:
 	 inline Vector2D getRigidBody_Accelaration() { return RigidBody_Accelaration; }
 
 
-	 inline void Update(double dt)
+	 inline void Update(Uint64 dt)
 	 {
 		 RigidBody_Accelaration.setX((RigidBody_Force.getX() + RigidBody_Friction.getX()) / RigidBody_Mass);
 		 RigidBody_Accelaration.setY(RigidBody_Gravity + RigidBody_Force.getY() / RigidBody_Mass);

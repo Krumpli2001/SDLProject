@@ -2,7 +2,7 @@
 
 SpriteAnimation::SpriteAnimation(bool repeat) : AnimationBase(repeat) {}
 
-void SpriteAnimation::Update(double dt)
+void SpriteAnimation::Update(Uint64 dt)
 {
 	if (SpriteAnimation_StartFrame)	{
 		//Uint64 epoch = SDL_GetTicks64();

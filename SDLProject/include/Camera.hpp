@@ -17,12 +17,12 @@ private:
 		Camera_ViewBox = { 0, 0, Camera_W, Camera_H };
 	}
 	static Camera* Camera_Instance;
-	Point* Camera_Target;
-	Vector2D Camera_Position;
+	Point* Camera_Target{};
+	Vector2D Camera_Position{};
 	
-	int Camera_W;
-	int Camera_H;
-	SDL_Rect Camera_ViewBox;
+	int Camera_W{};
+	int Camera_H{};
+	SDL_Rect Camera_ViewBox{};
 
 public:
 	inline static Camera* GetInstance()
@@ -34,14 +34,14 @@ public:
 		return Camera_Instance;
 	}
 
-	int* getPCamera_W() { return &Camera_W; }
-	int* getPCamera_H() { return &Camera_H; }
-	SDL_Rect* getCamera_ViewDox() { return &Camera_ViewBox; }
+	inline int* getPCamera_W() { return &Camera_W; }
+	inline int* getPCamera_H() { return &Camera_H; }
+	inline SDL_Rect* getCamera_ViewDox() { return &Camera_ViewBox; }
 
 	inline SDL_Rect getViewBox() { return Camera_ViewBox; }
 	inline Vector2D getPosition() { return Camera_Position; }
 	inline void setTarget(Point* target) { Camera_Target = target; }
 
-	void Update(double dt);
+	void Update(Uint64 dt);
 
 };

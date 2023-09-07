@@ -8,7 +8,7 @@ Enemy::Enemy(Properties* props) : Character(props)
 
 }
 
-void Enemy::Update(double dt)
+void Enemy::Update(Uint64 dt)
 {
 	//Enemy_RigidBody->Update(dt);
 

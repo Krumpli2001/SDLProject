@@ -16,5 +16,5 @@ void Timer::getTick()
 	}
 
 	Timer_LastTime = SDL_GetTicks64();
-	std::cout << Timer_DeltaTime << "\n";
+	//std::cout << fps << " " << Timer_DeltaTime << "\n";
 }

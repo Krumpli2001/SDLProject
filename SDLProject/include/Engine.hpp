@@ -31,11 +31,8 @@ public:
 	}
 
 	inline bool GetIsRunning() { return Engine_IsRunning; }
-
 	inline SDL_Renderer* GetRenderer() { return Engine_Renderer; }
-
 	inline GameMap* getLevelMap() { return Engine_LevelMap; }
-
 	inline SDL_Window* getWindow() { return Engine_Window; }
 
 	bool Init();

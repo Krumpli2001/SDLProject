@@ -26,7 +26,7 @@ private:
 	double Player_JumpForce;
 	double Player_AttackTime;
 
-	double Player_DeltaTime;
+	Uint64 Player_DeltaTime;
 
 	Collider* Player_Collider;
 	SpriteAnimation* Player_SpriteAnimation;
@@ -39,6 +39,6 @@ public:
 	Player(Properties* props);
 
 	virtual void Draw();
-	virtual void Update(double dt);
+	virtual void Update(Uint64 dt);
 	virtual void Clean();
 };

@@ -10,9 +10,9 @@ class Timer
 private:
 	Timer() {};
 	static Timer* Timer_Instance;
-	Uint64 Timer_DeltaTime;
-	Uint64 Timer_LastTime;
-	int fps;
+	Uint64 Timer_DeltaTime{}; //millisecbe van 1 sec = 1000 ms
+	Uint64 Timer_LastTime{};
+	int fps{};
 public:
 	inline static Timer* GetInstance()
 	{
@@ -24,7 +24,7 @@ public:
 	}
 
 	void getTick();
-	inline double getTimer_DeltaTime() { return Timer_DeltaTime; }
+	inline Uint64 getTimer_DeltaTime() { return Timer_DeltaTime; }
 	inline int getFPS() { return fps; }
 
 };

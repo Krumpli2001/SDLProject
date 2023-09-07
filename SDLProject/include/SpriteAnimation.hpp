@@ -17,7 +17,7 @@ public:
 	SpriteAnimation(bool repeat = false);
 	Uint64 epoch = SDL_GetTicks64();
 
-	virtual void Update(double dt);
+	virtual void Update(Uint64 dt);
 	void Draw(double x, double y, int spriteW, int spriteH, SDL_RendererFlip flip, double XScale = 1, double YScale = 1);
 	void SetProps(std::string textureID, int spriteRow, int frameCount, int aniSpeed , bool startFrame = false);
 

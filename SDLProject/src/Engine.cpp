@@ -93,7 +93,7 @@ void Engine::Quit()
 
 void Engine::Update()
 {
-	double dt = Timer::GetInstance()->getTimer_DeltaTime();
+	Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 
 	for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
 	{

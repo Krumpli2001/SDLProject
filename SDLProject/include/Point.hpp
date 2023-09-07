@@ -8,7 +8,7 @@ private:
 	int Point_X;
 	int Point_Y;
 public:
-	inline Point(double x = 0, double y = 0) : Point_X(x), Point_Y(y) {};
+	inline Point(int x = 0, int y = 0) : Point_X(x), Point_Y(y) {};
 
 	inline int getX() { return Point_X; }
 	inline int getY() { return Point_Y; }

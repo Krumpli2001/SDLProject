@@ -2,7 +2,7 @@
 
 Camera* Camera::Camera_Instance = nullptr;
 
-void Camera::Update(double dt)
+void Camera::Update(Uint64 dt)
 {
 	if (Camera_Target != nullptr)
 	{
