@@ -7,8 +7,8 @@ void Camera::Update(Uint64 dt)
 	if (Camera_Target != nullptr)
 	{
 
-		Camera_ViewBox.x = Camera_Target->getX() - Camera_W / 2;
-		Camera_ViewBox.y = Camera_Target->getY() - Camera_H / 2;
+		Camera_ViewBox.x = Camera_Target->getX() - Camera_W / 2.0;
+		Camera_ViewBox.y = Camera_Target->getY() - Camera_H / 2.0;
 
 		if (Camera_ViewBox.x < 0)
 		{

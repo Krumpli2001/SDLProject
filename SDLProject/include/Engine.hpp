@@ -14,10 +14,10 @@ class Engine
 private:
 	Engine() {};
 	static Engine* Engine_Instance;
-	bool Engine_IsRunning;
-	SDL_Window* Engine_Window;
-	SDL_Renderer* Engine_Renderer;
-	GameMap* Engine_LevelMap;
+	bool Engine_IsRunning{};
+	SDL_Window* Engine_Window{};
+	SDL_Renderer* Engine_Renderer{};
+	GameMap* Engine_LevelMap{};
 	std::vector<GameObject*> Enigine_GameObjects;
 
 public:

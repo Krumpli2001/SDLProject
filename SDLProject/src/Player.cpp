@@ -126,7 +126,7 @@ void Player::Update(Uint64 dt)
 
 	Player_LastSafePosition.setX(GameObject_Transform->getX());
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
-	Player_Collider->setBox(GameObject_Transform->getX(), GameObject_Transform->getY(), 190, 240);
+	Player_Collider->setBox(static_cast<int>( GameObject_Transform->getX() ), static_cast<int>( (int)GameObject_Transform->getY() ), 190, 240);
 
 	if (CollisionHandler::GetInstance()->MapCollision(Player_Collider->getBox()))
 	{
@@ -135,7 +135,7 @@ void Player::Update(Uint64 dt)
 
 	Player_LastSafePosition.setY(GameObject_Transform->getY());
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
-	Player_Collider->setBox(GameObject_Transform->getX(), GameObject_Transform->getY(), 190, 240);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>((int)GameObject_Transform->getY()), 190, 240);
 
 	if (CollisionHandler::GetInstance()->MapCollision(Player_Collider->getBox()))
 	{

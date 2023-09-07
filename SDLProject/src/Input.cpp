@@ -97,5 +97,6 @@ int Input::getAxisKey(Axis axis)
 	default:
 		return 0;
 	}
+	return 0;
 
 }

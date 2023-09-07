@@ -10,8 +10,8 @@ private:
 	Input();
 	static Input* Input_Instance;
 	const Uint8* Input_KeyStates;
-	Uint32 Input_ClickStates;
-	SDL_Event event;
+	Uint32 Input_ClickStates{};
+	SDL_Event event{};
 
 	void KeyUp();
 	void KeyDown();
@@ -30,8 +30,8 @@ public:
 	void Listen();
 	bool getKeyDown(SDL_Scancode key);
 	Uint32 getClickDown();
-	SDL_Event getEvent() { return event; }
-
 	int getAxisKey(Axis asxis);
+
+	inline SDL_Event getEvent() { return event; }
 };
 

@@ -10,8 +10,8 @@ public:
 	std::string Properties_TextureID;
 	int Properties_Width;
 	int Properties_Height;
-	int Properties_X;
-	int Properties_Y;
+	double Properties_X;
+	double Properties_Y;
 	SDL_RendererFlip Properties_Flip;
 
 	inline Properties(std::string textureID, int width, int height, double x, double y, SDL_RendererFlip flip = SDL_FLIP_NONE)
