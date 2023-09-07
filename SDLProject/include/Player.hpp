@@ -7,10 +7,10 @@
 #include "CollisionHandler.hpp"
 #include "Timer.hpp"
 
-#define JUMP_TIME 15.0
-#define JUMP_FORCE 30.0
-#define RUN_FORCE 5.0
-#define ATTACK_TIME 40.0
+#define JUMP_TIME 200.0
+#define JUMP_FORCE 20.0
+#define RUN_FORCE 1.0
+#define ATTACK_TIME 300.0
 
 class Player : public Character {
 private:
@@ -25,8 +25,6 @@ private:
 	double Player_JumpTime;
 	double Player_JumpForce;
 	double Player_AttackTime;
-
-	Uint64 Player_DeltaTime;
 
 	Collider* Player_Collider;
 	SpriteAnimation* Player_SpriteAnimation;

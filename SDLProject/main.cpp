@@ -17,6 +17,8 @@ int main(int argc, char* argv[])
 
 	Engine::GetInstance()->Clean();
 
+	std::cout << "\nVEGE\n";
+
 	return 0;
 
 }

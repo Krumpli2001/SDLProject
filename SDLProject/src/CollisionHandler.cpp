@@ -9,12 +9,12 @@ CollisionHandler::CollisionHandler()
     CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 };
 
-bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
-{
-    bool x_overlaps = (a.x < b.x + b.w) and (a.x + a.w > b.x);
-    bool y_overlaps = (a.y < b.y + b.h) and (a.y + a.h > b.y);
-    return (x_overlaps and y_overlaps);
-}
+//bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
+//{
+//    bool x_overlaps = (a.x < b.x + b.w) and (a.x + a.w > b.x);
+//    bool y_overlaps = (a.y < b.y + b.h) and (a.y + a.h > b.y);
+//    return (x_overlaps and y_overlaps);
+//}
 
 bool CollisionHandler::MapCollision(SDL_Rect a)
 {
@@ -34,7 +34,7 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
     if (top_tile < 0) { top_tile = 0; }
     if (bottom_tile > rowCount) { bottom_tile = rowCount; }
 
-    if (a.x < 0 || a.x + a.w >= colCount * tileSize || a.y < 0 || a.y + a.h >= rowCount * tileSize) { return true; }
+    if ((a.x < 0) || ((a.x + a.w) >= (colCount * tileSize)) || (a.y < 0) || ((a.y + a.h) >= (rowCount * tileSize))) { return true; }
 
     for (int i = left_tile; i <= right_tile; i++)
     {

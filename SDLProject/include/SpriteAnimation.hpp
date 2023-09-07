@@ -13,9 +13,10 @@ private:
 	int SpriteAnimation_SpriteRow;
 	int SpriteAnimation_FrameCount;
 	std::string SpriteAnimation_TextureID;
+	Uint64 epoch = SDL_GetTicks64();
 public:
 	SpriteAnimation(bool repeat = false);
-	Uint64 epoch = SDL_GetTicks64();
+	inline int getFrameCount() { return SpriteAnimation_FrameCount; }
 
 	virtual void Update(Uint64 dt);
 	void Draw(double x, double y, int spriteW, int spriteH, SDL_RendererFlip flip, double XScale = 1, double YScale = 1);
