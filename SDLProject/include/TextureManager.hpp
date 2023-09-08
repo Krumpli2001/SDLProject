@@ -9,8 +9,8 @@
 class TextureManager
 {
 private:
-	std::map<std::string, SDL_Texture*> TextureManager_TextureMap;
 	static TextureManager* TextureManager_Instance;
+	std::map<std::string, SDL_Texture*> TextureManager_TextureMap;
 
 public:
 	TextureManager() {};

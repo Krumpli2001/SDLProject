@@ -7,6 +7,7 @@ void FPSCounter::Update()
 							 // ez igy undorito std::to_string(Timer::GetInstance()->getFPS()).c_str()
 	surfaceMessage = TTF_RenderText_Solid(font, std::to_string(Timer::GetInstance()->getFPS()).c_str(), color);
 	Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surfaceMessage);
+	//ttf_rendertext
 }
 
 void FPSCounter::Draw() {

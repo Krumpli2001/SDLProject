@@ -67,6 +67,8 @@ bool Engine::Init()
 
 	Camera::GetInstance()->setTarget(player->getOrigin());
 
+	Menu::GetInstance()->MenuInit();
+
 	return Engine_IsRunning = true;
 }
 
@@ -94,19 +96,24 @@ void Engine::Quit()
 
 void Engine::Update()
 {
-	Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
+	if (!Engine::Engine_MenuShowing) {
+		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 
-	for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
-	{
-		Enigine_GameObjects[i]->Update(dt);
+		for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
+		{
+			Enigine_GameObjects[i]->Update(dt);
+		}
+
+		Engine_LevelMap->Update();
+		Camera::GetInstance()->Update(dt);
+		FPSCounter::GetInstance()->Update();
 	}
+	
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
 
-	Engine_LevelMap->Update();
-	Camera::GetInstance()->Update(dt);
-	FPSCounter::GetInstance()->Update();
-	if (Engine::GetInstance()->getMenuShowing()) { Menu::GetInstance()->Update(); }
+	
+	if (Engine::getMenuShowing()) { Menu::GetInstance()->Update(); }
 
 }
 
