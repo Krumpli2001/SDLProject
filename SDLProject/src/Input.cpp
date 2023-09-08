@@ -39,8 +39,7 @@ void Input::Listen()
 		{
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
-					SDL_GetWindowSizeInPixels(Engine::GetInstance()->getWindow(), Camera::GetInstance()->getPCamera_W(), Camera::GetInstance()->getPCamera_H());
-					*Camera::GetInstance()->getCamera_ViewDox() = {0, 0, *Camera::GetInstance()->getPCamera_W(), *Camera::GetInstance()->getPCamera_H()};
+					SDL_GetWindowSizeInPixels(Engine::GetInstance()->getWindow(), Engine::GetInstance()->getWindow_W(), Engine::GetInstance()->getWindow_H());
 				}
 				break;
 			case SDL_QUIT:
@@ -84,6 +83,7 @@ Uint32 Input::getClickDown()
 int Input::getElse()
 {
 	if (getKeyDown(SDL_SCANCODE_ESCAPE)) { return 1; }
+	if (getKeyDown(SDL_SCANCODE_1)) { return 2; }
 	return 0;
 }
 
@@ -92,8 +92,12 @@ void Input::interpret(int kod)
 	switch (kod)
 	{
 	case 1:
+		Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
+		SDL_Delay(150);
+		break;
+	case 2:
 		Timer::GetInstance()->fpslock = !Timer::GetInstance()->fpslock;
-		Timer::GetInstance()->sleep(100);
+		SDL_Delay(150);
 		break;
 
 	}

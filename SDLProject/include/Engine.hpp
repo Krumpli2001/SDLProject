@@ -15,10 +15,14 @@ private:
 	Engine() {};
 	static Engine* Engine_Instance;
 	bool Engine_IsRunning{};
+	bool Engine_MenuShowing = false;
 	SDL_Window* Engine_Window{};
 	SDL_Renderer* Engine_Renderer{};
 	GameMap* Engine_LevelMap{};
 	std::vector<GameObject*> Enigine_GameObjects;
+
+	int Window_W{};
+	int Window_H{};
 
 public:
 	inline static Engine* GetInstance()
@@ -34,6 +38,10 @@ public:
 	inline SDL_Renderer* GetRenderer() { return Engine_Renderer; }
 	inline GameMap* getLevelMap() { return Engine_LevelMap; }
 	inline SDL_Window* getWindow() { return Engine_Window; }
+	inline int* getWindow_W() { return &Window_W; }
+	inline int* getWindow_H() { return &Window_H; }
+	inline bool getMenuShowing() { return Engine_MenuShowing; }
+	inline void setMenuShowing(bool set) { Engine_MenuShowing = set; }
 
 	bool Init();
 	bool Clean();

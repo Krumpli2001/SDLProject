@@ -7,7 +7,7 @@
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
 #include "FPSCounter.hpp"
-
+#include "Menu.hpp"
 #include "Timer.hpp"
 #include "Camera.hpp"
 #include "TextureManager.hpp"
@@ -78,9 +78,10 @@ bool Engine::Clean()
 	}
 
 	TextureManager::GetInstance()->Clean();
+	FPSCounter::GetInstance()->Clean();
+	Menu::GetInstance()->Clean();
 	SDL_DestroyRenderer(Engine_Renderer);
 	SDL_DestroyWindow(Engine_Window);
-	FPSCounter::GetInstance()->Clean();
 	IMG_Quit();
 	SDL_Quit();
 	return false;
@@ -105,12 +106,14 @@ void Engine::Update()
 	Engine_LevelMap->Update();
 	Camera::GetInstance()->Update(dt);
 	FPSCounter::GetInstance()->Update();
+	if (Engine::GetInstance()->getMenuShowing()) { Menu::GetInstance()->Update(); }
+
 }
 
 void Engine::Render()
 {
-	SDL_SetRenderDrawColor(Engine_Renderer, 0, 0, 0, 255);
-	SDL_RenderClear(Engine_Renderer);
+	//SDL_SetRenderDrawColor(Engine_Renderer, 0, 0, 0, 255);
+	//SDL_RenderClear(Engine_Renderer);
 
 	TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
 
@@ -122,6 +125,7 @@ void Engine::Render()
 	}
 
 	FPSCounter::GetInstance()->Draw();
+	if (Engine::GetInstance()->getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);
 }
 

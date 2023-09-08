@@ -13,15 +13,13 @@ class Camera
 {
 private:
 	Camera() {
-		SDL_GetWindowSizeInPixels(Engine::GetInstance()->getWindow(), &Camera_W, &Camera_H);
-		Camera_ViewBox = { 0, 0, Camera_W, Camera_H };
+		SDL_GetWindowSizeInPixels(Engine::GetInstance()->getWindow(), Engine::GetInstance()->getWindow_W(), Engine::GetInstance()->getWindow_H());
+		Camera_ViewBox = { 0, 0, *Engine::GetInstance()->getWindow_W(), *Engine::GetInstance()->getWindow_H() };
 	}
 	static Camera* Camera_Instance;
 	Point* Camera_Target{};
 	Vector2D Camera_Position{};
 	
-	int Camera_W{};
-	int Camera_H{};
 	SDL_Rect Camera_ViewBox{};
 
 public:
@@ -34,8 +32,6 @@ public:
 		return Camera_Instance;
 	}
 
-	inline int* getPCamera_W() { return &Camera_W; }
-	inline int* getPCamera_H() { return &Camera_H; }
 	inline SDL_Rect* getCamera_ViewDox() { return &Camera_ViewBox; }
 
 	inline SDL_Rect getViewBox() { return Camera_ViewBox; }

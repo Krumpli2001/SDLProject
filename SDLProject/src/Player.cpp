@@ -39,7 +39,7 @@ void Player::Update(Uint64 dt)
 {
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
-	std::cout << dt<< "\t"<< Player_JumpTime<<"\n";
+	//std::cout << dt<< "\t"<< Player_JumpTime<<"\n";
 
 	//fut jobbra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and !Player_IsAttacking)
