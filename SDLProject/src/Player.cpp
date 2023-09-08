@@ -84,7 +84,7 @@ void Player::Update(Uint64 dt)
 	{
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
-		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce * pdt);
+		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);
 	}
 
 	if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0)

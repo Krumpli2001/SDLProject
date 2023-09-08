@@ -80,7 +80,7 @@ bool Engine::Clean()
 	TextureManager::GetInstance()->Clean();
 	SDL_DestroyRenderer(Engine_Renderer);
 	SDL_DestroyWindow(Engine_Window);
-	FPSCounter::GetInstance()->clean();
+	FPSCounter::GetInstance()->Clean();
 	IMG_Quit();
 	SDL_Quit();
 	return false;
@@ -101,8 +101,8 @@ void Engine::Update()
 	}
 
 	Engine_LevelMap->Update();
-
 	Camera::GetInstance()->Update(dt);
+	FPSCounter::GetInstance()->Update();
 }
 
 void Engine::Render()
@@ -119,7 +119,7 @@ void Engine::Render()
 		Enigine_GameObjects[i]->Draw();
 	}
 
-	FPSCounter::GetInstance()->kiir();
+	FPSCounter::GetInstance()->Draw();
 	SDL_RenderPresent(Engine_Renderer);
 }
 

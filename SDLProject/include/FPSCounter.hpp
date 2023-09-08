@@ -31,6 +31,7 @@ public:
 		return FPS_Instance;
 	}
 
-	void kiir();
-	void clean();
+	void Update();
+	void Draw();
+	void Clean();
 };
