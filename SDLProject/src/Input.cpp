@@ -1,6 +1,7 @@
 #include "Input.hpp"
 #include "Engine.hpp"
 #include "Camera.hpp"
+#include "Timer.hpp" // ez kesobb majd valami settinges lesz
 
 Input* Input::Input_Instance = nullptr;
 
@@ -80,6 +81,11 @@ Uint32 Input::getClickDown()
 }
 
 
+void Input::getElse()
+{
+	if (getKeyDown(SDL_SCANCODE_ESCAPE)) { Timer::GetInstance()->fpslock = !Timer::GetInstance()->fpslock; }
+}
+
 int Input::getAxisKey(Axis axis)
 {
 	switch (axis)
@@ -100,3 +106,4 @@ int Input::getAxisKey(Axis axis)
 	return 0;
 
 }
+

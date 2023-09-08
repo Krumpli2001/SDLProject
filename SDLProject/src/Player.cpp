@@ -17,7 +17,7 @@ Player::Player(Properties* props) : Character(props)
 	Player_IsWalkAttacking = false;
 
 	Player_JumpTime = JUMP_TIME;
-	Player_JumpForce = JUMP_FORCE;
+	//Player_JumpForce = JUMP_FORCE;
 	Player_AttackTime = ATTACK_TIME;
 
 	Player_Collider = new Collider();
@@ -37,14 +37,14 @@ void Player::Draw()
 
 void Player::Update(Uint64 dt)
 {
-	Uint64 pdt = dt;
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
+	std::cout << dt<< "\t"<< Player_JumpTime<<"\n";
 
 	//fut jobbra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and !Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE * pdt);
+		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE * dt);
 		GameObject_Flip = SDL_FLIP_NONE;
 		Player_IsWalking = true;
 	}
@@ -52,7 +52,7 @@ void Player::Update(Uint64 dt)
 	//fut balra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == BALRA and !Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE * pdt);
+		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE * dt);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 		Player_IsWalking = true;
 	}
@@ -68,14 +68,14 @@ void Player::Update(Uint64 dt)
 	//jobbra fut / ut
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE * pdt);
+		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE * dt);
 		GameObject_Flip = SDL_FLIP_NONE;
 	}
 
 	//balra fut / ut
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == BALRA and Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE * pdt);
+		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE * dt);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 	}
 
@@ -84,18 +84,17 @@ void Player::Update(Uint64 dt)
 	{
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
-		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);
+		Player_RigidBody->ApplyForceY(FEL * (JUMP_FORCE));
 	}
 
-	if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0)
+	if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0 and Player_JumpTime <=200 )
 	{
-		Player_JumpTime -= pdt;
-		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);
+		Player_JumpTime = Player_JumpTime - dt;
+		Player_RigidBody->ApplyForceY(FEL * (JUMP_FORCE));
 	}
 	else
 	{
 		Player_IsJumping = false;
-		Player_JumpTime = JUMP_TIME;
 	}
 
 	//zuhanas
@@ -112,7 +111,7 @@ void Player::Update(Uint64 dt)
 	if (Player_IsAttacking and Player_AttackTime > 0)
 	{
 		//std::cout << Player_AttackTime << std::endl;
-		Player_AttackTime -= pdt;
+		Player_AttackTime -= dt;
 	}
 	else
 	{
@@ -138,9 +137,9 @@ void Player::Update(Uint64 dt)
 	if (CollisionHandler::GetInstance()->MapCollision(Player_Collider->getBox()))
 	{
 		Player_IsGrounded = true;
+		Player_JumpTime = JUMP_TIME;
 		GameObject_Transform->setY(Player_LastSafePosition.getY());
 	}
-
 	else
 	{
 		Player_IsGrounded = false;
@@ -150,8 +149,8 @@ void Player::Update(Uint64 dt)
 	GameObject_Origin->setY(GameObject_Transform->getY() + GameObject_Height / 2.0);
 
 	AnimationState();
-	Player_RigidBody->Update(pdt);
-	Player_SpriteAnimation->Update(pdt);
+	Player_RigidBody->Update(dt);
+	Player_SpriteAnimation->Update(dt);
 
 }
 

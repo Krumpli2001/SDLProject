@@ -100,6 +100,8 @@ void Engine::Update()
 		Enigine_GameObjects[i]->Update(dt);
 	}
 
+	Input::GetInstance()->getElse();
+
 	Engine_LevelMap->Update();
 	Camera::GetInstance()->Update(dt);
 	FPSCounter::GetInstance()->Update();

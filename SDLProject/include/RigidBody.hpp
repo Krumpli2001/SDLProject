@@ -47,7 +47,7 @@ public:
 	 inline void Update(Uint64 dt)
 	 {
 		 RigidBody_Accelaration.setX((RigidBody_Force.getX() + RigidBody_Friction.getX()) / RigidBody_Mass);
-		 RigidBody_Accelaration.setY(RigidBody_Gravity + RigidBody_Force.getY() / RigidBody_Mass); // szerintem ez itt rossz
+		 RigidBody_Accelaration.setY((RigidBody_Gravity + RigidBody_Force.getY()) / RigidBody_Mass); // szerintem ez itt rossz
 		 RigidBody_Velocity = RigidBody_Accelaration;// *dt;
 		 RigidBody_Position = RigidBody_Velocity;// *dt;
 	 }

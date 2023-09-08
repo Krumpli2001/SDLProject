@@ -22,8 +22,8 @@ private:
 	bool Player_IsAttacking;
 	bool Player_IsWalkAttacking;
 
-	double Player_JumpTime;
-	double Player_JumpForce;
+	Uint64 Player_JumpTime;
+	//double Player_JumpForce;
 	double Player_AttackTime;
 
 	Collider* Player_Collider;

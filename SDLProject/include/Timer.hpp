@@ -26,6 +26,7 @@ public:
 	void getTick();
 	inline Uint64 getTimer_DeltaTime() { return Timer_DeltaTime; }
 	inline int getFPS() { return fps; }
+	bool fpslock = false;
 
 };
 
