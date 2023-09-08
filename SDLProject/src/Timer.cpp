@@ -1,6 +1,8 @@
 #include "Timer.hpp"
 #include <iostream>
-#include <Windows.h>
+//#include <Windows.h>
+#include <thread>
+#include <chrono>
 
 Timer* Timer::Timer_Instance = nullptr;
 
@@ -10,7 +12,8 @@ void Timer::getTick()
 
 
 	if ((Timer_DeltaTime < TARGET_DeltaTime) and fpslock) {
-		Sleep(TARGET_DeltaTime - Timer_DeltaTime);
+		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<long long>(TARGET_DeltaTime - Timer_DeltaTime)));
+		//Sleep(TARGET_DeltaTime - Timer_DeltaTime);
 		Timer_DeltaTime = TARGET_DeltaTime;
 	}
 
@@ -23,4 +26,8 @@ void Timer::getTick()
 
 	Timer_LastTime = SDL_GetTicks64();
 	//std::cout << fps << " " << Timer_DeltaTime << "\n";
+}
+
+void Timer::sleep(long long ms) {
+	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }

@@ -100,7 +100,7 @@ void Engine::Update()
 		Enigine_GameObjects[i]->Update(dt);
 	}
 
-	Input::GetInstance()->getElse();
+	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
 
 	Engine_LevelMap->Update();
 	Camera::GetInstance()->Update(dt);

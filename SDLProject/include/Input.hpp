@@ -31,7 +31,8 @@ public:
 	bool getKeyDown(SDL_Scancode key);
 	Uint32 getClickDown();
 	int getAxisKey(Axis asxis);
-	void getElse();
+	int getElse();
+	void interpret(int kod);
 
 	inline SDL_Event getEvent() { return event; }
 };

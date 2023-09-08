@@ -81,9 +81,23 @@ Uint32 Input::getClickDown()
 }
 
 
-void Input::getElse()
+int Input::getElse()
 {
-	if (getKeyDown(SDL_SCANCODE_ESCAPE)) { Timer::GetInstance()->fpslock = !Timer::GetInstance()->fpslock; }
+	if (getKeyDown(SDL_SCANCODE_ESCAPE)) { return 1; }
+	return 0;
+}
+
+void Input::interpret(int kod)
+{
+	switch (kod)
+	{
+	case 1:
+		Timer::GetInstance()->fpslock = !Timer::GetInstance()->fpslock;
+		Timer::GetInstance()->sleep(100);
+		break;
+
+	}
+
 }
 
 int Input::getAxisKey(Axis axis)
@@ -106,4 +120,3 @@ int Input::getAxisKey(Axis axis)
 	return 0;
 
 }
-
