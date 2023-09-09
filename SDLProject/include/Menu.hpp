@@ -2,21 +2,29 @@
 
 #include <SDL.h>
 #include <SDL_ttf.h>
-//#include "Input.hpp"
+#include <map>
 #include <Engine.hpp>
 
-struct rublika
-{
+class Menu;
+
+struct rublika {
+	//friend class Menu;
+
 	const char* szoveg;
 	SDL_Rect doboz;
 	SDL_Surface* surfaceMessage{};
 	SDL_Texture* Message{};
+	SDL_Color color = {255,255,255};
+	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
 	int szoveghossz{};
 
-	rublika(const char* sz, int x, int y, int w, int h, TTF_Font* f, SDL_Color c) {
+	rublika(const char* sz, int x, int y, int w, int h/*, TTF_Font* f*//*, SDL_Color c*/) {
 		//szoveg = "sajt";
-		doboz.x = x; doboz.y = y; doboz.w = w; doboz.h = h; szoveg = sz;
-		surfaceMessage = TTF_RenderText_Solid(f, szoveg, c);
+		doboz.x = x; doboz.y = y; doboz.w = w; doboz.h = h; szoveg = sz;// font = f;// color = c;
+	}
+
+	inline void letrehoz() {
+		surfaceMessage = TTF_RenderText_Solid(font, szoveg, color);
 		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surfaceMessage);
 	}
 };
@@ -27,14 +35,8 @@ private:
 	Menu() {};
 
 	static Menu* Menu_Instance;
-	//SDL_Rect BG;
-	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
-	SDL_Color color = { 255, 255, 255 };
+	std::map<std::string, SDL_Color> colors;
 	std::vector<rublika> rublikak;
-
-	/*SDL_Surface* surfaceMessage = nullptr;
-	SDL_Texture* Message = nullptr;
-	SDL_Rect Message_rect{ 0,0,1000,300 };*/
 
 public:
 	inline static Menu* GetInstance()
@@ -53,4 +55,19 @@ public:
 	void Draw();
 	void Clean();
 
+	void fillColorMap(std::string source);
+	inline SDL_Color getColor(std::string color) { return colors[color]; }
+	//inline TTF_Font* getFont() { return font; }
+
+	//ellenorzes miatt van itt
+	inline void print_map(const std::map<std::string, SDL_Color>& m)
+	{
+		for (const auto& value : m) {
+			std::cout << value.first << "\t\t";
+			std::cout << static_cast<int>(value.second.r) << "\t";
+			std::cout << static_cast<int>(value.second.g) << "\t";
+			std::cout << static_cast<int>(value.second.b) << std::endl;
+		}
+		std::cout<<std::endl;
+	}
 };
