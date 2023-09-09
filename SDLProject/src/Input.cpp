@@ -2,6 +2,7 @@
 #include "Engine.hpp"
 #include "Camera.hpp"
 #include "Timer.hpp" // ez kesobb majd valami settinges lesz
+#include "Menu.hpp"
 
 Input* Input::Input_Instance = nullptr;
 
@@ -82,13 +83,21 @@ Uint32 Input::getClickDown()
 
 int Input::getElse()
 {
+	//int i = 0;
+	//getKeyDown()
 	if (getKeyDown(SDL_SCANCODE_ESCAPE)) { return 1; }
 	if (getKeyDown(SDL_SCANCODE_1)) { return 2; }
+	if (getKeyDown(SDL_SCANCODE_DOWN)) { return 3; }
+	if (getKeyDown(SDL_SCANCODE_UP)) { return 4; }
+	if (getKeyDown(SDL_SCANCODE_RETURN)) { return 5; } // ez az enter
+
+
 	return 0;
 }
 
 void Input::interpret(int kod)
 {
+	int i = 0;
 	switch (kod)
 	{
 	case 1:
@@ -99,7 +108,16 @@ void Input::interpret(int kod)
 		Timer::GetInstance()->fpslock = !Timer::GetInstance()->fpslock;
 		SDL_Delay(150);
 		break;
-
+	case 3:
+		Menu::GetInstance()->setHighlighted(-1);
+		SDL_Delay(150);
+		break;
+	case 4:
+		Menu::GetInstance()->setHighlighted(1);
+		SDL_Delay(150);
+		break;
+	case 5:
+		Menu::GetInstance()->setEnter();
 	}
 
 }

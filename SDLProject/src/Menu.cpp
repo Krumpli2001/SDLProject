@@ -20,20 +20,25 @@ void Menu::MenuInit() {
 
 void Menu::Update()
 {
-	int cx, cy;
-	Uint32 cc = SDL_GetMouseState(&cx, &cy);
+	int prevx = Menu::GetInstance()->cx; int prevy = Menu::GetInstance()->cy;
+	Uint32 cc = SDL_GetMouseState(&Menu::GetInstance()->cx, &Menu::GetInstance()->cy);
 
-	if (cx >= 0 and cy >= 0 and cx <= 1000 and cy <= 300) {
+
+	if (Menu::GetInstance()->cx != prevx or Menu::GetInstance()->cy != prevy) {
+		Menu::GetInstance()->rublikak[Menu::highLighted].isHighlighted = false;
+	}
+
+	if ((Menu::GetInstance()->cx >= 0 and Menu::GetInstance()->cy > 0 and Menu::GetInstance()->cx <= 1000 and Menu::GetInstance()->cy <= 300) or rublikak[0].isHighlighted) {
 		rublikak[0].color = getColor("gold");
 		rublikak[0].letrehoz();
-		if (cc == 1) { Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
+		if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 	}
 	else { rublikak[0].color = getColor("white"); rublikak[0].letrehoz(); }
 
-	if (cx >= 0 and cy >= 300 and cx <= 500 and cy <= 600) {
+	if ((Menu::GetInstance()->cx >= 0 and Menu::GetInstance()->cy >= 300 and Menu::GetInstance()->cx <= 500 and Menu::GetInstance()->cy <= 600) or rublikak[1].isHighlighted) {
 		rublikak[1].color = getColor("red");
 		rublikak[1].letrehoz();
-		if(cc==1)Engine::GetInstance()->Quit();
+		if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
 	}
 	else { rublikak[1].color = getColor("white"); rublikak[1].letrehoz(); }
 
@@ -129,4 +134,29 @@ void Menu::fillColorMap(std::string source)
 	else {
 		std::cerr << "\nnem lehetett megnyitni a szines fajlt\n";
 	}
+}
+
+void Menu::setHighlighted(int i) {
+	//int hol = Menu::highLighted;
+	int prevHol = 0;
+	Menu::GetInstance()->rublikak[Menu::highLighted].isHighlighted = true;
+	
+		if (i == 1) {
+			prevHol = Menu::highLighted;
+			Menu::highLighted -= 1;
+			if (Menu::highLighted <= -1) {
+				Menu::highLighted = rublikak.size() - 1;
+			}
+		}
+		if (i == -1) {
+			prevHol = Menu::highLighted;
+			Menu::highLighted += 1;
+			if (Menu::highLighted >= rublikak.size()) {
+				Menu::highLighted = 0;
+			}
+		}
+
+		Menu::GetInstance()->rublikak[Menu::highLighted].isHighlighted = true;
+		Menu::GetInstance()->rublikak[prevHol].isHighlighted = false;
+
 }

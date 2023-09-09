@@ -17,6 +17,7 @@ struct rublika {
 	SDL_Color color = {255,255,255};
 	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
 	int szoveghossz{};
+	bool isHighlighted = false;
 
 	rublika(const char* sz, int x, int y, int w, int h/*, TTF_Font* f*//*, SDL_Color c*/) {
 		//szoveg = "sajt";
@@ -37,6 +38,10 @@ private:
 	static Menu* Menu_Instance;
 	std::map<std::string, SDL_Color> colors;
 	std::vector<rublika> rublikak;
+	int highLighted = 0;
+	int cx = -1;
+	int cy = -1;
+	bool enter = false;
 
 public:
 	inline static Menu* GetInstance()
@@ -57,7 +62,8 @@ public:
 
 	void fillColorMap(std::string source);
 	inline SDL_Color getColor(std::string color) { return colors[color]; }
-	//inline TTF_Font* getFont() { return font; }
+	void setHighlighted(int i);
+	void setEnter() { enter = true; }
 
 	//ellenorzes miatt van itt
 	inline void print_map(const std::map<std::string, SDL_Color>& m)
