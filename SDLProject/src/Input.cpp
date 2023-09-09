@@ -118,6 +118,8 @@ void Input::interpret(int kod)
 		break;
 	case 5:
 		Menu::GetInstance()->setEnter();
+		SDL_Delay(150);
+		break;
 	}
 
 }

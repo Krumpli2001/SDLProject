@@ -57,7 +57,7 @@ void Player::Update(Uint64 dt)
 		Player_IsWalking = true;
 	}
 
-	//stand attack
+	//attack
 	if ((Input::GetInstance()->getClickDown() == 1) or (Input::GetInstance()->getKeyDown(SDL_SCANCODE_K)))
 		//if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_K))
 	{
@@ -68,6 +68,7 @@ void Player::Update(Uint64 dt)
 	//jobbra fut / ut
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and Player_IsAttacking)
 	{
+		Player_IsWalkAttacking = true;
 		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE * dt);
 		GameObject_Flip = SDL_FLIP_NONE;
 	}
@@ -75,6 +76,7 @@ void Player::Update(Uint64 dt)
 	//balra fut / ut
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == BALRA and Player_IsAttacking)
 	{
+		Player_IsWalkAttacking = true;
 		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE * dt);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 	}
@@ -110,12 +112,12 @@ void Player::Update(Uint64 dt)
 	//attack timer
 	if (Player_IsAttacking and Player_AttackTime > 0)
 	{
-		//std::cout << Player_AttackTime << std::endl;
 		Player_AttackTime -= dt;
 	}
 	else
 	{
 		Player_IsAttacking = false;
+		Player_IsWalkAttacking = false;
 		Player_AttackTime = ATTACK_TIME;
 	}
 
@@ -164,7 +166,7 @@ void Player::AnimationState()
 
 	if (Player_IsAttacking) { Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true); }
 
-	if (Player_IsWalkAttacking) { Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, 600); }
+	if (Player_IsWalkAttacking) { Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true); }
 }
 
 void Player::Clean()
