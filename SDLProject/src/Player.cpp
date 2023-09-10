@@ -133,9 +133,10 @@ void Player::Update(Uint64 dt)
 	}
 
 	Player_LastSafePosition.setY(GameObject_Transform->getY());
+	//levitalas miatt van itt
 	int y = Player_LastSafePosition.getY();
-	if ((y % 120) >= 110) {
-		Player_LastSafePosition.setY(GameObject_Transform->getY() + (119 - (y%120)));
+	if ((y % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - 10)) {
+		Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() -1)) - (y % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
 	}
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
