@@ -32,4 +32,3 @@ public:
 	bool Load();
 	void Clean();
 };
-

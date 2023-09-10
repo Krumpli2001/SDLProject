@@ -133,14 +133,18 @@ void Player::Update(Uint64 dt)
 	}
 
 	Player_LastSafePosition.setY(GameObject_Transform->getY());
+	int y = Player_LastSafePosition.getY();
+	if ((y % 120) >= 110) {
+		Player_LastSafePosition.setY(GameObject_Transform->getY() + (119 - (y%120)));
+	}
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
 
 	if (CollisionHandler::GetInstance()->MapCollision(Player_Collider->getBox()))
 	{
-		Player_IsGrounded = true;
-		Player_JumpTime = JUMP_TIME;
-		GameObject_Transform->setY(Player_LastSafePosition.getY());
+			Player_IsGrounded = true;
+			Player_JumpTime = JUMP_TIME;
+			GameObject_Transform->setY(Player_LastSafePosition.getY());
 	}
 	else
 	{

@@ -6,8 +6,7 @@
 #include "Vector2D.hpp"
 #include "Engine.hpp"
 
-#define M_WIDTH 7200
-#define M_HEIGHT 2400
+
 
 class Camera
 {
@@ -19,8 +18,10 @@ private:
 	static Camera* Camera_Instance;
 	Point* Camera_Target{};
 	Vector2D Camera_Position{};
-	
 	SDL_Rect Camera_ViewBox{};
+
+	int M_WIDTH{};
+	int M_HEIGHT{};
 
 public:
 	inline static Camera* GetInstance()
@@ -33,7 +34,6 @@ public:
 	}
 
 	inline SDL_Rect* getCamera_ViewDox() { return &Camera_ViewBox; }
-
 	inline SDL_Rect getViewBox() { return Camera_ViewBox; }
 	inline Vector2D getPosition() { return Camera_Position; }
 	inline void setTarget(Point* target) { Camera_Target = target; }

@@ -4,6 +4,7 @@
 
 #include "GameMap.hpp"
 #include "GameObject.hpp"
+//#include "TileLayer.hpp"
 
 #define CREATION_WIDTH 1280
 #define CREATION_HEIGHT 720
@@ -24,6 +25,9 @@ private:
 	int Window_W{};
 	int Window_H{};
 
+	int Map_W{};
+	int Map_H{};
+
 public:
 	inline static Engine* GetInstance()
 	{
@@ -40,6 +44,8 @@ public:
 	inline SDL_Window* getWindow() { return Engine_Window; }
 	inline int* getWindow_W() { return &Window_W; }
 	inline int* getWindow_H() { return &Window_H; }
+	inline int getMap_W() { return Map_W; }
+	inline int getMap_H() { return Map_H; }
 	inline bool getMenuShowing() { return Engine_MenuShowing; }
 	inline void setMenuShowing(bool set) { Engine_MenuShowing = set; }
 

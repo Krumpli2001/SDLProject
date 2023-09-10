@@ -1,22 +1,6 @@
 #include "TileLayer.hpp"
 #include "TextureManager.hpp"
 
-
-//TileLayer::TileLayer(int tilesize, int rowcount, int colcount, TileMap tilemap, TilesetVector tileset) : TileLayer_TileSets(tilesize)
-//{
-//	//TileLayer_TileSize = tilesize;
-//	TileLayer_RowCount = rowcount;
-//	TileLayer_ColCount = colcount;
-//	TileLayer_TileMap = tilemap;
-//	//TileLayer_TileSets = tileset;
-//
-//	for (unsigned int i = 0; i < TileLayer_TileSets.size(); i++)
-//	{
-//		TextureManager::GetInstance()->Load(TileLayer_TileSets[i].Name, "assets/maps/" + TileLayer_TileSets[i].Source);
-//	}
-//
-//}
-
 TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::vector<int> > tilemap, std::vector<Tileset> tilesets) :
 	TileLayer_TileSize(tilesize), TileLayer_ColCount(colcount), TileLayer_RowCount(rowcount), TileLayer_TileMap(tilemap), TileLayer_TileSets(tilesets)
 {

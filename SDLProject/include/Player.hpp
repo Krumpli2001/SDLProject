@@ -23,7 +23,6 @@ private:
 	bool Player_IsWalkAttacking;
 
 	Uint64 Player_JumpTime;
-	//double Player_JumpForce;
 	double Player_AttackTime;
 
 	Collider* Player_Collider;

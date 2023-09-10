@@ -103,4 +103,3 @@ void TextureManager::Clean()
 
 	std::cout << "Textures deleted!";
 }
-

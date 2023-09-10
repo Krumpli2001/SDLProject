@@ -53,8 +53,6 @@ public:
 		return Menu_Instance;
 	}
 
-	//inline SDL_Rect* getBG() { return &BG; }
-
 	void MenuInit();
 	void Update();
 	void Draw();

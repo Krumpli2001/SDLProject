@@ -23,8 +23,3 @@ void Timer::getTick()
 	Timer_LastTime = SDL_GetTicks64();
 	//std::cout << fps << " " << Timer_DeltaTime << "\n";
 }
-
-//void Timer::sleep(long long ms) {
-//	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
-//	//sdl_delay itt jottem ra hogy letezik az sdl_delay
-//}

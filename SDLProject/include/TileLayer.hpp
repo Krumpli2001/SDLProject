@@ -36,4 +36,3 @@ public:
 	inline int getColCount() { return TileLayer_ColCount; }
 
 };
-

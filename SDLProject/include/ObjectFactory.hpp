@@ -1,7 +1,6 @@
 #pragma once
 
 #include <map>
-//#include <memory>
 #include <functional>
 
 #include "GameObject.hpp"
@@ -35,4 +34,3 @@ public:
 		ObjectFactory::GetInstance()->RegiseterType(className, [](Properties* props)->GameObject* {return new Type(props); });
 	}
 };
-

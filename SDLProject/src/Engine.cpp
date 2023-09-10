@@ -58,10 +58,6 @@ bool Engine::Init()
 	Properties* props = new Properties("player_idle", 240, 240, 0.0, 0.0);
 	GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", props);
 
-	//Player* player = new Player(new Properties("player_idle", 240, 240, 0.0, 0.0));
-
-	//Enemy* mob = new Enemy(new Properties("boos_idle", 360, 360, 500.0, 0.0));
-
 	Enigine_GameObjects.push_back(player);
 	//Enigine_GameObjects.push_back(mob);
 
@@ -103,6 +99,12 @@ void Engine::Update()
 		{
 			Enigine_GameObjects[i]->Update(dt);
 		}
+
+		auto g = Engine::GetInstance()->Engine_LevelMap->getMapLayers();
+		g[0]->getColCount();
+
+		Engine::Map_W = g[0]->getColCount() * g[0]->getTileSize();
+		Engine::Map_H = g[0]->getRowCount() * g[0]->getTileSize();
 
 		Engine_LevelMap->Update();
 		Camera::GetInstance()->Update(dt);
