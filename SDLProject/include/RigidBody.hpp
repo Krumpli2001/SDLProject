@@ -3,7 +3,7 @@
 #include "Vector2D.hpp"
 
 #define UNIT_MASS 1.0
-#define GRAVITY 9.8
+#define GRAVITY 1
 #define JOBBRA 1
 #define BALRA -1
 #define FEL -1
@@ -48,7 +48,7 @@ public:
 	 {
 		 RigidBody_Accelaration.setX((RigidBody_Force.getX() + RigidBody_Friction.getX()) / RigidBody_Mass);
 		 RigidBody_Accelaration.setY(((RigidBody_Gravity + RigidBody_Force.getY()) / RigidBody_Mass)); // szerintem ez itt rossz
-		 RigidBody_Velocity = RigidBody_Accelaration;// *dt;
+		 RigidBody_Velocity = RigidBody_Accelaration *dt;
 		 RigidBody_Position = RigidBody_Velocity;// *dt;
 	 }
 };

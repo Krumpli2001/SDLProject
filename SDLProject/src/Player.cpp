@@ -44,7 +44,7 @@ void Player::Update(Uint64 dt)
 	//fut jobbra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and !Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE * dt);
+		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE);// *dt);
 		GameObject_Flip = SDL_FLIP_NONE;
 		Player_IsWalking = true;
 	}
@@ -52,7 +52,7 @@ void Player::Update(Uint64 dt)
 	//fut balra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == BALRA and !Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE * dt);
+		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE);// * dt);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 		Player_IsWalking = true;
 	}
@@ -69,7 +69,7 @@ void Player::Update(Uint64 dt)
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and Player_IsAttacking)
 	{
 		Player_IsWalkAttacking = true;
-		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE * dt);
+		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE);// * dt);
 		GameObject_Flip = SDL_FLIP_NONE;
 	}
 
@@ -77,7 +77,7 @@ void Player::Update(Uint64 dt)
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == BALRA and Player_IsAttacking)
 	{
 		Player_IsWalkAttacking = true;
-		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE * dt);
+		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE);// * dt);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 	}
 
@@ -86,13 +86,13 @@ void Player::Update(Uint64 dt)
 	{
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
-		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE * static_cast<double>(dt) );
+		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE);// * static_cast<double>(dt) );
 	}
 
 	if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0 and Player_JumpTime <=200 )
 	{
 		Player_JumpTime = Player_JumpTime - dt;
-		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE * static_cast<double>(dt));
+		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE);// * static_cast<double>(dt));
 	}
 	else
 	{
@@ -138,12 +138,13 @@ void Player::Update(Uint64 dt)
 	if ((y % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - 10)) {
 		Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() -1)) - (y % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
 	}
+
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
 
 	if (CollisionHandler::GetInstance()->MapCollision(Player_Collider->getBox()))
 	{
-		if (y > 120) { // ez itt a tile size majd lehet irok ra fuggvenyt
+		if (y > CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) {
 			Player_IsGrounded = true;
 			Player_JumpTime = JUMP_TIME;
 		}

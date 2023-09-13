@@ -39,19 +39,20 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
 
     if ((a.x < 0) || ((a.x + a.w) >= (colCount * tileSize)) || (a.y < 0) || ((a.y + a.h) >= (rowCount * tileSize))) { return true; }
 
+    auto O = Engine::GetInstance()->getGameObjects();
+    O[0]->setGravity(1);
+
     for (int i = left_tile; i <= right_tile; i++)
     {
         for (int j = top_tile; j <= bottom_tile; j++)
         {
             if (CollisionHandler_CollitionTileMap[j][i] > 0)
             {
-                auto O = Engine::GetInstance()->getGameObjects();
                 if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 12 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 12) { //a viz id-ja
-                    O[0]->setGravity(2);
+                    O[0]->setGravity(0.3);
                     return false;
                 }
                 else {
-                    O[0]->setGravity(9.8);
                     return true;
                 }
             }
