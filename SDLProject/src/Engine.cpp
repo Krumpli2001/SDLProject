@@ -58,7 +58,7 @@ bool Engine::Init()
 	Properties* props = new Properties("player_idle", 240, 240, 0.0, 0.0);
 	GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", props);
 
-	Enigine_GameObjects.push_back(player);
+	Enigine_GameObjects.push_back(player); //player a nulladik elem
 	//Enigine_GameObjects.push_back(mob);
 
 	Camera::GetInstance()->setTarget(player->getOrigin());

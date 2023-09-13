@@ -37,6 +37,7 @@ void Player::Draw()
 
 void Player::Update(Uint64 dt)
 {
+	//Player_RigidBody->setRigidBody_Gravity(GRAVITY);
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
 	//std::cout << dt<< "\t"<< Player_JumpTime<<"\n";

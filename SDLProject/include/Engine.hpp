@@ -48,6 +48,7 @@ public:
 	inline int getMap_H() { return Map_H; }
 	inline bool getMenuShowing() { return Engine_MenuShowing; }
 	inline void setMenuShowing(bool set) { Engine_MenuShowing = set; }
+	inline std::vector<GameObject*> getGameObjects() { return Enigine_GameObjects; }
 
 	bool Init();
 	bool Clean();

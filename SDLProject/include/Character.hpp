@@ -11,4 +11,5 @@ public:
 	virtual void Draw() = 0;
 	virtual void Update(Uint64 dt) = 0;
 	virtual void Clean() = 0;
+	virtual void setGravity(double G) = 0;
 };

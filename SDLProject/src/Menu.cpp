@@ -7,8 +7,9 @@ Menu* Menu::Menu_Instance = nullptr;
 void Menu::MenuInit() {
 	fillColorMap("assets/colors.txt");
 
-	rublikak.push_back(rublika("Continue", 0, 0, 1000, 300));
-	rublikak.push_back(rublika("Quit", 0, 300, 500, 300));
+	rublikak.push_back(rublika("Continue", 0, 0, 500, 150));
+	rublikak.push_back(rublika("Options", 0, 150, 500, 150));
+	rublikak.push_back(rublika("Quit", 0, 300, 250, 150));
 
 	for (int i = 0; i < rublikak.size(); i++) {
 		rublikak[i].letrehoz();
@@ -28,19 +29,32 @@ void Menu::Update()
 		Menu::GetInstance()->rublikak[Menu::highLighted].isHighlighted = false;
 	}
 
-	if ((Menu::GetInstance()->cx >= 0 and Menu::GetInstance()->cy > 0 and Menu::GetInstance()->cx <= 1000 and Menu::GetInstance()->cy <= 300) or rublikak[0].isHighlighted) {
+	//continue
+	if ((Menu::GetInstance()->cx >= rublikak[0].doboz.x and Menu::GetInstance()->cy > rublikak[0].doboz.y 
+		and Menu::GetInstance()->cx <= rublikak[0].doboz.w + rublikak[0].doboz.x and Menu::GetInstance()->cy <= rublikak[0].doboz.h + rublikak[0].doboz.y) or rublikak[0].isHighlighted) {
 		rublikak[0].color = getColor("gold");
 		rublikak[0].letrehoz();
 		if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 	}
 	else { rublikak[0].color = getColor("white"); rublikak[0].letrehoz(); }
 
-	if ((Menu::GetInstance()->cx >= 0 and Menu::GetInstance()->cy >= 300 and Menu::GetInstance()->cx <= 500 and Menu::GetInstance()->cy <= 600) or rublikak[1].isHighlighted) {
-		rublikak[1].color = getColor("red");
+	//Options
+	if ((Menu::GetInstance()->cx >= rublikak[1].doboz.x and Menu::GetInstance()->cy > rublikak[1].doboz.y 
+		and Menu::GetInstance()->cx <= rublikak[1].doboz.w + rublikak[1].doboz.x and Menu::GetInstance()->cy <= rublikak[1].doboz.h + rublikak[1].doboz.y) or rublikak[1].isHighlighted) {
+		rublikak[1].color = getColor("gold");
 		rublikak[1].letrehoz();
-		if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+		if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 	}
 	else { rublikak[1].color = getColor("white"); rublikak[1].letrehoz(); }
+
+	//quit
+if ((Menu::GetInstance()->cx >= rublikak[2].doboz.x and Menu::GetInstance()->cy > rublikak[2].doboz.y 
+		and Menu::GetInstance()->cx <= rublikak[2].doboz.w + rublikak[2].doboz.x and Menu::GetInstance()->cy <= rublikak[2].doboz.h + rublikak[2].doboz.y) or rublikak[2].isHighlighted) {
+		rublikak[2].color = getColor("red");
+		rublikak[2].letrehoz();
+		if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+	}
+	else { rublikak[2].color = getColor("white"); rublikak[2].letrehoz(); }
 
 }
 
@@ -136,8 +150,8 @@ void Menu::fillColorMap(std::string source)
 	}
 }
 
+//billentyuzethez
 void Menu::setHighlighted(int i) {
-	//int hol = Menu::highLighted;
 	int prevHol = 0;
 	Menu::GetInstance()->rublikak[Menu::highLighted].isHighlighted = true;
 	

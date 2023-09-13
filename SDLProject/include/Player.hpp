@@ -35,7 +35,10 @@ public:
 
 	Player(Properties* props);
 
+	inline RigidBody* getPlayerBody() { return Player_RigidBody; }
+
 	virtual void Draw();
 	virtual void Update(Uint64 dt);
 	virtual void Clean();
+	inline void setGravity(double G) { Player_RigidBody->setRigidBody_Gravity(G); }
 };

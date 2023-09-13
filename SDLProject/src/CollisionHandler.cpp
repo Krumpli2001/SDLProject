@@ -1,5 +1,6 @@
 #include "CollisionHandler.hpp"
 #include "Engine.hpp"
+//#include "Player.hpp"
 
 CollisionHandler* CollisionHandler::CollisionHandler_Instance = nullptr;
 
@@ -22,12 +23,14 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
     int rowCount = CollisionHandler_CollisionLayer->getRowCount();
     int colCount = CollisionHandler_CollisionLayer->getColCount();
 
-    int left_tile = a.x / tileSize;
-    int right_tile = (a.x + a.w) / tileSize;
+    //ezek itt coordinaatak
+    int left_tile = a.x / tileSize; //karakter legbaloldalibb pixele
+    int right_tile = (a.x + a.w) / tileSize; //karakter legjobboldalibb pixele
 
-    int top_tile = a.y / tileSize;
-    int bottom_tile = (a.y + a.h) / tileSize;
+    int top_tile = a.y / tileSize;//karakter legfelso pixele
+    int bottom_tile = (a.y + a.h) / tileSize; //karakter legalso pixele
 
+    //map szelei
     if (left_tile < 0) { left_tile = 0; }
     if (right_tile > colCount) { right_tile = colCount; }
 
@@ -42,7 +45,15 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
         {
             if (CollisionHandler_CollitionTileMap[j][i] > 0)
             {
-                return true;
+                auto O = Engine::GetInstance()->getGameObjects();
+                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 12 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 12) { //a viz id-ja
+                    O[0]->setGravity(2);
+                    return false;
+                }
+                else {
+                    O[0]->setGravity(9.8);
+                    return true;
+                }
             }
         }
     }
