@@ -13,8 +13,6 @@ void Timer::getTick()
 
 	if ((Timer_DeltaTime < TARGET_DeltaTime) and fpslock) {
 		SDL_Delay(TARGET_DeltaTime - Timer_DeltaTime);
-		//std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<long long>(TARGET_DeltaTime - Timer_DeltaTime)));
-		//Sleep(TARGET_DeltaTime - Timer_DeltaTime);
 		Timer_DeltaTime = TARGET_DeltaTime;
 	}
 

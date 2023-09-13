@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 const double TARGET_FPS = 60;
-const double TARGET_DeltaTime = 16.67;
+const double TARGET_DeltaTime = 1000/ TARGET_FPS;
 
 class Timer
 {

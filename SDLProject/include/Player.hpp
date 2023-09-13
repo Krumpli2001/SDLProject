@@ -8,7 +8,7 @@
 #include "Timer.hpp"
 
 #define JUMP_TIME 200.0
-#define JUMP_FORCE 20.0
+#define JUMP_FORCE 3.0
 #define RUN_FORCE 1.0
 #define ATTACK_TIME 300.0
 

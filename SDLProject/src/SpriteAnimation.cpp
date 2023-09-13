@@ -5,7 +5,6 @@ SpriteAnimation::SpriteAnimation(bool repeat) : AnimationBase(repeat) {}
 void SpriteAnimation::Update(Uint64 dt)
 {
 	if (SpriteAnimation_StartFrame)	{
-		//Uint64 epoch = SDL_GetTicks64();
 		if ((SpriteAnimation_AnimationSpeed * SpriteAnimation_FrameCount) < (SDL_GetTicks64() - epoch)) { epoch = SDL_GetTicks64(); }
 		AnimationBase_CurrentFrame = ((SDL_GetTicks64() - epoch) / SpriteAnimation_AnimationSpeed) % SpriteAnimation_FrameCount;
 	}

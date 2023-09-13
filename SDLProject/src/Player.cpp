@@ -40,7 +40,6 @@ void Player::Update(Uint64 dt)
 	//Player_RigidBody->setRigidBody_Gravity(GRAVITY);
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
-	//std::cout << dt<< "\t"<< Player_JumpTime<<"\n";
 
 	//fut jobbra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and !Player_IsAttacking)
@@ -87,13 +86,13 @@ void Player::Update(Uint64 dt)
 	{
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
-		Player_RigidBody->ApplyForceY(FEL * (JUMP_FORCE));
+		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE * static_cast<double>(dt) );
 	}
 
 	if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0 and Player_JumpTime <=200 )
 	{
 		Player_JumpTime = Player_JumpTime - dt;
-		Player_RigidBody->ApplyForceY(FEL * (JUMP_FORCE));
+		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE * static_cast<double>(dt));
 	}
 	else
 	{
@@ -144,8 +143,10 @@ void Player::Update(Uint64 dt)
 
 	if (CollisionHandler::GetInstance()->MapCollision(Player_Collider->getBox()))
 	{
+		if (y > 120) { // ez itt a tile size majd lehet irok ra fuggvenyt
 			Player_IsGrounded = true;
 			Player_JumpTime = JUMP_TIME;
+		}
 			GameObject_Transform->setY(Player_LastSafePosition.getY());
 	}
 	else
