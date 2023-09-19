@@ -12,6 +12,7 @@
 #include "Camera.hpp"
 #include "TextureManager.hpp"
 
+
 Engine* Engine::Engine_Instance = nullptr;
 //Player* player = nullptr;
 
@@ -23,7 +24,15 @@ bool Engine::Init()
 		std::cout << "Failed to inicialise!\n" << SDL_GetError();
 		return false;
 	}
+
 	TTF_Init();
+	Mix_Init(0);
+	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024);
+
+	Music = Mix_LoadMUS("assets/ff_zene.wav");
+	if (!Music) {
+		std::cerr << SDL_GetError();
+	}
 
 	//ablak letrehozasa
 	Engine_Window = SDL_CreateWindow("Jatek", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, CREATION_WIDTH, CREATION_HEIGHT, SDL_WINDOW_RESIZABLE);
@@ -80,7 +89,9 @@ bool Engine::Clean()
 	Menu::GetInstance()->Clean();
 	SDL_DestroyRenderer(Engine_Renderer);
 	SDL_DestroyWindow(Engine_Window);
+	TTF_Quit();
 	IMG_Quit();
+	Mix_Quit();
 	SDL_Quit();
 	return false;
 }
@@ -109,31 +120,40 @@ void Engine::Update()
 		Engine_LevelMap->Update();
 		Camera::GetInstance()->Update(dt);
 		FPSCounter::GetInstance()->Update();
+		if (Mix_PlayingMusic())
+		{
+			Mix_ResumeMusic();
+		}
+		if (!Mix_PlayingMusic()) {
+			Mix_PlayMusic(Music, -1);
+		}
 	}
 	
+	if (Engine::Engine_MenuShowing) {
+		
+		Menu::GetInstance()->Update();
+
+		Mix_PauseMusic();
+	}
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
-
-	
-	if (Engine::getMenuShowing()) { Menu::GetInstance()->Update(); }
 
 }
 
 void Engine::Render()
 {
-	//SDL_SetRenderDrawColor(Engine_Renderer, 0, 0, 0, 255);
-	//SDL_RenderClear(Engine_Renderer);
+	if (!Engine_MenuShowing) {
+		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
 
-	TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
+		Engine_LevelMap->Render();
 
-	Engine_LevelMap->Render();
+		for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
+		{
+			Enigine_GameObjects[i]->Draw();
+		}
 
-	for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
-	{
-		Enigine_GameObjects[i]->Draw();
+		FPSCounter::GetInstance()->Draw();
 	}
-
-	FPSCounter::GetInstance()->Draw();
 	if (Engine::GetInstance()->getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);
 }

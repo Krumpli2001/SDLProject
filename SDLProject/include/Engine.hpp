@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <SDL_mixer.h>
 
 #include "GameMap.hpp"
 #include "GameObject.hpp"
@@ -21,6 +22,7 @@ private:
 	SDL_Renderer* Engine_Renderer{};
 	GameMap* Engine_LevelMap{};
 	std::vector<GameObject*> Enigine_GameObjects;
+	Mix_Music* Music;
 
 	int Window_W{};
 	int Window_H{};

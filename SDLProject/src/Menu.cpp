@@ -65,23 +65,26 @@ void Menu::Draw()
 
 	for (int i = 0; i < rublikak.size(); i++) {
 		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[i].Message, NULL, &rublikak[i].doboz);
+		SDL_FreeSurface(rublikak[i].surfaceMessage);
+		SDL_DestroyTexture(rublikak[i].Message);
 	}
 
 }
 
 void Menu::Clean()
 {
-	for (int i = 0; i < rublikak.size(); i++)
-	{
-		SDL_FreeSurface(rublikak[i].surfaceMessage);
-		SDL_DestroyTexture(rublikak[i].Message);
+	if (!Engine::GetInstance()->getMenuShowing()) {
+		for (int i = 0; i < rublikak.size(); i++)
+		{
+			SDL_FreeSurface(rublikak[i].surfaceMessage);
+			SDL_DestroyTexture(rublikak[i].Message);
+		}
 	}
+	
 	rublikak.clear();
 
 	colors.clear();
 
-	/*SDL_FreeSurface(surfaceMessage);
-	SDL_DestroyTexture(Message);*/
 	std::cout << "\nText is deleted\n";
 }
 
