@@ -31,9 +31,7 @@ void Menu::Update()
 	}
 
 	//continue
-	if ((cx >= rublikak[0].doboz.x and cy > rublikak[0].doboz.y 
-		and cx <= rublikak[0].doboz.w + rublikak[0].doboz.x and
-		cy <= rublikak[0].doboz.h + rublikak[0].doboz.y) and eger or rublikak[0].isHighlighted) {
+	if (melyik(0)) {
 		rublikak[0].color = getColor("gold");
 		rublikak[0].letrehoz();
 		highLighted = 0;
@@ -42,9 +40,7 @@ void Menu::Update()
 	else { rublikak[0].color = getColor("white"); rublikak[0].letrehoz(); }
 
 	//Options
-	if ((cx >= rublikak[1].doboz.x and cy > rublikak[1].doboz.y 
-		and cx <= rublikak[1].doboz.w + rublikak[1].doboz.x and
-		cy <= rublikak[1].doboz.h + rublikak[1].doboz.y) and eger or rublikak[1].isHighlighted) {
+	if (melyik(1)) {
 		rublikak[1].color = getColor("gold");
 		rublikak[1].letrehoz();
 		highLighted = 1;
@@ -53,9 +49,7 @@ void Menu::Update()
 	else { rublikak[1].color = getColor("white"); rublikak[1].letrehoz(); }
 
 	//quit
-if ((cx >= rublikak[2].doboz.x and cy > rublikak[2].doboz.y 
-		and cx <= rublikak[2].doboz.w + rublikak[2].doboz.x and
-	cy <= rublikak[2].doboz.h + rublikak[2].doboz.y) and eger or rublikak[2].isHighlighted) {
+if (melyik(2)) {
 		rublikak[2].color = getColor("red");
 		rublikak[2].letrehoz();
 		highLighted = 2;
