@@ -20,9 +20,9 @@ struct rublika {
 	bool isHighlighted = false;
 
 
-	rublika(const char* sz, int x, int y, int w, int h/*, TTF_Font* f*//*, SDL_Color c*/) {
+	rublika(const char* sz, int x, int y, int w, int h) {
 		//szoveg = "sajt";
-		doboz.x = x; doboz.y = y; doboz.w = w; doboz.h = h; szoveg = sz;// font = f;// color = c;
+		doboz.x = x; doboz.y = y; doboz.w = w; doboz.h = h; szoveg = sz;
 	}
 
 	inline void letrehoz() {
@@ -87,12 +87,14 @@ public:
 	}
 };
 
+
 /*
 #pragma once
 
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <map>
+#include <unordered_map>
 #include <Engine.hpp>
 
 class Menu;
@@ -127,8 +129,8 @@ private:
 
 	static Menu* Menu_Instance;
 	std::map<std::string, SDL_Color> colors;
-	std::map<std::string, rublika> rublikak;
-	std::map<std::string, rublika>::iterator highLighted{};
+	std::unordered_map<std::string, rublika> rublikak;
+	std::unordered_map<std::string, rublika>::iterator highLighted{};
 	int cx = -1;
 	int cy = -1;
 	bool enter = false;
@@ -169,4 +171,5 @@ public:
 		}
 		std::cout << std::endl;
 	}
-};*/
+};
+*/

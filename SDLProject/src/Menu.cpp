@@ -180,6 +180,8 @@ void Menu::setHighlighted(int i) {
 
 }
 
+
+
 /*
 #include "Menu.hpp"
 #include <fstream>
@@ -359,20 +361,17 @@ void Menu::setHighlighted(int i) {
 	
 		if (i == 1) {
 			prevHol = highLighted;
-			highLighted--;
-			if (prevHol == rublikak.begin()) {
-				highLighted = rublikak.end();
-			}
+			if (prevHol->first == "Continue") { highLighted = std::prev(rublikak.end()); }
+			else { highLighted = std::prev(highLighted); }
 		}
 		if (i == -1) {
 			prevHol = highLighted;
-			highLighted++;
-			if (prevHol == rublikak.end()) {
-				highLighted = rublikak.begin();
-			}
+			if (prevHol->first == "Quit") { highLighted = rublikak.begin(); }
+			else { highLighted = std::next(highLighted); }
 		}
 
 		highLighted->second.isHighlighted = true;
 		prevHol->second.isHighlighted = false;
 
-}*/
+}
+*/
