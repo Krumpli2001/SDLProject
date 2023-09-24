@@ -8,10 +8,10 @@ Menu* Menu::Menu_Instance = nullptr;
 void Menu::MenuInit() {
 	fillColorMap("assets/colors.txt");
 
-	rublikak.push_back(rublika("Continue", 0, 0, 500, 150));
-	rublikak.push_back(rublika("Options", 0, 150, 500, 150));
-	rublikak.push_back(rublika("Save", 0, 300, 250, 150));
-	rublikak.push_back(rublika("Quit", 0, 450, 250, 150));
+	rublikak.push_back(rublika("Continue", 0, 0, 500, 150, colors["white"]));
+	rublikak.push_back(rublika("Options", 0, 150, 500, 150, colors["white"]));
+	rublikak.push_back(rublika("Save", 0, 300, 250, 150, colors["white"]));
+	rublikak.push_back(rublika("Quit", 0, 450, 250, 150, colors["white"]));
 
 	for (int i = 0; i < rublikak.size(); i++) {
 		rublikak[i].letrehoz();

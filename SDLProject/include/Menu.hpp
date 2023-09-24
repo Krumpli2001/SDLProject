@@ -14,14 +14,14 @@ struct rublika {
 	SDL_Rect doboz;
 	SDL_Surface* surfaceMessage{};
 	SDL_Texture* Message{};
-	SDL_Color color = { 255,255,255 };
+	SDL_Color color;// = { 255,255,255 };
 	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
 	int szoveghossz{};
 	bool isHighlighted = false;
 
 
-	rublika(const char* sz, int x, int y, int w, int h) {
-		doboz.x = x; doboz.y = y; doboz.w = w; doboz.h = h; szoveg = sz;
+	rublika(const char* sz, int x, int y, int w, int h, SDL_Color c) {
+		doboz.x = x; doboz.y = y; doboz.w = w; doboz.h = h; szoveg = sz; color = c;
 	}
 
 	inline void letrehoz() {
