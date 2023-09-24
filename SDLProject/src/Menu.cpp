@@ -1,3 +1,4 @@
+
 #include "Menu.hpp"
 #include <fstream>
 #include <string>
@@ -9,14 +10,12 @@ void Menu::MenuInit() {
 
 	rublikak.push_back(rublika("Continue", 0, 0, 500, 150));
 	rublikak.push_back(rublika("Options", 0, 150, 500, 150));
-	rublikak.push_back(rublika("Quit", 0, 300, 250, 150));
+	rublikak.push_back(rublika("Save", 0, 300, 250, 150));
+	rublikak.push_back(rublika("Quit", 0, 450, 250, 150));
 
 	for (int i = 0; i < rublikak.size(); i++) {
 		rublikak[i].letrehoz();
 	}
-
-
-	//print_map(colors);
 }
 
 void Menu::Update()
@@ -30,32 +29,31 @@ void Menu::Update()
 		eger = true;
 	}
 
-	//continue
-	if (melyik(0)) {
-		rublikak[0].color = getColor("gold");
-		rublikak[0].letrehoz();
-		highLighted = 0;
+	int index = 0;
+
+	if (melyik("Continue", &index)) {
+		RUpdate("gold", index);
 		if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 	}
-	else { rublikak[0].color = getColor("white"); rublikak[0].letrehoz(); }
+	else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 
-	//Options
-	if (melyik(1)) {
-		rublikak[1].color = getColor("gold");
-		rublikak[1].letrehoz();
-		highLighted = 1;
-		if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
+	if (melyik("Options", &index)) {
+		RUpdate("gold", index);
+		if (cc == 1 or enter) {  }
 	}
-	else { rublikak[1].color = getColor("white"); rublikak[1].letrehoz(); }
+	else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 
-	//quit
-if (melyik(2)) {
-		rublikak[2].color = getColor("red");
-		rublikak[2].letrehoz();
-		highLighted = 2;
+	if (melyik("Save", &index)) {
+		RUpdate("gold", index);
+		if (cc == 1 or enter) {  }
+	}
+	else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+
+	if (melyik("Quit", &index)) {
+		RUpdate("red", index);
 		if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
 	}
-	else { rublikak[2].color = getColor("white"); rublikak[2].letrehoz(); }
+	else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 
 }
 
@@ -192,17 +190,14 @@ Menu* Menu::Menu_Instance = nullptr;
 void Menu::MenuInit() {
 	fillColorMap("assets/colors.txt");
 
-	rublikak["Continue"] = rublika("Continue", 0, 0, 500, 150);
-	rublikak["Options"] = rublika("Options", 0, 150, 500, 150);
-	rublikak["Save"] = rublika("Save", 0, 300, 250, 150);
-	rublikak["Quit"] = rublika("Quit", 0, 450, 250, 150);
+	rublikak.push_back(std::make_pair(std::string("Continue"), rublika("Continue", 0, 0, 500, 150)));
+	rublikak.push_back(std::make_pair(std::string("Options"), rublika("Options", 0, 150, 500, 150)));
+	rublikak.push_back(std::make_pair(std::string("Save"), rublika("Save", 0, 300, 250, 150)));
+	rublikak.push_back(std::make_pair(std::string("Quit"), rublika("Quit", 0, 450, 250, 150)));
 
-	for (auto i = rublikak.begin(); i != rublikak.end(); i++) {
-		i->second.letrehoz();
+	for (int i = 0; i < rublikak.size(); i++) {
+		rublikak[i].second.letrehoz();
 	}
-
-	highLighted = rublikak.begin(); //iteratort nem elfelejteni resetelni...
-	//print_map(colors);
 }
 
 void Menu::Update()
@@ -211,50 +206,44 @@ void Menu::Update()
 	Uint32 cc = SDL_GetMouseState(&cx, &cy);
 
 	if (cx != prevx or cy != prevy) {
-		highLighted->second.isHighlighted = false;
+		rublikak[highLighted].second.isHighlighted = false;
+		eger = true;
 	}
 
 	if (Main) {
 
+		int index = 0;
 		//continue
-		if ((cx >= rublikak["Continue"].doboz.x and cy > rublikak["Continue"].doboz.y
-			and cx <= rublikak["Continue"].doboz.w + rublikak["Continue"].doboz.x and cy
-			<= rublikak["Continue"].doboz.h + rublikak["Continue"].doboz.y) or rublikak["Continue"].isHighlighted) {
-			rublikak["Continue"].color = getColor("gold");
-			rublikak["Continue"].letrehoz();
+		if(melyik("Continue", &index)) {
+			rublikak[index].second.color = getColor("gold");
+			rublikak[index].second.letrehoz();
 			if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 		}
-		else { rublikak["Continue"].color = getColor("white"); rublikak["Continue"].letrehoz(); }
+		else { rublikak[index].second.color = getColor("white"); rublikak[index].second.letrehoz(); }
 
 		//Options
-		if ((cx >= rublikak["Options"].doboz.x and cy > rublikak["Options"].doboz.y
-			and cx <= rublikak["Options"].doboz.w + rublikak["Options"].doboz.x and cy
-			<= rublikak["Options"].doboz.h + rublikak["Options"].doboz.y) or rublikak["Options"].isHighlighted) {
-			rublikak["Options"].color = getColor("gold");
-			rublikak["Options"].letrehoz();
+		if (melyik("Options", &index)) {
+			rublikak[index].second.color = getColor("gold");
+			rublikak[index].second.letrehoz();
 			//if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 		}
-		else { rublikak["Options"].color = getColor("white"); rublikak["Options"].letrehoz(); }
+		else { rublikak[index].second.color = getColor("white"); rublikak[index].second.letrehoz(); }
 
 		//Save
-		if ((cx >= rublikak["Save"].doboz.x and cy > rublikak["Save"].doboz.y
-			and cx <= rublikak["Save"].doboz.w + rublikak["Save"].doboz.x and cy
-			<= rublikak["Save"].doboz.h + rublikak["Save"].doboz.y) or rublikak["Save"].isHighlighted) {
-			rublikak["Save"].color = getColor("gold");
-			rublikak["Save"].letrehoz();
+		if (melyik("Save", &index)) {
+			rublikak[index].second.color = getColor("gold");
+			rublikak[index].second.letrehoz();
 			//if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 		}
-		else { rublikak["Save"].color = getColor("white"); rublikak["Save"].letrehoz(); }
+		else { rublikak[index].second.color = getColor("white"); rublikak[index].second.letrehoz(); }
 
 		//quit
-		if ((cx >= rublikak["Quit"].doboz.x and cy > rublikak["Quit"].doboz.y
-			and cx <= rublikak["Quit"].doboz.w + rublikak["Quit"].doboz.x and cy
-			<= rublikak["Quit"].doboz.h + rublikak["Quit"].doboz.y) or rublikak["Quit"].isHighlighted) {
-			rublikak["Quit"].color = getColor("red");
-			rublikak["Quit"].letrehoz();
+		if (melyik("Quit", &index)) {
+			rublikak[index].second.color = getColor("red");
+			rublikak[index].second.letrehoz();
 			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
 		}
-		else { rublikak["Quit"].color = getColor("white"); rublikak["Quit"].letrehoz(); }
+		else { rublikak[index].second.color = getColor("white"); rublikak[index].second.letrehoz(); }
 	}
 
 }
@@ -264,10 +253,10 @@ void Menu::Draw()
 	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::GetInstance()->GetRenderer());
 
-	for (auto i = rublikak.begin(); i != rublikak.end(); i++) {
-		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), i->second.Message, NULL, &i->second.doboz);
-		SDL_FreeSurface(i->second.surfaceMessage);
-		SDL_DestroyTexture(i->second.Message);
+	for (int i = 0; i < rublikak.size(); i++) {
+		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[i].second.Message, NULL, &rublikak[i].second.doboz);
+		//SDL_FreeSurface(rublikak[i].second.surfaceMessage);
+		//SDL_DestroyTexture(rublikak[i].second.Message);
 	}
 
 }
@@ -275,9 +264,9 @@ void Menu::Draw()
 void Menu::Clean()
 {
 	if (!Engine::GetInstance()->getMenuShowing()) {
-		for (auto i = rublikak.begin(); i != rublikak.end(); i++) {
-			SDL_FreeSurface(i->second.surfaceMessage);
-			SDL_DestroyTexture(i->second.Message);
+		for (int i = 0; i < rublikak.size(); i++) {
+			SDL_FreeSurface(rublikak[i].second.surfaceMessage);
+			SDL_DestroyTexture(rublikak[i].second.Message);
 		}
 	}
 	
@@ -355,23 +344,23 @@ void Menu::fillColorMap(std::string source)
 
 //billentyuzethez
 void Menu::setHighlighted(int i) {
-	auto prevHol = rublikak.begin();
-	highLighted->second.isHighlighted = true;
+	int prevHol = 0;
+	rublikak[highLighted].second.isHighlighted = true;
 	//Menu::GetInstance()->rublikak[Menu::highLighted].isHighlighted = true;
 	
 		if (i == 1) {
 			prevHol = highLighted;
-			if (prevHol->first == "Continue") { highLighted = std::prev(rublikak.end()); }
-			else { highLighted = std::prev(highLighted); }
+			if (prevHol == 0) { highLighted = rublikak.size() - 1; }
+			else { highLighted--; }
 		}
 		if (i == -1) {
 			prevHol = highLighted;
-			if (prevHol->first == "Quit") { highLighted = rublikak.begin(); }
-			else { highLighted = std::next(highLighted); }
+			if (prevHol == rublikak.size() - 1 ) { highLighted = 0; }
+			else { highLighted++; }
 		}
 
-		highLighted->second.isHighlighted = true;
-		prevHol->second.isHighlighted = false;
+		rublikak[highLighted].second.isHighlighted = true;
+		rublikak[prevHol].second.isHighlighted = false;
 
 }
 */

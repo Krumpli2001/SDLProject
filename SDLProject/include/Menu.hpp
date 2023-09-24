@@ -21,7 +21,6 @@ struct rublika {
 
 
 	rublika(const char* sz, int x, int y, int w, int h) {
-		//szoveg = "sajt";
 		doboz.x = x; doboz.y = y; doboz.w = w; doboz.h = h; szoveg = sz;
 	}
 
@@ -65,13 +64,26 @@ public:
 	void setHighlighted(int i);
 	void setEnter() { enter = true; }
 
-	inline bool melyik(int i) {
+	inline bool melyik(const char* str, int* index) {
+		int i = 0;
+		for (i; i < rublikak.size(); i++) {
+			if (rublikak[i].szoveg == str) {
+				*index = i;
+				break;
+			}
+		}
 		if ((cx >= rublikak[i].doboz.x and cy > rublikak[i].doboz.y
 			and cx <= rublikak[i].doboz.w + rublikak[i].doboz.x and
 			cy <= rublikak[i].doboz.h + rublikak[i].doboz.y) and eger or rublikak[i].isHighlighted) {
 			return true;
 		}
 		else { return false; }
+	}
+
+	inline void RUpdate(std::string str, int index) {
+		rublikak[index].color = getColor(str);
+		rublikak[index].letrehoz();
+		highLighted = index;
 	}
 
 	//ellenorzes miatt van itt
@@ -129,8 +141,11 @@ private:
 
 	static Menu* Menu_Instance;
 	std::map<std::string, SDL_Color> colors;
-	std::unordered_map<std::string, rublika> rublikak;
-	std::unordered_map<std::string, rublika>::iterator highLighted{};
+	std::vector < std::pair<std::string, rublika> > rublikak;
+	int highLighted{};
+	bool eger = true;
+	//std::unordered_map<std::string, rublika> rublikak;
+	//std::unordered_map<std::string, rublika>::iterator highLighted{};
 	int cx = -1;
 	int cy = -1;
 	bool enter = false;
@@ -158,7 +173,19 @@ public:
 	void setHighlighted(int i);
 	void setEnter() { enter = true; }
 
-
+	inline bool melyik(std::string s, int* x){
+		int index = 0;
+		for (int i = 0; i < rublikak.size(); i++) {
+			if (rublikak[i].first == s) { index = i; break; }
+		}
+		if ((cx >= rublikak[index].second.doboz.x and cy > rublikak[index].second.doboz.y
+			and cx <= rublikak[index].second.doboz.w + rublikak[index].second.doboz.x and cy
+			<= rublikak[index].second.doboz.h + rublikak[index].second.doboz.y) and eger or rublikak[index].second.isHighlighted) {
+			*x = index;
+			return true;
+		}
+		return false;
+	}
 
 	//ellenorzes miatt van itt
 	inline void print_map(const std::map<std::string, SDL_Color>& m)
