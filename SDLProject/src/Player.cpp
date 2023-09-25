@@ -170,7 +170,7 @@ void Player::AnimationState()
 
 	if (Player_IsWalking) { Player_SpriteAnimation->SetProps("player_walking", 0, 6, 500); }
 
-	if (Player_IsJumping or Player_IsFalling) { Player_SpriteAnimation->SetProps("player_jumping", 0, 1, 1); }
+	if (Player_IsFalling or !Player_IsGrounded) { Player_SpriteAnimation->SetProps("player_jumping", 0, 1, 1); }
 
 	if (Player_IsAttacking) { Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true); }
 

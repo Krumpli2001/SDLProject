@@ -13,10 +13,12 @@ void FPSCounter::Update()
 void FPSCounter::Draw() {
 	SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), Message, NULL, &Message_rect);
 	Clean();
+	surfaceMessage = nullptr;
+	Message = nullptr;
 }
 
 void FPSCounter::Clean() {
-	SDL_FreeSurface(surfaceMessage);
-	SDL_DestroyTexture(Message);
+	if (surfaceMessage) { SDL_FreeSurface(surfaceMessage); }
+	if (Message) { SDL_DestroyTexture(Message); }
 	//std::cout << "\nText is deleted\n";
 }

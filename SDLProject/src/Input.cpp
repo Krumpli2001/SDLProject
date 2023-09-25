@@ -72,12 +72,6 @@ void Input::Listen()
 bool Input::getKeyDown(SDL_Scancode key)
 {
 	return (Input_KeyStates[key] == 1);
-
-	/*if (Input_KeyStates[key] == 1)
-	{
-		return true;
-	}
-	return false;*/
 }
 
 Uint32 Input::getClickDown()
@@ -109,23 +103,23 @@ void Input::interpret(int kod)
 	{
 	case 1:
 		Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
-		SDL_Delay(150);
+		SDL_Delay(200);
 		break;
 	case 2:
 		Timer::GetInstance()->fpslock = !Timer::GetInstance()->fpslock;
-		SDL_Delay(150);
+		SDL_Delay(200);
 		break;
 	case 3:
 		Menu::GetInstance()->setHighlighted(-1);
-		SDL_Delay(150);
+		SDL_Delay(200);
 		break;
 	case 4:
 		Menu::GetInstance()->setHighlighted(1);
-		SDL_Delay(150);
+		SDL_Delay(200);
 		break;
 	case 5:
 		Menu::GetInstance()->setEnter();
-		SDL_Delay(150);
+		SDL_Delay(200);
 		break;
 	}
 
