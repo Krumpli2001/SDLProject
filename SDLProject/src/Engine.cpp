@@ -127,13 +127,16 @@ void Engine::Update()
 		if (!Mix_PlayingMusic()) {
 			Mix_PlayMusic(Music, -1);
 		}
+
+		if (Input::GetInstance()->getElse() == SDL_SCANCODE_ESCAPE) {
+			setMenuShowing(!getMenuShowing());
+			SDL_Delay(200);
+		}
 	}
 	
 	if (Engine::Engine_MenuShowing) {
-		
-		Menu::GetInstance()->Update();
-
 		Mix_PauseMusic();
+		Menu::GetInstance()->Update();
 	}
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
@@ -154,7 +157,7 @@ void Engine::Render()
 
 		FPSCounter::GetInstance()->Draw();
 	}
-	if (Engine::GetInstance()->getMenuShowing()) { Menu::GetInstance()->Draw(); }
+	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);
 }
 

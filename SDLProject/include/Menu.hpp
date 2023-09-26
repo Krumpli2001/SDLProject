@@ -43,6 +43,7 @@ private:
 	int cx = -1;
 	int cy = -1;
 	bool enter = false;
+	bool Main = true;
 
 public:
 	inline static Menu* GetInstance()

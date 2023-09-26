@@ -1,5 +1,5 @@
-
 #include "Menu.hpp"
+#include "Input.hpp"
 #include <fstream>
 #include <string>
 
@@ -29,31 +29,56 @@ void Menu::Update()
 		eger = true;
 	}
 
-	int index = 0;
+	int code = Input::GetInstance()->getElse();
 
-	if (melyik("Continue", &index)) {
-		RUpdate("gold", index);
-		if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
+	switch(code)
+	{case 3:
+		Menu::GetInstance()->setHighlighted(-1);
+		SDL_Delay(200);
+		break;
+	case 4:
+		Menu::GetInstance()->setHighlighted(1);
+		SDL_Delay(200);
+		break;
+	case 5:
+		Menu::GetInstance()->setEnter();
+		SDL_Delay(200);
+		break;
 	}
-	else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 
-	if (melyik("Options", &index)) {
-		RUpdate("gold", index);
-		if (cc == 1 or enter) {  }
-	}
-	else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+	if (Main) {
+		
+		int index = 0;
 
-	if (melyik("Save", &index)) {
-		RUpdate("gold", index);
-		if (cc == 1 or enter) {  }
-	}
-	else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		if (melyik("Continue", &index)) {
+			RUpdate("gold", index);
+			if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
+		}
+		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 
-	if (melyik("Quit", &index)) {
-		RUpdate("red", index);
-		if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+		if (melyik("Options", &index)) {
+			RUpdate("gold", index);
+			if (cc == 1 or enter) {}
+		}
+		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+
+		if (melyik("Save", &index)) {
+			RUpdate("gold", index);
+			if (cc == 1 or enter) {}
+		}
+		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+
+		if (melyik("Quit", &index)) {
+			RUpdate("red", index);
+			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+		}
+		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+
+		if (Input::GetInstance()->getElse() == SDL_SCANCODE_ESCAPE) {
+			Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
+			SDL_Delay(200);
+		}
 	}
-	else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 
 }
 
