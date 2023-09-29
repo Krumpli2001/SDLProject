@@ -5,8 +5,8 @@ Camera* Camera::Camera_Instance = nullptr;
 void Camera::Update(Uint64 dt)
 {
 
-	Camera::M_WIDTH = Engine::GetInstance()->getMap_W();
-	Camera::M_HEIGHT = Engine::GetInstance()->getMap_H();
+	M_WIDTH = Engine::GetInstance()->getMap_W();
+	M_HEIGHT = Engine::GetInstance()->getMap_H();
 
 	if (Camera_Target != nullptr)
 	{

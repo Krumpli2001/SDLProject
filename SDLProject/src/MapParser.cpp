@@ -49,10 +49,39 @@ bool MapParser::Parse(std::string id, std::string source)
 
 }
 
+//tileset id - 0 = semmi, mindegyik layer-ben
+    //ha egy adott layer-nek tile-janak az id-jet akarjuk ugy, amit a tiled is ir akkor ki kell vonni a "firstgid - 1"-et
+    //illetve az utolso tile-id pedig a firstgid + tilecount - 1
+
+    //doksibol:
+    //https://doc.mapeditor.org/en/stable/reference/global-tile-ids/
+
+    //Every tileset has its own, independent local tile IDs, typically(but not always)
+    //starting at 0. To avoid conflicts within maps using multiple tilesets, GIDs are
+    //assigned in sequence based on the size of each tileset.Each tileset is assigned a
+    //firstgid within the map, this is the GID that the tile with local ID 0 in the tileset would have.
+    //To figure out which tileset a tile belongs to, find the tileset that has the
+    //largest firstgid that is smaller than or equal to the tile’s GID.
+    //Once you have identified the tileset, subtract its firstgid from the tile’s
+    //GID to get the local ID of the tile within the tileset.
+
+    //Note: The firstgid of the first tileset is always 1. A GID of 0 in a layer means that cell is empty.
+
+    //As an example, here’s an excerpt from a TMX file with three tilesets :
+
+    //    <tileset firstgid = "1" source = "TilesetA.tsx" / >
+    //    <tileset firstgid = "65" source = "TilesetB.tsx" / >
+    //    <tileset firstgid = "115" source = "TilesetC.tsx" / >
+
+    //In this map, tiles with GIDs 1 - 64 would be part of TilesetA,
+    //tiles with GIDs 65 - 114 would be part of TilesetB, and tiles
+    // with GIDs 115 and above would be part of tileset C.A tile with
+    //GID 72 would be part of TilesetB since TilesetB has the largest
+    //firstgid that’s less than or equal to 72, and its local ID would be 7 (72 - 65).
+
 Tileset MapParser::ParseTileset(TiXmlElement* xmlTileset)
 {
     Tileset tileset;
-    //tileset.FirstID = std::stoi(xmlTileset->Attribute("firstgid"));
 
     tileset.Name = xmlTileset->Attribute("name");
 

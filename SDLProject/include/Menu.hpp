@@ -8,7 +8,6 @@
 class Menu;
 
 struct rublika {
-	//friend class Menu;
 
 	const char* szoveg;
 	SDL_Rect doboz;

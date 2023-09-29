@@ -7,6 +7,7 @@
 #include "CollisionHandler.hpp"
 #include "Timer.hpp"
 
+//az ido ms
 #define JUMP_TIME 200.0
 #define JUMP_FORCE 3.0
 #define RUN_FORCE 1.0

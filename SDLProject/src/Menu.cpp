@@ -33,15 +33,15 @@ void Menu::Update()
 
 	switch(code)
 	{case 3:
-		Menu::GetInstance()->setHighlighted(-1);
+		setHighlighted(-1);
 		SDL_Delay(200);
 		break;
 	case 4:
-		Menu::GetInstance()->setHighlighted(1);
+		setHighlighted(1);
 		SDL_Delay(200);
 		break;
 	case 5:
-		Menu::GetInstance()->setEnter();
+		setEnter();
 		SDL_Delay(200);
 		break;
 	}
@@ -74,7 +74,7 @@ void Menu::Update()
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 
-		if (Input::GetInstance()->getElse() == SDL_SCANCODE_ESCAPE) {
+		if (code == SDL_SCANCODE_ESCAPE) {
 			Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
 			SDL_Delay(200);
 		}

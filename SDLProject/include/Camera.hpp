@@ -7,7 +7,6 @@
 #include "Engine.hpp"
 
 
-
 class Camera
 {
 private:
@@ -15,6 +14,7 @@ private:
 		SDL_GetWindowSizeInPixels(Engine::GetInstance()->getWindow(), Engine::GetInstance()->getWindow_W(), Engine::GetInstance()->getWindow_H());
 		Camera_ViewBox = { 0, 0, *Engine::GetInstance()->getWindow_W(), *Engine::GetInstance()->getWindow_H() };
 	}
+
 	static Camera* Camera_Instance;
 	Point* Camera_Target{};
 	Vector2D Camera_Position{};

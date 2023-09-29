@@ -158,7 +158,6 @@
     <ClCompile Include="Tinyxml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\AnimationBase.hpp" />
     <ClInclude Include="include\Camera.hpp" />
     <ClInclude Include="include\Character.hpp" />
     <ClInclude Include="include\Collider.hpp" />

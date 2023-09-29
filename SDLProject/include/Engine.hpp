@@ -22,7 +22,7 @@ private:
 	SDL_Renderer* Engine_Renderer{};
 	GameMap* Engine_LevelMap{};
 	std::vector<GameObject*> Enigine_GameObjects;
-	Mix_Music* Music;
+	Mix_Music* Music{};
 
 	int Window_W{};
 	int Window_H{};

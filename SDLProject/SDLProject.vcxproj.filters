@@ -79,9 +79,6 @@
     <ClInclude Include="Tinyxml\tinyxml.h">
       <Filter>Tinyxml</Filter>
     </ClInclude>
-    <ClInclude Include="include\AnimationBase.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

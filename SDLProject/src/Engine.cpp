@@ -103,7 +103,7 @@ void Engine::Quit()
 
 void Engine::Update()
 {
-	if (!Engine::Engine_MenuShowing) {
+	if (!Engine_MenuShowing) {
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 
 		for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
@@ -111,11 +111,11 @@ void Engine::Update()
 			Enigine_GameObjects[i]->Update(dt);
 		}
 
-		auto g = Engine::GetInstance()->Engine_LevelMap->getMapLayers();
+		auto g = Engine_LevelMap->getMapLayers();
 		g[0]->getColCount();
 
-		Engine::Map_W = g[0]->getColCount() * g[0]->getTileSize();
-		Engine::Map_H = g[0]->getRowCount() * g[0]->getTileSize();
+		Map_W = g[0]->getColCount() * g[0]->getTileSize();
+		Map_H = g[0]->getRowCount() * g[0]->getTileSize();
 
 		Engine_LevelMap->Update();
 		Camera::GetInstance()->Update(dt);
@@ -135,11 +135,11 @@ void Engine::Update()
 	}
 	
 	if (Engine::Engine_MenuShowing) {
-		Mix_PauseMusic();
+		
 		Menu::GetInstance()->Update();
 	}
 
-	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
+	//Input::GetInstance()->interpret(Input::GetInstance()->getElse());
 
 }
 
