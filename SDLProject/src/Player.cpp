@@ -8,17 +8,19 @@ static Registrar < Player > registrar("PLAYER");
 
 Player::Player(Properties* props) : Character(props)
 {
-	Player_hp = props->Properies_hp;
+	hp = props->Properies_hp;
 	Player_IsWalking = false;
 	Player_IsJumping = false;
 	Player_IsFalling = false;
 	Player_IsGrounded = false;
 	Player_IsAttacking = false;
 	Player_IsWalkAttacking = false;
+	Player_IsUnderWater = false;
 
 	Player_JumpTime = JUMP_TIME;
 	//Player_JumpForce = JUMP_FORCE;
 	Player_AttackTime = ATTACK_TIME;
+	Player_UnderWater = UNDER_WATER_TIME;
 
 	Player_Collider = new Collider();
 	Player_Collider->setBuffer(0, 0, 0, 0);
@@ -121,6 +123,7 @@ void Player::Update(Uint64 dt)
 		Player_AttackTime = ATTACK_TIME;
 	}
 
+
 	//collision
 
 	Player_LastSafePosition.setX(GameObject_Transform->getX());
@@ -155,12 +158,27 @@ void Player::Update(Uint64 dt)
 		Player_IsGrounded = false;
 	}
 
+	//viz alatt
+	if (getPGravity() < 1.0) {
+		Player_IsUnderWater = true;
+		Player_UnderWater -= dt;
+		if (Player_UnderWater < 0) {
+			hp -= 1;
+		}
+	}
+	else {
+		Player_IsUnderWater = false;
+		Player_UnderWater = UNDER_WATER_TIME;
+	}
+
 	GameObject_Origin->setX(GameObject_Transform->getX() + GameObject_Width / 2.0);
 	GameObject_Origin->setY(GameObject_Transform->getY() + GameObject_Height / 2.0);
 
 	AnimationState();
 	Player_RigidBody->Update(dt);
 	Player_SpriteAnimation->Update(dt);
+
+	//std::cout << hp << "\t" << Player_UnderWater << "\t" << getPGravity() << "\n";
 
 }
 

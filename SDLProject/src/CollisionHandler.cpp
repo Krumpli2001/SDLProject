@@ -40,7 +40,7 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
     if ((a.x < 0) || ((a.x + a.w) >= (colCount * tileSize)) || (a.y < 0) || ((a.y + a.h) >= (rowCount * tileSize))) { return true; }
 
     auto O = Engine::GetInstance()->getGameObjects();
-    O[0]->setGravity(1);
+    
 
     for (int i = left_tile; i <= right_tile; i++)
     {
@@ -48,11 +48,13 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
         {
             if (CollisionHandler_CollitionTileMap[j][i] > 0)
             {
-                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 12 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 12) { //a viz id-ja
+                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 12 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 12 ) /* and CollisionHandler_CollitionTileMap[bottom_tile - 5][right_tile])*/ { //a viz id-ja
                     O[0]->setGravity(0.3);
                     return false;
                 }
                 else {
+                    if (CollisionHandler_CollitionTileMap[bottom_tile - 1][right_tile] == 12) { O[0]->setGravity(0.3); }
+                    else { O[0]->setGravity(1); }
                     return true;
                 }
             }

@@ -30,6 +30,7 @@ public:
 class GameObject : public IObject {
 private:
 protected:
+	int hp;
 	Transform* GameObject_Transform;
 	int GameObject_Width;
 	int GameObject_Height;
@@ -48,6 +49,8 @@ public:
 	}
 
 	inline Point* getOrigin() { return GameObject_Origin; }
+
+	inline int getHP() { return hp; }
 
 	virtual void Draw() = 0;
 	virtual void Update(Uint64 dt) = 0;

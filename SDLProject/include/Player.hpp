@@ -12,11 +12,12 @@
 #define JUMP_FORCE 3.0
 #define RUN_FORCE 1.0
 #define ATTACK_TIME 300.0
+#define UNDER_WATER_TIME 10000.0
 
 class Player : public Character {
 private:
 
-	int Player_hp;
+	//int Player_hp;
 
 	bool Player_IsWalking;
 	bool Player_IsJumping;
@@ -24,6 +25,9 @@ private:
 	bool Player_IsGrounded;
 	bool Player_IsAttacking;
 	bool Player_IsWalkAttacking;
+
+	bool Player_IsUnderWater;
+	double Player_UnderWater;
 
 	Uint64 Player_JumpTime;
 	double Player_AttackTime;
@@ -39,9 +43,11 @@ public:
 	Player(Properties* props);
 
 	inline RigidBody* getPlayerBody() { return Player_RigidBody; }
+	inline void setUnderWater(bool w) { Player_IsUnderWater = w; }
 
 	virtual void Draw();
 	virtual void Update(Uint64 dt);
 	virtual void Clean();
 	inline void setGravity(double G) { Player_RigidBody->setRigidBody_Gravity(G); }
+	inline double getPGravity() { return Player_RigidBody->getGravity(); }
 };

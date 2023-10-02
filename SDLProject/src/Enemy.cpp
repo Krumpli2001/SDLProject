@@ -5,6 +5,7 @@ static Registrar < Enemy > registrar("ZOMBIE");
 
 Enemy::Enemy(Properties* props) : Character(props)
 {
+	hp = props->Properies_hp;
 	Enemy_RigidBody = new RigidBody();
 	Enemy_RigidBody->setRigidBody_Gravity(GRAVITY);
 	Enemy_Collider = new Collider();

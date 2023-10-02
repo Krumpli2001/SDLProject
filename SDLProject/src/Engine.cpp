@@ -108,9 +108,14 @@ void Engine::Update()
 	if (!Engine_MenuShowing) {
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 
-		for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
+		for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 		{
-			Enigine_GameObjects[i]->Update(dt);
+			if (Enigine_GameObjects[i]->getHP() <= 0 and i != 0) {
+				Enigine_GameObjects.erase(Enigine_GameObjects.begin() + i);
+			}
+			else {
+				Enigine_GameObjects[i]->Update(dt);
+			}
 		}
 
 		auto g = Engine_LevelMap->getMapLayers();
