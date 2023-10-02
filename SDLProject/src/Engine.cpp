@@ -21,7 +21,7 @@ bool Engine::Init()
 	//SDL kep inicializalasa
 	if ((SDL_Init(SDL_INIT_VIDEO) != 0) and IMG_Init(IMG_INIT_JPG or IMG_INIT_PNG) != 0)
 	{
-		std::cout << "Failed to inicialise!\n" << SDL_GetError();
+		std::cout << "Failed to inicialise!\n" << SDL_GetError() << std::endl;
 		return false;
 	}
 
@@ -31,14 +31,14 @@ bool Engine::Init()
 
 	Music = Mix_LoadMUS("assets/ff_zene.wav");
 	if (!Music) {
-		std::cerr << SDL_GetError();
+		std::cerr << SDL_GetError() << std::endl;
 	}
 
 	//ablak letrehozasa
 	Engine_Window = SDL_CreateWindow("Jatek", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, CREATION_WIDTH, CREATION_HEIGHT, SDL_WINDOW_RESIZABLE);
 	if (Engine_Window == nullptr)
 	{
-		std::cout << "Failed to CreateWindow!\n" << SDL_GetError();
+		std::cout << "Failed to CreateWindow!\n" << SDL_GetError() << std::endl;
 		return false;
 	}
 
@@ -46,7 +46,7 @@ bool Engine::Init()
 	Engine_Renderer = SDL_CreateRenderer(Engine_Window, -1, SDL_RENDERER_ACCELERATED or SDL_RENDERER_PRESENTVSYNC);
 	if (Engine_Renderer == nullptr)
 	{
-		std::cout << "Failed to CreateRenderer!\n" << SDL_GetError();
+		std::cout << "Failed to CreateRenderer!\n" << SDL_GetError() << std::endl;
 		return false;
 	}
 
@@ -61,14 +61,16 @@ bool Engine::Init()
 
 	TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 
-	////pl background
-	//TextureManager::GetInstance()->Load("bg", "assets/Forest_background_1.png");
+	Properties* Pprops = new Properties("player_idle", 100, 240, 240, 0.0, 0.0);
+	GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Pprops);
 
-	Properties* props = new Properties("player_idle", 240, 240, 0.0, 0.0);
-	GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", props);
+	Properties* Zprops = new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0);
+	GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zprops);
+
 
 	Enigine_GameObjects.push_back(player); //player a nulladik elem
 	//Enigine_GameObjects.push_back(mob);
+	Enigine_GameObjects.push_back(zombie);
 
 	Camera::GetInstance()->setTarget(player->getOrigin());
 

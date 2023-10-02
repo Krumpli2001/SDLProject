@@ -7,6 +7,7 @@
 
 class Properties {
 public:
+	int Properies_hp;
 	std::string Properties_TextureID;
 	int Properties_Width;
 	int Properties_Height;
@@ -14,9 +15,10 @@ public:
 	double Properties_Y;
 	SDL_RendererFlip Properties_Flip;
 
-	inline Properties(std::string textureID, int width, int height, double x, double y, SDL_RendererFlip flip = SDL_FLIP_NONE)
+	inline Properties(std::string textureID, int hp, int width, int height, double x, double y, SDL_RendererFlip flip = SDL_FLIP_NONE)
 	{
 		Properties_TextureID = textureID;
+		Properies_hp = hp;
 		Properties_Width = width;
 		Properties_Height = height;
 		Properties_X = x;

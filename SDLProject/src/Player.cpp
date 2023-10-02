@@ -8,7 +8,7 @@ static Registrar < Player > registrar("PLAYER");
 
 Player::Player(Properties* props) : Character(props)
 {
-
+	Player_hp = props->Properies_hp;
 	Player_IsWalking = false;
 	Player_IsJumping = false;
 	Player_IsFalling = false;

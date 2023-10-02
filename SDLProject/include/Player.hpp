@@ -16,6 +16,8 @@
 class Player : public Character {
 private:
 
+	int Player_hp;
+
 	bool Player_IsWalking;
 	bool Player_IsJumping;
 	bool Player_IsFalling;
