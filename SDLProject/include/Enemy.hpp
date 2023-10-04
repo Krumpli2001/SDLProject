@@ -21,5 +21,6 @@ public:
 	virtual void Draw();
 	virtual void Clean();
 	inline void setGravity(double G) { Enemy_RigidBody->setRigidBody_Gravity(G); }
+	inline Collider* getCollider() { return Enemy_Collider; }
 };
 

@@ -23,6 +23,6 @@ public:
 		return CollisionHandler_Instance;
 	}
 
-	//bool CheckCollision(SDL_Rect a, SDL_Rect b);
+	bool CheckCollision(SDL_Rect a, SDL_Rect b);
 	bool MapCollision(SDL_Rect a);
 };

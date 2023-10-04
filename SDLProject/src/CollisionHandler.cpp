@@ -10,12 +10,12 @@ CollisionHandler::CollisionHandler()
     CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 };
 
-//bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
-//{
-//    bool x_overlaps = (a.x < b.x + b.w) and (a.x + a.w > b.x);
-//    bool y_overlaps = (a.y < b.y + b.h) and (a.y + a.h > b.y);
-//    return (x_overlaps and y_overlaps);
-//}
+bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
+{
+    bool x_overlaps = (a.x < b.x + b.w) and (a.x + a.w > b.x);
+    bool y_overlaps = (a.y < b.y + b.h) and (a.y + a.h > b.y);
+    return (x_overlaps and y_overlaps);
+}
 
 bool CollisionHandler::MapCollision(SDL_Rect a)
 {

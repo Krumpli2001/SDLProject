@@ -9,6 +9,7 @@ Enemy::Enemy(Properties* props) : Character(props)
 	Enemy_RigidBody = new RigidBody();
 	Enemy_RigidBody->setRigidBody_Gravity(GRAVITY);
 	Enemy_Collider = new Collider();
+	Enemy_Collider->setBuffer(0, 0, 0, 0);
 
 	Enemy_SpriteAnimation = new SpriteAnimation();
 

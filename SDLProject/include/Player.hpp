@@ -44,6 +44,7 @@ public:
 
 	inline RigidBody* getPlayerBody() { return Player_RigidBody; }
 	inline void setUnderWater(bool w) { Player_IsUnderWater = w; }
+	inline Collider* getCollider() { return Player_Collider; }
 
 	virtual void Draw();
 	virtual void Update(Uint64 dt);

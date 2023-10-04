@@ -12,7 +12,6 @@
 #include "Camera.hpp"
 #include "TextureManager.hpp"
 
-
 Engine* Engine::Engine_Instance = nullptr;
 //Player* player = nullptr;
 
@@ -114,6 +113,13 @@ void Engine::Update()
 				Enigine_GameObjects.erase(Enigine_GameObjects.begin() + i);
 			}
 			else {
+				//bool collision = false;
+				//unsigned int mob;
+				if (i != 0) {
+					unsigned int mob = i;
+					bool collision = CollisionHandler::GetInstance()->CheckCollision(Enigine_GameObjects[0]->getCollider()->getBox(), Enigine_GameObjects[mob]->getCollider()->getBox());
+					std::cout << collision<<"\n";
+				}
 				Enigine_GameObjects[i]->Update(dt);
 			}
 		}
@@ -127,6 +133,7 @@ void Engine::Update()
 		Engine_LevelMap->Update();
 		Camera::GetInstance()->Update(dt);
 		FPSCounter::GetInstance()->Update();
+
 		if (Mix_PlayingMusic())
 		{
 			Mix_ResumeMusic();
@@ -142,7 +149,7 @@ void Engine::Update()
 	}
 	
 	if (Engine::Engine_MenuShowing) {
-		
+		Mix_PauseMusic();
 		Menu::GetInstance()->Update();
 	}
 
