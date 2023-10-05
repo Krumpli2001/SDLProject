@@ -19,7 +19,7 @@ Player::Player(Properties* props) : Character(props)
 
 	Player_JumpTime = JUMP_TIME;
 	//Player_JumpForce = JUMP_FORCE;
-	Player_AttackTime = ATTACK_TIME;
+	Player_AttackTime = PLAYER_ATTACK_TIME;
 	Player_UnderWater = UNDER_WATER_TIME;
 
 	Player_Collider = new Collider();
@@ -120,7 +120,7 @@ void Player::Update(Uint64 dt)
 	{
 		Player_IsAttacking = false;
 		Player_IsWalkAttacking = false;
-		Player_AttackTime = ATTACK_TIME;
+		Player_AttackTime = PLAYER_ATTACK_TIME;
 	}
 
 
@@ -190,9 +190,9 @@ void Player::AnimationState()
 
 	if (Player_IsFalling or !Player_IsGrounded) { Player_SpriteAnimation->SetProps("player_jumping", 0, 1, 1); }
 
-	if (Player_IsAttacking) { Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true); }
+	if (Player_IsAttacking) { Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true); }
 
-	if (Player_IsWalkAttacking) { Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true); }
+	if (Player_IsWalkAttacking) { Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true); }
 }
 
 void Player::Clean()

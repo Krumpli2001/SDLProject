@@ -22,5 +22,8 @@ public:
 	virtual void Clean();
 	inline void setGravity(double G) { Enemy_RigidBody->setRigidBody_Gravity(G); }
 	inline Collider* getCollider() { return Enemy_Collider; }
+	inline bool isAttacking() { return false; }
+	inline double getAttacktime() { return 0; }
+	inline int getAttackPower() { return 0; }
 };
 

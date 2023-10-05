@@ -11,7 +11,6 @@
 #define JUMP_TIME 200.0
 #define JUMP_FORCE 3.0
 #define RUN_FORCE 1.0
-#define ATTACK_TIME 300.0
 #define UNDER_WATER_TIME 10000.0
 
 class Player : public Character {
@@ -31,6 +30,7 @@ private:
 
 	Uint64 Player_JumpTime;
 	double Player_AttackTime;
+	int Player_AttackPower = 15;
 
 	Collider* Player_Collider;
 	SpriteAnimation* Player_SpriteAnimation;
@@ -51,4 +51,7 @@ public:
 	virtual void Clean();
 	inline void setGravity(double G) { Player_RigidBody->setRigidBody_Gravity(G); }
 	inline double getPGravity() { return Player_RigidBody->getGravity(); }
+	inline bool isAttacking() { return Player_IsAttacking; }
+	inline double getAttacktime() { return Player_AttackTime; }
+	inline int getAttackPower() { return Player_AttackPower; }
 };

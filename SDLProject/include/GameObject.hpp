@@ -6,6 +6,8 @@
 #include "Point.hpp"
 #include "Collider.hpp"
 
+#define PLAYER_ATTACK_TIME 300.0
+
 class Properties {
 public:
 	int Properies_hp;
@@ -52,11 +54,15 @@ public:
 	inline Point* getOrigin() { return GameObject_Origin; }
 
 	inline int getHP() { return hp; }
+	inline void setHP(int newhp) { hp = newhp; }
 
+	virtual bool isAttacking() = 0;
 	virtual Collider* getCollider() = 0;
 	virtual void Draw() = 0;
 	virtual void Update(Uint64 dt) = 0;
 	virtual void Clean() = 0;
 	virtual void setGravity(double G) = 0;
+	virtual double getAttacktime() = 0;
+	virtual int getAttackPower() = 0;
 
 };
