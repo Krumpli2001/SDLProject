@@ -8,6 +8,7 @@
 
     <texture id="bg" source="assets/Forest_background_1.png"/>
 
-    <texture id="zombie_idle" source="assets/z_idle2.png"/>
+    <texture id="zombie_idle" source="assets/z_idle.png"/>
+    <texture id="skeleton_idle" source="assets/s_idle.png"/>
     
 </textures>

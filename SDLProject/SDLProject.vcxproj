@@ -148,10 +148,12 @@
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\ObjectFactory.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Skeleton.cpp" />
     <ClCompile Include="src\SpriteAnimation.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\TileLayer.cpp" />
     <ClCompile Include="src\Timer.cpp" />
+    <ClCompile Include="src\Zombie.cpp" />
     <ClCompile Include="Tinyxml\tinystr.cpp" />
     <ClCompile Include="Tinyxml\tinyxml.cpp" />
     <ClCompile Include="Tinyxml\tinyxmlerror.cpp" />

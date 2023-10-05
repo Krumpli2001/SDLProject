@@ -15,6 +15,15 @@
 Engine* Engine::Engine_Instance = nullptr;
 //Player* player = nullptr;
 
+//ez azert van itt hogy az update-be majd lehessen random spawn - de ra kell kerdeznem
+Properties* Player_props = new Properties("player_idle", 100, 240, 240, 0.0, 0.0);
+Properties* Zombie_props = new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0);
+Properties* Skeleton_props = new Properties("skeleton_idle", 100, 240, 240, 100.0, 0.0);
+
+GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Player_props);
+GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zombie_props);
+GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);
+
 bool Engine::Init()
 {
 	//SDL kep inicializalasa
@@ -60,16 +69,12 @@ bool Engine::Init()
 
 	TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 
-	Properties* Pprops = new Properties("player_idle", 100, 240, 240, 0.0, 0.0);
-	GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Pprops);
-
-	Properties* Zprops = new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0);
-	GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zprops);
-
-
-	Enigine_GameObjects.push_back(player); //player a nulladik elem
-	//Enigine_GameObjects.push_back(mob);
+	Enigine_GameObjects.push_back(player);	//player a nulladik elem
+											//Enigine_GameObjects.push_back(mob);
 	Enigine_GameObjects.push_back(zombie);
+
+	Enigine_GameObjects.push_back(skeleton);
+
 
 	Camera::GetInstance()->setTarget(player->getOrigin());
 
