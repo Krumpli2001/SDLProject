@@ -1,5 +1,6 @@
 #include "Enemy.hpp"
 
+//hule vagyok, rust tett ilyenne de nem baj - elobb-utobb ugy is kell majd nekik kulon class
 //static Registrar < Zombie > registrar("ZOMBIE");
 //static Registrar < Skeleton > registrar("SKELETON");
 
@@ -58,4 +59,8 @@ void Enemy::Draw()
 void Enemy::Clean()
 {
 	TextureManager::GetInstance()->Drop(GameObject_TextureID);
+}
+
+void Enemy::reset()
+{
 }

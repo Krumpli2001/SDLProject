@@ -30,6 +30,8 @@ private:
 	int Map_W{};
 	int Map_H{};
 
+	bool Engine_ResetFlag = false;
+
 public:
 	inline static Engine* GetInstance()
 	{
@@ -51,6 +53,8 @@ public:
 	inline bool getMenuShowing() { return Engine_MenuShowing; }
 	inline void setMenuShowing(bool set) { Engine_MenuShowing = set; }
 	inline std::vector<GameObject*> getGameObjects() { return Enigine_GameObjects; }
+	inline bool getResetFlag() { return Engine_ResetFlag; }
+	inline void setResetFlag(bool e) { Engine_ResetFlag = e; }
 
 	bool Init();
 	bool Clean();

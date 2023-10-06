@@ -44,14 +44,17 @@ public:
 
 	inline RigidBody* getPlayerBody() { return Player_RigidBody; }
 	inline void setUnderWater(bool w) { Player_IsUnderWater = w; }
-	inline Collider* getCollider() { return Player_Collider; }
+	virtual inline Collider* getCollider() { return Player_Collider; }
 
 	virtual void Draw();
 	virtual void Update(Uint64 dt);
 	virtual void Clean();
-	inline void setGravity(double G) { Player_RigidBody->setRigidBody_Gravity(G); }
+	virtual void reset();
+	virtual inline void setGravity(double G) { Player_RigidBody->setRigidBody_Gravity(G); }
+
+	virtual inline double getAttacktime() { return Player_AttackTime; }
+	virtual inline int getAttackPower() { return Player_AttackPower; }
+
+	virtual inline bool isAttacking() { return Player_IsAttacking; }
 	inline double getPGravity() { return Player_RigidBody->getGravity(); }
-	inline bool isAttacking() { return Player_IsAttacking; }
-	inline double getAttacktime() { return Player_AttackTime; }
-	inline int getAttackPower() { return Player_AttackPower; }
 };

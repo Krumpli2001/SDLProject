@@ -64,5 +64,6 @@ public:
 	virtual void setGravity(double G) = 0;
 	virtual double getAttacktime() = 0;
 	virtual int getAttackPower() = 0;
+	virtual void reset() = 0;
 
 };

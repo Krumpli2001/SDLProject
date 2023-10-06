@@ -13,6 +13,8 @@ void Menu::MenuInit() {
 	rublikak.push_back(rublika("Save", 0, 300, 250, 150, colors["white"]));
 	rublikak.push_back(rublika("Quit", 0, 450, 250, 150, colors["white"]));
 
+	rublikak.push_back(rublika("Retry", 0, 0, 300, 150, colors["white"]));
+
 	for (int i = 0; i < rublikak.size(); i++) {
 		rublikak[i].letrehoz();
 	}
@@ -46,9 +48,10 @@ void Menu::Update()
 		break;
 	}
 
+	//int index = 0;
+
 	if (Main) {
 		
-		int index = 0;
 
 		if (melyik("Continue", &index)) {
 			RUpdate("gold", index);
@@ -80,6 +83,26 @@ void Menu::Update()
 		}
 	}
 
+	if (GameOver) {
+		
+		std::ignore = melyik("Quit", &index);
+		rublikak[index].setRectLocation(0, 150);
+
+		if (melyik("Retry", &index)) {
+			RUpdate("gold", index);
+			if (cc == 1 or enter) { Reset(); }
+		}
+		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+
+
+		if (melyik("Quit", &index)) {
+			RUpdate("red", index);
+			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+		}
+		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+
+	}
+
 }
 
 void Menu::Draw()
@@ -87,10 +110,32 @@ void Menu::Draw()
 	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::GetInstance()->GetRenderer());
 
-	for (int i = 0; i < rublikak.size(); i++) {
-		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[i].Message, NULL, &rublikak[i].doboz);
-		SDL_FreeSurface(rublikak[i].surfaceMessage);
-		SDL_DestroyTexture(rublikak[i].Message);
+	if (Main) {
+		for (int i = 0; i <= 3; i++) {
+			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[i].Message, NULL, &rublikak[i].doboz);
+			SDL_FreeSurface(rublikak[i].surfaceMessage);
+			SDL_DestroyTexture(rublikak[i].Message);
+		}
+	}
+
+	//ezt szepiteni kell - csak teszt
+	if (GameOver) {
+
+		for (int i = 3; i <= 4; i++) {
+			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[i].Message, NULL, &rublikak[i].doboz);
+			SDL_FreeSurface(rublikak[i].surfaceMessage);
+			SDL_DestroyTexture(rublikak[i].Message);
+		}
+		/*int retry = 4;
+		int quit = 3;
+
+		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[retry].Message, NULL, &rublikak[retry].doboz);
+		SDL_FreeSurface(rublikak[retry].surfaceMessage);
+		SDL_DestroyTexture(rublikak[retry].Message);
+
+		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[quit].Message, NULL, &rublikak[quit].doboz);
+		SDL_FreeSurface(rublikak[quit].surfaceMessage);
+		SDL_DestroyTexture(rublikak[quit].Message);*/
 	}
 
 }
@@ -201,6 +246,15 @@ void Menu::setHighlighted(int i) {
 		rublikak[highLighted].isHighlighted = true;
 		rublikak[prevHol].isHighlighted = false;
 
+}
+
+void Menu::Reset()
+{
+	Engine::GetInstance()->setResetFlag(true);
+	GameOver = false;
+	Main = true;
+	std::ignore = melyik("Quit", &index);
+	rublikak[index].setRectLocation(0, 450);
 }
 
 

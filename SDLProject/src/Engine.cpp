@@ -20,9 +20,10 @@ Properties* Player_props = new Properties("player_idle", 100, 240, 240, 0.0, 0.0
 Properties* Zombie_props = new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0);
 Properties* Skeleton_props = new Properties("skeleton_idle", 100, 240, 240, 100.0, 0.0);
 
-GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Player_props);
 GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zombie_props);
 GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);
+
+
 
 bool Engine::Init()
 {
@@ -69,6 +70,9 @@ bool Engine::Init()
 
 	TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 
+	GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Player_props);
+
+
 	Enigine_GameObjects.push_back(player);	//player a nulladik elem
 											//Enigine_GameObjects.push_back(mob);
 	Enigine_GameObjects.push_back(zombie);
@@ -109,11 +113,17 @@ void Engine::Quit()
 
 void Engine::Update()
 {
+	if (Engine_ResetFlag) {
+		Enigine_GameObjects[0]->reset();
+		Engine_MenuShowing = false;
+		Engine_ResetFlag = false;
+	}
 	if (!Engine_MenuShowing) {
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 
 		for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 		{
+			if (Enigine_GameObjects[0]->getHP() < 0) { Engine_MenuShowing = true; Menu::GetInstance()->setGameOver(true);  Menu::GetInstance()->setMain(false); break; }
 			if (Enigine_GameObjects[i]->getHP() <= 0 and i != 0) {
 				Enigine_GameObjects.erase(Enigine_GameObjects.begin() + i);
 			}

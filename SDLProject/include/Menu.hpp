@@ -27,6 +27,8 @@ struct rublika {
 		surfaceMessage = TTF_RenderText_Solid(font, szoveg, color);
 		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surfaceMessage);
 	}
+
+	inline void setRectLocation(int x, int y) { doboz.x = x; doboz.y = y; }
 };
 
 class Menu
@@ -38,11 +40,16 @@ private:
 	std::map<std::string, SDL_Color> colors;
 	std::vector<rublika> rublikak;
 	int highLighted = 0;
+	int index = 0;
 	bool eger = true;
 	int cx = -1;
 	int cy = -1;
 	bool enter = false;
+
+	bool ResetFlag = false;
+
 	bool Main = true;
+	bool GameOver = false;
 
 public:
 	inline static Menu* GetInstance()
@@ -58,11 +65,14 @@ public:
 	void Update();
 	void Draw();
 	void Clean();
+	void Reset();
 
 	void fillColorMap(std::string source);
 	inline SDL_Color getColor(std::string color) { return colors[color]; }
 	void setHighlighted(int i);
-	void setEnter() { enter = true; }
+	inline void setEnter() { enter = true; }
+	inline void setMain(bool e) { Main = e; }
+	inline void setGameOver(bool e) { GameOver = e; }
 
 	inline bool melyik(const char* str, int* index) {
 		int i = 0;
@@ -75,7 +85,7 @@ public:
 		if ((cx >= rublikak[i].doboz.x and cy > rublikak[i].doboz.y
 			and cx <= rublikak[i].doboz.w + rublikak[i].doboz.x and
 			cy <= rublikak[i].doboz.h + rublikak[i].doboz.y) and eger or rublikak[i].isHighlighted) {
-			return true;
+			return str;
 		}
 		else { return false; }
 	}

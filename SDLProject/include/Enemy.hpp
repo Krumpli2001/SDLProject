@@ -21,11 +21,12 @@ public:
 	virtual void Update(Uint64 dt);
 	virtual void Draw();
 	virtual void Clean();
-	inline void setGravity(double G) { Enemy_RigidBody->setRigidBody_Gravity(G); } 
-	inline Collider* getCollider() { return Enemy_Collider; }
-	inline bool isAttacking() { return false; }
-	inline double getAttacktime() { return 0; }
-	inline int getAttackPower() { return 0; }
+	virtual void reset();
+	virtual inline void setGravity(double G) { Enemy_RigidBody->setRigidBody_Gravity(G); } 
+	virtual inline Collider* getCollider() { return Enemy_Collider; }
+	virtual inline bool isAttacking() { return false; }
+	virtual inline double getAttacktime() { return 0; }
+	virtual inline int getAttackPower() { return 0; }
 	virtual void AnimationState() = 0;
 };
 

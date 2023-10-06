@@ -10,6 +10,8 @@ class ObjectFactory
 private:
 	ObjectFactory() {};
 	static ObjectFactory* ObjectFaclory_Instance;
+
+	//bevesz egy props-ot es csinal belole game object-et, amit meg egy mappa belerak a tipusaval
 	std::map < std::string, std::function < GameObject* (Properties* props) > > ObjectFactory_TypeRegistry;
 
 public:
@@ -31,6 +33,7 @@ class Registrar
 public:
 	Registrar(std::string className)
 	{
-		ObjectFactory::GetInstance()->RegiseterType(className, [](Properties* props)->GameObject* {return new Type(props); });
+		//ezt att kene irni hogy erthetobb legyen + sajat szavakkal (btw jo igy is)
+		ObjectFactory::GetInstance()->RegiseterType(className, [](Properties* props)->GameObject* { return new Type(props); });
 	}
 };

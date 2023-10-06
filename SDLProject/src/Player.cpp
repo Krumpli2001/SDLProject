@@ -4,6 +4,8 @@
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
 
+
+// csinal egy playert es hozza rendeli a PLAYER stringet;
 static Registrar < Player > registrar("PLAYER");
 
 Player::Player(Properties* props) : Character(props)
@@ -198,4 +200,11 @@ void Player::AnimationState()
 void Player::Clean()
 {
 	TextureManager::GetInstance()->Drop(GameObject_TextureID);
+}
+
+void Player::reset()
+{
+	hp = 100;
+	GameObject_Transform->setX(0);
+	GameObject_Transform->setY(0);
 }
