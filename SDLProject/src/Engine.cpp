@@ -11,8 +11,11 @@
 #include "Timer.hpp"
 #include "Camera.hpp"
 #include "TextureManager.hpp"
+#include "Rng.hpp"
 
 Engine* Engine::Engine_Instance = nullptr;
+RNG* RNG::RNG_Instance = nullptr;
+
 //Player* player = nullptr;
 
 //ez azert van itt hogy az update-be majd lehessen random spawn - de ra kell kerdeznem
@@ -170,6 +173,9 @@ void Engine::Update()
 			setMenuShowing(!getMenuShowing());
 			SDL_Delay(200);
 		}
+
+		//std::cout<<RNG::GetInstance()->genRandomInt(100)<<"\n";
+
 	}
 	
 	if (Engine::Engine_MenuShowing) {
