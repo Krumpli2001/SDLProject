@@ -5,6 +5,7 @@
 #include "Collider.hpp"
 #include "SpriteAnimation.hpp"
 #include "ObjectFactory.hpp"
+#include "Engine.hpp"
 
 class Enemy : public Character
 {
@@ -14,6 +15,15 @@ protected:
 	Vector2D Enemy_LastSafePosition;
 
 	SpriteAnimation* Enemy_SpriteAnimation;
+
+	int Enemy_TargetPosX{};
+	int Enemy_TargetPosY{};
+
+	bool fal = false;
+
+	bool Enemy_IsGrounded = false;
+	bool Enemy_IsJumping = false;
+	Uint64 Enemy_JumpTime;
 
 public:
 	Enemy(Properties* props);
@@ -28,16 +38,21 @@ public:
 	virtual inline double getAttacktime() { return 0; }
 	virtual inline int getAttackPower() { return 0; }
 	virtual void AnimationState() = 0;
+	virtual void move(Uint64 dt) = 0;
+
+	void getPlayerPosition();
 };
 
 class Zombie : public Enemy{
 public:
 	Zombie(Properties* props) : Enemy(props) {};
 	virtual void AnimationState();
+	virtual void move(Uint64 dt);
 };
 
 class Skeleton : public Enemy{
 public:
 	Skeleton(Properties* props) : Enemy(props) {};
 	virtual void AnimationState();
+	virtual void move(Uint64 dt);
 };

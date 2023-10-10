@@ -20,8 +20,8 @@ Properties* Player_props = new Properties("player_idle", 100, 240, 240, 0.0, 0.0
 Properties* Zombie_props = new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0);
 Properties* Skeleton_props = new Properties("skeleton_idle", 100, 240, 240, 100.0, 0.0);
 
-GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zombie_props);
-GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);
+//GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zombie_props);
+//GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);
 
 
 
@@ -71,6 +71,9 @@ bool Engine::Init()
 	TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 
 	GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Player_props);
+
+	GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zombie_props);
+	GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);
 
 
 	Enigine_GameObjects.push_back(player);	//player a nulladik elem
@@ -123,23 +126,23 @@ void Engine::Update()
 
 		for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 		{
+			//player meghalt
 			if (Enigine_GameObjects[0]->getHP() < 0) { Engine_MenuShowing = true; Menu::GetInstance()->setGameOver(true);  Menu::GetInstance()->setMain(false); break; }
+			//barmi mas meghalt
 			if (Enigine_GameObjects[i]->getHP() <= 0 and i != 0) {
 				Enigine_GameObjects.erase(Enigine_GameObjects.begin() + i);
 			}
 			else {
-				//bool collision = false;
-				//unsigned int mob;
+				//player collisionja mas enemyvel
 				if (i != 0) {
 					unsigned int mob = i;
-					bool collision = CollisionHandler::GetInstance()->CheckCollision(Enigine_GameObjects[0]->getCollider()->getBox(), Enigine_GameObjects[mob]->getCollider()->getBox());
-					if (collision) {
+
+					if (CollisionHandler::GetInstance()->CheckCollision(Enigine_GameObjects[0]->getCollider()->getBox(), Enigine_GameObjects[mob]->getCollider()->getBox())) {
+						//utes
 						if ((Enigine_GameObjects[0]->isAttacking()) and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)) {
 							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects[0]->getAttackPower());
-							//std::cout << "true\n" << Enigine_GameObjects[0]->getAttacktime() << std::endl;
 						}
 					}
-					//std::cout << Enigine_GameObjects[0]->getAttacktime()<<"\t"<< Enigine_GameObjects[i]->getHP()<<"\n";
 				}
 				Enigine_GameObjects[i]->Update(dt);
 			}
@@ -174,7 +177,7 @@ void Engine::Update()
 		Menu::GetInstance()->Update();
 	}
 
-	//Input::GetInstance()->interpret(Input::GetInstance()->getElse());
+	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
 
 }
 

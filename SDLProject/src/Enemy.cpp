@@ -20,6 +20,10 @@ void Enemy::Update(Uint64 dt)
 {
 	Enemy_RigidBody->SetForceToZero();
 
+	getPlayerPosition();
+	move(dt);
+
+	//x axis collision
 	Enemy_LastSafePosition.setX(GameObject_Transform->getX());
 	GameObject_Transform->setX(GameObject_Transform->getX() + Enemy_RigidBody->getRigidBody_Position().getX());
 	Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
@@ -27,8 +31,11 @@ void Enemy::Update(Uint64 dt)
 	if (CollisionHandler::GetInstance()->MapCollision(Enemy_Collider->getBox()))
 	{
 		GameObject_Transform->setX(Enemy_LastSafePosition.getX());
+		fal = true;
 	}
+	else { fal = false; }
 
+	//y axis collision
 	Enemy_LastSafePosition.setY(GameObject_Transform->getY());
 	//levitalas miatt van itt
 	int y = Enemy_LastSafePosition.getY();
@@ -41,7 +48,14 @@ void Enemy::Update(Uint64 dt)
 
 	if (CollisionHandler::GetInstance()->MapCollision(Enemy_Collider->getBox()))
 	{
+		if (y > CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) {
+			Enemy_IsGrounded = true;
+		}
 		GameObject_Transform->setY(Enemy_LastSafePosition.getY());
+	}
+	else
+	{
+		Enemy_IsGrounded = false;
 	}
 
 	//Enemy_SpriteAnimation->SetProps("zombie_idle", 0, 4, 400);
@@ -63,4 +77,10 @@ void Enemy::Clean()
 
 void Enemy::reset()
 {
+}
+
+void Enemy::getPlayerPosition()
+{
+	Enemy_TargetPosX = Engine::GetInstance()->getGameObjects()[0]->getPosition()->getX();
+	Enemy_TargetPosY = Engine::GetInstance()->getGameObjects()[0]->getPosition()->getY();
 }

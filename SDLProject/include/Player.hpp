@@ -57,4 +57,5 @@ public:
 
 	virtual inline bool isAttacking() { return Player_IsAttacking; }
 	inline double getPGravity() { return Player_RigidBody->getGravity(); }
+	//inline Transform* getPlayerPosition() { return GameObject_Transform; }
 };

@@ -52,6 +52,7 @@ public:
 	}
 
 	inline Point* getOrigin() { return GameObject_Origin; }
+	inline Transform* getPosition() { return GameObject_Transform; }
 
 	inline int getHP() { return hp; }
 	inline void setHP(int newhp) { hp = newhp; }

@@ -48,13 +48,15 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
         {
             if (CollisionHandler_CollitionTileMap[j][i] > 0)
             {
-                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 12 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 12 ) /* and CollisionHandler_CollitionTileMap[bottom_tile - 5][right_tile])*/ { //a viz id-ja
-                    O[0]->setGravity(0.3);
+                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 12 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 12 ) { //a viz id-ja
+                    for(int i = 0; i<O.size(); i++){ O[i]->setGravity(0.3); }
                     return false;
                 }
                 else {
-                    if (CollisionHandler_CollitionTileMap[bottom_tile - 1][right_tile] == 12) { O[0]->setGravity(0.3); }
-                    else { O[0]->setGravity(1); }
+                    for (int i = 0; i < O.size(); i++) {
+                        if (CollisionHandler_CollitionTileMap[bottom_tile - 1][right_tile] == 12) { O[i]->setGravity(0.3); }
+                        else { O[i]->setGravity(1); }
+                    }
                     return true;
                 }
             }
