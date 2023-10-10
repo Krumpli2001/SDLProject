@@ -19,9 +19,9 @@ RNG* RNG::RNG_Instance = nullptr;
 //Player* player = nullptr;
 
 //ez azert van itt hogy az update-be majd lehessen random spawn - de ra kell kerdeznem
-Properties* Player_props = new Properties("player_idle", 100, 240, 240, 0.0, 0.0);
-Properties* Zombie_props = new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0);
-Properties* Skeleton_props = new Properties("skeleton_idle", 100, 240, 240, 100.0, 0.0);
+//Properties* Player_props = new Properties("player_idle", 100, 240, 240, 0.0, 0.0);
+//Properties* Zombie_props = new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0);
+//Properties* Skeleton_props = new Properties("skeleton_idle", 100, 240, 240, 100.0, 0.0);
 
 //GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zombie_props);
 //GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);
@@ -73,20 +73,30 @@ bool Engine::Init()
 
 	TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 
-	GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Player_props);
+	//lehet hogy ezt lehetne unique_ptr-el
+	Engine_PropsMap.emplace("player", new Properties("player_idle", 100, 240, 240, 0.0, 0.0));
+	Engine_PropsMap.emplace("zombie", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
+	Engine_PropsMap.emplace("skeleton", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
 
+	Engine_GOMap.emplace("player", ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("player")->second));
+	Engine_GOMap.emplace("zombie", ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("zombie")->second));
+	Engine_GOMap.emplace("skeleton", ObjectFactory::GetInstance()->CreateObject("SKELETON", Engine_PropsMap.find("skeleton")->second));
+
+
+	/*GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Player_props);
 	GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zombie_props);
-	GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);
+	GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);*/
 
 
-	Enigine_GameObjects.push_back(player);	//player a nulladik elem
-											//Enigine_GameObjects.push_back(mob);
-	Enigine_GameObjects.push_back(zombie);
+	Enigine_GameObjects.push_back(Engine_GOMap.find("player")->second);	//player a nulladik elem
+																		//Enigine_GameObjects.push_back(mob);
+	Enigine_GameObjects.push_back(Engine_GOMap.find("zombie")->second);
+	//Enigine_GameObjects.push_back(Engine_GOMap.find("skeleton")->second);
+	Enigine_GameObjects.push_back(Engine_GOMap.find("skeleton")->second);
 
-	Enigine_GameObjects.push_back(skeleton);
+	//Enigine_GameObjects[2]->setPosition(1000, 0);
 
-
-	Camera::GetInstance()->setTarget(player->getOrigin());
+	Camera::GetInstance()->setTarget(Engine_GOMap.find("player")->second->getOrigin());
 
 	Menu::GetInstance()->MenuInit();
 
@@ -99,6 +109,14 @@ bool Engine::Clean()
 	{
 		Enigine_GameObjects[i]->Clean();
 	}
+
+	for (auto it = Engine_GOMap.begin(); it != Engine_GOMap.end(); it++) {
+		delete it->second;
+	}
+
+	Engine_PropsMap.clear();
+	Engine_GOMap.clear();
+
 
 	TextureManager::GetInstance()->Clean();
 	FPSCounter::GetInstance()->Clean();
@@ -127,6 +145,16 @@ void Engine::Update()
 	if (!Engine_MenuShowing) {
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 
+		/*if (Engine_SpawnTimer == SPAWN) {
+			Enigine_GameObjects.push_back(Engine_GOMap.find("zombie")->second);
+		}
+		else {
+			Engine_SpawnTimer -= dt;
+		}
+		if (Engine_SpawnTimer > SPAWN) {
+			Engine_SpawnTimer = SPAWN;
+		}*/
+
 		for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 		{
 			//player meghalt
@@ -150,6 +178,7 @@ void Engine::Update()
 				Enigine_GameObjects[i]->Update(dt);
 			}
 		}
+
 
 		auto g = Engine_LevelMap->getMapLayers();
 		g[0]->getColCount();

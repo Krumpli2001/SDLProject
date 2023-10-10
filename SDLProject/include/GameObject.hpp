@@ -53,6 +53,10 @@ public:
 
 	inline Point* getOrigin() { return GameObject_Origin; }
 	inline Transform* getPosition() { return GameObject_Transform; }
+	inline void setPosition(double x, double y)
+	{
+		GameObject_Transform->setX(x); GameObject_Transform->setY(y);
+	}
 
 	inline int getHP() { return hp; }
 	inline void setHP(int newhp) { hp = newhp; }
@@ -66,5 +70,6 @@ public:
 	virtual double getAttacktime() = 0;
 	virtual int getAttackPower() = 0;
 	virtual void reset() = 0;
+
 
 };
