@@ -27,7 +27,7 @@ private:
 	Mix_Music* Music{};
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
-	std::unordered_map<std::string, GameObject*> Engine_GOMap;
+	//std::unordered_map<std::string, GameObject*> Engine_GOMap;
 
 	Uint64 Engine_SpawnTimer = 1000.0;
 

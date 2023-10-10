@@ -78,9 +78,9 @@ bool Engine::Init()
 	Engine_PropsMap.emplace("zombie", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("skeleton", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
 
-	Engine_GOMap.emplace("player", ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("player")->second));
+	/*Engine_GOMap.emplace("player", ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("player")->second));
 	Engine_GOMap.emplace("zombie", ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("zombie")->second));
-	Engine_GOMap.emplace("skeleton", ObjectFactory::GetInstance()->CreateObject("SKELETON", Engine_PropsMap.find("skeleton")->second));
+	Engine_GOMap.emplace("skeleton", ObjectFactory::GetInstance()->CreateObject("SKELETON", Engine_PropsMap.find("skeleton")->second));*/
 
 
 	/*GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Player_props);
@@ -88,15 +88,15 @@ bool Engine::Init()
 	GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);*/
 
 
-	Enigine_GameObjects.push_back(Engine_GOMap.find("player")->second);	//player a nulladik elem
-																		//Enigine_GameObjects.push_back(mob);
-	Enigine_GameObjects.push_back(Engine_GOMap.find("zombie")->second);
-	//Enigine_GameObjects.push_back(Engine_GOMap.find("skeleton")->second);
-	Enigine_GameObjects.push_back(Engine_GOMap.find("skeleton")->second);
+	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("player")->second));	//player a nulladik elem
+																																	//Enigine_GameObjects.push_back(mob);
+	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("zombie")->second));
+	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("zombie")->second));
+	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("SKELETON", Engine_PropsMap.find("skeleton")->second));
 
-	//Enigine_GameObjects[2]->setPosition(1000, 0);
+	Enigine_GameObjects[2]->setPosition(1000, 0);
 
-	Camera::GetInstance()->setTarget(Engine_GOMap.find("player")->second->getOrigin());
+	Camera::GetInstance()->setTarget(Enigine_GameObjects[0]->getOrigin());
 
 	Menu::GetInstance()->MenuInit();
 
@@ -110,13 +110,7 @@ bool Engine::Clean()
 		Enigine_GameObjects[i]->Clean();
 	}
 
-	for (auto it = Engine_GOMap.begin(); it != Engine_GOMap.end(); it++) {
-		delete it->second;
-	}
-
 	Engine_PropsMap.clear();
-	Engine_GOMap.clear();
-
 
 	TextureManager::GetInstance()->Clean();
 	FPSCounter::GetInstance()->Clean();
