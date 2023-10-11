@@ -16,6 +16,8 @@ protected:
 
 	SpriteAnimation* Enemy_SpriteAnimation;
 
+	int Enemy_AttackPower{};
+
 	int Enemy_TargetPosX{};
 	int Enemy_TargetPosY{};
 
@@ -39,6 +41,7 @@ public:
 	virtual inline int getAttackPower() { return 0; }
 	virtual void AnimationState() = 0;
 	virtual void move(Uint64 dt) = 0;
+	virtual inline void setAttackPower(int power) { Enemy_AttackPower = power; }
 
 	void getPlayerPosition();
 };

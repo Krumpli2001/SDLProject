@@ -12,9 +12,9 @@ TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::
 
 void TileLayer::Render()
 {
-	for (unsigned int i = 0; i < TileLayer_RowCount; i++)
+	for (int i = 0; i < TileLayer_RowCount; i++)
 	{
-		for (unsigned int j = 0; j < TileLayer_ColCount; j++)
+		for (int j = 0; j < TileLayer_ColCount; j++)
 		{
 			int tileID = TileLayer_TileMap[i][j];
 

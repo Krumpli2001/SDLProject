@@ -39,6 +39,9 @@ private:
 
 	bool Engine_ResetFlag = false;
 
+	void spawn(std::string);
+	void spawnSpecial(std::string name, int hp, double x, double y, int power);
+
 public:
 	inline static Engine* GetInstance()
 	{

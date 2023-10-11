@@ -27,7 +27,6 @@ RNG* RNG::RNG_Instance = nullptr;
 //GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);
 
 
-
 bool Engine::Init()
 {
 	//SDL kep inicializalasa
@@ -74,9 +73,9 @@ bool Engine::Init()
 	TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 
 	//lehet hogy ezt lehetne unique_ptr-el
-	Engine_PropsMap.emplace("player", new Properties("player_idle", 100, 240, 240, 0.0, 0.0));
-	Engine_PropsMap.emplace("zombie", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
-	Engine_PropsMap.emplace("skeleton", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
+	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 240, 240, 0.0, 0.0));
+	Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
+	Engine_PropsMap.emplace("SKELETON", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
 
 	/*Engine_GOMap.emplace("player", ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("player")->second));
 	Engine_GOMap.emplace("zombie", ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("zombie")->second));
@@ -88,13 +87,16 @@ bool Engine::Init()
 	GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);*/
 
 
-	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("player")->second));	//player a nulladik elem
+	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("PLAYER")->second));	//player a nulladik elem
 																																	//Enigine_GameObjects.push_back(mob);
-	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("zombie")->second));
-	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("zombie")->second));
-	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("SKELETON", Engine_PropsMap.find("skeleton")->second));
+	/*Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("ZOMBIE")->second));
+	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("ZOMBIE")->second));
+	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("SKELETON", Engine_PropsMap.find("SKELETON")->second));*/
 
-	Enigine_GameObjects[2]->setPosition(1000, 0);
+	spawn("ZOMBIE");
+	spawn("ZOMBIE");
+	spawnSpecial("SKELETON", 5, 1000, 200, 0);
+	spawn("SKELETON");
 
 	Camera::GetInstance()->setTarget(Enigine_GameObjects[0]->getOrigin());
 
@@ -231,4 +233,17 @@ void Engine::Render()
 void Engine::Events()
 {
 	Input::GetInstance()->Listen();
+}
+
+//ez inkabb tesztkent szolgal, mert igy mindig a bal felso sarokba spawnol
+void Engine::spawn(std::string name) {
+	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject(name, Engine_PropsMap.find(name)->second));
+}
+
+void Engine::spawnSpecial(std::string name, int hp, double x, double y, int power)
+{
+	spawn(name);
+	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setHP(hp);
+	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setPosition(x, y);
+	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setAttackPower(power);
 }

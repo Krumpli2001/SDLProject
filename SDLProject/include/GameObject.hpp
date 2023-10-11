@@ -57,9 +57,9 @@ public:
 	{
 		GameObject_Transform->setX(x); GameObject_Transform->setY(y);
 	}
+	inline void setHP(int newhp) { hp = newhp; }
 
 	inline int getHP() { return hp; }
-	inline void setHP(int newhp) { hp = newhp; }
 
 	virtual bool isAttacking() = 0;
 	virtual Collider* getCollider() = 0;
@@ -69,7 +69,7 @@ public:
 	virtual void setGravity(double G) = 0;
 	virtual double getAttacktime() = 0;
 	virtual int getAttackPower() = 0;
+	virtual void setAttackPower(int power) = 0;
 	virtual void reset() = 0;
-
 
 };

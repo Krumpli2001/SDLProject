@@ -54,6 +54,7 @@ public:
 
 	virtual inline double getAttacktime() { return Player_AttackTime; }
 	virtual inline int getAttackPower() { return Player_AttackPower; }
+	virtual inline void setAttackPower(int power) { Player_AttackPower = power; }
 
 	virtual inline bool isAttacking() { return Player_IsAttacking; }
 	inline double getPGravity() { return Player_RigidBody->getGravity(); }
