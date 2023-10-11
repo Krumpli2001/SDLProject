@@ -31,24 +31,8 @@ void Menu::Update()
 		eger = true;
 	}
 
+	options.clear();
 	int code = Input::GetInstance()->getElse();
-
-	switch(code)
-	{case 3:
-		setHighlighted(-1);
-		SDL_Delay(200);
-		break;
-	case 4:
-		setHighlighted(1);
-		SDL_Delay(200);
-		break;
-	case 5:
-		setEnter();
-		SDL_Delay(200);
-		break;
-	}
-
-	//int index = 0;
 
 	if (Main) {
 		
@@ -58,24 +42,29 @@ void Menu::Update()
 			if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		options.push_back(index);
 
 		if (melyik("Options", &index)) {
 			RUpdate("gold", index);
 			if (cc == 1 or enter) {}
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		options.push_back(index);
 
 		if (melyik("Save", &index)) {
 			RUpdate("gold", index);
 			if (cc == 1 or enter) {}
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		options.push_back(index);
 
 		if (melyik("Quit", &index)) {
 			RUpdate("red", index);
 			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		options.push_back(index);
+
 
 		if (code == SDL_SCANCODE_ESCAPE) {
 			Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
@@ -93,6 +82,7 @@ void Menu::Update()
 			if (cc == 1 or enter) { Reset(); }
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		options.push_back(index);
 
 
 		if (melyik("Quit", &index)) {
@@ -100,7 +90,24 @@ void Menu::Update()
 			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		options.push_back(index);
 
+	}
+
+	switch (code)
+	{
+	case 3:
+		setHighlighted(-1);
+		SDL_Delay(100);
+		break;
+	case 4:
+		setHighlighted(1);
+		SDL_Delay(100);
+		break;
+	case 5:
+		setEnter();
+		SDL_Delay(100);
+		break;
 	}
 
 }
@@ -224,28 +231,34 @@ void Menu::fillColorMap(std::string source)
 
 //billentyuzethez
 void Menu::setHighlighted(int i) {
-	int prevHol = 0;
+	//if (highLighted > options.size() - 1) { highLighted = options.size() - 1; }
+	//if (highLighted < 0) { highLighted = 0; }
+	int index=0;
+	for(int j = 0; j<options.size();j++){if(options[j]==highLighted){ index = j; } }
+	int prevHol = index;
+
+	//int prevHol = 0;
 	eger = false;
-	rublikak[highLighted].isHighlighted = true;
+	rublikak[options[index]].isHighlighted = true;
 	
 		if (i == 1) {
-			prevHol = highLighted;
-			highLighted -= 1;
-			if (highLighted <= -1) {
-				highLighted = rublikak.size() - 1;
+			prevHol = index;
+			index -= 1;
+			if (index <= -1) {
+				index = options.size() - 1;
 			}
 		}
 		if (i == -1) {
-			prevHol = highLighted;
-			highLighted += 1;
-			if (highLighted >= rublikak.size()) {
-				highLighted = 0;
+			prevHol = index;
+			index += 1;
+			if (index >= options.size()) {
+				index = 0;
 			}
 		}
 
-		rublikak[highLighted].isHighlighted = true;
-		rublikak[prevHol].isHighlighted = false;
-
+		rublikak[options[index]].isHighlighted = true;
+		rublikak[options[prevHol]].isHighlighted = false;
+		highLighted = options[index];
 }
 
 void Menu::Reset()

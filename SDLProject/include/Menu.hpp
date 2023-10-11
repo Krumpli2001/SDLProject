@@ -39,6 +39,7 @@ private:
 	static Menu* Menu_Instance;
 	std::map<std::string, SDL_Color> colors;
 	std::vector<rublika> rublikak;
+	std::vector<int> options;
 	int highLighted = 0;
 	int index = 0;
 	bool eger = true;
@@ -82,6 +83,7 @@ public:
 				break;
 			}
 		}
+		//options.push_back(i);
 		if ((cx >= rublikak[i].doboz.x and cy > rublikak[i].doboz.y
 			and cx <= rublikak[i].doboz.w + rublikak[i].doboz.x and
 			cy <= rublikak[i].doboz.h + rublikak[i].doboz.y) and eger or rublikak[i].isHighlighted) {

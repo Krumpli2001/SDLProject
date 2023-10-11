@@ -141,15 +141,18 @@ void Engine::Update()
 	if (!Engine_MenuShowing) {
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 
-		/*if (Engine_SpawnTimer == SPAWN) {
-			Enigine_GameObjects.push_back(Engine_GOMap.find("zombie")->second);
+		if (Engine_SpawnTimer == SPAWN) {
+			spawn("ZOMBIE");
+			Engine_SpawnTimer -= dt;
+			//zombik++;
 		}
 		else {
 			Engine_SpawnTimer -= dt;
 		}
-		if (Engine_SpawnTimer > SPAWN) {
+		if (Engine_SpawnTimer > SPAWN or Engine_SpawnTimer == 0) {
 			Engine_SpawnTimer = SPAWN;
-		}*/
+		}
+		//std::cout << zombik << "\n";
 
 		for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 		{
@@ -200,6 +203,7 @@ void Engine::Update()
 		}
 
 		//std::cout<<RNG::GetInstance()->genRandomInt(100)<<"\n";
+		legmamasabbBlock(2000);
 
 	}
 	
@@ -233,6 +237,17 @@ void Engine::Render()
 void Engine::Events()
 {
 	Input::GetInstance()->Listen();
+}
+
+int Engine::legmamasabbBlock(int x)
+{
+	int y;
+	int xcoord;
+	int row = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getRowCount();
+	xcoord = x / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize();
+	//std::cout << xcoord << " " << "\t" << Enigine_GameObjects[0]->getPosition()->getX()<<"\n";
+
+	return 1;
 }
 
 //ez inkabb tesztkent szolgal, mert igy mindig a bal felso sarokba spawnol

@@ -29,7 +29,8 @@ private:
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
 	//std::unordered_map<std::string, GameObject*> Engine_GOMap;
 
-	Uint64 Engine_SpawnTimer = 1000.0;
+	Uint64 Engine_SpawnTimer = 1000;
+	
 
 	int Window_W{};
 	int Window_H{};
@@ -65,6 +66,7 @@ public:
 	inline std::vector<GameObject*> getGameObjects() { return Enigine_GameObjects; }
 	inline bool getResetFlag() { return Engine_ResetFlag; }
 	inline void setResetFlag(bool e) { Engine_ResetFlag = e; }
+	int legmamasabbBlock(int x);
 
 	bool Init();
 	bool Clean();
