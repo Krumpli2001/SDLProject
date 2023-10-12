@@ -117,21 +117,21 @@ void Menu::Draw()
 	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::GetInstance()->GetRenderer());
 
-	if (Main) {
-		for (int i = 0; i <= 3; i++) {
-			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[i].Message, NULL, &rublikak[i].doboz);
-			SDL_FreeSurface(rublikak[i].surfaceMessage);
-			SDL_DestroyTexture(rublikak[i].Message);
+	if (Main and !Engine::GetInstance()->getResetFlag()) {
+		for (int i = 0; i < options.size(); i++) {
+			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+			SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
+			SDL_DestroyTexture(rublikak[options[i]].Message);
 		}
 	}
 
 	//ezt szepiteni kell - csak teszt
 	if (GameOver) {
 
-		for (int i = 3; i <= 4; i++) {
-			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[i].Message, NULL, &rublikak[i].doboz);
-			SDL_FreeSurface(rublikak[i].surfaceMessage);
-			SDL_DestroyTexture(rublikak[i].Message);
+		for (int i = 0; i <options.size(); i++) {
+			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+			SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
+			SDL_DestroyTexture(rublikak[options[i]].Message);
 		}
 		/*int retry = 4;
 		int quit = 3;

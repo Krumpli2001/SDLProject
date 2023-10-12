@@ -77,6 +77,7 @@ void Enemy::Clean()
 
 void Enemy::reset()
 {
+	hp = 0;
 }
 
 void Enemy::getPlayerPosition()
