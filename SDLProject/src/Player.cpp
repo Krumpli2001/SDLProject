@@ -132,7 +132,7 @@ void Player::Update(Uint64 dt)
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
 
-	if (CollisionHandler::GetInstance()->MapCollision(Player_Collider->getBox()))
+	if (CollisionHandler::GetInstance()->MapCollision(this))
 	{
 		GameObject_Transform->setX(Player_LastSafePosition.getX());
 	}
@@ -147,7 +147,7 @@ void Player::Update(Uint64 dt)
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
 
-	if (CollisionHandler::GetInstance()->MapCollision(Player_Collider->getBox()))
+	if (CollisionHandler::GetInstance()->MapCollision(this))
 	{
 		if (y > CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) {
 			Player_IsGrounded = true;

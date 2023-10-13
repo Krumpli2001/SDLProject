@@ -17,18 +17,18 @@ bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
     return (x_overlaps and y_overlaps);
 }
 
-bool CollisionHandler::MapCollision(SDL_Rect a)
+bool CollisionHandler::MapCollision(GameObject* g)
 {
     int tileSize = CollisionHandler_CollisionLayer->getTileSize();
     int rowCount = CollisionHandler_CollisionLayer->getRowCount();
     int colCount = CollisionHandler_CollisionLayer->getColCount();
 
     //ezek itt coordinaatak
-    int left_tile = a.x / tileSize; //karakter legbaloldalibb pixele
-    int right_tile = (a.x + a.w) / tileSize; //karakter legjobboldalibb pixele
+    int left_tile = g->getCollider()->getBox().x / tileSize; //karakter legbaloldalibb pixele
+    int right_tile = (g->getCollider()->getBox().x + g->getCollider()->getBox().w) / tileSize; //karakter legjobboldalibb pixele
 
-    int top_tile = a.y / tileSize;//karakter legfelso pixele
-    int bottom_tile = (a.y + a.h) / tileSize; //karakter legalso pixele
+    int top_tile = g->getCollider()->getBox().y / tileSize;//karakter legfelso pixele
+    int bottom_tile = (g->getCollider()->getBox().y + g->getCollider()->getBox().h) / tileSize; //karakter legalso pixele
 
     //map szelei
     if (left_tile < 0) { left_tile = 0; }
@@ -37,9 +37,9 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
     if (top_tile < 0) { top_tile = 0; }
     if (bottom_tile > rowCount) { bottom_tile = rowCount; }
 
-    if ((a.x < 0) || ((a.x + a.w) >= (colCount * tileSize)) || (a.y < 0) || ((a.y + a.h) >= (rowCount * tileSize))) { return true; }
+    if ((g->getCollider()->getBox().x < 0) || ((g->getCollider()->getBox().x + g->getCollider()->getBox().w) >= (colCount * tileSize)) || (g->getCollider()->getBox().y < 0) || ((g->getCollider()->getBox().y + g->getCollider()->getBox().h) >= (rowCount * tileSize))) { return true; }
 
-    auto O = Engine::GetInstance()->getGameObjects();
+    //auto O = Engine::GetInstance()->getGameObjects();
     
 
     for (int i = left_tile; i <= right_tile; i++)
@@ -49,17 +49,18 @@ bool CollisionHandler::MapCollision(SDL_Rect a)
             if (CollisionHandler_CollitionTileMap[j][i] > 0)
             {
                 if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 12 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 12 ) { //a viz id-ja
-                    for(int i = 0; i<O.size(); i++){ O[i]->setGravity(0.3); }
+                    g->setGravity(0.3);
                     return false;
                 }
                 else {
-                    for (int i = 0; i < O.size(); i++) {
-                        if (CollisionHandler_CollitionTileMap[bottom_tile - 1][right_tile] == 12) { O[i]->setGravity(0.3); }
-                        else { O[i]->setGravity(1); }
-                    }
+                    
+                        /*if (CollisionHandler_CollitionTileMap[bottom_tile - 1][right_tile] == 12) { g->setGravity(0.3); }
+                        else  g->setGravity(1); */
+                    
                     return true;
                 }
             }
+            g->setGravity(1);
         }
     }
 

@@ -203,7 +203,9 @@ void Engine::Update()
 		}
 
 		//std::cout<<RNG::GetInstance()->genRandomInt(100)<<"\n";
-		legmamasabbBlock(2000);
+
+		std::cout<<Enigine_GameObjects[0]->getPosition()->getX()<<" "<< Enigine_GameObjects[0]->getPosition()->getY() << "\t" << legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX())<<"\n";
+		//legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX());
 
 	}
 	
@@ -241,11 +243,20 @@ void Engine::Events()
 
 int Engine::legmamasabbBlock(int x)
 {
-	int y;
-	int xcoord;
-	int row = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getRowCount();
-	xcoord = x / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize();
-	//std::cout << xcoord << " " << "\t" << Enigine_GameObjects[0]->getPosition()->getX()<<"\n";
+	auto map = CollisionHandler::GetInstance()->getCollisionTileMap();
+	int col = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getColCount();
+	//int row = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getRowCount();
+	int size = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize();
+
+	x /= size;
+	std::cout << x << "\n";
+
+	for (int i = 0; i < map->size(); i++) {
+		if ((*map)[i][x] == 0) { continue; }
+		else {
+			return i * size;
+		}
+	}
 
 	return 1;
 }

@@ -11,7 +11,7 @@
 #define JUMP_TIME 200.0
 #define JUMP_FORCE 3.0
 #define RUN_FORCE 1.0
-#define UNDER_WATER_TIME 1000
+#define UNDER_WATER_TIME 10000
 
 class Player : public Character {
 private:

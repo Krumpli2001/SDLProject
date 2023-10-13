@@ -4,6 +4,9 @@
 #include <SDL.h>
 
 #include "TileLayer.hpp"
+//#include "GameObject.hpp"
+
+class GameObject; //öszinten nem tudom miert mukodik az elore deklaralas
 
 class CollisionHandler
 {
@@ -14,7 +17,7 @@ private:
 public:
 	TileLayer* CollisionHandler_CollisionLayer;
 
-	static CollisionHandler* GetInstance()
+	static inline CollisionHandler* GetInstance()
 	{
 		if (CollisionHandler_Instance == nullptr)
 		{
@@ -24,5 +27,6 @@ public:
 	}
 
 	bool CheckCollision(SDL_Rect a, SDL_Rect b);
-	bool MapCollision(SDL_Rect a);
+	bool MapCollision(GameObject* g);
+	inline std::vector<std::vector<int>>* getCollisionTileMap() { return &CollisionHandler_CollitionTileMap; }
 };
