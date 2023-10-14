@@ -10,7 +10,7 @@
 #define CREATION_WIDTH 1280
 #define CREATION_HEIGHT 720
 
-#define SPAWN 10000.0
+#define SPAWN 10000
 
 class Engine
 {
@@ -29,7 +29,7 @@ private:
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
 	//std::unordered_map<std::string, GameObject*> Engine_GOMap;
 
-	Uint64 Engine_SpawnTimer = 1000;
+	Uint64 Engine_SpawnTimer = 10000;
 	
 
 	int Window_W{};
@@ -41,7 +41,7 @@ private:
 	bool Engine_ResetFlag = false;
 
 	void spawn(std::string);
-	void spawnSpecial(std::string name, int hp, double x, double y, int power);
+	void spawnSpecial(std::string name, double x, double y, int hp, int power);
 
 public:
 	inline static Engine* GetInstance()

@@ -16,6 +16,8 @@
 Engine* Engine::Engine_Instance = nullptr;
 RNG* RNG::RNG_Instance = nullptr;
 
+enum irany {BAL, JOBB};
+
 //Player* player = nullptr;
 
 //ez azert van itt hogy az update-be majd lehessen random spawn - de ra kell kerdeznem
@@ -93,10 +95,10 @@ bool Engine::Init()
 	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("ZOMBIE")->second));
 	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("SKELETON", Engine_PropsMap.find("SKELETON")->second));*/
 
-	spawn("ZOMBIE");
+	/*spawn("ZOMBIE");
 	spawn("ZOMBIE");
 	spawnSpecial("SKELETON", 5, 1000, 200, 0);
-	spawn("SKELETON");
+	spawn("SKELETON");*/
 
 	Camera::GetInstance()->setTarget(Enigine_GameObjects[0]->getOrigin());
 
@@ -142,9 +144,32 @@ void Engine::Update()
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 
 		if (Engine_SpawnTimer == SPAWN) {
-			spawn("ZOMBIE");
+			int bal_jobb = RNG::GetInstance()->genRandomInt(2);
+			//std::string mob;
+			auto iter = Engine_PropsMap.begin();
+			int randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size());
+			
+			for (int i = 0; i < randomMob; i++) {
+				iter++;
+			}
+
+			if (iter->first != "PLAYER") {
+
+				if (bal_jobb == BAL) {
+					if ((Enigine_GameObjects[0]->getPosition()->getX() - 2500) > 0) {
+						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() - 2500, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() - 2500) - iter->second->Properties_Height, 100, 10);
+					}
+				}
+				if (bal_jobb == JOBB) {
+					if ((Enigine_GameObjects[0]->getPosition()->getX() + 2500) < Map_W) {
+						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() + 2500, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() + 2500) - iter->second->Properties_Height, 100, 10);
+					}
+				}
+
+			}
+
 			Engine_SpawnTimer -= dt;
-			//zombik++;
+
 		}
 		else {
 			Engine_SpawnTimer -= dt;
@@ -244,7 +269,7 @@ void Engine::Events()
 int Engine::legmamasabbBlock(int x)
 {
 	auto map = CollisionHandler::GetInstance()->getCollisionTileMap();
-	int col = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getColCount();
+	//int col = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getColCount();
 	//int row = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getRowCount();
 	int size = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize();
 
@@ -266,7 +291,7 @@ void Engine::spawn(std::string name) {
 	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject(name, Engine_PropsMap.find(name)->second));
 }
 
-void Engine::spawnSpecial(std::string name, int hp, double x, double y, int power)
+void Engine::spawnSpecial(std::string name, double x, double y, int hp = 100, int power = 10)
 {
 	spawn(name);
 	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setHP(hp);

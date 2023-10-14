@@ -17,7 +17,7 @@ public:
 		return RNG_Instance;
 	}
 
-	inline int genRandomInt(int range) {
-		return (rand() % range) + 1;
+	inline int genRandomInt(int range = INT_MAX) {
+		return (rand() % range);
 	}
 };
