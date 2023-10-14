@@ -43,6 +43,8 @@ private:
 	void spawn(std::string);
 	void spawnSpecial(std::string name, double x, double y, int hp, int power);
 
+	int Engine_CollisionLayer = 0;
+
 public:
 	inline static Engine* GetInstance()
 	{
@@ -66,6 +68,8 @@ public:
 	inline std::vector<GameObject*> getGameObjects() { return Enigine_GameObjects; }
 	inline bool getResetFlag() { return Engine_ResetFlag; }
 	inline void setResetFlag(bool e) { Engine_ResetFlag = e; }
+	inline void setCollisionLayer(int e) { Engine_CollisionLayer = e; }
+	inline int getCollisionLayer() { return Engine_CollisionLayer; }
 	int legmamasabbBlock(int x);
 
 	bool Init();

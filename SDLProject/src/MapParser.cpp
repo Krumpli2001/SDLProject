@@ -1,4 +1,5 @@
 #include "MapParser.hpp"
+#include "Engine.hpp"
 
 MapParser* MapParser::MapParser_Instance = nullptr;
 
@@ -32,7 +33,7 @@ bool MapParser::Parse(std::string id, std::string source)
         }
     }
 
-
+    int i = 0;
     GameMap* gamemap = new GameMap();
     for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
     {
@@ -40,6 +41,13 @@ bool MapParser::Parse(std::string id, std::string source)
         {
             TileLayer* tilelayer = ParseTileLayer(e, tilesets, tilesize, rowcount, colcount);
             gamemap->GameMap_MapLayers.push_back(tilelayer);
+        }
+
+        if (e->Value() == std::string("layer")) {
+            std::string str;
+            str = e->Attribute("name");
+            if (str == "foreground") { std::cout << "megvan\n"; Engine::GetInstance()->setCollisionLayer(i); }
+            i++;
         }
     }
 
@@ -108,11 +116,11 @@ Tileset MapParser::ParseTileset(TiXmlElement* xmlTileset)
 
 TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset> tilesets, int tilesize, int rowcount, int colcount)
 {
+
     TiXmlElement* data = nullptr;
     for (TiXmlElement* e = xmlLayer->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
     {
-        if (e->Value() == std::string("data"))
-        {
+        if (e->Value() == std::string("data")) {
             data = e;
             break;
         }

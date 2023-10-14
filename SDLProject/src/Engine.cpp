@@ -229,7 +229,7 @@ void Engine::Update()
 
 		//std::cout<<RNG::GetInstance()->genRandomInt(100)<<"\n";
 
-		std::cout<<Enigine_GameObjects[0]->getPosition()->getX()<<" "<< Enigine_GameObjects[0]->getPosition()->getY() << "\t" << legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX())<<"\n";
+		//std::cout<<Enigine_GameObjects[0]->getPosition()->getX()<<" "<< Enigine_GameObjects[0]->getPosition()->getY() << "\t" << legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX())<<"\n";
 		//legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX());
 
 	}
@@ -274,7 +274,7 @@ int Engine::legmamasabbBlock(int x)
 	int size = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize();
 
 	x /= size;
-	std::cout << x << "\n";
+	//std::cout << x << "\n";
 
 	for (int i = 0; i < map->size(); i++) {
 		if ((*map)[i][x] == 0) { continue; }
