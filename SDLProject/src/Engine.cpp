@@ -14,7 +14,7 @@
 #include "Rng.hpp"
 
 Engine* Engine::Engine_Instance = nullptr;
-RNG* RNG::RNG_Instance = nullptr;
+//RNG* RNG::RNG_Instance = nullptr;
 
 enum irany {BAL, JOBB};
 
