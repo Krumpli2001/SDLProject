@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 *.wav
 /SDLProject/assets/maps
+/SDLProject/sajt.tmx
