@@ -34,9 +34,9 @@ Player::Player(Properties* props) : Character(props)
 	Player_SpriteAnimation->SetProps(GameObject_TextureID, 0, 6, 100);
 }
 
-void Player::Draw()
+void Player::Draw(double scale)
 {
-	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip, 1.0, 1.0);
+	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip, scale);
 }
 
 void Player::Update(Uint64 dt)

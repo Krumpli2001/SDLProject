@@ -25,6 +25,7 @@ private:
 	GameMap* Engine_LevelMap{};
 	std::vector<GameObject*> Enigine_GameObjects;
 	Mix_Music* Music{};
+	double scale = 1.0;
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
 	//std::unordered_map<std::string, GameObject*> Engine_GOMap;
@@ -70,6 +71,8 @@ public:
 	inline void setResetFlag(bool e) { Engine_ResetFlag = e; }
 	inline void setCollisionLayer(int e) { Engine_CollisionLayer = e; }
 	inline int getCollisionLayer() { return Engine_CollisionLayer; }
+	inline void setScale(double s) { scale = s; }
+	inline double getScale() { return scale; }
 	int legmamasabbBlock(int x);
 
 	bool Init();

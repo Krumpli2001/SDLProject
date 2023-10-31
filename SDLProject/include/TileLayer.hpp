@@ -26,7 +26,7 @@ private:
 	std::vector<Tileset> TileLayer_TileSets;
 public:
 	TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::vector<int> > tilemap, std::vector<Tileset> tilesets);
-	virtual void Render();
+	virtual void Render(double scale);
 	virtual void Update();
 	inline std::vector<std::vector<int> > getTileMap() { return TileLayer_TileMap; }
 	inline int getTileset() { return TileLayer_TileSets[0].ColCount; }

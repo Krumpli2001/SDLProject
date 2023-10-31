@@ -147,11 +147,13 @@ void Engine::Update()
 			int bal_jobb = RNG::GetInstance()->genRandomInt(2);
 			//std::string mob;
 			auto iter = Engine_PropsMap.begin();
-			int randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size());
+			int randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size()-1) + 1;
 			
-			for (int i = 0; i < randomMob; i++) {
+
+			std::advance(iter, randomMob);
+			/*for (int i = 0; i < randomMob; i++) {
 				iter++;
-			}
+			}*/
 
 			if (iter->first != "PLAYER") {
 
@@ -248,12 +250,19 @@ void Engine::Render()
 	if (!Engine_MenuShowing) {
 		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
 
-		Engine_LevelMap->Render();
+		Engine_LevelMap->Render(/*scale*/);
 
-		for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
-		{
-			Enigine_GameObjects[i]->Draw();
+		for (int i = Enigine_GameObjects.size() - 1; i >= 0; i--) {
+			Enigine_GameObjects[i]->Draw(/*scale*/);
 		}
+
+		//for (unsigned int i = 1; i != Enigine_GameObjects.size(); i++)
+		//{
+		//	Enigine_GameObjects[i]->Draw();
+		//}
+
+		////azert van külön hogy a mindig a player legyen *legfelül*
+		//Enigine_GameObjects[0]->Draw();
 
 		FPSCounter::GetInstance()->Draw();
 	}

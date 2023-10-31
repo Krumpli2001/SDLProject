@@ -10,7 +10,7 @@ TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::
 		}
 }
 
-void TileLayer::Render()
+void TileLayer::Render(double scale)
 {
 	for (int i = 0; i < TileLayer_RowCount; i++)
 	{
@@ -48,7 +48,7 @@ void TileLayer::Render()
 					tilecol = tileset.ColCount - 1;
 				}
 
-				TextureManager::GetInstance()->DrawTile(tileset.Name, tileset.TileSize, j * tileset.TileSize, i * tileset.TileSize, tilerow, tilecol);
+				TextureManager::GetInstance()->DrawTile(tileset.Name, tileset.TileSize, j * tileset.TileSize, i * tileset.TileSize, tilerow, tilecol, scale);
 
 			}
 		}

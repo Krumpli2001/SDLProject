@@ -145,6 +145,7 @@
     <ClCompile Include="src\FPSCounter.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\MapParser.cpp" />
+    <ClCompile Include="src\mappgen.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\ObjectFactory.cpp" />
     <ClCompile Include="src\Player.cpp" />

@@ -65,9 +65,9 @@ void Enemy::Update(Uint64 dt)
 
 }
 
-void Enemy::Draw()
+void Enemy::Draw(double scale)
 {
-	Enemy_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip, 1.0, 1.0);
+	Enemy_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip, scale);
 }
 
 void Enemy::Clean()

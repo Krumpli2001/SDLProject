@@ -77,6 +77,9 @@
     <ClCompile Include="src\Skeleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\mappgen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tinyxml\tinystr.h">

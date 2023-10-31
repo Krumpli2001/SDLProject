@@ -10,9 +10,9 @@ private:
 	std::vector<Layer*> GameMap_MapLayers;
 
 public:
-	inline void Render() {
+	inline void Render(double scale = 1) {
 		for (unsigned int i = 0; i < GameMap_MapLayers.size(); i++) {
-			GameMap_MapLayers[i]->Render();
+			GameMap_MapLayers[i]->Render(scale);
 		}
 	}
 

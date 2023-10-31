@@ -89,7 +89,8 @@ int Input::getElse()
 	if (getKeyDown(SDL_SCANCODE_DOWN) /* or getKeyDown(SDL_SCANCODE_S)*/) { return 3; }
 	if (getKeyDown(SDL_SCANCODE_UP) /* or getKeyDown(SDL_SCANCODE_W)*/) { return 4; }
 	if (getKeyDown(SDL_SCANCODE_RETURN)) { return 5; }
-
+	if (getKeyDown(SDL_SCANCODE_KP_PLUS) or (getKeyDown(SDL_SCANCODE_LSHIFT) and getKeyDown(SDL_SCANCODE_3))) { return SDL_SCANCODE_KP_PLUS; }
+	if (getKeyDown(SDL_SCANCODE_MINUS)) { return SDL_SCANCODE_MINUS; }
 
 	return 0;
 }
@@ -102,8 +103,15 @@ void Input::interpret(int kod)
 		Timer::GetInstance()->fpslock = !Timer::GetInstance()->fpslock;
 		SDL_Delay(200);
 		break;
+	case SDL_SCANCODE_KP_PLUS:
+		Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 0.01);
+		//SDL_Delay(200);
+		break;
+	case SDL_SCANCODE_MINUS:
+		Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.01);
+		//SDL_Delay(200);
+		break;
 	}
-
 }
 
 //dEpriCateD

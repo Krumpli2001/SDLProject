@@ -46,7 +46,7 @@ public:
 	inline void setUnderWater(bool w) { Player_IsUnderWater = w; }
 	virtual inline Collider* getCollider() { return Player_Collider; }
 
-	virtual void Draw();
+	virtual void Draw(double scale = 1.0);
 	virtual void Update(Uint64 dt);
 	virtual void Clean();
 	virtual void reset();
