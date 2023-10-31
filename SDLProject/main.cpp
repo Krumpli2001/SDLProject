@@ -1,4 +1,4 @@
-//Készült Madsycode tutorial-ja alapján
+//Készült Madsycode tutorial-ja alapján (mondjuk 30%-a)
 
 #include "Engine.hpp"
 #include "Timer.hpp"
