@@ -3,6 +3,8 @@
 #include <fstream>
 #include <string>
 
+//enum almenu {Main, GameOver, Title};
+
 Menu* Menu::Menu_Instance = nullptr;
 
 void Menu::MenuInit() {
@@ -11,9 +13,13 @@ void Menu::MenuInit() {
 	rublikak.push_back(rublika("Continue", 0, 0, 500, 150, colors["white"]));
 	rublikak.push_back(rublika("Options", 0, 150, 500, 150, colors["white"]));
 	rublikak.push_back(rublika("Save", 0, 300, 250, 150, colors["white"]));
-	rublikak.push_back(rublika("Quit", 0, 450, 250, 150, colors["white"]));
+	rublikak.push_back(rublika("Title screen", 0, 450, 600, 150, colors["white"]));
+	rublikak.push_back(rublika("Quit", 0, 600, 250, 150, colors["white"]));
 
 	rublikak.push_back(rublika("Retry", 0, 0, 300, 150, colors["white"]));
+
+	rublikak.push_back(rublika("Load", 0, 0, 250, 150, colors["white"]));
+	rublikak.push_back(rublika("Generate", 0, 150, 500, 150, colors["white"]));
 
 	for (int i = 0; i < rublikak.size(); i++) {
 		rublikak[i].letrehoz();
@@ -44,12 +50,15 @@ void Menu::Update()
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 		options.push_back(index);
 
+		getIndex("Options", &index);
+		rublikak[index].setRectLocation(0, 150);
 		if (melyik("Options", &index)) {
 			RUpdate("gold", index);
 			if (cc == 1 or enter) {}
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 		options.push_back(index);
+
 
 		if (melyik("Save", &index)) {
 			RUpdate("gold", index);
@@ -58,9 +67,22 @@ void Menu::Update()
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 		options.push_back(index);
 
+		getIndex("Quit", &index);
+		rublikak[index].setRectLocation(0, 600);
 		if (melyik("Quit", &index)) {
 			RUpdate("red", index);
-			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+			if (cc == 1 or enter) {	/*Main = false; Title = true;*/ Engine::GetInstance()->Quit();  }
+		}
+		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		options.push_back(index);
+
+		getIndex("Title screen", &index);
+		rublikak[index].setRectLocation(0, 450);
+		if (melyik("Title screen", &index)) {
+			RUpdate("red", index);
+			if (cc == 1 or enter) {
+				Main = false; Title = true; return; /*Engine::GetInstance()->Quit();*/
+			}
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 		options.push_back(index);
@@ -74,7 +96,7 @@ void Menu::Update()
 
 	if (GameOver) {
 		
-		std::ignore = melyik("Quit", &index);
+		melyik("Quit", &index);
 		rublikak[index].setRectLocation(0, 150);
 
 		if (melyik("Retry", &index)) {
@@ -93,6 +115,42 @@ void Menu::Update()
 		options.push_back(index);
 
 	}
+
+	if (Title) {
+
+		if (melyik("Load", &index)) {
+			RUpdate("green", index);
+			if (cc == 1 or enter) { Title = false; Main = true; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
+		}
+		else { doelse("white", index); }
+		options.push_back(index);
+
+		if (melyik("Generate", &index)) {
+			RUpdate("green", index);
+			if (cc == 1 or enter) {}
+		}
+		else { doelse("white", index); }
+		options.push_back(index);
+
+		getIndex("Options", &index);
+		rublikak[index].setRectLocation(0, 300);
+		if (melyik("Options", &index)) {
+			RUpdate("red", index);
+			if (cc == 1 or enter) {}
+		}
+		else { doelse("white", index); }
+		options.push_back(index);
+
+		melyik("Quit", &index);
+		rublikak[index].setRectLocation(0, 450);
+		if (melyik("Quit", &index)) {
+			RUpdate("red", index);
+			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+		}
+		else { doelse("white", index); }
+		options.push_back(index);
+	}
+
 
 	switch (code)
 	{
@@ -143,6 +201,14 @@ void Menu::Draw()
 		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[quit].Message, NULL, &rublikak[quit].doboz);
 		SDL_FreeSurface(rublikak[quit].surfaceMessage);
 		SDL_DestroyTexture(rublikak[quit].Message);*/
+	}
+
+	if (Title) {
+		for (int i = 0; i < options.size(); i++) {
+			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+			SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
+			SDL_DestroyTexture(rublikak[options[i]].Message);
+		}
 	}
 
 }
@@ -268,6 +334,11 @@ void Menu::Reset()
 	Main = true;
 	std::ignore = melyik("Quit", &index);
 	rublikak[index].setRectLocation(0, 450);
+}
+
+void Menu::doelse(std::string str, int index) {
+	rublikak[index].color = getColor(str);
+	rublikak[index].letrehoz();
 }
 
 

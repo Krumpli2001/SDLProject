@@ -19,7 +19,7 @@ private:
 	Engine() {};
 	static Engine* Engine_Instance;
 	bool Engine_IsRunning{};
-	bool Engine_MenuShowing = false;
+	bool Engine_MenuShowing = true;
 	SDL_Window* Engine_Window{};
 	SDL_Renderer* Engine_Renderer{};
 	GameMap* Engine_LevelMap{};
