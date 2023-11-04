@@ -10,8 +10,11 @@ void Camera::Update(Uint64 dt)
 
 	if (Camera_Target != nullptr)
 	{
-		Camera_ViewBox = { 0, 0, *Engine::GetInstance()->getWindow_W(), *Engine::GetInstance()->getWindow_H() };
-
+		//int w = *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale();
+		Camera_ViewBox = { 0, 0, static_cast<int>(*Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale()), static_cast<int>(*Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale()) };
+		//std::cout << w << "\n";
+		//std::cout << Engine::GetInstance()->getScale()<<"\n";
+		//std::cout << static_cast<int>(*Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale()) << " " << static_cast<int>(*Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale()) << "\n";
 
 		Camera_ViewBox.x = Camera_Target->getX() - *Engine::GetInstance()->getWindow_W() / 2.0;
 		Camera_ViewBox.y = Camera_Target->getY() - *Engine::GetInstance()->getWindow_H() / 2.0;

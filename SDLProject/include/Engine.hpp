@@ -31,6 +31,7 @@ private:
 	//std::unordered_map<std::string, GameObject*> Engine_GOMap;
 
 	Uint64 Engine_SpawnTimer = 10000;
+	Uint64 Engine_ScaleTimer = 0;
 	
 
 	int Window_W{};
@@ -73,6 +74,8 @@ public:
 	inline int getCollisionLayer() { return Engine_CollisionLayer; }
 	inline void setScale(double s) { scale = s; }
 	inline double getScale() { return scale; }
+	inline void setScaleTimer(Uint64 t) { Engine_ScaleTimer = t; }
+	inline Uint64 getScaleTimer() { return Engine_ScaleTimer; }
 	int legmamasabbBlock(int x);
 
 	bool Init();

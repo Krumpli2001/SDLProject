@@ -242,6 +242,9 @@ void Engine::Update()
 	}
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
+	scale = scale < 0 ? 0 : scale;
+	Engine_ScaleTimer = Engine_ScaleTimer >= 200 ? 0 : Engine_ScaleTimer;
+	//std::cout << Engine_ScaleTimer << "\n";
 
 }
 

@@ -91,7 +91,6 @@ int Input::getElse()
 	if (getKeyDown(SDL_SCANCODE_RETURN)) { return 5; }
 	if (getKeyDown(SDL_SCANCODE_LSHIFT) and getKeyDown(SDL_SCANCODE_3)) { return SDL_SCANCODE_KP_PLUS; }
 	if (getKeyDown(SDL_SCANCODE_LSHIFT) and getKeyDown(SDL_SCANCODE_4)) { return SDL_SCANCODE_MINUS; }
-
 	return 0;
 }
 
@@ -104,11 +103,17 @@ void Input::interpret(int kod)
 		SDL_Delay(200);
 		break;
 	case SDL_SCANCODE_KP_PLUS:
-		Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 1);
+		if (Engine::GetInstance()->getScaleTimer() < 200) {
+			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 0.01); }
+			Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
+		}
 		//SDL_Delay(200);
 		break;
 	case SDL_SCANCODE_MINUS:
-		Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 1);
+		if (Engine::GetInstance()->getScaleTimer() < 200) {
+			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.01); }
+			Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
+		}
 		//SDL_Delay(200);
 		break;
 	}
