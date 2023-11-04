@@ -7,8 +7,8 @@ void Camera::Update(Uint64 dt)
 
 	M_WIDTH = Engine::GetInstance()->getMap_W();
 	M_HEIGHT = Engine::GetInstance()->getMap_H();
-	int C_Width = *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale();
-	int C_Height = *Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale();
+	C_Width = *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale();
+	C_Height = *Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale();
 
 	if (Camera_Target != nullptr)
 	{

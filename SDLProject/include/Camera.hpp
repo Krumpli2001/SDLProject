@@ -23,6 +23,9 @@ private:
 	int M_WIDTH{};
 	int M_HEIGHT{};
 
+	int C_Width{};
+	int	C_Height{};
+
 public:
 	inline static Camera* GetInstance()
 	{

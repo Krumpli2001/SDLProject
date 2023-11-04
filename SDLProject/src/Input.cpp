@@ -103,7 +103,7 @@ void Input::interpret(int kod)
 	switch (kod)
 	{
 	case SDL_SCANCODE_1:
-		Timer::GetInstance()->fpslock = !Timer::GetInstance()->fpslock;
+		Timer::GetInstance()->setFPSLock(!Timer::GetInstance()->getFPSLock());
 		SDL_Delay(200);
 		break;
 	case SDL_SCANCODE_KP_PLUS:
