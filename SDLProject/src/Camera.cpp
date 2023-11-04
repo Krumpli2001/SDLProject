@@ -13,7 +13,7 @@ void Camera::Update(Uint64 dt)
 	C_Y = Camera_Target->getY() - *Engine::GetInstance()->getWindow_H() / 2.0;
 
 	//SDL_RenderSetLogicalSize(Engine::GetInstance()->GetRenderer(), C_Width, C_Height);
-	//SDL_RenderSetScale(Engine::GetInstance()->GetRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
+	SDL_RenderSetScale(Engine::GetInstance()->GetRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
 
 
 	if (Camera_Target != nullptr)

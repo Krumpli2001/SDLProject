@@ -56,7 +56,7 @@ bool Engine::Init()
 	}
 
 	//renderer letrehozasa
-	Engine_Renderer = SDL_CreateRenderer(Engine_Window, -1, SDL_RENDERER_ACCELERATED or SDL_RENDERER_PRESENTVSYNC);
+	Engine_Renderer = SDL_CreateRenderer(Engine_Window, -1, SDL_RENDERER_ACCELERATED);
 	if (Engine_Renderer == nullptr)
 	{
 		std::cout << "Failed to CreateRenderer!\n" << SDL_GetError() << std::endl;
