@@ -9,17 +9,19 @@ void Camera::Update(Uint64 dt)
 	M_HEIGHT = Engine::GetInstance()->getMap_H();
 	C_Width = *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale();
 	C_Height = *Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale();
+	C_X = Camera_Target->getX() - *Engine::GetInstance()->getWindow_W() / 2.0;
+	C_Y = Camera_Target->getY() - *Engine::GetInstance()->getWindow_H() / 2.0;
 
 	if (Camera_Target != nullptr)
 	{
 		//int w = *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale();
-		Camera_ViewBox = { 0, 0, C_Width, C_Height };
+		Camera_ViewBox = { C_X, C_Y, C_Width, C_Height };
 		//std::cout << w << "\n";
 		//std::cout << Engine::GetInstance()->getScale()<<"\n";
 		//std::cout << C_Width << " " << C_Height << "\n";
 
-		Camera_ViewBox.x = Camera_Target->getX() - C_Width / 2.0;
-		Camera_ViewBox.y = Camera_Target->getY() - C_Height / 2.0;
+		/*Camera_ViewBox.x = Camera_Target->getX() - *Engine::GetInstance()->getWindow_W() / 2.0;
+		Camera_ViewBox.y = Camera_Target->getY() - *Engine::GetInstance()->getWindow_H() / 2.0;*/
 
 		if (Camera_ViewBox.x < 0)
 		{

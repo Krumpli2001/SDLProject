@@ -12,6 +12,10 @@ private:
 	static Timer* Timer_Instance;
 	Uint64 Timer_DeltaTime{}; //millisecbe van, 1 sec = 1000 ms
 	Uint64 Timer_LastTime{};
+
+	bool pressed = false;
+	int pressedtimer = 0;
+
 	double countedframes=0;
 	double sec = 0;
 	int fps{};
@@ -31,4 +35,8 @@ public:
 	inline int getFPS() { return fps; }
 	inline bool getFPSLock() { return fpslock; }
 	inline void setFPSLock(bool e) { fpslock = e; }
+	inline double getSec() { return sec; }
+	inline bool getPressed() { return pressed; }
+
+	bool pressable(Uint64 time);
 };

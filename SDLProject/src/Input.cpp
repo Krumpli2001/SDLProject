@@ -103,19 +103,20 @@ void Input::interpret(int kod)
 	switch (kod)
 	{
 	case SDL_SCANCODE_1:
-		Timer::GetInstance()->setFPSLock(!Timer::GetInstance()->getFPSLock());
-		SDL_Delay(200);
+		if(Timer::GetInstance()->pressable(200)){ Timer::GetInstance()->setFPSLock(!Timer::GetInstance()->getFPSLock()); }
+		// Timer::GetInstance()->setFPSLock(!Timer::GetInstance()->getFPSLock());
+		//SDL_Delay(200);
 		break;
 	case SDL_SCANCODE_KP_PLUS:
 		if (Engine::GetInstance()->getScaleTimer() < 200) {
-			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 0.01); }
+			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 0.1); }
 			Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
 		}
 		//SDL_Delay(200);
 		break;
 	case SDL_SCANCODE_MINUS:
 		if (Engine::GetInstance()->getScaleTimer() < 200) {
-			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.01); }
+			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.1); }
 			Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
 		}
 		//SDL_Delay(200);

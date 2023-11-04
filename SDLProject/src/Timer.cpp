@@ -22,10 +22,28 @@ void Timer::getTick()
 	sec = sec > 1000 ? 0 : sec;
 	countedframes = sec == 0 ? 0 : countedframes;
 
+	pressedtimer = !pressed ? 0 : pressedtimer-=Timer_DeltaTime;
+	pressed = pressedtimer <= 0?false : true;
+
 	//std::cout << TARGET_DeltaTime - Timer_DeltaTime << "\n";
 
 	//fps = 1000.0 / (SDL_GetTicks64() - Timer_LastTime); // f/s = d | s*d = f | f*d = s = 1 (f helyesebb ugy hogy frame time)
 
 	Timer_LastTime = SDL_GetTicks64();
 	//std::cout << fps << " " << Timer_DeltaTime << "\n";
+}
+
+bool Timer::pressable(Uint64 time)
+{
+	pressedtimer = pressedtimer == 0 ? time : pressedtimer;
+	//pressedtimer = time;
+
+	if (pressedtimer == time) {
+		pressed = true;
+		return true;
+	}
+	else {
+
+		return false;
+	}
 }
