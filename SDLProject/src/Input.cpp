@@ -89,8 +89,12 @@ int Input::getElse()
 	if (getKeyDown(SDL_SCANCODE_DOWN) /* or getKeyDown(SDL_SCANCODE_S)*/) { return 3; }
 	if (getKeyDown(SDL_SCANCODE_UP) /* or getKeyDown(SDL_SCANCODE_W)*/) { return 4; }
 	if (getKeyDown(SDL_SCANCODE_RETURN)) { return 5; }
+	//ez a 2 a kamerahoz megy
 	if (getKeyDown(SDL_SCANCODE_LSHIFT) and getKeyDown(SDL_SCANCODE_3)) { return SDL_SCANCODE_KP_PLUS; }
 	if (getKeyDown(SDL_SCANCODE_LSHIFT) and getKeyDown(SDL_SCANCODE_4)) { return SDL_SCANCODE_MINUS; }
+	//ez a 2 a texturakhoz
+	if (getKeyDown(SDL_SCANCODE_3)) { return SDL_SCANCODE_3; }
+	if (getKeyDown(SDL_SCANCODE_4)) { return SDL_SCANCODE_4; }
 	return 0;
 }
 
@@ -112,6 +116,20 @@ void Input::interpret(int kod)
 	case SDL_SCANCODE_MINUS:
 		if (Engine::GetInstance()->getScaleTimer() < 200) {
 			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.01); }
+			Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
+		}
+		//SDL_Delay(200);
+		break;
+	case SDL_SCANCODE_3:
+		if (Engine::GetInstance()->getScaleTimer() < 200) {
+			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() + 0.01); }
+			Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
+		}
+		//SDL_Delay(200);
+		break;
+	case SDL_SCANCODE_4:
+		if (Engine::GetInstance()->getScaleTimer() < 200) {
+			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() - 0.01); }
 			Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
 		}
 		//SDL_Delay(200);

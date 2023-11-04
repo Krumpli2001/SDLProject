@@ -253,10 +253,10 @@ void Engine::Render()
 	if (!Engine_MenuShowing) {
 		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
 
-		Engine_LevelMap->Render(/*scale*/);
+		Engine_LevelMap->Render(Tscale);
 
 		for (int i = Enigine_GameObjects.size() - 1; i >= 0; i--) {
-			Enigine_GameObjects[i]->Draw(/*scale*/);
+			Enigine_GameObjects[i]->Draw(Tscale);
 		}
 
 		//for (unsigned int i = 1; i != Enigine_GameObjects.size(); i++)

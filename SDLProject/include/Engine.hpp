@@ -26,6 +26,7 @@ private:
 	std::vector<GameObject*> Enigine_GameObjects;
 	Mix_Music* Music{};
 	double scale = 1.0;
+	double Tscale = 1.0;
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
 	//std::unordered_map<std::string, GameObject*> Engine_GOMap;
@@ -74,6 +75,8 @@ public:
 	inline int getCollisionLayer() { return Engine_CollisionLayer; }
 	inline void setScale(double s) { scale = s; }
 	inline double getScale() { return scale; }
+	inline void setTScale(double s) { Tscale = s; }
+	inline double getTScale() { return Tscale; }
 	inline void setScaleTimer(Uint64 t) { Engine_ScaleTimer = t; }
 	inline Uint64 getScaleTimer() { return Engine_ScaleTimer; }
 	int legmamasabbBlock(int x);
