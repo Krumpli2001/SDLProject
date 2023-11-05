@@ -213,7 +213,7 @@ void Engine::Update()
 		Map_H = g[0]->getRowCount() * g[0]->getTileSize();
 
 		Engine_LevelMap->Update();
-		FPSCounter::GetInstance()->Update();
+		if (Engine_FPSShowing) { FPSCounter::GetInstance()->Update(); }
 		Camera::GetInstance()->Update(dt);
 
 		if (Mix_PlayingMusic())
@@ -236,7 +236,7 @@ void Engine::Update()
 
 	}
 	
-	if (Engine::Engine_MenuShowing) {
+	if (Engine_MenuShowing) {
 		Mix_PauseMusic();
 		Menu::GetInstance()->Update();
 	}

@@ -24,12 +24,23 @@ void Menu::MenuInit() {
 	for (int i = 0; i < rublikak.size(); i++) {
 		rublikak[i].letrehoz();
 	}
+	menuScale = Engine::GetInstance()->getScale();
 }
 
 void Menu::Update()
 {
 	int prevx = cx; int prevy = cy;
 	Uint32 cc = SDL_GetMouseState(&cx, &cy);
+
+	//if (menuScale != Engine::GetInstance()->getScale()) {
+	//	menuScale = Engine::GetInstance()->getScale();
+	//	for (int i = 0; i < rublikak.size(); i++) {
+	//		/*rublikak[i].doboz.x =
+	//		rublikak[i].doboz.y =*/
+	//		rublikak[i].doboz.w = static_cast<int>(rublikak[i].doboz.w * (1.0 / menuScale));
+	//		rublikak[i].doboz.h = static_cast<int>(rublikak[i].doboz.h * (1.0 / menuScale));
+	//	}
+	//}
 
 
 	if (cx != prevx or cy != prevy) {

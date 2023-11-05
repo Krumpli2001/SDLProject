@@ -52,6 +52,7 @@ private:
 	bool Main = false;
 	bool GameOver = false;
 	bool Title = true;
+	double menuScale{};
 
 public:
 	inline static Menu* GetInstance()
