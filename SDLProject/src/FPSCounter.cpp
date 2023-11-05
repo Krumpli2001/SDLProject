@@ -4,9 +4,13 @@ FPSCounter* FPSCounter::FPS_Instance = nullptr;
 
 void FPSCounter::Update()
 {
+	//SDL_RenderSetScale(Engine::GetInstance()->GetRenderer(), 1, 1);
 							 // ez igy undorito std::to_string(Timer::GetInstance()->getFPS()).c_str()
 	surfaceMessage = TTF_RenderText_Solid(font, std::to_string(Timer::GetInstance()->getFPS()).c_str(), color);
 	Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surfaceMessage);
+	//azert van updatelve mindig az fps szamlalo hogy ha zoomolunk akkor annak a merete ne nagyon valtozzon
+	Message_rect = { 0,0, static_cast<int>(100 * (1 / Engine::GetInstance()->getScale())), static_cast<int>(100 * (1 / Engine::GetInstance()->getScale())) };
+
 	//ttf_rendertext
 }
 

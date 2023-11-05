@@ -213,8 +213,8 @@ void Engine::Update()
 		Map_H = g[0]->getRowCount() * g[0]->getTileSize();
 
 		Engine_LevelMap->Update();
-		Camera::GetInstance()->Update(dt);
 		FPSCounter::GetInstance()->Update();
+		Camera::GetInstance()->Update(dt);
 
 		if (Mix_PlayingMusic())
 		{
@@ -253,10 +253,10 @@ void Engine::Render()
 	if (!Engine_MenuShowing) {
 		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
 
-		Engine_LevelMap->Render(Tscale);
+		Engine_LevelMap->Render(/*Tscale*/);
 
 		for (int i = Enigine_GameObjects.size() - 1; i >= 0; i--) {
-			Enigine_GameObjects[i]->Draw(Tscale);
+			Enigine_GameObjects[i]->Draw(/*Tscale*/);
 		}
 
 		//for (unsigned int i = 1; i != Enigine_GameObjects.size(); i++)
@@ -267,7 +267,7 @@ void Engine::Render()
 		////azert van külön hogy a mindig a player legyen *legfelül*
 		//Enigine_GameObjects[0]->Draw();
 
-		FPSCounter::GetInstance()->Draw();
+		if (Engine_FPSShowing) { FPSCounter::GetInstance()->Draw(); }
 	}
 	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);

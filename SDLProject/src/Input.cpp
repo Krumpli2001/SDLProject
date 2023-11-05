@@ -89,6 +89,8 @@ int Input::getElse()
 	if (getKeyDown(SDL_SCANCODE_DOWN) /* or getKeyDown(SDL_SCANCODE_S)*/) { return 3; }
 	if (getKeyDown(SDL_SCANCODE_UP) /* or getKeyDown(SDL_SCANCODE_W)*/) { return 4; }
 	if (getKeyDown(SDL_SCANCODE_RETURN)) { return 5; }
+	//fps szamlalo megjelenitese
+	if (getKeyDown(SDL_SCANCODE_2)) { return SDL_SCANCODE_2; }
 	//ez a 2 a kamerahoz megy
 	if (getKeyDown(SDL_SCANCODE_LSHIFT) and getKeyDown(SDL_SCANCODE_3)) { return SDL_SCANCODE_KP_PLUS; }
 	if (getKeyDown(SDL_SCANCODE_LSHIFT) and getKeyDown(SDL_SCANCODE_4)) { return SDL_SCANCODE_MINUS; }
@@ -109,7 +111,7 @@ void Input::interpret(int kod)
 		break;
 	case SDL_SCANCODE_KP_PLUS:
 		if (Timer::GetInstance()->pressable(200)) {
-			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 0.1); 
+			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 0.01); 
 			//SDL_RenderSetLogicalSize(Engine::GetInstance()->GetRenderer(), *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale(), *Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale());
 			//SDL_RenderSetScale(Engine::GetInstance()->GetRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
 		}
@@ -117,22 +119,27 @@ void Input::interpret(int kod)
 		break;
 	case SDL_SCANCODE_MINUS:
 		if (Timer::GetInstance()->pressable(200)) {
-			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.1);
+			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.01);
 			//SDL_RenderSetLogicalSize(Engine::GetInstance()->GetRenderer(), *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale(), *Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale());
 			//SDL_RenderSetScale(Engine::GetInstance()->GetRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
 		}
 		//SDL_Delay(200);
 		break;
+	case SDL_SCANCODE_2:
+		if (Timer::GetInstance()->pressable(200)) {
+			Engine::GetInstance()->setFPSShowing(!Engine::GetInstance()->getFPSShowing());
+		}
+		break;
 	case SDL_SCANCODE_3:
 		if (Engine::GetInstance()->getScaleTimer() < 200) {
-			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() + 0.01); }
+			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() + 0.1); }
 			Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
 		}
 		//SDL_Delay(200);
 		break;
 	case SDL_SCANCODE_4:
 		if (Engine::GetInstance()->getScaleTimer() < 200) {
-			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() - 0.01); }
+			if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() - 0.1); }
 			Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
 		}
 		//SDL_Delay(200);

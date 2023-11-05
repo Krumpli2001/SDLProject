@@ -16,8 +16,8 @@ private:
 	bool pressed = false;
 	int pressedtimer = 0;
 
-	double countedframes=0;
-	double sec = 0;
+	Uint64 countedframes=0;
+	Uint64 sec = 0;
 	int fps{};
 	bool fpslock = false;
 public:

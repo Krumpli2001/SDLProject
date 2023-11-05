@@ -16,7 +16,7 @@ private:
 	SDL_Color color = { 255, 255, 255 };
 	SDL_Surface* surfaceMessage = nullptr;
 	SDL_Texture* Message = nullptr;
-	SDL_Rect Message_rect{ 0,0,100,100 }; //create a rect
+	SDL_Rect Message_rect{ 0,0,100 * static_cast<int>(Engine::GetInstance()->getTScale()), 100 * static_cast<int>(Engine::GetInstance()->getTScale()) }; //create a rect
 	
 
 public:

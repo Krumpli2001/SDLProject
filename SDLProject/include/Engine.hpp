@@ -20,6 +20,7 @@ private:
 	static Engine* Engine_Instance;
 	bool Engine_IsRunning{};
 	bool Engine_MenuShowing = true;
+	bool Engine_FPSShowing = false;
 	SDL_Window* Engine_Window{};
 	SDL_Renderer* Engine_Renderer{};
 	GameMap* Engine_LevelMap{};
@@ -79,6 +80,8 @@ public:
 	inline double getTScale() { return Tscale; }
 	inline void setScaleTimer(Uint64 t) { Engine_ScaleTimer = t; }
 	inline Uint64 getScaleTimer() { return Engine_ScaleTimer; }
+	inline void setFPSShowing(bool e) { Engine_FPSShowing = e; }
+	inline bool getFPSShowing() { return Engine_FPSShowing; }
 	int legmamasabbBlock(int x);
 
 	bool Init();
