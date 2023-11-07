@@ -42,8 +42,8 @@ bool Engine::Init()
 	Mix_Init(0);
 	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024);
 
-	Music = Mix_LoadMUS("assets/ff_zene.wav");
-	if (!Music) {
+	Engine_Music = Mix_LoadMUS("assets/ff_zene.wav");
+	if (!Engine_Music) {
 		std::cerr << SDL_GetError() << std::endl;
 	}
 
@@ -56,7 +56,7 @@ bool Engine::Init()
 	}
 
 	//renderer letrehozasa
-	Engine_Renderer = SDL_CreateRenderer(Engine_Window, -1, SDL_RENDERER_ACCELERATED or SDL_RENDERER_PRESENTVSYNC);
+	Engine_Renderer = SDL_CreateRenderer(Engine_Window, -1, SDL_RENDERER_ACCELERATED);
 	if (Engine_Renderer == nullptr)
 	{
 		std::cout << "Failed to CreateRenderer!\n" << SDL_GetError() << std::endl;
@@ -213,15 +213,15 @@ void Engine::Update()
 		Map_H = g[0]->getRowCount() * g[0]->getTileSize();
 
 		Engine_LevelMap->Update();
+		if (Engine_FPSShowing) { FPSCounter::GetInstance()->Update(); }
 		Camera::GetInstance()->Update(dt);
-		FPSCounter::GetInstance()->Update();
 
 		if (Mix_PlayingMusic())
 		{
 			Mix_ResumeMusic();
 		}
 		if (!Mix_PlayingMusic()) {
-			Mix_PlayMusic(Music, -1);
+			Mix_PlayMusic(Engine_Music, -1);
 		}
 
 		if (Input::GetInstance()->getElse() == SDL_SCANCODE_ESCAPE) {
@@ -236,12 +236,15 @@ void Engine::Update()
 
 	}
 	
-	if (Engine::Engine_MenuShowing) {
+	if (Engine_MenuShowing) {
 		Mix_PauseMusic();
 		Menu::GetInstance()->Update();
 	}
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
+	scale = scale < 0 ? 0 : scale;
+	//Engine_ScaleTimer = Engine_ScaleTimer >= 200 ? 0 : Engine_ScaleTimer;
+	//std::cout << Engine_ScaleTimer << "\n";
 
 }
 
@@ -250,10 +253,10 @@ void Engine::Render()
 	if (!Engine_MenuShowing) {
 		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
 
-		Engine_LevelMap->Render(/*scale*/);
+		Engine_LevelMap->Render(/*Tscale*/);
 
 		for (int i = Enigine_GameObjects.size() - 1; i >= 0; i--) {
-			Enigine_GameObjects[i]->Draw(/*scale*/);
+			Enigine_GameObjects[i]->Draw(/*Tscale*/);
 		}
 
 		//for (unsigned int i = 1; i != Enigine_GameObjects.size(); i++)
@@ -264,7 +267,7 @@ void Engine::Render()
 		////azert van külön hogy a mindig a player legyen *legfelül*
 		//Enigine_GameObjects[0]->Draw();
 
-		FPSCounter::GetInstance()->Draw();
+		if (Engine_FPSShowing) { FPSCounter::GetInstance()->Draw(); }
 	}
 	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);

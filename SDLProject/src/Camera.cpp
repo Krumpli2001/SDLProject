@@ -7,14 +7,26 @@ void Camera::Update(Uint64 dt)
 
 	M_WIDTH = Engine::GetInstance()->getMap_W();
 	M_HEIGHT = Engine::GetInstance()->getMap_H();
+	C_Width = *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale();
+	C_Height = *Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale();
+	C_X = Camera_Target->getX() - *Engine::GetInstance()->getWindow_W() / 2.0;
+	C_Y = Camera_Target->getY() - *Engine::GetInstance()->getWindow_H() / 2.0;
+
+	//SDL_RenderSetLogicalSize(Engine::GetInstance()->getRenderer(), C_Width, C_Height);
+	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
+	std::cout << Engine::GetInstance()->getScale() << "\n";
+
 
 	if (Camera_Target != nullptr)
 	{
-		Camera_ViewBox = { 0, 0, *Engine::GetInstance()->getWindow_W(), *Engine::GetInstance()->getWindow_H() };
+		//int w = *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale();
+		Camera_ViewBox = { C_X, C_Y, C_Width, C_Height };
+		//std::cout << w << "\n";
+		//std::cout << Engine::GetInstance()->getScale()<<"\n";
+		//std::cout << C_Width << " " << C_Height << "\n";
 
-
-		Camera_ViewBox.x = Camera_Target->getX() - *Engine::GetInstance()->getWindow_W() / 2.0;
-		Camera_ViewBox.y = Camera_Target->getY() - *Engine::GetInstance()->getWindow_H() / 2.0;
+		/*Camera_ViewBox.x = Camera_Target->getX() - *Engine::GetInstance()->getWindow_W() / 2.0;
+		Camera_ViewBox.y = Camera_Target->getY() - *Engine::GetInstance()->getWindow_H() / 2.0;*/
 
 		if (Camera_ViewBox.x < 0)
 		{

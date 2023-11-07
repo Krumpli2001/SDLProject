@@ -1,10 +1,10 @@
 #pragma once
 
 #include <map>
+#include <tinyxml.h>
 
 #include "GameMap.hpp"
 #include "TileLayer.hpp"
-#include "tinyxml.h"
 
 class MapParser
 {

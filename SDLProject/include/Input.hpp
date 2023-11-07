@@ -12,7 +12,7 @@ private:
 	const Uint8* Input_KeyStates;
 	Uint32 Input_ClickStates{};
 	SDL_Event event{};
-
+	
 	void KeyUp();
 	void KeyDown();
 	void ClickUp();

@@ -14,7 +14,7 @@ bool TextureManager::Load(std::string id, std::string filename)
 		return false;
 	}
 
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surface);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surface);
 	if (texture == nullptr)
 	{
 		std::cout << "Failed to SDL_CreateTextureFromSurface! \n" << filename << SDL_GetError();
@@ -59,7 +59,7 @@ void TextureManager::Draw(std::string id, int x, int y, int w, int h, double Xsc
 	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), w * Xscale, h * Yscale };
 
 	//SDL_Rect dstRect = { x, y, w, h };
-	SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), TextureManager_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
+	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
 void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, double scale, SDL_RendererFlip flip)
@@ -71,7 +71,7 @@ void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y,
 	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), tilesize * scale, tilesize * scale};
 
 	//SDL_Rect dstRect = { x, y, tilesize, tilesize };
-	SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), TextureManager_TextureMap[tilesetID], &srcRect, &dstRect, 0, nullptr, flip);
+	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[tilesetID], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
 void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, SDL_RendererFlip flip)
@@ -83,7 +83,7 @@ void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h,
 	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), w * scale, h * scale };
 
 	//SDL_Rect dstRect = { x, y, w, h };
-	SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), TextureManager_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
+	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
 void TextureManager::Drop(std::string id)

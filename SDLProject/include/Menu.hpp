@@ -25,7 +25,7 @@ struct rublika {
 
 	inline void letrehoz() {
 		surfaceMessage = TTF_RenderText_Solid(font, szoveg, color);
-		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surfaceMessage);
+		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 	}
 
 	inline void setRectLocation(int x, int y) { doboz.x = x; doboz.y = y; }
@@ -49,8 +49,10 @@ private:
 
 	bool ResetFlag = false;
 
-	bool Main = true;
+	bool Main = false;
 	bool GameOver = false;
+	bool Title = true;
+	double menuScale{};
 
 public:
 	inline static Menu* GetInstance()
@@ -67,6 +69,7 @@ public:
 	void Draw();
 	void Clean();
 	void Reset();
+	void doelse(std::string str, int index);
 
 	void fillColorMap(std::string source);
 	inline SDL_Color getColor(std::string color) { return colors[color]; }
@@ -74,8 +77,7 @@ public:
 	inline void setEnter() { enter = true; }
 	inline void setMain(bool e) { Main = e; }
 	inline void setGameOver(bool e) { GameOver = e; }
-
-	inline bool melyik(const char* str, int* index) {
+	inline void getIndex(const char* str, int* index) {
 		int i = 0;
 		for (i; i < rublikak.size(); i++) {
 			if (rublikak[i].szoveg == str) {
@@ -83,10 +85,13 @@ public:
 				break;
 			}
 		}
+	}
+	inline bool melyik(const char* str, int* index) {
+		getIndex(str, index);
 		//options.push_back(i);
-		if ((cx >= rublikak[i].doboz.x and cy > rublikak[i].doboz.y
-			and cx <= rublikak[i].doboz.w + rublikak[i].doboz.x and
-			cy <= rublikak[i].doboz.h + rublikak[i].doboz.y) and eger or rublikak[i].isHighlighted) {
+		if ((cx >= rublikak[*index].doboz.x and cy > rublikak[*index].doboz.y
+			and cx <= rublikak[*index].doboz.w + rublikak[*index].doboz.x and
+			cy <= rublikak[*index].doboz.h + rublikak[*index].doboz.y) and eger or rublikak[*index].isHighlighted) {
 			return str;
 		}
 		else { return false; }
@@ -140,7 +145,7 @@ struct rublika {
 
 	inline void letrehoz() {
 		surfaceMessage = TTF_RenderText_Solid(font, szoveg, color);
-		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surfaceMessage);
+		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 	}
 };
 
