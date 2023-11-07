@@ -2,9 +2,6 @@
 
 #include <SDL.h>
 
-const double TARGET_FPS = 60;
-const double TARGET_DeltaTime = 1000 / TARGET_FPS;
-
 class Timer
 {
 private:
@@ -12,6 +9,9 @@ private:
 	static Timer* Timer_Instance;
 	Uint64 Timer_DeltaTime{}; //millisecbe van, 1 sec = 1000 ms
 	Uint64 Timer_LastTime{};
+
+	const double TARGET_FPS = 60;
+	const double TARGET_DELTATIME = 1000 / TARGET_FPS;
 
 	bool pressed = false;
 	int pressedtimer = 0;

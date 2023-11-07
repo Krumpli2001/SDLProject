@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <memory>
+#include "Rng.hpp"
 
 #define WIDTH 60
 #define HEIGHT 20
@@ -17,10 +17,6 @@ enum background {
 	ko = 5,
 	felho = 6
 };
-
-int genint(int range) {
-	return rand() % range;
-}
 
 void genmap(std::ofstream& file, int** f) {
 	for (int i = 0; i < HEIGHT; i++) {
@@ -44,7 +40,7 @@ void genForeground(int** foreground) {
 			switch (i)
 			{
 			case 5:
-				if (genint(100) < 2) {
+				if (RNG::GetInstance()->genRandomInt(100) < 2) {
 					foreground[i][j] = fu;
 				}
 				else {
@@ -56,7 +52,7 @@ void genForeground(int** foreground) {
 			case 8:
 			case 9:
 			case 10:
-				if (genint(100) < 5) {
+				if (RNG::GetInstance()->genRandomInt(100) < 5) {
 					foreground[i][j] = fu;
 				}
 				else {
@@ -66,7 +62,7 @@ void genForeground(int** foreground) {
 				break;
 			case 11:
 			case 12:
-				if (genint(100) < 20) {
+				if (RNG::GetInstance()->genRandomInt(100) < 20) {
 					foreground[i][j] = fu;
 				}
 				else {
@@ -83,21 +79,21 @@ void genForeground(int** foreground) {
 					foreground[i][j] = fold;
 				}
 				else {
-					if (genint(100) < 5) {
+					if (RNG::GetInstance()->genRandomInt(100) < 5) {
 						foreground[i][j] = viz;
 					}
 					else {
-						if (genint(100) > 50) {
+						if (RNG::GetInstance()->genRandomInt(100) > 50) {
 							foreground[i][j] = fu;
 						}
 					}
 					if (i > 0 and i < HEIGHT and j>0 and j < WIDTH) {
 						if (foreground[i - 1][j] == viz || foreground[i + 1][j] == viz || foreground[i][j - 1] == viz || foreground[i][j + 1] == viz) {
 							if (foreground[i - 1][j] == viz) {
-								if (genint(100) > 10) { foreground[i][j] = viz; }
+								if (RNG::GetInstance()->genRandomInt(100) > 10) { foreground[i][j] = viz; }
 								else { foreground[i][j] = fold; }
 							}
-							if (genint(100) < 10) {
+							if (RNG::GetInstance()->genRandomInt(100) < 10) {
 								foreground[i][j] = viz;
 							}
 						}
@@ -119,13 +115,13 @@ void genForeground(int** foreground) {
 void genBackground(int** background, int** foreground) {
 	for (int i = 1; i < 7; i++) {
 		for (int j = 1; j < WIDTH; j++) {
-			if (genint(100) < 6) {
+			if (RNG::GetInstance()->genRandomInt(100) < 6) {
 				background[i][j] = felho;
 			}
 			if (j > 0 and j < WIDTH) {
-				if (genint(100) < 3) { background[i][j] = felho; }
+				if (RNG::GetInstance()->genRandomInt(100) < 3) { background[i][j] = felho; }
 			}
-			if (genint(100) < 3) {
+			if (RNG::GetInstance()->genRandomInt(100) < 3) {
 				background[i][j] = ko;
 			}
 			if (background[i - 1][j] == ko) { background[i][j] = ko; }
@@ -136,7 +132,7 @@ void genBackground(int** background, int** foreground) {
 	}
 	for (int i = 7; i < HEIGHT; i++) {
 		for (int j = 0; j < WIDTH; j++) {
-			if (genint(100) < 3) {
+			if (RNG::GetInstance()->genRandomInt(100) < 3) {
 				background[i][j] = ko;
 			}
 			if (background[i - 1][j] == ko) { background[i][j] = ko; }
@@ -151,8 +147,8 @@ void genFlora(int** flora, int** foreground) {
 	for (int i = 0; i < HEIGHT; i++) {
 		for (int j = 0; j < WIDTH; j++) {
 			if (foreground[i][j] == fu) {
-				if (genint(10) < 8) {
-					flora[i - 1][j] = genint(3) + 1;
+				if (RNG::GetInstance()->genRandomInt(10) < 8) {
+					flora[i - 1][j] = RNG::GetInstance()->genRandomInt(3) + 1;
 				}
 				else { flora[i - 1][j] = semmi; }
 			}

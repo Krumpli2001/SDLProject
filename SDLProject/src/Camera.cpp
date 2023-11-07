@@ -12,8 +12,8 @@ void Camera::Update(Uint64 dt)
 	C_X = Camera_Target->getX() - *Engine::GetInstance()->getWindow_W() / 2.0;
 	C_Y = Camera_Target->getY() - *Engine::GetInstance()->getWindow_H() / 2.0;
 
-	//SDL_RenderSetLogicalSize(Engine::GetInstance()->GetRenderer(), C_Width, C_Height);
-	SDL_RenderSetScale(Engine::GetInstance()->GetRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
+	//SDL_RenderSetLogicalSize(Engine::GetInstance()->getRenderer(), C_Width, C_Height);
+	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
 	std::cout << Engine::GetInstance()->getScale() << "\n";
 
 

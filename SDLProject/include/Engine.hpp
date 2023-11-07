@@ -2,10 +2,10 @@
 
 #include <SDL.h>
 #include <SDL_mixer.h>
+#include <unordered_map>
 
 #include "GameMap.hpp"
 #include "GameObject.hpp"
-#include <unordered_map>
 
 #define CREATION_WIDTH 1280
 #define CREATION_HEIGHT 720
@@ -17,6 +17,7 @@ class Engine
 
 private:
 	Engine() {};
+
 	static Engine* Engine_Instance;
 	bool Engine_IsRunning{};
 	bool Engine_MenuShowing = true;
@@ -25,7 +26,7 @@ private:
 	SDL_Renderer* Engine_Renderer{};
 	GameMap* Engine_LevelMap{};
 	std::vector<GameObject*> Enigine_GameObjects;
-	Mix_Music* Music{};
+	Mix_Music* Engine_Music{};
 	double scale = 1.0;
 	double Tscale = 1.0;
 
@@ -33,7 +34,7 @@ private:
 	//std::unordered_map<std::string, GameObject*> Engine_GOMap;
 
 	Uint64 Engine_SpawnTimer = 10000;
-	Uint64 Engine_ScaleTimer = 0;
+	//Uint64 Engine_ScaleTimer = 0;
 	
 
 	int Window_W{};
@@ -44,7 +45,7 @@ private:
 
 	bool Engine_ResetFlag = false;
 
-	void spawn(std::string);
+	void spawn(std::string name);
 	void spawnSpecial(std::string name, double x, double y, int hp, int power);
 
 	int Engine_CollisionLayer = 0;
@@ -60,7 +61,7 @@ public:
 	}
 
 	inline bool GetIsRunning() { return Engine_IsRunning; }
-	inline SDL_Renderer* GetRenderer() { return Engine_Renderer; }
+	inline SDL_Renderer* getRenderer() { return Engine_Renderer; }
 	inline GameMap* getLevelMap() { return Engine_LevelMap; }
 	inline SDL_Window* getWindow() { return Engine_Window; }
 	inline int* getWindow_W() { return &Window_W; }
@@ -78,8 +79,8 @@ public:
 	inline double getScale() { return scale; }
 	inline void setTScale(double s) { Tscale = s; }
 	inline double getTScale() { return Tscale; }
-	inline void setScaleTimer(Uint64 t) { Engine_ScaleTimer = t; }
-	inline Uint64 getScaleTimer() { return Engine_ScaleTimer; }
+	//inline void setScaleTimer(Uint64 t) { Engine_ScaleTimer = t; }
+	//inline Uint64 getScaleTimer() { return Engine_ScaleTimer; }
 	inline void setFPSShowing(bool e) { Engine_FPSShowing = e; }
 	inline bool getFPSShowing() { return Engine_FPSShowing; }
 	int legmamasabbBlock(int x);

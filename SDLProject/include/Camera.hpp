@@ -38,7 +38,7 @@ public:
 		return Camera_Instance;
 	}
 
-	inline SDL_Rect* getCamera_ViewDox() { return &Camera_ViewBox; }
+	inline SDL_Rect* getCamera_ViewBox() { return &Camera_ViewBox; }
 	inline SDL_Rect getViewBox() { return Camera_ViewBox; }
 	inline Vector2D getPosition() { return Camera_Position; }
 	inline void setTarget(Point* target) { Camera_Target = target; }

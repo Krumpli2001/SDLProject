@@ -42,8 +42,8 @@ bool Engine::Init()
 	Mix_Init(0);
 	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024);
 
-	Music = Mix_LoadMUS("assets/ff_zene.wav");
-	if (!Music) {
+	Engine_Music = Mix_LoadMUS("assets/ff_zene.wav");
+	if (!Engine_Music) {
 		std::cerr << SDL_GetError() << std::endl;
 	}
 
@@ -221,7 +221,7 @@ void Engine::Update()
 			Mix_ResumeMusic();
 		}
 		if (!Mix_PlayingMusic()) {
-			Mix_PlayMusic(Music, -1);
+			Mix_PlayMusic(Engine_Music, -1);
 		}
 
 		if (Input::GetInstance()->getElse() == SDL_SCANCODE_ESCAPE) {
@@ -243,7 +243,7 @@ void Engine::Update()
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
 	scale = scale < 0 ? 0 : scale;
-	Engine_ScaleTimer = Engine_ScaleTimer >= 200 ? 0 : Engine_ScaleTimer;
+	//Engine_ScaleTimer = Engine_ScaleTimer >= 200 ? 0 : Engine_ScaleTimer;
 	//std::cout << Engine_ScaleTimer << "\n";
 
 }

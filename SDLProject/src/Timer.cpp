@@ -10,9 +10,9 @@ void Timer::getTick()
 {
 	Timer_DeltaTime = (SDL_GetTicks64() - Timer_LastTime);
 
-	if ((Timer_DeltaTime < TARGET_DeltaTime) and fpslock) {
-		SDL_Delay(TARGET_DeltaTime - Timer_DeltaTime);
-		Timer_DeltaTime = TARGET_DeltaTime;
+	if ((Timer_DeltaTime < TARGET_DELTATIME) and fpslock) {
+		SDL_Delay(TARGET_DELTATIME - Timer_DeltaTime);
+		Timer_DeltaTime = TARGET_DELTATIME;
 		countedframes++;
 	}
 	else { countedframes++; }

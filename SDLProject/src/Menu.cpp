@@ -32,7 +32,7 @@ void Menu::Update()
 	int prevx = cx; int prevy = cy;
 	Uint32 cc = SDL_GetMouseState(&cx, &cy);
 
-	SDL_RenderSetScale(Engine::GetInstance()->GetRenderer(), 1.0f, 1.0f);
+	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), 1.0f, 1.0f);
 
 
 	if (cx != prevx or cy != prevy) {
@@ -175,12 +175,12 @@ void Menu::Update()
 
 void Menu::Draw()
 {
-	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0, 0, 0, 255);
-	SDL_RenderClear(Engine::GetInstance()->GetRenderer());
+	SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 255);
+	SDL_RenderClear(Engine::GetInstance()->getRenderer());
 
 	if (Main and !Engine::GetInstance()->getResetFlag()) {
 		for (int i = 0; i < options.size(); i++) {
-			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+			SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
 			SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
 			SDL_DestroyTexture(rublikak[options[i]].Message);
 		}
@@ -190,25 +190,25 @@ void Menu::Draw()
 	if (GameOver) {
 
 		for (int i = 0; i <options.size(); i++) {
-			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+			SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
 			SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
 			SDL_DestroyTexture(rublikak[options[i]].Message);
 		}
 		/*int retry = 4;
 		int quit = 3;
 
-		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[retry].Message, NULL, &rublikak[retry].doboz);
+		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[retry].Message, NULL, &rublikak[retry].doboz);
 		SDL_FreeSurface(rublikak[retry].surfaceMessage);
 		SDL_DestroyTexture(rublikak[retry].Message);
 
-		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[quit].Message, NULL, &rublikak[quit].doboz);
+		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[quit].Message, NULL, &rublikak[quit].doboz);
 		SDL_FreeSurface(rublikak[quit].surfaceMessage);
 		SDL_DestroyTexture(rublikak[quit].Message);*/
 	}
 
 	if (Title) {
 		for (int i = 0; i < options.size(); i++) {
-			SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+			SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
 			SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
 			SDL_DestroyTexture(rublikak[options[i]].Message);
 		}
@@ -416,11 +416,11 @@ void Menu::Update()
 
 void Menu::Draw()
 {
-	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0, 0, 0, 255);
-	SDL_RenderClear(Engine::GetInstance()->GetRenderer());
+	SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 255);
+	SDL_RenderClear(Engine::GetInstance()->getRenderer());
 
 	for (int i = 0; i < rublikak.size(); i++) {
-		SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), rublikak[i].second.Message, NULL, &rublikak[i].second.doboz);
+		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[i].second.Message, NULL, &rublikak[i].second.doboz);
 		//SDL_FreeSurface(rublikak[i].second.surfaceMessage);
 		//SDL_DestroyTexture(rublikak[i].second.Message);
 	}

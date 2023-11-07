@@ -25,7 +25,7 @@ struct rublika {
 
 	inline void letrehoz() {
 		surfaceMessage = TTF_RenderText_Solid(font, szoveg, color);
-		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surfaceMessage);
+		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 	}
 
 	inline void setRectLocation(int x, int y) { doboz.x = x; doboz.y = y; }
@@ -145,7 +145,7 @@ struct rublika {
 
 	inline void letrehoz() {
 		surfaceMessage = TTF_RenderText_Solid(font, szoveg, color);
-		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surfaceMessage);
+		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 	}
 };
 

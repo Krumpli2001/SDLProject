@@ -77,9 +77,6 @@
     <ClCompile Include="src\Skeleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\mappgen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tinyxml\tinystr.h">
@@ -161,6 +158,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Rng.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mappgen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
