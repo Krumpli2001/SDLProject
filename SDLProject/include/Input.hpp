@@ -30,7 +30,7 @@ public:
 	void Listen();
 	bool getKeyDown(SDL_Scancode key);
 	Uint32 getClickDown();
-	int getAxisKey(Axis asxis);
+	int getAxisKey(Axis axis);
 	int getElse();
 	void interpret(int kod);
 
