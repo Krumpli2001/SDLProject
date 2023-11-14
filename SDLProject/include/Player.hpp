@@ -41,7 +41,7 @@ public:
 	Player(Properties* props);
 
 	inline RigidBody* getPlayerBody() { return Player_RigidBody; }
-	inline void setUnderWater(bool w) { Player_IsUnderWater = w; }
+	inline void setUnderWater(bool e) { Player_IsUnderWater = e; }
 	virtual inline Collider* getCollider() { return Player_Collider; }
 
 	virtual void Draw(double scale = 1.0);

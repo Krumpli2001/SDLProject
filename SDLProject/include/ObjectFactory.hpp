@@ -12,7 +12,7 @@ private:
 	static ObjectFactory* ObjectFaclory_Instance;
 
 	//bevesz egy props-ot es csinal belole game object-et, amit meg egy mappa belerak a tipusaval
-	std::map < std::string, std::function < GameObject* (Properties* props) > > ObjectFactory_TypeRegistry;
+	std::map<std::string, std::function<GameObject* (Properties* props)>> ObjectFactory_TypeRegistry;
 
 public:
 	GameObject* CreateObject(std::string type, Properties* props);

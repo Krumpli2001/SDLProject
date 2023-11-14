@@ -25,7 +25,7 @@ void Menu::MenuInit() {
 	for (int i = 0; i < rublikak.size(); i++) {
 		rublikak[i].letrehoz();
 	}
-	menuScale = Engine::GetInstance()->getScale();
+	//menuScale = Engine::GetInstance()->getScale();
 }
 
 void Menu::Update()
@@ -167,7 +167,7 @@ void Menu::Update()
 		SDL_Delay(100);
 		break;
 	case 5:
-		setEnter();
+		setEnter(true);
 		SDL_Delay(100);
 		break;
 	}
