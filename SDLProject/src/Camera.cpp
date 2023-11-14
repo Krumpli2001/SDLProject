@@ -14,7 +14,7 @@ void Camera::Update(Uint64 dt)
 
 	//SDL_RenderSetLogicalSize(Engine::GetInstance()->getRenderer(), C_Width, C_Height);
 	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
-	std::cout << Engine::GetInstance()->getScale() << "\n";
+	//std::cout << Engine::GetInstance()->getScale() << "\n";
 
 
 	if (Camera_Target != nullptr)

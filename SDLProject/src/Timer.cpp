@@ -1,8 +1,6 @@
 #include "Timer.hpp"
 #include <iostream>
-//#include <Windows.h>
-//#include <thread>
-//#include <chrono>
+
 
 Timer* Timer::Timer_Instance = nullptr;
 
@@ -10,18 +8,20 @@ void Timer::getTick()
 {
 	Timer_DeltaTime = (SDL_GetTicks64() - Timer_LastTime);
 
+
 	if ((Timer_DeltaTime < TARGET_DELTATIME) and fpslock) {
 		SDL_Delay(TARGET_DELTATIME - Timer_DeltaTime);
 		Timer_DeltaTime = TARGET_DELTATIME;
+		//std::cout << "1\n";
 		countedframes++;
 	}
-	/*else if (fps > 400) {
-		SDL_Delay(1000 / 400 - Timer_DeltaTime);
-		Timer_DeltaTime = 1000 / 400;
-		std::cout << Timer_DeltaTime;
+	else if (Timer_DeltaTime < (1000 / 500)) {
+		SDL_Delay((1000 / 500) - Timer_DeltaTime);
+		Timer_DeltaTime = 1000 / 500;
+		//std::cout << "2\t"<<fps<<"\n";
 		countedframes++;
-	}*/
-	else { countedframes++; }
+	}
+	else { countedframes++; /*std::cout << "3\n";*/ }
 
 	sec += Timer_DeltaTime;
 	fps = countedframes / (sec / 1000.0);

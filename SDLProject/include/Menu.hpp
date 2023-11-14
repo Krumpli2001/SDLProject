@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 #include <SDL_ttf.h>
-#include <map>
+#include <unordered_map>
 
 #include "Engine.hpp"
 
@@ -38,7 +38,7 @@ private:
 	Menu() {};
 
 	static Menu* Menu_Instance;
-	std::map<std::string, SDL_Color> colors;
+	std::unordered_map<std::string, SDL_Color> colors;
 	std::vector<rublika> rublikak;
 	std::vector<int> options;
 	int highLighted = 0;
@@ -75,7 +75,7 @@ public:
 	void fillColorMap(std::string source);
 	inline SDL_Color getColor(std::string color) { return colors[color]; }
 	void setHighlighted(int i);
-	inline void setEnter() { enter = true; }
+	inline void setEnter(bool e) { enter = e; }
 	inline void setMain(bool e) { Main = e; }
 	inline void setGameOver(bool e) { GameOver = e; }
 	inline void getIndex(const char* str, int* index) {
@@ -105,7 +105,7 @@ public:
 	}
 
 	//ellenorzes miatt van itt
-	inline void print_map(const std::map<std::string, SDL_Color>& m)
+	inline void print_map(const std::unordered_map<std::string, SDL_Color>& m)
 	{
 		for (const auto& value : m) {
 			std::cout << value.first << "\t\t";
