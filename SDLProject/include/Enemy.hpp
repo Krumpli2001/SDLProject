@@ -2,7 +2,6 @@
 
 #include "Character.hpp"
 #include "RigidBody.hpp"
-#include "Collider.hpp"
 #include "SpriteAnimation.hpp"
 #include "ObjectFactory.hpp"
 #include "Engine.hpp"

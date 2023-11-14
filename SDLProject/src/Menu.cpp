@@ -1,7 +1,8 @@
-#include "Menu.hpp"
-#include "Input.hpp"
 #include <fstream>
 #include <string>
+
+#include "Menu.hpp"
+#include "Input.hpp"
 
 //enum almenu {Main, GameOver, Title};
 

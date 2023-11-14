@@ -18,7 +18,7 @@ private:
 
 	Uint64 countedframes=0;
 	Uint64 sec = 0;
-	int fps{};
+	int fps = 0;
 	bool fpslock = false;
 public:
 	inline static Timer* GetInstance()

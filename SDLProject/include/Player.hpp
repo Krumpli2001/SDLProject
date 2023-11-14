@@ -3,8 +3,6 @@
 #include "Character.hpp"
 #include "SpriteAnimation.hpp"
 #include "RigidBody.hpp"
-#include "Collider.hpp"
-#include "CollisionHandler.hpp"
 #include "Timer.hpp"
 
 //az ido ms

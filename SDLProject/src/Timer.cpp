@@ -15,6 +15,12 @@ void Timer::getTick()
 		Timer_DeltaTime = TARGET_DELTATIME;
 		countedframes++;
 	}
+	/*else if (fps > 400) {
+		SDL_Delay(1000 / 400 - Timer_DeltaTime);
+		Timer_DeltaTime = 1000 / 400;
+		std::cout << Timer_DeltaTime;
+		countedframes++;
+	}*/
 	else { countedframes++; }
 
 	sec += Timer_DeltaTime;
