@@ -21,7 +21,7 @@ private:
 	int fps = 0;
 	bool fpslock = false;
 
-	//bool menu = false;
+	bool menu = false;
 public:
 	inline static Timer* GetInstance()
 	{
@@ -39,8 +39,8 @@ public:
 	inline void setFPSLock(bool e) { fpslock = e; }
 	inline double getSec() { return sec; }
 	inline bool getPressed() { return pressed; }
-	/*inline bool getmenu() { return menu; }
-	inline void setmenu(bool e) { menu = e; }*/
+	//inline bool getmenu() { return menu; }
+	inline void setmenu(bool e) { menu = e; }
 
 	bool pressable(Uint64 time);
 };

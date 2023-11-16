@@ -9,7 +9,7 @@ void Timer::getTick()
 	Timer_DeltaTime = (SDL_GetTicks64() - Timer_LastTime);
 
 
-	if ((Timer_DeltaTime < TARGET_DELTATIME) and fpslock) {
+	if (((Timer_DeltaTime < TARGET_DELTATIME) and fpslock) or (Timer_DeltaTime < TARGET_DELTATIME and menu)) {
 		SDL_Delay(TARGET_DELTATIME - Timer_DeltaTime);
 		Timer_DeltaTime = TARGET_DELTATIME;
 		//std::cout << "1\n";

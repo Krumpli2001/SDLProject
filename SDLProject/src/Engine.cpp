@@ -142,7 +142,7 @@ void Engine::Update()
 	}
 	if (!Engine_MenuShowing) {
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
-		//Timer::GetInstance()->setmenu(false);
+		Timer::GetInstance()->setmenu(false);
 
 		if (Engine_SpawnTimer == SPAWN) {
 			int bal_jobb = RNG::GetInstance()->genRandomInt(2);
@@ -240,7 +240,7 @@ void Engine::Update()
 	if (Engine_MenuShowing) {
 		Mix_PauseMusic();
 		Menu::GetInstance()->Update();
-		//Timer::GetInstance()->setmenu(true);
+		Timer::GetInstance()->setmenu(true);
 	}
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
