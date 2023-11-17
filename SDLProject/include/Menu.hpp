@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <unordered_map>
+#include <filesystem>
 
 #include "Engine.hpp"
 
@@ -41,6 +42,7 @@ private:
 	std::unordered_map<std::string, SDL_Color> colors;
 	std::vector<rublika> rublikak;
 	std::vector<int> options;
+	std::vector<std::filesystem::directory_entry> saves;
 	int highLighted = 0;
 	int index = 0;
 	bool eger = true;

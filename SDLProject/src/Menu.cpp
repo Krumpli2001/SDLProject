@@ -124,7 +124,20 @@ void Menu::Update()
 
 		if (melyik("Load", &index)) {
 			RUpdate("green", index);
-			if (cc == 1 or enter) { Title = false; Main = true; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
+			if (cc == 1 or enter) { 
+				//std::string path = "..";
+				for (const auto& entry : std::filesystem::directory_iterator("../saves"))
+					saves.push_back(entry);
+					//std::cout << entry.path() << std::endl;
+				for (auto i : saves) {
+					//ha egy sorba van valamiert kibuglik az egesz...
+					std::string sajt = i.path().generic_string();
+					const char* sajt2 = sajt.c_str();
+					std::cout << sajt2 << "\n";
+				}
+				Title = false;
+				Main = true;
+				Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 		}
 		else { doelse("white", index); }
 		options.push_back(index);

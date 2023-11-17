@@ -33,6 +33,7 @@ class Registrar
 public:
 	Registrar(std::string className)
 	{
+		//https://stackoverflow.com/questions/20353210/what-is-the-purpose-of-stdfunction-and-how-do-i-use-it
 		//ezt att kene irni hogy erthetobb legyen + sajat szavakkal (btw jo igy is)
 		ObjectFactory::GetInstance()->RegiseterType(className, [](Properties* props)->GameObject* { return new Type(props); });
 	}

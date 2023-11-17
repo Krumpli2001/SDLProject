@@ -108,7 +108,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\Ádi\source\repos\Krumpli2001\SDLProject\SDLProject\Tinyxml;C:\Users\Ádi\source\repos\Krumpli2001\SDLProject\SDLProject\include;C:\Users\Ádi\Downloads\SDL2-devel-2.28.4-VC\SDL2-2.28.4\include;C:\Users\sarva\Downloads\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;E:\letoltesek\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;C:\Users\sarva\Downloads\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;E:\letoltesek\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;C:\suli\szak\SDLProject\SDLProject\include;E:\VisualP\source\repos\c++\SDLProject\SDLProject\include;C:\suli\szak\SDLProject\SDLProject\Tinyxml;E:\VisualP\source\repos\c++\SDLProject\SDLProject\Tinyxml;E:\letoltesek\SDL2-devel-2.26.4-VC\SDL2-2.26.4\include;E:\letoltesek\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\sarva\Downloads\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\sarva\Downloads\SDL2-devel-2.26.4-VC\SDLbin\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -126,6 +126,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\sarva\Downloads\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;E:\letoltesek\SDL2_mixer-devel-2.6.3-VC\SDL2_mixer-2.6.3\include;C:\Users\sarva\Downloads\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;E:\letoltesek\SDL2_ttf-devel-2.20.2-VC\SDL2_ttf-2.20.2\include;C:\suli\szak\SDLProject\SDLProject\include;E:\VisualP\source\repos\c++\SDLProject\SDLProject\include;C:\suli\szak\SDLProject\SDLProject\Tinyxml;E:\VisualP\source\repos\c++\SDLProject\SDLProject\Tinyxml;E:\letoltesek\SDL2-devel-2.26.4-VC\SDL2-2.26.4\include;E:\letoltesek\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\sarva\Downloads\SDL2_image-devel-2.6.3-VC\SDL2_image-2.6.3\include;C:\Users\sarva\Downloads\SDL2-devel-2.26.4-VC\SDLbin\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
