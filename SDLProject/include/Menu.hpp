@@ -42,7 +42,7 @@ private:
 	std::unordered_map<std::string, SDL_Color> colors;
 	std::vector<rublika> rublikak;
 	std::vector<int> options;
-	std::vector<std::filesystem::directory_entry> saves;
+	std::vector<std::string> saves;
 	int highLighted = 0;
 	int index = 0;
 	bool eger = true;
