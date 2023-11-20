@@ -13,7 +13,6 @@ void Skeleton::move(Uint64 dt)
 	{
 		Enemy_RigidBody->ApplyForceX(JOBBRA * 0.1);
 		GameObject_Flip = SDL_FLIP_NONE;
-		//Player_IsWalking = true;
 	}
 
 	//fut balra
@@ -21,7 +20,6 @@ void Skeleton::move(Uint64 dt)
 	{
 		Enemy_RigidBody->ApplyForceX(BALRA * 0.1);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
-		//Player_IsWalking = true;
 	}
 
 	//jump

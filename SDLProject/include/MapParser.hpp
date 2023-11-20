@@ -18,7 +18,7 @@ private:
 	TileLayer* ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset> tilesets, int tilesize, int rowcount, int colcount);
 
 public:
-	inline static MapParser* GetInstance()
+	static inline MapParser* GetInstance()
 	{
 		if (MapParser_Instance == nullptr)
 		{

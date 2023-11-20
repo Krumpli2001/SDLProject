@@ -29,7 +29,7 @@ private:
 	int C_Y{};
 
 public:
-	inline static Camera* GetInstance()
+	static inline Camera* GetInstance()
 	{
 		if (Camera_Instance == nullptr)
 		{

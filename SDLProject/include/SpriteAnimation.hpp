@@ -7,14 +7,14 @@
 class SpriteAnimation
 {
 private:
-	bool SpriteAnimation_Repeat;
-	bool SpriteAnimation_Ended;
-	int SpriteAnimation_CurrentFrame;
-	bool SpriteAnimation_StartFrame;
-	int SpriteAnimation_AnimationSpeed;
-	int SpriteAnimation_SpriteRow;
-	int SpriteAnimation_FrameCount;
-	std::string SpriteAnimation_TextureID;
+	bool SpriteAnimation_Repeat{};
+	bool SpriteAnimation_Ended{};
+	int SpriteAnimation_CurrentFrame{};
+	bool SpriteAnimation_StartFrame{};
+	int SpriteAnimation_AnimationSpeed{};
+	int SpriteAnimation_SpriteRow{};
+	int SpriteAnimation_FrameCount{};
+	std::string SpriteAnimation_TextureID{};
 	Uint64 epoch = SDL_GetTicks64();
 public:
 

@@ -17,7 +17,8 @@ private:
 public:
 	GameObject* CreateObject(std::string type, Properties* props);
 	void RegiseterType(std::string className, std::function < GameObject* (Properties* props) > type);
-	inline static ObjectFactory* GetInstance()
+
+	static inline ObjectFactory* GetInstance()
 	{
 		if (ObjectFaclory_Instance == nullptr)
 		{

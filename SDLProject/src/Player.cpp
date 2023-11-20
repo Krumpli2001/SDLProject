@@ -10,7 +10,7 @@ static Registrar < Player > registrar("PLAYER");
 
 Player::Player(Properties* props) : Character(props)
 {
-	hp = props->Properies_hp;
+	GameObject_hp = props->Properies_hp;
 	Player_IsWalking = false;
 	Player_IsJumping = false;
 	Player_IsFalling = false;
@@ -41,7 +41,6 @@ void Player::Draw(double scale)
 
 void Player::Update(Uint64 dt)
 {
-	//Player_RigidBody->setRigidBody_Gravity(GRAVITY);
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
 
@@ -131,16 +130,17 @@ void Player::Update(Uint64 dt)
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
 
+
 	if (CollisionHandler::GetInstance()->MapCollision(this))
 	{
 		GameObject_Transform->setX(Player_LastSafePosition.getX());
 	}
 
 	Player_LastSafePosition.setY(GameObject_Transform->getY());
+
 	//levitalas miatt van itt
-	int y = Player_LastSafePosition.getY();
-	if ((y % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - 10)) {
-		Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() -1)) - (y % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
+	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - 20)) {
+		Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() /*-1*/ )) - (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
@@ -148,10 +148,8 @@ void Player::Update(Uint64 dt)
 
 	if (CollisionHandler::GetInstance()->MapCollision(this))
 	{
-		if (y > CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) {
 			Player_IsGrounded = true;
 			Player_JumpTime = JUMP_TIME;
-		}
 			GameObject_Transform->setY(Player_LastSafePosition.getY());
 	}
 	else
@@ -164,7 +162,7 @@ void Player::Update(Uint64 dt)
 		Player_IsUnderWater = true;
 		Player_UnderWater -= dt;
 		if (Player_UnderWater < 0) {
-			hp -= 1;
+			GameObject_hp -= 1;
 		}
 	}
 	else {
@@ -203,7 +201,7 @@ void Player::Clean()
 
 void Player::reset()
 {
-	hp = 100;
+	GameObject_hp = 100;
 	GameObject_Transform->setX(0);
 	GameObject_Transform->setY(0);
 }

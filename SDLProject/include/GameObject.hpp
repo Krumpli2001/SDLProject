@@ -33,7 +33,7 @@ public:
 class GameObject : public IObject {
 private:
 protected:
-	int hp;
+	int GameObject_hp;
 	Transform* GameObject_Transform;
 	int GameObject_Width;
 	int GameObject_Height;
@@ -43,6 +43,7 @@ protected:
 public:
 	inline GameObject(Properties* props)
 	{
+		GameObject_hp = props->Properies_hp;
 		GameObject_TextureID = props->Properties_TextureID;
 		GameObject_Width = props->Properties_Width;
 		GameObject_Height = props->Properties_Height;
@@ -57,9 +58,8 @@ public:
 	{
 		GameObject_Transform->setX(x); GameObject_Transform->setY(y);
 	}
-	inline void setHP(int newhp) { hp = newhp; }
-
-	inline int getHP() { return hp; }
+	inline void setHP(int newhp) { GameObject_hp = newhp; }
+	inline int getHP() { return GameObject_hp; }
 
 	virtual bool isAttacking() = 0;
 	virtual Collider* getCollider() = 0;

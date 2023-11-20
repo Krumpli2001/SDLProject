@@ -49,16 +49,14 @@ private:
 	int cx = -1;
 	int cy = -1;
 	bool enter = false;
-
 	bool ResetFlag = false;
-
 	bool Main = false;
 	bool GameOver = false;
 	bool Title = true;
 	double menuScale{};
 
 public:
-	inline static Menu* GetInstance()
+	static inline Menu* GetInstance()
 	{
 		if (Menu_Instance == nullptr)
 		{
@@ -89,6 +87,7 @@ public:
 			}
 		}
 	}
+
 	inline bool melyik(const char* str, int* index) {
 		getIndex(str, index);
 		//options.push_back(i);

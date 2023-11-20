@@ -27,7 +27,7 @@ bool CollisionHandler::MapCollision(GameObject* g)
     int right_tile = (g->getCollider()->getBox().x + g->getCollider()->getBox().w) / tileSize; //karakter legjobboldalibb pixele
 
     int top_tile = g->getCollider()->getBox().y / tileSize;//karakter legfelso pixele
-    int bottom_tile = (g->getCollider()->getBox().y + g->getCollider()->getBox().h) / tileSize; //karakter legalso pixele
+    int bottom_tile = (g->getCollider()->getBox().y + g->getCollider()->getBox().h - 1) / tileSize; //karakter legalso pixele
 
     //map szelei
     if (left_tile < 0) { left_tile = 0; }
@@ -36,10 +36,7 @@ bool CollisionHandler::MapCollision(GameObject* g)
     if (top_tile < 0) { top_tile = 0; }
     if (bottom_tile > rowCount) { bottom_tile = rowCount; }
 
-    if ((g->getCollider()->getBox().x < 0) || ((g->getCollider()->getBox().x + g->getCollider()->getBox().w) >= (colCount * tileSize)) || (g->getCollider()->getBox().y < 0) || ((g->getCollider()->getBox().y + g->getCollider()->getBox().h) >= (rowCount * tileSize))) { return true; }
-
-    //auto O = Engine::GetInstance()->getGameObjects();
-    
+    if ((g->getCollider()->getBox().x < 0) || ((g->getCollider()->getBox().x + g->getCollider()->getBox().w) >= (colCount * tileSize)) || (g->getCollider()->getBox().y < 0) || ((g->getCollider()->getBox().y + g->getCollider()->getBox().h) >= (rowCount * tileSize))) { return true; }    
 
     for (int i = left_tile; i <= right_tile; i++)
     {
@@ -51,17 +48,12 @@ bool CollisionHandler::MapCollision(GameObject* g)
                     g->setGravity(0.3);
                     return false;
                 }
-                else {
-                    
-                        /*if (CollisionHandler_CollitionTileMap[bottom_tile - 1][right_tile] == 12) { g->setGravity(0.3); }
-                        else  g->setGravity(1); */
-                    
+                else {                    
                     return true;
                 }
             }
             g->setGravity(1);
         }
     }
-
     return false;
 }

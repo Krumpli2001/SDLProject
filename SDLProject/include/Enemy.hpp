@@ -24,7 +24,7 @@ protected:
 
 	bool Enemy_IsGrounded = false;
 	bool Enemy_IsJumping = false;
-	Uint64 Enemy_JumpTime;
+	Uint64 Enemy_JumpTime{};
 
 public:
 	Enemy(Properties* props);

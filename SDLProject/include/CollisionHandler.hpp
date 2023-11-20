@@ -4,7 +4,6 @@
 #include <SDL.h>
 
 #include "TileLayer.hpp"
-//#include "GameObject.hpp"
 
 class GameObject; //öszinten nem tudom miert mukodik az elore deklaralas
 
@@ -13,7 +12,7 @@ class CollisionHandler
 private:
 	CollisionHandler();
 	static CollisionHandler* CollisionHandler_Instance;
-	std::vector<std::vector<int> > CollisionHandler_CollitionTileMap;
+	std::vector<std::vector<int>> CollisionHandler_CollitionTileMap;
 public:
 	TileLayer* CollisionHandler_CollisionLayer;
 

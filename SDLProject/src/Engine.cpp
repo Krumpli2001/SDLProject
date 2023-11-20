@@ -14,20 +14,8 @@
 #include "Rng.hpp"
 
 Engine* Engine::Engine_Instance = nullptr;
-//RNG* RNG::RNG_Instance = nullptr;
 
 enum irany {BAL, JOBB};
-
-//Player* player = nullptr;
-
-//ez azert van itt hogy az update-be majd lehessen random spawn - de ra kell kerdeznem
-//Properties* Player_props = new Properties("player_idle", 100, 240, 240, 0.0, 0.0);
-//Properties* Zombie_props = new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0);
-//Properties* Skeleton_props = new Properties("skeleton_idle", 100, 240, 240, 100.0, 0.0);
-
-//GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zombie_props);
-//GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);
-
 
 bool Engine::Init()
 {
@@ -79,27 +67,8 @@ bool Engine::Init()
 	Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("SKELETON", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
 
-	/*Engine_GOMap.emplace("player", ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("player")->second));
-	Engine_GOMap.emplace("zombie", ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("zombie")->second));
-	Engine_GOMap.emplace("skeleton", ObjectFactory::GetInstance()->CreateObject("SKELETON", Engine_PropsMap.find("skeleton")->second));*/
-
-
-	/*GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", Player_props);
-	GameObject* zombie = ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Zombie_props);
-	GameObject* skeleton = ObjectFactory::GetInstance()->CreateObject("SKELETON", Skeleton_props);*/
-
-
 	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("PLAYER")->second));	//player a nulladik elem
 																																	//Enigine_GameObjects.push_back(mob);
-	/*Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("ZOMBIE")->second));
-	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("ZOMBIE", Engine_PropsMap.find("ZOMBIE")->second));
-	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("SKELETON", Engine_PropsMap.find("SKELETON")->second));*/
-
-	/*spawn("ZOMBIE");
-	spawn("ZOMBIE");
-	spawnSpecial("SKELETON", 5, 1000, 200, 0);
-	spawn("SKELETON");*/
-
 	Camera::GetInstance()->setTarget(Enigine_GameObjects[0]->getOrigin());
 
 	Menu::GetInstance()->MenuInit();
@@ -146,11 +115,9 @@ void Engine::Update()
 
 		if (Engine_SpawnTimer == SPAWN) {
 			int bal_jobb = RNG::GetInstance()->genRandomInt(2);
-			//std::string mob;
 			auto iter = Engine_PropsMap.begin();
 			int randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size()-1) + 1;
 			
-
 			std::advance(iter, randomMob);
 			/*for (int i = 0; i < randomMob; i++) {
 				iter++;
@@ -180,7 +147,6 @@ void Engine::Update()
 		if (Engine_SpawnTimer > SPAWN or Engine_SpawnTimer == 0) {
 			Engine_SpawnTimer = SPAWN;
 		}
-		//std::cout << zombik << "\n";
 
 		for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 		{
@@ -229,12 +195,6 @@ void Engine::Update()
 			setMenuShowing(!getMenuShowing());
 			SDL_Delay(200);
 		}
-
-		//std::cout<<RNG::GetInstance()->genRandomInt(100)<<"\n";
-
-		//std::cout<<Enigine_GameObjects[0]->getPosition()->getX()<<" "<< Enigine_GameObjects[0]->getPosition()->getY() << "\t" << legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX())<<"\n";
-		//legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX());
-
 	}
 	
 	if (Engine_MenuShowing) {
@@ -245,9 +205,6 @@ void Engine::Update()
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
 	scale = scale < 0 ? 0 : scale;
-	//Engine_ScaleTimer = Engine_ScaleTimer >= 200 ? 0 : Engine_ScaleTimer;
-	//std::cout << Engine_ScaleTimer << "\n";
-
 }
 
 void Engine::Render()
@@ -257,17 +214,10 @@ void Engine::Render()
 
 		Engine_LevelMap->Render(/*Tscale*/);
 
+		//azert megy hatrafele hogy a player legyen legfelul
 		for (int i = Enigine_GameObjects.size() - 1; i >= 0; i--) {
 			Enigine_GameObjects[i]->Draw(/*Tscale*/);
 		}
-
-		//for (unsigned int i = 1; i != Enigine_GameObjects.size(); i++)
-		//{
-		//	Enigine_GameObjects[i]->Draw();
-		//}
-
-		////azert van külön hogy a mindig a player legyen *legfelül*
-		//Enigine_GameObjects[0]->Draw();
 
 		if (Engine_FPSShowing) { FPSCounter::GetInstance()->Draw(); }
 	}
@@ -283,12 +233,9 @@ void Engine::Events()
 int Engine::legmamasabbBlock(int x)
 {
 	auto map = CollisionHandler::GetInstance()->getCollisionTileMap();
-	//int col = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getColCount();
-	//int row = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getRowCount();
 	int size = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize();
 
 	x /= size;
-	//std::cout << x << "\n";
 
 	for (int i = 0; i < map->size(); i++) {
 		if ((*map)[i][x] == 0) { continue; }

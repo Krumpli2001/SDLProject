@@ -31,10 +31,8 @@ private:
 	double Tscale = 1.0;
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
-	//std::unordered_map<std::string, GameObject*> Engine_GOMap;
 
 	Uint64 Engine_SpawnTimer = 10000;
-	//Uint64 Engine_ScaleTimer = 0;
 	
 
 	int Window_W{};
@@ -44,14 +42,14 @@ private:
 	int Map_H{};
 
 	bool Engine_ResetFlag = false;
+	int Engine_CollisionLayer = 0;
 
 	void spawn(std::string name);
 	void spawnSpecial(std::string name, double x, double y, int hp, int power);
 
-	int Engine_CollisionLayer = 0;
 
 public:
-	inline static Engine* GetInstance()
+	static inline Engine* GetInstance()
 	{
 		if (Engine_Instance == nullptr)
 		{
@@ -79,8 +77,6 @@ public:
 	inline double getScale() { return scale; }
 	inline void setTScale(double s) { Tscale = s; }
 	inline double getTScale() { return Tscale; }
-	//inline void setScaleTimer(Uint64 t) { Engine_ScaleTimer = t; }
-	//inline Uint64 getScaleTimer() { return Engine_ScaleTimer; }
 	inline void setFPSShowing(bool e) { Engine_FPSShowing = e; }
 	inline bool getFPSShowing() { return Engine_FPSShowing; }
 	int legmamasabbBlock(int x);
@@ -91,9 +87,5 @@ public:
 	void Update();
 	void Render();
 	void Events();
-
-	//void PopState();
-	//void PushState(GameState* current);
-	//void ChangeState(GameState* target);
 
 };

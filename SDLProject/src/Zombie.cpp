@@ -13,7 +13,6 @@ void Zombie::move(Uint64 dt)
 	{
 		Enemy_RigidBody->ApplyForceX(JOBBRA * 0.3);
 		GameObject_Flip = SDL_FLIP_NONE;
-		//Player_IsWalking = true;
 	}
 
 	//fut balra
@@ -21,15 +20,12 @@ void Zombie::move(Uint64 dt)
 	{
 		Enemy_RigidBody->ApplyForceX(BALRA * 0.3);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
-		//Player_IsWalking = true;
 	}
 
 	//jump
 	if (fal and Enemy_JumpTime > 0 and Enemy_JumpTime <= 200) {
 		Enemy_RigidBody->ApplyForceY(FEL * 2.5);
 		Enemy_JumpTime -= dt;
-		//Enemy_IsJumping = true;
-		//std::cout << Enemy_JumpTime << "\n";
 	}
 	if(Enemy_IsGrounded)
 	{ Enemy_JumpTime = 200.0; }

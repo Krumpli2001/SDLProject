@@ -18,7 +18,7 @@ private:
 	void ClickUp();
 	void ClickDown();
 public:
-	static Input* GetInstance()
+	static inline Input* GetInstance()
 	{
 		if (Input_Instance == nullptr)
 		{

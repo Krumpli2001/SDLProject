@@ -6,7 +6,7 @@
 
 Enemy::Enemy(Properties* props) : Character(props)
 {
-	hp = props->Properies_hp;
+	GameObject_hp = props->Properies_hp;
 	Enemy_RigidBody = new RigidBody();
 	Enemy_RigidBody->setRigidBody_Gravity(GRAVITY);
 	Enemy_Collider = new Collider();
@@ -77,7 +77,7 @@ void Enemy::Clean()
 
 void Enemy::reset()
 {
-	hp = 0;
+	GameObject_hp = 0;
 }
 
 void Enemy::getPlayerPosition()

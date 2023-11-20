@@ -20,12 +20,13 @@ private:
 	Vector2D RigidBody_Velocity;
 	Vector2D RigidBody_Accelaration;
 public:
-	inline RigidBody()
+	inline RigidBody() : RigidBody_Mass(UNIT_MASS), RigidBody_Gravity(GRAVITY), RigidBody_Friction(0) {}
+	/*inline RigidBody()
 	{
 		RigidBody_Mass = UNIT_MASS;
 		RigidBody_Gravity = GRAVITY;
 		RigidBody_Friction = 0;
-	};
+	};*/
 
 	 inline void setRigidBody_Mass(double mass) { RigidBody_Mass = mass; }
 	 inline void setRigidBody_Gravity(double gravity) { RigidBody_Gravity = gravity; }

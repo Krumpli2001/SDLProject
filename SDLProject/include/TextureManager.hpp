@@ -14,7 +14,7 @@ private:
 
 public:
 	TextureManager() {};
-	static TextureManager* GetInstance()
+	static inline TextureManager* GetInstance()
 	{
 		if (TextureManager_Instance == nullptr)
 		{

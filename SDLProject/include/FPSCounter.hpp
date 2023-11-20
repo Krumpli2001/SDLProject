@@ -20,7 +20,7 @@ private:
 	
 
 public:
-	inline static FPSCounter* GetInstance()
+	static inline FPSCounter* GetInstance()
 	{
 		if (FPS_Instance == nullptr)
 		{

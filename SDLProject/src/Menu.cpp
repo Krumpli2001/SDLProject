@@ -71,6 +71,17 @@ void Menu::Update()
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 		options.push_back(index);
 
+		getIndex("Title screen", &index);
+		rublikak[index].setRectLocation(0, 450);
+		if (melyik("Title screen", &index)) {
+			RUpdate("red", index);
+			if (cc == 1 or enter) {
+				Main = false; Title = true; /*Engine::GetInstance()->Quit();*/
+			}
+		}
+		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		options.push_back(index);
+
 		getIndex("Quit", &index);
 		rublikak[index].setRectLocation(0, 600);
 		if (melyik("Quit", &index)) {
@@ -79,18 +90,6 @@ void Menu::Update()
 		}
 		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
 		options.push_back(index);
-
-		getIndex("Title screen", &index);
-		rublikak[index].setRectLocation(0, 450);
-		if (melyik("Title screen", &index)) {
-			RUpdate("red", index);
-			if (cc == 1 or enter) {
-				Main = false; Title = true; return; /*Engine::GetInstance()->Quit();*/
-			}
-		}
-		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
-		options.push_back(index);
-
 
 		if (code == SDL_SCANCODE_ESCAPE) {
 			Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());

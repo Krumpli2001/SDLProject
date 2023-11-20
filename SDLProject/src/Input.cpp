@@ -43,12 +43,6 @@ void Input::Listen()
 					case SDL_WINDOWEVENT_SIZE_CHANGED:
 						SDL_GetWindowSizeInPixels(Engine::GetInstance()->getWindow(), Engine::GetInstance()->getWindow_W(), Engine::GetInstance()->getWindow_H());
 						break;
-					/*case SDL_WINDOWEVENT_FOCUS_LOST:
-						Engine::GetInstance()->setMenuShowing(true);
-						break;
-					case SDL_WINDOWEVENT_FOCUS_GAINED:
-						Engine::GetInstance()->setMenuShowing(false);
-						break;*/
 				break;
 			case SDL_QUIT:
 				Engine::GetInstance()->Quit();
