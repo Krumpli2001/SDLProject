@@ -139,7 +139,7 @@ void Player::Update(Uint64 dt)
 	Player_LastSafePosition.setY(GameObject_Transform->getY());
 
 	//levitalas miatt van itt
-	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt /*20*/)) {
+	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt /*20*/ * Player_RigidBody->getGravity())) {
 		Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() /*-1*/ )) - (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
 	}
 
