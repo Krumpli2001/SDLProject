@@ -21,12 +21,6 @@ private:
 	Vector2D RigidBody_Accelaration;
 public:
 	inline RigidBody() : RigidBody_Mass(UNIT_MASS), RigidBody_Gravity(GRAVITY), RigidBody_Friction(0) {}
-	/*inline RigidBody()
-	{
-		RigidBody_Mass = UNIT_MASS;
-		RigidBody_Gravity = GRAVITY;
-		RigidBody_Friction = 0;
-	};*/
 
 	 inline void setRigidBody_Mass(double mass) { RigidBody_Mass = mass; }
 	 inline void setRigidBody_Gravity(double gravity) { RigidBody_Gravity = gravity; }
@@ -50,7 +44,6 @@ public:
 	 {
 		 RigidBody_Accelaration.setX((RigidBody_Force.getX() + RigidBody_Friction.getX()) / RigidBody_Mass);
 		 RigidBody_Accelaration.setY(((RigidBody_Gravity + RigidBody_Force.getY()) / RigidBody_Mass)); // szerintem ez itt rossz
-		 RigidBody_Velocity = RigidBody_Accelaration *dt;
-		 RigidBody_Position = RigidBody_Velocity;// *dt;
+		 RigidBody_Position = RigidBody_Accelaration * dt;
 	 }
 };

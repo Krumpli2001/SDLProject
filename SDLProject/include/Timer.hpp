@@ -10,7 +10,7 @@ private:
 	Uint64 Timer_DeltaTime{}; //millisecbe van, 1 sec = 1000 ms
 	Uint64 Timer_LastTime{};
 
-	const double TARGET_FPS = 60;
+	const double TARGET_FPS = 30;
 	const double TARGET_DELTATIME = 1000 / TARGET_FPS;
 
 	bool pressed = false;

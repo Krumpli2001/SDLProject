@@ -38,7 +38,7 @@ void Camera::Update(Uint64 dt)
 
 		if (Camera_ViewBox.y > (M_HEIGHT - Camera_ViewBox.h * (1.0 / Engine::GetInstance()->getScale())))
 		{
-			Camera_ViewBox.y = (M_HEIGHT - Camera_ViewBox.h * 1.0 / Engine::GetInstance()->getScale());
+			Camera_ViewBox.y = (M_HEIGHT - (Camera_ViewBox.h * 1.0 / Engine::GetInstance()->getScale()));
 		}
 
 		Camera_Position = Vector2D(Camera_ViewBox.x, Camera_ViewBox.y);
