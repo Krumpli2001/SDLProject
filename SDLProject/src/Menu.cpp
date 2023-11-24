@@ -1,5 +1,6 @@
 #include <fstream>
 #include <string>
+#include <cstring>
 
 #include "Menu.hpp"
 #include "Input.hpp"
@@ -10,6 +11,8 @@ Menu* Menu::Menu_Instance = nullptr;
 
 void Menu::MenuInit() {
 	fillColorMap("assets/colors.txt");
+
+	//rublikak.reserve(20);
 
 	rublikak.push_back(rublika("Continue", 0, 0, 500, 150, colors["white"]));
 	rublikak.push_back(rublika("Options", 0, 150, 500, 150, colors["white"]));
@@ -124,24 +127,13 @@ void Menu::Update()
 		if (melyik("Load", &index)) {
 			RUpdate("green", index);
 			if (cc == 1 or enter) { 
-				//std::string path = "..";
-				for (const auto& entry : std::filesystem::directory_iterator("../saves"))
-				{
-					std::string temp = entry.path().generic_string();
-					saves.push_back(temp);
-					//saves.push_back(entry);
-				}
-					//std::cout << entry.path() << std::endl;
-				for (int i = 0; i < saves.size(); i++) {
-					//ha egy sorba van valamiert kibuglik az egesz...
-					/*const char* sajt2 = sajt.c_str();
-					std::cout << sajt2 << "\n";*/
-					std::cout << saves[i] << "\n";
-				}
+				
 
 				Title = false;
-				Main = true;
-				Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
+				Load = true;
+				//Main = true;
+				//Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
+			}
 		}
 		else { doelse("white", index); }
 		options.push_back(index);
@@ -172,6 +164,32 @@ void Menu::Update()
 		options.push_back(index);
 	}
 
+	if (Load) {
+		if (saves.empty()) {
+			int i = 0;
+			for (const auto& entry : std::filesystem::directory_iterator("../saves"))
+			{
+				std::string temp = entry.path().generic_string();
+				temp = temp.substr(9);
+				temp.erase(temp.length() - 4, temp.length());
+
+				int len = temp.length();
+				char* c = new char[temp.length() + 1];
+				strcpy_s(c, temp.length() + 1, temp.c_str());
+				//std::string tempstr = temp;
+
+				saves.push_back(c);
+				rublikak.push_back(rublika(saves[i], 0, (saves.size() - 1) * 150, temp.length() * 60, 150, colors["white"]));
+				i++;
+			}
+		}
+		if (melyik(saves[0], &index)) {
+			RUpdate("green", index);
+			if (cc == 1 or enter) {}
+		}
+		else { doelse("white", index); }
+		options.push_back(index);
+	}
 
 	switch (code)
 	{
@@ -196,41 +214,45 @@ void Menu::Draw()
 	SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::GetInstance()->getRenderer());
 
-	if (Main and !Engine::GetInstance()->getResetFlag()) {
-		for (int i = 0; i < options.size(); i++) {
-			SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
-			SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
-			SDL_DestroyTexture(rublikak[options[i]].Message);
-		}
+	for (int i = 0; i < options.size(); i++) {
+		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
+		SDL_DestroyTexture(rublikak[options[i]].Message);
 	}
 
-	//ezt szepiteni kell - csak teszt
-	if (GameOver) {
+	//if (Main and !Engine::GetInstance()->getResetFlag()) {
+	//	for (int i = 0; i < options.size(); i++) {
+	//		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+	//		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
+	//		SDL_DestroyTexture(rublikak[options[i]].Message);
+	//	}
+	//}
 
-		for (int i = 0; i <options.size(); i++) {
-			SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
-			SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
-			SDL_DestroyTexture(rublikak[options[i]].Message);
-		}
-		/*int retry = 4;
-		int quit = 3;
+	////ezt szepiteni kell - csak teszt
+	//if (GameOver) {
 
-		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[retry].Message, NULL, &rublikak[retry].doboz);
-		SDL_FreeSurface(rublikak[retry].surfaceMessage);
-		SDL_DestroyTexture(rublikak[retry].Message);
+	//	for (int i = 0; i < options.size(); i++) {
+	//		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+	//		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
+	//		SDL_DestroyTexture(rublikak[options[i]].Message);
+	//	}
+	//}
 
-		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[quit].Message, NULL, &rublikak[quit].doboz);
-		SDL_FreeSurface(rublikak[quit].surfaceMessage);
-		SDL_DestroyTexture(rublikak[quit].Message);*/
-	}
+	//if (Title) {
+	//	for (int i = 0; i < options.size(); i++) {
+	//		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+	//		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
+	//		SDL_DestroyTexture(rublikak[options[i]].Message);
+	//	}
+	//}
 
-	if (Title) {
-		for (int i = 0; i < options.size(); i++) {
-			SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
-			SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
-			SDL_DestroyTexture(rublikak[options[i]].Message);
-		}
-	}
+	//if (Load) {
+	//	for (int i = 0; i < options.size(); i++) {
+	//		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
+	//		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
+	//		SDL_DestroyTexture(rublikak[options[i]].Message);
+	//	}
+	//}
 
 }
 

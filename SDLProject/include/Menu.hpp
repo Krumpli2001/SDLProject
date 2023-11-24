@@ -42,7 +42,7 @@ private:
 	std::unordered_map<std::string, SDL_Color> colors;
 	std::vector<rublika> rublikak;
 	std::vector<int> options;
-	std::vector<std::string> saves;
+	std::vector<char*> saves;
 	int highLighted = 0;
 	int index = 0;
 	bool eger = true;
@@ -54,6 +54,7 @@ private:
 	bool GameOver = false;
 	bool Title = true;
 	double menuScale{};
+	bool Load = false;
 
 public:
 	static inline Menu* GetInstance()
