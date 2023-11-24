@@ -138,9 +138,30 @@ void Player::Update(Uint64 dt)
 
 	Player_LastSafePosition.setY(GameObject_Transform->getY());
 
+	//erre majd ra kell kerdezni...
+
 	//levitalas miatt van itt
-	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt /*20*/ * Player_RigidBody->getGravity())) {
-		Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() /*-1*/ )) - (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
+	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity())) {
+		//if (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity() < 0) {
+			int szam = 0;
+			Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
+			while (CollisionHandler::GetInstance()->MapCollision(this)) {
+				szam += 1;
+				Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
+			}
+			Player_LastSafePosition.setY(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam);
+		//}
+		/*else
+		{
+			Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() )) - (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
+		}*/
+	
+		
+		//Player_LastSafePosition.setY(GameObject_Transform->getY() +  dt * Player_RigidBody->getGravity());
+
+		//ez jo
+		//Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() )) - (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
+		//std::cout << static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() <<"\t"<< CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity()<<"\n";
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
