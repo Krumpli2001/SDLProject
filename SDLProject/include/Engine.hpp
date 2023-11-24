@@ -79,6 +79,7 @@ public:
 	inline double getTScale() { return Tscale; }
 	inline void setFPSShowing(bool e) { Engine_FPSShowing = e; }
 	inline bool getFPSShowing() { return Engine_FPSShowing; }
+	inline void setLevelMap(GameMap* p) { Engine_LevelMap = p; }
 	int legmamasabbBlock(int x);
 
 	bool Init();

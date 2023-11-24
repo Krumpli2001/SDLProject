@@ -52,7 +52,7 @@ bool Engine::Init()
 	}
 
 	//map betoltese
-	if (!MapParser::GetInstance()->Load())
+	if (!MapParser::GetInstance()->Load("map"))
 	{
 		std::cout << "failed to load map\n";
 	}

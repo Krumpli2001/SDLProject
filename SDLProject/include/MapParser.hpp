@@ -29,6 +29,6 @@ public:
 
 	inline GameMap* getMap(std::string id) { return MapParser_MapDict[id]; }
 
-	bool Load();
+	bool Load(std::string palyanev);
 	void Clean();
 };

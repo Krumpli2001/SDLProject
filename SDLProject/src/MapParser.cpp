@@ -46,7 +46,7 @@ bool MapParser::Parse(std::string id, std::string source)
         if (e->Value() == std::string("layer")) {
             std::string str;
             str = e->Attribute("name");
-            if (str == "foreground") { std::cout << "megvan\n"; Engine::GetInstance()->setCollisionLayer(i); }
+            if (str == "foreground") { /*std::cout << "megvan\n";*/ Engine::GetInstance()->setCollisionLayer(i); }
             i++;
         }
     }
@@ -150,9 +150,9 @@ TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset
     return (new TileLayer(tilesize, rowcount, colcount, tilemap, tilesets));
 }
 
-bool MapParser::Load()
+bool MapParser::Load(std::string palyanev)
 {
-    return Parse("MAP", "assets/maps/map.tmx");
+    return Parse("MAP", "saves/" + palyanev + ".tmx");
 }
 
 void MapParser::Clean()

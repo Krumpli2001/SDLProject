@@ -80,9 +80,9 @@ int Input::getElse()
 {
 	if (getKeyDown(SDL_SCANCODE_ESCAPE)) { SDL_ResetKeyboard();  return SDL_SCANCODE_ESCAPE; }
 	if (getKeyDown(SDL_SCANCODE_1)) { return SDL_SCANCODE_1; }
-	if (getKeyDown(SDL_SCANCODE_DOWN) /* or getKeyDown(SDL_SCANCODE_S)*/) { return 3; }
-	if (getKeyDown(SDL_SCANCODE_UP) /* or getKeyDown(SDL_SCANCODE_W)*/) { return 4; }
-	if (getKeyDown(SDL_SCANCODE_RETURN)) { return 5; }
+	if (getKeyDown(SDL_SCANCODE_DOWN) /* or getKeyDown(SDL_SCANCODE_S)*/) { return SDL_SCANCODE_DOWN; }
+	if (getKeyDown(SDL_SCANCODE_UP) /* or getKeyDown(SDL_SCANCODE_W)*/) { return SDL_SCANCODE_UP; }
+	if (getKeyDown(SDL_SCANCODE_RETURN)) { return SDL_SCANCODE_RETURN; }
 	//fps szamlalo megjelenitese
 	if (getKeyDown(SDL_SCANCODE_2)) { return SDL_SCANCODE_2; }
 	//ez a 2 a kamerahoz megy

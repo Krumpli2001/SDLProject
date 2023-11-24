@@ -4,6 +4,8 @@
 
 #include "Menu.hpp"
 #include "Input.hpp"
+#include "Timer.hpp"
+#include "MapParser.hpp"
 
 //enum almenu {Main, GameOver, Title};
 
@@ -25,6 +27,9 @@ void Menu::MenuInit() {
 	rublikak.push_back(rublika("Load", 0, 0, 250, 150, colors["white"]));
 	rublikak.push_back(rublika("Generate", 0, 150, 500, 150, colors["white"]));
 
+	rublikak.push_back(rublika("Back", 0, 0, 250, 150, colors["white"]));
+
+
 	for (int i = 0; i < rublikak.size(); i++) {
 		rublikak[i].letrehoz();
 	}
@@ -34,7 +39,17 @@ void Menu::MenuInit() {
 void Menu::Update()
 {
 	int prevx = cx; int prevy = cy;
-	Uint32 cc = SDL_GetMouseState(&cx, &cy);
+	Uint32 e = SDL_GetMouseState(&cx, &cy);
+	int cc = 0;
+	if (e == 1) {
+		if (Timer::GetInstance()->pressable(200) and e == 1) {
+			cc = 1;
+			//SDL_BUTTON(1);
+		}
+		else {
+			cc = 0;
+		}
+	}
 
 	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), 1.0f, 1.0f);
 
@@ -46,6 +61,7 @@ void Menu::Update()
 
 	options.clear();
 	int code = Input::GetInstance()->getElse();
+	//enter = false;
 
 	if (Main) {
 		
@@ -54,44 +70,60 @@ void Menu::Update()
 			RUpdate("gold", index);
 			if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 		}
-		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		else {
+			doelse("white", index);
+		}
 		options.push_back(index);
 
-		getIndex("Options", &index);
-		rublikak[index].setRectLocation(0, 150);
 		if (melyik("Options", &index)) {
+			rublikak[index].setRectLocation(0, 150);
+
 			RUpdate("gold", index);
-			if (cc == 1 or enter) {}
+			if (cc == 1 or enter) {
+				enter = false;
+			}
 		}
-		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		else { 
+			rublikak[index].setRectLocation(0, 150);
+			doelse("white", index);
+		}
 		options.push_back(index);
 
 
 		if (melyik("Save", &index)) {
 			RUpdate("gold", index);
-			if (cc == 1 or enter) {}
+			if (cc == 1 or enter) {
+				enter = false;
+			}
 		}
-		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		else {
+			doelse("white", index);
+		}
 		options.push_back(index);
 
-		getIndex("Title screen", &index);
-		rublikak[index].setRectLocation(0, 450);
 		if (melyik("Title screen", &index)) {
+			rublikak[index].setRectLocation(0, 450);
 			RUpdate("red", index);
 			if (cc == 1 or enter) {
+				enter = false;
 				Main = false; Title = true; /*Engine::GetInstance()->Quit();*/
 			}
 		}
-		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		else { 
+			rublikak[index].setRectLocation(0, 450);
+			doelse("white", index);
+		}
 		options.push_back(index);
 
-		getIndex("Quit", &index);
-		rublikak[index].setRectLocation(0, 600);
 		if (melyik("Quit", &index)) {
+			rublikak[index].setRectLocation(0, 600);
 			RUpdate("red", index);
 			if (cc == 1 or enter) {	/*Main = false; Title = true;*/ Engine::GetInstance()->Quit();  }
 		}
-		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		else {
+			rublikak[index].setRectLocation(0, 600);
+			doelse("white", index);
+		}
 		options.push_back(index);
 
 		if (code == SDL_SCANCODE_ESCAPE) {
@@ -100,77 +132,93 @@ void Menu::Update()
 		}
 	}
 
-	if (GameOver) {
+	else if (GameOver) {
 		
-		melyik("Quit", &index);
-		rublikak[index].setRectLocation(0, 150);
-
 		if (melyik("Retry", &index)) {
 			RUpdate("gold", index);
-			if (cc == 1 or enter) { Reset(); }
+			if (cc == 1 or enter) {
+				enter = false; Reset();
+			}
 		}
-		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		else {
+			doelse("white", index);
+		}
 		options.push_back(index);
 
 
 		if (melyik("Quit", &index)) {
+			rublikak[index].setRectLocation(0, 150);
 			RUpdate("red", index);
 			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
 		}
-		else { rublikak[index].color = getColor("white"); rublikak[index].letrehoz(); }
+		else {
+			rublikak[index].setRectLocation(0, 150);
+			doelse("white", index);
+		}
 		options.push_back(index);
 
 	}
 
-	if (Title) {
+	else if (Title) {
 
 		if (melyik("Load", &index)) {
 			RUpdate("green", index);
 			if (cc == 1 or enter) { 
-				
-
+				enter = false;
 				Title = false;
 				Load = true;
 				//Main = true;
 				//Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
 			}
 		}
-		else { doelse("white", index); }
+		else {
+			doelse("white", index);
+		}
 		options.push_back(index);
 
 		if (melyik("Generate", &index)) {
 			RUpdate("green", index);
-			if (cc == 1 or enter) {}
+			if (cc == 1 or enter) {
+				enter = false;
+			}
 		}
-		else { doelse("white", index); }
+		else {
+			doelse("white", index);
+		}
 		options.push_back(index);
 
-		getIndex("Options", &index);
-		rublikak[index].setRectLocation(0, 300);
 		if (melyik("Options", &index)) {
+			rublikak[index].setRectLocation(0, 300);
 			RUpdate("red", index);
-			if (cc == 1 or enter) {}
+			if (cc == 1 or enter) {
+				enter = false;
+			}
 		}
-		else { doelse("white", index); }
+		else {
+			rublikak[index].setRectLocation(0, 300);
+			doelse("white", index);
+		}
 		options.push_back(index);
 
-		melyik("Quit", &index);
-		rublikak[index].setRectLocation(0, 450);
 		if (melyik("Quit", &index)) {
+			rublikak[index].setRectLocation(0, 450);
 			RUpdate("red", index);
 			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
 		}
-		else { doelse("white", index); }
+		else {
+			rublikak[index].setRectLocation(0, 450);
+			doelse("white", index);
+		}
 		options.push_back(index);
 	}
 
-	if (Load) {
+	else if (Load) {
 		if (saves.empty()) {
 			int i = 0;
-			for (const auto& entry : std::filesystem::directory_iterator("../saves"))
+			for (const auto& entry : std::filesystem::directory_iterator("saves"))
 			{
 				std::string temp = entry.path().generic_string();
-				temp = temp.substr(9);
+				temp = temp.substr(6);
 				temp.erase(temp.length() - 4, temp.length());
 
 				int len = temp.length();
@@ -183,25 +231,54 @@ void Menu::Update()
 				i++;
 			}
 		}
-		if (melyik(saves[0], &index)) {
-			RUpdate("green", index);
-			if (cc == 1 or enter) {}
+		for (int in = 0; in < saves.size(); in++) {
+			if (melyik(saves[in], &index)) {
+				RUpdate("green", index);
+				if (cc == 1 or enter) {
+					enter = false;
+					if (MapParser::GetInstance()->Load("map")) {
+						//std::cout << "Siker\n";
+						Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
+					}
+					Load = false;
+					Main = true;
+					Engine::GetInstance()->setMenuShowing(false);
+					break;
+				}
+			}
+			else {
+				doelse("white", index);
+			}
+			options.push_back(index);
 		}
-		else { doelse("white", index); }
+
+		if (melyik("Back", &index)) {
+			rublikak[index].setRectLocation(0, saves.size() * 150);
+			RUpdate("green", index);
+			if (cc == 1 or enter) {
+				enter = false;
+				Load = false;
+				Title = true;
+			}
+		}
+		else {
+			rublikak[index].setRectLocation(0, saves.size() * 150);
+			doelse("white", index);
+		}
 		options.push_back(index);
 	}
 
 	switch (code)
 	{
-	case 3:
+	case SDL_SCANCODE_DOWN:
 		setHighlighted(-1);
 		SDL_Delay(100);
 		break;
-	case 4:
+	case SDL_SCANCODE_UP:
 		setHighlighted(1);
 		SDL_Delay(100);
 		break;
-	case 5:
+	case SDL_SCANCODE_RETURN:
 		setEnter(true);
 		SDL_Delay(100);
 		break;
@@ -219,40 +296,6 @@ void Menu::Draw()
 		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
 		SDL_DestroyTexture(rublikak[options[i]].Message);
 	}
-
-	//if (Main and !Engine::GetInstance()->getResetFlag()) {
-	//	for (int i = 0; i < options.size(); i++) {
-	//		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
-	//		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
-	//		SDL_DestroyTexture(rublikak[options[i]].Message);
-	//	}
-	//}
-
-	////ezt szepiteni kell - csak teszt
-	//if (GameOver) {
-
-	//	for (int i = 0; i < options.size(); i++) {
-	//		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
-	//		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
-	//		SDL_DestroyTexture(rublikak[options[i]].Message);
-	//	}
-	//}
-
-	//if (Title) {
-	//	for (int i = 0; i < options.size(); i++) {
-	//		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
-	//		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
-	//		SDL_DestroyTexture(rublikak[options[i]].Message);
-	//	}
-	//}
-
-	//if (Load) {
-	//	for (int i = 0; i < options.size(); i++) {
-	//		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
-	//		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
-	//		SDL_DestroyTexture(rublikak[options[i]].Message);
-	//	}
-	//}
 
 }
 
@@ -383,190 +426,3 @@ void Menu::doelse(std::string str, int index) {
 	rublikak[index].color = getColor(str);
 	rublikak[index].letrehoz();
 }
-
-
-
-/*
-#include "Menu.hpp"
-#include <fstream>
-#include <string>
-
-Menu* Menu::Menu_Instance = nullptr;
-
-void Menu::MenuInit() {
-	fillColorMap("assets/colors.txt");
-
-	rublikak.push_back(std::make_pair(std::string("Continue"), rublika("Continue", 0, 0, 500, 150)));
-	rublikak.push_back(std::make_pair(std::string("Options"), rublika("Options", 0, 150, 500, 150)));
-	rublikak.push_back(std::make_pair(std::string("Save"), rublika("Save", 0, 300, 250, 150)));
-	rublikak.push_back(std::make_pair(std::string("Quit"), rublika("Quit", 0, 450, 250, 150)));
-
-	for (int i = 0; i < rublikak.size(); i++) {
-		rublikak[i].second.letrehoz();
-	}
-}
-
-void Menu::Update()
-{
-	int prevx = cx; int prevy = cy;
-	Uint32 cc = SDL_GetMouseState(&cx, &cy);
-
-	if (cx != prevx or cy != prevy) {
-		rublikak[highLighted].second.isHighlighted = false;
-		eger = true;
-	}
-
-	if (Main) {
-
-		int index = 0;
-		//continue
-		if(melyik("Continue", &index)) {
-			rublikak[index].second.color = getColor("gold");
-			rublikak[index].second.letrehoz();
-			if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
-		}
-		else { rublikak[index].second.color = getColor("white"); rublikak[index].second.letrehoz(); }
-
-		//Options
-		if (melyik("Options", &index)) {
-			rublikak[index].second.color = getColor("gold");
-			rublikak[index].second.letrehoz();
-			//if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
-		}
-		else { rublikak[index].second.color = getColor("white"); rublikak[index].second.letrehoz(); }
-
-		//Save
-		if (melyik("Save", &index)) {
-			rublikak[index].second.color = getColor("gold");
-			rublikak[index].second.letrehoz();
-			//if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
-		}
-		else { rublikak[index].second.color = getColor("white"); rublikak[index].second.letrehoz(); }
-
-		//quit
-		if (melyik("Quit", &index)) {
-			rublikak[index].second.color = getColor("red");
-			rublikak[index].second.letrehoz();
-			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
-		}
-		else { rublikak[index].second.color = getColor("white"); rublikak[index].second.letrehoz(); }
-	}
-
-}
-
-void Menu::Draw()
-{
-	SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 255);
-	SDL_RenderClear(Engine::GetInstance()->getRenderer());
-
-	for (int i = 0; i < rublikak.size(); i++) {
-		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[i].second.Message, NULL, &rublikak[i].second.doboz);
-		//SDL_FreeSurface(rublikak[i].second.surfaceMessage);
-		//SDL_DestroyTexture(rublikak[i].second.Message);
-	}
-
-}
-
-void Menu::Clean()
-{
-	if (!Engine::GetInstance()->getMenuShowing()) {
-		for (int i = 0; i < rublikak.size(); i++) {
-			SDL_FreeSurface(rublikak[i].second.surfaceMessage);
-			SDL_DestroyTexture(rublikak[i].second.Message);
-		}
-	}
-	
-	rublikak.clear();
-
-	colors.clear();
-
-	std::cout << "\nText is deleted\n";
-}
-
-void Menu::fillColorMap(std::string source)
-{
-	std::string egysor = "";
-	std::string szin = "";
-	std::string szam = "";
-	unsigned char r = 0; unsigned char g = 0; unsigned char b = 0;
-	std::ifstream f(source);
-	//int i = 0;
-	int betu = 0;
-
-	if (f.is_open()) {
-		while (std::getline(f, egysor)) {
-			//int i = 0;
-			int betu = 0;
-			while (betu < egysor.length()) {
-				while (egysor[betu] != '_' or egysor[betu+1] != ' ') {
-					szin += std::tolower(egysor[betu]);
-					betu++;
-				}
-				while (egysor[betu] != ' ' and egysor[betu+1] != '(') { betu++; }
-
-				betu++;
-
-				if (egysor[betu] == ' ' and egysor[betu+1] == '(') {
-					int vesszok = 0;
-					betu += 2;
-					while (vesszok <= 2) {
-						if (egysor[betu] != ',' and egysor[betu] != ')') {
-							szam += egysor[betu];
-							betu++;
-						}
-						else { 
-							switch (vesszok){
-							case 0:
-								r = std::stoi(szam);
-								break;
-							case 1:
-								g = std::stoi(szam);
-								break;
-							case 2:
-								b = std::stoi(szam);
-								break;
-							}
-
-							szam = "";
-							vesszok++;
-							betu++;
-						}
-
-					}
-				}
-				colors[szin] = SDL_Color{ r,g,b };
-				betu = egysor.length();
-			}
-			egysor = "";
-			//std::cout << szin<<"\n";
-			szin = "";
-		}
-		f.close();
-	}
-	else {
-		std::cerr << "\nNem lehetett megnyitni a szines fajlt\n";
-	}
-}
-
-//billentyuzethez
-void Menu::setHighlighted(int i) {
-	int prevHol = 0;
-	rublikak[highLighted].second.isHighlighted = true;
-	//Menu::GetInstance()->rublikak[Menu::highLighted].isHighlighted = true;
-	
-		if (i == 1) {
-			prevHol = highLighted;
-			if (prevHol == 0) { highLighted = rublikak.size() - 1; }
-			else { highLighted--; }
-		}
-		if (i == -1) {
-			prevHol = highLighted;
-			if (prevHol == rublikak.size() - 1 ) { highLighted = 0; }
-			else { highLighted++; }
-		}
-
-		rublikak[highLighted].second.isHighlighted = true;
-		rublikak[prevHol].second.isHighlighted = false;
-
-}
-*/
