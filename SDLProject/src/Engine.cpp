@@ -179,7 +179,7 @@ void Engine::Update()
 		Map_W = g[0]->getColCount() * g[0]->getTileSize();
 		Map_H = g[0]->getRowCount() * g[0]->getTileSize();
 
-		Engine_LevelMap->Update();
+		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
 		if (Engine_FPSShowing) { FPSCounter::GetInstance()->Update(); }
 		Camera::GetInstance()->Update(dt);
 
@@ -204,7 +204,9 @@ void Engine::Update()
 	}
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
-	scale = scale < 0 ? 0 : scale;
+	scale = scale < 0.2 ? 0.2 : scale;
+	scale = scale > 1 ? 1 : scale;
+	//std::cout << scale << "\n";
 }
 
 void Engine::Render()
@@ -212,7 +214,7 @@ void Engine::Render()
 	if (!Engine_MenuShowing) {
 		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
 
-		Engine_LevelMap->Render(/*Tscale*/);
+		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
 
 		//azert megy hatrafele hogy a player legyen legfelul
 		for (int i = Enigine_GameObjects.size() - 1; i >= 0; i--) {

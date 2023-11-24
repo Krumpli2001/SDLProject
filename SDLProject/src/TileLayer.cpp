@@ -10,11 +10,17 @@ TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::
 		}
 }
 
-void TileLayer::Render(double scale)
+void TileLayer::Render(int x, int y)
 {
-	for (int i = 0; i < TileLayer_RowCount; i++)
+
+	int bal = x - 100 < 0 ? 0 : x - 100;
+	int jobb = x + 100 > TileLayer_ColCount ? TileLayer_ColCount : x + 100;
+	int fel = y - 75 < 0 ? 0 : y - 75;
+	int le = y + 75 > TileLayer_RowCount ? TileLayer_RowCount : y + 75;
+
+	for (int i = fel; i < le; i++)
 	{
-		for (int j = 0; j < TileLayer_ColCount; j++)
+		for (int j = bal; j < jobb; j++)
 		{
 			int tileID = TileLayer_TileMap[i][j];
 
@@ -48,14 +54,14 @@ void TileLayer::Render(double scale)
 					tilecol = tileset.ColCount - 1;
 				}
 
-				TextureManager::GetInstance()->DrawTile(tileset.Name, tileset.TileSize, j * tileset.TileSize, i * tileset.TileSize, tilerow, tilecol, scale);
+				TextureManager::GetInstance()->DrawTile(tileset.Name, tileset.TileSize, j * tileset.TileSize, i * tileset.TileSize, tilerow, tilecol);
 
 			}
 		}
 	}
 }
 
-void TileLayer::Update()
+void TileLayer::Update(int x, int y)
 {
 
 }

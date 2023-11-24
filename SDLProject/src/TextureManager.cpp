@@ -62,13 +62,13 @@ void TextureManager::Draw(std::string id, int x, int y, int w, int h, double Xsc
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
-void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, double scale, SDL_RendererFlip flip)
+void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip)
 {
 	SDL_Rect srcRect = { frame * tilesize, row * tilesize, tilesize, tilesize };
 
 	Vector2D cam = Camera::GetInstance()->getPosition();
 
-	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), tilesize * scale, tilesize * scale};
+	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), tilesize, tilesize};
 
 	//SDL_Rect dstRect = { x, y, tilesize, tilesize };
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[tilesetID], &srcRect, &dstRect, 0, nullptr, flip);
