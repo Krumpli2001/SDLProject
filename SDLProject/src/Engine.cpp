@@ -60,8 +60,6 @@ bool Engine::Init()
 	////itt a map
 	//Engine_LevelMap = MapParser::GetInstance()->getMap("MAP");
 
-	TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
-
 	//lehet hogy ezt lehetne unique_ptr-el
 	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
@@ -207,6 +205,7 @@ void Engine::Update()
 	scale = scale < 0.2 ? 0.2 : scale;
 	scale = scale > 1 ? 1 : scale;
 	//std::cout << scale << "\n";
+	//std::cout << TextureManager::GetInstance()->getMapSize()<<"\n";
 }
 
 void Engine::Render()

@@ -129,11 +129,14 @@ TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset
         }
     }
 
-    std::string matrix(data->GetText());
+    std::string matrix;// (data->GetText());
+    if (data) {
+        matrix = (data->GetText());
+    }
     std::istringstream iss(matrix);
     std::string id;
 
-    std::vector<std::vector<int> > tilemap(rowcount, std::vector<int>(colcount, 0));
+    std::vector<std::vector<int>> tilemap(rowcount, std::vector<int>(colcount, 0));
 
     for (int row = 0; row < rowcount; row++)
     {

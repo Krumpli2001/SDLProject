@@ -6,6 +6,7 @@
 #include "Input.hpp"
 #include "Timer.hpp"
 #include "MapParser.hpp"
+#include "TextureManager.hpp"
 
 Menu* Menu::Menu_Instance = nullptr;
 
@@ -107,6 +108,7 @@ void Menu::Update()
 				Main = false;
 				Title = true;
 				MapParser::GetInstance()->Clean();
+				TextureManager::GetInstance()->Clean();
 				//Reset();
 			}
 		}
@@ -165,6 +167,7 @@ void Menu::Update()
 		if (melyik("Load", &index)) {
 			RUpdate("green", index);
 			if (cc == 1 or enter) { 
+				TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 				enter = false;
 				Title = false;
 				Load = true;

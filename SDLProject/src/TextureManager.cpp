@@ -22,7 +22,7 @@ bool TextureManager::Load(std::string id, std::string filename)
 	}
 
 	TextureManager_TextureMap[id] = texture;
-
+	SDL_FreeSurface(surface);
 	return true;
 }
 
