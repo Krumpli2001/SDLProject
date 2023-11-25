@@ -27,7 +27,7 @@ bool MapParser::Parse(std::string id, std::string source)
 
     for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
     {
-        if (e->Value() == std::string("tileset"))
+        if (e->Value() == std::string("tileset") )
         {
             tilesets.push_back(ParseTileset(e));
         }
@@ -46,13 +46,18 @@ bool MapParser::Parse(std::string id, std::string source)
         if (e->Value() == std::string("layer")) {
             std::string str;
             str = e->Attribute("name");
-            if (str == "foreground") { /*std::cout << "megvan\n";*/ Engine::GetInstance()->setCollisionLayer(i); }
+            if (str == "foreground") {
+                /*std::cout << "megvan\n";*/
+                Engine::GetInstance()->setCollisionLayer(i);
+            }
             i++;
         }
     }
 
 
     MapParser_MapDict[id] = gamemap;
+    MapParsed = true;
+    //xml.Clear();
     return true;
 
 }
@@ -109,8 +114,6 @@ Tileset MapParser::ParseTileset(TiXmlElement* xmlTileset)
 
     tileset.Source = image->Attribute("source");
 
-
-
     return tileset;
 }
 
@@ -152,7 +155,12 @@ TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset
 
 bool MapParser::Load(std::string palyanev)
 {
-    return Parse("MAP", "saves/" + palyanev + ".tmx");
+    if (!MapParsed) {
+        return Parse("MAP", "saves/" + palyanev + ".tmx");
+    }
+    else {
+        return false;
+    }
 }
 
 void MapParser::Clean()
@@ -160,7 +168,10 @@ void MapParser::Clean()
     std::map<std::string, GameMap*>::iterator it;
     for (it = MapParser_MapDict.begin(); it != MapParser_MapDict.end(); it++)
     {
+        it->second->Clean();
+        delete it->second;
         it->second = nullptr;
     }
     MapParser_MapDict.clear();
+    MapParsed = false;
 }

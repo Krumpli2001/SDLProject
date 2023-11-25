@@ -28,4 +28,5 @@ public:
 	bool CheckCollision(SDL_Rect a, SDL_Rect b);
 	bool MapCollision(GameObject* g);
 	inline std::vector<std::vector<int>>* getCollisionTileMap() { return &CollisionHandler_CollitionTileMap; }
+	void reset();
 };

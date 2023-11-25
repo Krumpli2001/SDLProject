@@ -22,5 +22,14 @@ public:
 		}
 	}
 
+	inline void Clean() {
+		for (auto it = 0; it < GameMap_MapLayers.size(); it++) {
+			GameMap_MapLayers[it]->Clean();
+			delete GameMap_MapLayers[it];
+			GameMap_MapLayers[it] = nullptr;
+		}
+		GameMap_MapLayers.clear();
+	}
+
 	inline std::vector<Layer*> getMapLayers() { return GameMap_MapLayers; }
 };

@@ -7,8 +7,6 @@
 #include "Timer.hpp"
 #include "MapParser.hpp"
 
-//enum almenu {Main, GameOver, Title};
-
 Menu* Menu::Menu_Instance = nullptr;
 
 void Menu::MenuInit() {
@@ -106,7 +104,10 @@ void Menu::Update()
 			RUpdate("red", index);
 			if (cc == 1 or enter) {
 				enter = false;
-				Main = false; Title = true; /*Engine::GetInstance()->Quit();*/
+				Main = false;
+				Title = true;
+				MapParser::GetInstance()->Clean();
+				//Reset();
 			}
 		}
 		else { 
@@ -231,18 +232,24 @@ void Menu::Update()
 				i++;
 			}
 		}
-		for (int in = 0; in < saves.size(); in++) {
-			if (melyik(saves[in], &index)) {
+		for (int i = 0; i < saves.size(); i++) {
+			if (melyik(saves[i], &index)) {
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					enter = false;
 					if (MapParser::GetInstance()->Load("map")) {
-						//std::cout << "Siker\n";
 						Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
+						CollisionHandler::GetInstance()->reset();
 					}
 					Load = false;
 					Main = true;
 					Engine::GetInstance()->setMenuShowing(false);
+
+					for (int j = 0; j < saves.size(); j++) {
+						delete saves[i];
+					}
+					saves.clear();
+
 					break;
 				}
 			}
@@ -293,8 +300,8 @@ void Menu::Draw()
 
 	for (int i = 0; i < options.size(); i++) {
 		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
-		SDL_FreeSurface(rublikak[options[i]].surfaceMessage);
-		SDL_DestroyTexture(rublikak[options[i]].Message);
+		SDL_FreeSurface(rublikak[options[i]].surfaceMessage); rublikak[options[i]].surfaceMessage = nullptr;
+		SDL_DestroyTexture(rublikak[options[i]].Message); rublikak[options[i]].Message = nullptr;
 	}
 
 }

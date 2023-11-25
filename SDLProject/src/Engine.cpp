@@ -52,13 +52,13 @@ bool Engine::Init()
 	}
 
 	//map betoltese
-	if (!MapParser::GetInstance()->Load("map"))
-	{
-		std::cout << "failed to load map\n";
-	}
+	//if (!MapParser::GetInstance()->Load("map"))
+	//{
+	//	std::cout << "failed to load map\n";
+	//}
 
-	//itt a map
-	Engine_LevelMap = MapParser::GetInstance()->getMap("MAP");
+	////itt a map
+	//Engine_LevelMap = MapParser::GetInstance()->getMap("MAP");
 
 	TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 

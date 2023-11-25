@@ -9,6 +9,11 @@ CollisionHandler::CollisionHandler()
     CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 };
 
+void CollisionHandler::reset() {
+    CollisionHandler_CollisionLayer = (TileLayer*)Engine::GetInstance()->getLevelMap()->getMapLayers()[Engine::GetInstance()->getCollisionLayer()];
+    CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
+}
+
 bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
 {
     bool x_overlaps = (a.x < b.x + b.w) and (a.x + a.w > b.x);

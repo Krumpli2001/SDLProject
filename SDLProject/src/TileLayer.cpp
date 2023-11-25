@@ -65,3 +65,12 @@ void TileLayer::Update(int x, int y)
 {
 
 }
+
+void TileLayer::Clean()
+{
+	for (int i = 0; i < TileLayer_TileMap.size(); i++) {
+		TileLayer_TileMap[i].clear();
+	}
+	TileLayer_TileMap.clear();
+	TileLayer_TileSets.clear();
+}

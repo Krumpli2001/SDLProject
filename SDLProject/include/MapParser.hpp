@@ -13,6 +13,8 @@ private:
 	static MapParser* MapParser_Instance;
 	std::map<std::string, GameMap*> MapParser_MapDict;
 
+	bool MapParsed = false;
+
 	bool Parse(std::string id, std::string source);
 	Tileset ParseTileset(TiXmlElement* xmlTileset);
 	TileLayer* ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset> tilesets, int tilesize, int rowcount, int colcount);
