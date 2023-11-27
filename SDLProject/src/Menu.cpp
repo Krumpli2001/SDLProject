@@ -269,6 +269,8 @@ void Menu::Update()
 				enter = false;
 				Load = false;
 				Title = true;
+				MapParser::GetInstance()->Clean();
+				TextureManager::GetInstance()->Clean();
 			}
 		}
 		else {
