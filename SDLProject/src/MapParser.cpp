@@ -160,6 +160,7 @@ bool MapParser::Load(std::string palyanev)
 {
     if (!MapParsed) {
         return Parse("MAP", "saves/" + palyanev + ".tmx");
+        //Parse("MAP", "saves.sajt.tmx");
     }
     else {
         return false;

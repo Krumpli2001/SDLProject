@@ -240,7 +240,7 @@ void Menu::Update()
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					if (MapParser::GetInstance()->Load("map")) {
+					if (MapParser::GetInstance()->Load(saves[i])) {
 						Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
 						CollisionHandler::GetInstance()->reset();
 					}
@@ -249,7 +249,7 @@ void Menu::Update()
 					Engine::GetInstance()->setMenuShowing(false);
 
 					for (int j = 0; j < saves.size(); j++) {
-						delete saves[i];
+						delete saves[j];
 					}
 					saves.clear();
 
