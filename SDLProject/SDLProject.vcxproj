@@ -184,6 +184,7 @@
     <ClInclude Include="include\SpriteAnimation.hpp" />
     <ClInclude Include="include\TextureManager.hpp" />
     <ClInclude Include="include\TileLayer.hpp" />
+    <ClInclude Include="include\TileNames.hpp" />
     <ClInclude Include="include\Timer.hpp" />
     <ClInclude Include="include\Transform.hpp" />
     <ClInclude Include="include\Vector2D.hpp" />

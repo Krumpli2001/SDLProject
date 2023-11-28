@@ -2,18 +2,14 @@
 #include <string>
 #include <fstream>
 #include "Rng.hpp"
+#include "TileNames.hpp"
+
+using namespace Tiles;
 
 //#define width 60
 //#define height 20
 
-enum Tiles {
-	semmi = 0,
-	fu = 8,
-	fold = 10,
-	viz = 12,
-	ko = 5,
-	felho = 6
-};
+
 
 enum szintek{
 	eg,
