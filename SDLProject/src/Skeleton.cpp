@@ -23,7 +23,7 @@ void Skeleton::move(Uint64 dt)
 	}
 
 	//jump
-	if (fal and Enemy_JumpTime > 0 and Enemy_JumpTime <= 200) {
+	if (fal and Enemy_JumpTime > 0 and Enemy_IsGrounded) {
 		Enemy_RigidBody->ApplyForceY(FEL * 1.7);
 		Enemy_JumpTime -= dt;
 	}

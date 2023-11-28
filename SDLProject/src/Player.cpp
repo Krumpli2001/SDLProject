@@ -19,7 +19,7 @@ Player::Player(Properties* props) : Character(props)
 	Player_IsWalkAttacking = false;
 	Player_IsUnderWater = false;
 
-	Player_JumpTime = JUMP_TIME;
+	Player_JumpTime = 0;
 	//Player_JumpForce = JUMP_FORCE;
 	Player_AttackTime = PLAYER_ATTACK_TIME;
 	Player_UnderWater = UNDER_WATER_TIME;
@@ -92,7 +92,7 @@ void Player::Update(Uint64 dt)
 		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE);// * static_cast<double>(dt) );
 	}
 
-	if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0 and Player_JumpTime <=200 )
+	if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0)
 	{
 		Player_JumpTime = Player_JumpTime - dt;
 		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE);// * static_cast<double>(dt));
@@ -131,7 +131,7 @@ void Player::Update(Uint64 dt)
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
 
 
-	if (CollisionHandler::GetInstance()->MapCollision(this))
+	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 	{
 		GameObject_Transform->setX(Player_LastSafePosition.getX());
 	}
@@ -145,33 +145,25 @@ void Player::Update(Uint64 dt)
 		//if (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity() < 0) {
 			int szam = 0;
 			Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
-			while (CollisionHandler::GetInstance()->MapCollision(this)) {
+			while (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded)) {
 				szam += 1;
 				Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
 			}
 			Player_LastSafePosition.setY(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam);
-		//}
-		/*else
-		{
-			Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() )) - (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
-		}*/
-	
 		
-		//Player_LastSafePosition.setY(GameObject_Transform->getY() +  dt * Player_RigidBody->getGravity());
-
 		//ez jo
 		//Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() )) - (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
-		//std::cout << static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() <<"\t"<< CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity()<<"\n";
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
 
-	if (CollisionHandler::GetInstance()->MapCollision(this))
+	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 	{
-			Player_IsGrounded = true;
+		if (Player_IsGrounded) {
 			Player_JumpTime = JUMP_TIME;
-			GameObject_Transform->setY(Player_LastSafePosition.getY());
+		}
+		GameObject_Transform->setY(Player_LastSafePosition.getY());
 	}
 	else
 	{

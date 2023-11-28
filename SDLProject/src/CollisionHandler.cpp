@@ -21,7 +21,7 @@ bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
     return (x_overlaps and y_overlaps);
 }
 
-bool CollisionHandler::MapCollision(GameObject* g)
+bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
 {
     int tileSize = CollisionHandler_CollisionLayer->getTileSize();
     int rowCount = CollisionHandler_CollisionLayer->getRowCount();
@@ -53,7 +53,13 @@ bool CollisionHandler::MapCollision(GameObject* g)
                     g->setGravity(0.3);
                     return false;
                 }
-                else {                    
+                else {    
+                    if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 0 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 0) {
+                        *grounded = false;
+                    }
+                    else {
+                        *grounded = true;
+                    }
                     return true;
                 }
             }

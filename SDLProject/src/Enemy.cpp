@@ -28,7 +28,7 @@ void Enemy::Update(Uint64 dt)
 	GameObject_Transform->setX(GameObject_Transform->getX() + Enemy_RigidBody->getRigidBody_Position().getX());
 	Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
 
-	if (CollisionHandler::GetInstance()->MapCollision(this))
+	if (CollisionHandler::GetInstance()->MapCollision(this, &Enemy_IsGrounded))
 	{
 		GameObject_Transform->setX(Enemy_LastSafePosition.getX());
 		fal = true;
@@ -38,19 +38,25 @@ void Enemy::Update(Uint64 dt)
 	//y axis collision
 	Enemy_LastSafePosition.setY(GameObject_Transform->getY());
 	//levitalas miatt van itt
-	int y = Enemy_LastSafePosition.getY();
-	if ((y % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Enemy_RigidBody->getGravity())) {
-		Enemy_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - 1)) - (y % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
+
+	if ((static_cast<int>(Enemy_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Enemy_RigidBody->getGravity())) {
+		
+		int szam = 0;
+		Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Enemy_RigidBody->getGravity() - szam, 190, 240);
+		while (CollisionHandler::GetInstance()->MapCollision(this, &Enemy_IsGrounded)) {
+			szam += 1;
+			Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Enemy_RigidBody->getGravity() - szam, 190, 240);
+		}
+		Enemy_LastSafePosition.setY(GameObject_Transform->getY() + dt * Enemy_RigidBody->getGravity() - szam);
+		
+		//Enemy_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - 1)) - (static_cast<int>(Enemy_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Enemy_RigidBody->getRigidBody_Position().getY());
 	Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
 
-	if (CollisionHandler::GetInstance()->MapCollision(this))
+	if (CollisionHandler::GetInstance()->MapCollision(this, &Enemy_IsGrounded))
 	{
-		if (y > CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) {
-			Enemy_IsGrounded = true;
-		}
 		GameObject_Transform->setY(Enemy_LastSafePosition.getY());
 	}
 	else

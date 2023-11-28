@@ -1,2 +1,0 @@
-https://lazyfoo.net/tutorials/SDL/index.php
-https://www.reddit.com/r/gamedev/comments/bw20x2/sdl2_proper_camera_zoom/

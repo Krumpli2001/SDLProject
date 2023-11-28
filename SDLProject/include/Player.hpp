@@ -26,7 +26,7 @@ private:
 	bool Player_IsUnderWater;
 	double Player_UnderWater;
 
-	Uint64 Player_JumpTime;
+	double Player_JumpTime;
 	double Player_AttackTime;
 	int Player_AttackPower = 15;
 
