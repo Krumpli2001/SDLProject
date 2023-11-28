@@ -20,7 +20,7 @@ Player::Player(Properties* props) : Character(props)
 	Player_IsUnderWater = false;
 
 	Player_JumpTime = 0;
-	//Player_JumpForce = JUMP_FORCE;
+	Player_JumpForce = JUMP_FORCE;
 	Player_AttackTime = PLAYER_ATTACK_TIME;
 	Player_UnderWater = UNDER_WATER_TIME;
 
@@ -89,13 +89,13 @@ void Player::Update(Uint64 dt)
 	{
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
-		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE);// * static_cast<double>(dt) );
+		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);// * static_cast<double>(dt) );
 	}
 
 	if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0)
 	{
 		Player_JumpTime = Player_JumpTime - dt;
-		Player_RigidBody->ApplyForceY(FEL * JUMP_FORCE);// * static_cast<double>(dt));
+		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);// * static_cast<double>(dt));
 	}
 	else
 	{

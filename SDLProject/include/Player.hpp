@@ -14,14 +14,14 @@
 class Player : public Character {
 private:
 
-	//int Player_hp;
-
 	bool Player_IsWalking;
 	bool Player_IsJumping;
 	bool Player_IsFalling;
 	bool Player_IsGrounded;
 	bool Player_IsAttacking;
 	bool Player_IsWalkAttacking;
+
+	double Player_JumpForce;
 
 	bool Player_IsUnderWater;
 	double Player_UnderWater;
