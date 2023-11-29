@@ -1,4 +1,5 @@
 #include <iostream>
+#include <bitset>
 
 #include <SDL_image.h>
 
@@ -25,6 +26,10 @@ bool Engine::Init()
 		std::cout << "Failed to inicialise!\n" << SDL_GetError() << std::endl;
 		return false;
 	}
+
+	Uint32 in = SDL_WasInit(0);
+	std::bitset<sizeof(Uint32) * 8> x(in);
+	std::cout << x << "\n";
 
 	TTF_Init();
 	Mix_Init(0);

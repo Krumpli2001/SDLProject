@@ -101,5 +101,5 @@ void TextureManager::Clean()
 	}
 	TextureManager_TextureMap.clear();
 
-	std::cout << "Textures deleted!";
+	std::cout << "Textures deleted!\n";
 }
