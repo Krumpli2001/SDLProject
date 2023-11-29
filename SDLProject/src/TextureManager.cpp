@@ -64,14 +64,16 @@ void TextureManager::Draw(std::string id, int x, int y, int w, int h, double Xsc
 
 void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip)
 {
-	SDL_Rect srcRect = { frame * tilesize, row * tilesize, tilesize, tilesize };
+	//+1, -1 azert kell mert az sdl scaling valamit elcsesz a szamolasokba (vagy en cseszek el valamit)
+	//a bal oldali tilet egy pixellel kesoob kezdjuk es jobbrol elobb hagyjuk abba
+	SDL_Rect srcRect = { frame * tilesize+1, row * tilesize, tilesize-1, tilesize };
 
 	Vector2D cam = Camera::GetInstance()->getPosition();
 
 	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), tilesize, tilesize};
 
 	//SDL_Rect dstRect = { x, y, tilesize, tilesize };
-	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[tilesetID], &srcRect, &dstRect, 0, nullptr, flip);
+	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[tilesetID], &srcRect, &dstRect /*0, nullptr, flip*/);
 }
 
 void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, SDL_RendererFlip flip)

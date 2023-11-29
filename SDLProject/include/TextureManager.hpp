@@ -30,4 +30,6 @@ public:
 	void DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	void Drop(std::string id);
 	void Clean();
+
+	inline std::map<std::string, SDL_Texture*> getTextureMap() { return TextureManager_TextureMap; }
 };

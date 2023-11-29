@@ -27,7 +27,7 @@ private:
 	GameMap* Engine_LevelMap{};
 	std::vector<GameObject*> Enigine_GameObjects;
 	Mix_Music* Engine_Music{};
-	double scale = 1.0;
+	double scale = 0.5;
 	double Tscale = 1.0;
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
