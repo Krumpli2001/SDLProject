@@ -88,6 +88,6 @@ void Enemy::reset()
 
 void Enemy::getPlayerPosition()
 {
-	Enemy_TargetPosX = Engine::GetInstance()->getGameObjects()[0]->getPosition()->getX();
-	Enemy_TargetPosY = Engine::GetInstance()->getGameObjects()[0]->getPosition()->getY();
+	Enemy_TargetPosX = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getX();
+	Enemy_TargetPosY = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getY();
 }

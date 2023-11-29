@@ -37,7 +37,7 @@ public:
 	inline int getFPS() { return fps; }
 	inline bool getFPSLock() { return fpslock; }
 	inline void setFPSLock(bool e) { fpslock = e; }
-	inline double getSec() { return sec; }
+	//inline double getSec() { return sec; }
 	//inline bool getPressed() { return pressed; }
 	inline void setmenu(bool e) { menu = e; }
 

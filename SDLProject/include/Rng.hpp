@@ -18,7 +18,7 @@ public:
 		if (RNG_Instance == nullptr)
 		{
 			RNG_Instance = new RNG();
-			srand(time(0));
+			srand(time(nullptr));
 		}
 		return RNG_Instance;
 	}

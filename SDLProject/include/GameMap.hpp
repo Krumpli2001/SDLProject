@@ -31,5 +31,5 @@ public:
 		GameMap_MapLayers.clear();
 	}
 
-	inline std::vector<Layer*> getMapLayers() { return GameMap_MapLayers; }
+	inline std::vector<Layer*>* getMapLayers() { return &GameMap_MapLayers; }
 };

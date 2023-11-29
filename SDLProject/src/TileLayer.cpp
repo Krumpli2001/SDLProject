@@ -2,8 +2,8 @@
 #include "TextureManager.hpp"
 //#include "TileNames.hpp"
 
-TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::vector<int> > tilemap, std::vector<Tileset> tilesets) :
-	TileLayer_TileSize(tilesize), TileLayer_ColCount(colcount), TileLayer_RowCount(rowcount), TileLayer_TileMap(tilemap), TileLayer_TileSets(tilesets)
+TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::vector<int>> tilemap, std::vector<Tileset>* tilesets) :
+	TileLayer_TileSize(tilesize), TileLayer_ColCount(colcount), TileLayer_RowCount(rowcount), TileLayer_TileMap(tilemap), TileLayer_TileSets(*tilesets)
 {
 	for (unsigned int i = 0; i < TileLayer_TileSets.size(); i++)
 	{

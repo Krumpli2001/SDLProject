@@ -125,13 +125,13 @@ void Engine::Update()
 			if (iter->first != "PLAYER") {
 
 				if (bal_jobb == BAL) {
-					if ((Enigine_GameObjects[0]->getPosition()->getX() - 2500) > 0) {
-						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() - 2500, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() - 2500) - iter->second->Properties_Height, 100, 10);
+					if ((Enigine_GameObjects[0]->getPosition()->getX() - 55 * 120) > 0) {
+						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() - 55*120, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() - 55*120) - iter->second->Properties_Height, 100, 10);
 					}
 				}
 				if (bal_jobb == JOBB) {
-					if ((Enigine_GameObjects[0]->getPosition()->getX() + 2500) < Map_W) {
-						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() + 2500, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() + 2500) - iter->second->Properties_Height, 100, 10);
+					if ((Enigine_GameObjects[0]->getPosition()->getX() + 55 * 120) < Map_W) {
+						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() + 55*120, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() + 55*120) - iter->second->Properties_Height, 100, 10);
 					}
 				}
 
@@ -173,10 +173,10 @@ void Engine::Update()
 
 
 		auto g = Engine_LevelMap->getMapLayers();
-		g[0]->getColCount();
+		(*g)[0]->getColCount();
 
-		Map_W = g[0]->getColCount() * g[0]->getTileSize();
-		Map_H = g[0]->getRowCount() * g[0]->getTileSize();
+		Map_W = (*g)[0]->getColCount() * (*g)[0]->getTileSize();
+		Map_H = (*g)[0]->getRowCount() * (*g)[0]->getTileSize();
 
 		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
 		UI::GetInstance()->Update();

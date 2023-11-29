@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 #include "FPSCounter.hpp"
 #include "TextureManager.hpp"
@@ -11,16 +12,27 @@ private:
 
 	double scale{};
 	bool FpsShowing{};
+
+	//ezek szovegnek kellenek - itt a hp-t szamba kiirni
+	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
+	SDL_Color color = { 255, 255, 255 };
+	SDL_Surface* surfaceMessage = nullptr;
+	SDL_Texture* Message = nullptr;
+	SDL_Rect Message_rect{ 0,0,100 * static_cast<int>(Engine::GetInstance()->getTScale()), 100 * static_cast<int>(Engine::GetInstance()->getTScale()) };
+
+	int php{};
+	int mphp{};
+
+
 public:
 	inline static UI* GetInstance()
 	{
-		static UI* RNG_Instance;
-		if (RNG_Instance == nullptr)
+		static UI* UI_Instance;
+		if (UI_Instance == nullptr)
 		{
-			RNG_Instance = new UI();
-			srand(time(0));
+			UI_Instance = new UI();
 		}
-		return RNG_Instance;
+		return UI_Instance;
 	}
 
 	void Update();

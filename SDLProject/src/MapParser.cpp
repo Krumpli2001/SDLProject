@@ -39,7 +39,7 @@ bool MapParser::Parse(std::string id, std::string source)
     {
         if (e->Value() == std::string("layer"))
         {
-            TileLayer* tilelayer = ParseTileLayer(e, tilesets, tilesize, rowcount, colcount);
+            TileLayer* tilelayer = ParseTileLayer(e, &tilesets, tilesize, rowcount, colcount);
             gamemap->GameMap_MapLayers.push_back(tilelayer);
         }
 
@@ -117,7 +117,7 @@ Tileset MapParser::ParseTileset(TiXmlElement* xmlTileset)
     return tileset;
 }
 
-TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset> tilesets, int tilesize, int rowcount, int colcount)
+TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset>* tilesets, int tilesize, int rowcount, int colcount)
 {
 
     TiXmlElement* data = nullptr;
