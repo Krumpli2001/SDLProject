@@ -28,6 +28,8 @@ private:
 	int C_X{};
 	int C_Y{};
 
+	double scale{};
+
 public:
 	static inline Camera* GetInstance()
 	{

@@ -12,6 +12,8 @@ private:
 	static FPSCounter* FPS_Instance;
 	FPSCounter() {};
 
+	double scale{};
+
 	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
 	SDL_Color color = { 255, 255, 255 };
 	SDL_Surface* surfaceMessage = nullptr;

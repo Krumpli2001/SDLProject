@@ -7,12 +7,12 @@
 #include "MapParser.hpp"
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
-#include "FPSCounter.hpp"
 #include "Menu.hpp"
 #include "Timer.hpp"
 #include "Camera.hpp"
 #include "TextureManager.hpp"
 #include "Rng.hpp"
+#include "UI.hpp"
 
 Engine* Engine::Engine_Instance = nullptr;
 
@@ -26,10 +26,6 @@ bool Engine::Init()
 		std::cout << "Failed to inicialise!\n" << SDL_GetError() << std::endl;
 		return false;
 	}
-
-	Uint32 in = SDL_WasInit(0);
-	std::bitset<sizeof(Uint32) * 8> x(in);
-	std::cout << x << "\n";
 
 	TTF_Init();
 	Mix_Init(0);
@@ -89,7 +85,7 @@ bool Engine::Clean()
 	Engine_PropsMap.clear();
 
 	TextureManager::GetInstance()->Clean();
-	FPSCounter::GetInstance()->Clean();
+	UI::GetInstance()->Clean();
 	Menu::GetInstance()->Clean();
 	SDL_DestroyRenderer(Engine_Renderer);
 	SDL_DestroyWindow(Engine_Window);
@@ -183,7 +179,7 @@ void Engine::Update()
 		Map_H = g[0]->getRowCount() * g[0]->getTileSize();
 
 		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
-		if (Engine_FPSShowing) { FPSCounter::GetInstance()->Update(); }
+		UI::GetInstance()->Update();
 		Camera::GetInstance()->Update(dt);
 
 		if (Mix_PlayingMusic())
@@ -216,7 +212,7 @@ void Engine::Update()
 void Engine::Render()
 {
 	if (!Engine_MenuShowing) {
-		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400, 1.0, 1.0, SDL_FLIP_NONE, 0.5);
+		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
 
@@ -225,7 +221,7 @@ void Engine::Render()
 			Enigine_GameObjects[i]->Draw(/*Tscale*/);
 		}
 
-		if (Engine_FPSShowing) { FPSCounter::GetInstance()->Draw(); }
+		UI::GetInstance()->Draw();
 	}
 	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);

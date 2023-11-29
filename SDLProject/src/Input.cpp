@@ -3,6 +3,7 @@
 #include "Camera.hpp"
 #include "Timer.hpp" // ez kesobb majd valami settinges lesz
 #include "Menu.hpp"
+#include "UI.hpp"
 
 Input* Input::Input_Instance = nullptr;
 
@@ -106,22 +107,18 @@ void Input::interpret(int kod)
 	case SDL_SCANCODE_KP_PLUS:
 		if (Timer::GetInstance()->pressable(200)) {
 			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 0.01); 
-			//SDL_RenderSetLogicalSize(Engine::GetInstance()->getRenderer(), *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale(), *Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale());
-			//SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
 		}
 		//SDL_Delay(200);
 		break;
 	case SDL_SCANCODE_MINUS:
 		if (Timer::GetInstance()->pressable(200)) {
 			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.01);
-			//SDL_RenderSetLogicalSize(Engine::GetInstance()->getRenderer(), *Engine::GetInstance()->getWindow_W() * Engine::GetInstance()->getScale(), *Engine::GetInstance()->getWindow_H() * Engine::GetInstance()->getScale());
-			//SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), Engine::GetInstance()->getScale(), Engine::GetInstance()->getScale());
 		}
 		//SDL_Delay(200);
 		break;
 	case SDL_SCANCODE_2:
 		if (Timer::GetInstance()->pressable(200)) {
-			Engine::GetInstance()->setFPSShowing(!Engine::GetInstance()->getFPSShowing());
+			UI::GetInstance()->setFpsShowing(!UI::GetInstance()->getFpsShowing());
 		}
 		break;
 	case SDL_SCANCODE_3:

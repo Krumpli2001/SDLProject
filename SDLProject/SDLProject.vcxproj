@@ -154,6 +154,7 @@
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\TileLayer.cpp" />
     <ClCompile Include="src\Timer.cpp" />
+    <ClCompile Include="src\UI.cpp" />
     <ClCompile Include="src\Zombie.cpp" />
     <ClCompile Include="Tinyxml\tinystr.cpp" />
     <ClCompile Include="Tinyxml\tinyxml.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="include\TileNames.hpp" />
     <ClInclude Include="include\Timer.hpp" />
     <ClInclude Include="include\Transform.hpp" />
+    <ClInclude Include="include\UI.hpp" />
     <ClInclude Include="include\Vector2D.hpp" />
     <ClInclude Include="Tinyxml\tinystr.h" />
     <ClInclude Include="Tinyxml\tinyxml.h" />
