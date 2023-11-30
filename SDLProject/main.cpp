@@ -1,5 +1,3 @@
-//Készült Madsycode tutorial-ja alapján (mondjuk 30%-a)
-
 //#include <thread>
 
 #include "Engine.hpp"

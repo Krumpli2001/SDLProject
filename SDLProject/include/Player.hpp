@@ -24,7 +24,9 @@ private:
 	double Player_JumpForce;
 
 	bool Player_IsUnderWater;
-	double Player_UnderWater;
+	double Player_UnderWaterTime;
+
+	double Player_ImunityTime;
 
 	double Player_JumpTime;
 	double Player_AttackTime;

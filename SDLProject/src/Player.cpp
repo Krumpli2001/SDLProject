@@ -22,7 +22,7 @@ Player::Player(Properties* props) : Character(props)
 	Player_JumpTime = 0;
 	Player_JumpForce = JUMP_FORCE;
 	Player_AttackTime = PLAYER_ATTACK_TIME;
-	Player_UnderWater = UNDER_WATER_TIME;
+	Player_UnderWaterTime = UNDER_WATER_TIME;
 
 	Player_Collider = new Collider();
 	Player_Collider->setBuffer(0, 0, 0, 0);
@@ -41,6 +41,7 @@ void Player::Draw(double scale)
 
 void Player::Update(Uint64 dt)
 {
+	Player_ImunityTime = Player_ImunityTime <= 0 ? 0 : Player_ImunityTime-dt;
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
 
@@ -173,14 +174,15 @@ void Player::Update(Uint64 dt)
 	//viz alatt
 	if (getPGravity() < 1.0) {
 		Player_IsUnderWater = true;
-		Player_UnderWater -= dt;
-		if (Player_UnderWater < 0) {
+		Player_UnderWaterTime -= dt;
+		if (Player_UnderWaterTime < 0 and Player_ImunityTime <= 0) {
 			GameObject_hp -= 1;
+			Player_ImunityTime = 50;
 		}
 	}
 	else {
 		Player_IsUnderWater = false;
-		Player_UnderWater = UNDER_WATER_TIME;
+		Player_UnderWaterTime = UNDER_WATER_TIME;
 	}
 
 	GameObject_Origin->setX(GameObject_Transform->getX() + GameObject_Width / 2.0);
