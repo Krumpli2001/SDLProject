@@ -62,7 +62,9 @@ void UI::Draw()
 
 void UI::Clean()
 {
-	FPSCounter::GetInstance()->Clean();
+	if (FpsShowing) {
+		FPSCounter::GetInstance()->Clean();
+	}
 	if (surfaceMessage) { SDL_FreeSurface(surfaceMessage); }
 	if (Message) { SDL_DestroyTexture(Message); }
 }

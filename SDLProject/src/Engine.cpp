@@ -8,7 +8,6 @@
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
 #include "Menu.hpp"
-#include "Timer.hpp"
 #include "Camera.hpp"
 #include "TextureManager.hpp"
 #include "Rng.hpp"
@@ -112,6 +111,7 @@ void Engine::Update()
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 		Timer::GetInstance()->setmenu(false);
 
+		//ez itt csak a spawnolás
 		if (Engine_SpawnTimer == SPAWN) {
 			int bal_jobb = RNG::GetInstance()->genRandomInt(2);
 			auto iter = Engine_PropsMap.begin();
@@ -125,25 +125,23 @@ void Engine::Update()
 			if (iter->first != "PLAYER") {
 
 				if (bal_jobb == BAL) {
-					if ((Enigine_GameObjects[0]->getPosition()->getX() - 55 * 120) > 0) {
-						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() - 55*120, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() - 55*120) - iter->second->Properties_Height, 100, 10);
+					if ((Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120) > 0) {
+						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120) - iter->second->Properties_Height, 100, 10);
 					}
 				}
 				if (bal_jobb == JOBB) {
-					if ((Enigine_GameObjects[0]->getPosition()->getX() + 55 * 120) < Map_W) {
-						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() + 55*120, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() + 55*120) - iter->second->Properties_Height, 100, 10);
+					if ((Enigine_GameObjects[0]->getPosition()->getX() + 50 * 120) < Map_W) {
+						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() + 50 * 120, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() + 50 * 120) - iter->second->Properties_Height, 100, 10);
 					}
 				}
 
 			}
-
 			Engine_SpawnTimer -= dt;
-
 		}
 		else {
 			Engine_SpawnTimer -= dt;
 		}
-		if (Engine_SpawnTimer > SPAWN or Engine_SpawnTimer == 0) {
+		if (Engine_SpawnTimer < 0) {
 			Engine_SpawnTimer = SPAWN;
 		}
 
@@ -161,9 +159,12 @@ void Engine::Update()
 					unsigned int mob = i;
 
 					if (CollisionHandler::GetInstance()->CheckCollision(Enigine_GameObjects[0]->getCollider()->getBox(), Enigine_GameObjects[mob]->getCollider()->getBox())) {
-						//utes
+						//utes (player)
 						if ((Enigine_GameObjects[0]->isAttacking()) and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)) {
 							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects[0]->getAttackPower());
+						}
+						if (Enigine_GameObjects[mob]->isAttacking()) {
+
 						}
 					}
 				}
@@ -242,7 +243,8 @@ int Engine::legmamasabbBlock(int x)
 	for (int i = 0; i < map->size(); i++) {
 		if ((*map)[i][x] == 0) { continue; }
 		else {
-			return i * size;
+			//std::cout << x << " " << i * size + size << "\n";
+			return i * size - size/2;
 		}
 	}
 

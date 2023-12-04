@@ -6,6 +6,7 @@
 
 #include "GameMap.hpp"
 #include "GameObject.hpp"
+#include "Timer.hpp"
 
 #define CREATION_WIDTH 1280
 #define CREATION_HEIGHT 720
@@ -32,7 +33,7 @@ private:
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
 
-	Uint64 Engine_SpawnTimer = 10000;
+	double Engine_SpawnTimer = SPAWN;
 	
 
 	int Window_W{};

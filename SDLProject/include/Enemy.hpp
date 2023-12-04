@@ -16,6 +16,7 @@ protected:
 	SpriteAnimation* Enemy_SpriteAnimation;
 
 	int Enemy_AttackPower{};
+	double Enemy_AttackTimer = {};
 
 	int Enemy_TargetPosX{};
 	int Enemy_TargetPosY{};
@@ -24,12 +25,14 @@ protected:
 
 	bool Enemy_IsGrounded = false;
 	bool Enemy_IsJumping = false;
+	bool Enemy_IsFalling = false;
 	double Enemy_JumpTime{};
 
 public:
 	Enemy(Properties* props);
 
 	virtual void Update(Uint64 dt);
+	virtual void Enemy_Collision(Uint64) = 0;
 	virtual void Draw(double scale = 1.0);
 	virtual void Clean();
 	virtual void reset();
@@ -46,10 +49,19 @@ public:
 };
 
 class Zombie : public Enemy{
+private:
+	
+	
 public:
-	Zombie(Properties* props) : Enemy(props) {};
+	Zombie(Properties* props) : Enemy(props) {
+		Enemy_AttackPower = 10;
+		Enemy_AttackTimer = 1000;
+	};
 	virtual void AnimationState();
 	virtual void move(Uint64 dt);
+	virtual void Enemy_Collision(Uint64 dt);
+	inline int getAttackPower() { return Enemy_AttackPower; }
+	inline double getAttackTimer() { return Enemy_AttackTimer; }
 };
 
 class Skeleton : public Enemy{
@@ -57,4 +69,6 @@ public:
 	Skeleton(Properties* props) : Enemy(props) {};
 	virtual void AnimationState();
 	virtual void move(Uint64 dt);
+	virtual void Enemy_Collision(Uint64);
+
 };

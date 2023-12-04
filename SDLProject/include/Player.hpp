@@ -13,7 +13,6 @@
 
 class Player : public Character {
 private:
-
 	bool Player_IsWalking;
 	bool Player_IsJumping;
 	bool Player_IsFalling;
