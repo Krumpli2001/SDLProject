@@ -148,7 +148,7 @@ void Engine::Update()
 		for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 		{
 			//player meghalt
-			if (Enigine_GameObjects[0]->getHP() < 0) { Engine_MenuShowing = true; Menu::GetInstance()->setGameOver(true);  Menu::GetInstance()->setMain(false); break; }
+			if (Enigine_GameObjects[0]->getHP() <= 0) { Engine_MenuShowing = true; Menu::GetInstance()->setGameOver(true);  Menu::GetInstance()->setMain(false); break; }
 			//barmi mas meghalt
 			if (Enigine_GameObjects[i]->getHP() <= 0 and i != 0) {
 				Enigine_GameObjects.erase(Enigine_GameObjects.begin() + i);
@@ -163,8 +163,9 @@ void Engine::Update()
 						if ((Enigine_GameObjects[0]->isAttacking()) and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)) {
 							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects[0]->getAttackPower());
 						}
-						if (Enigine_GameObjects[mob]->isAttacking()) {
-
+						//utes mob
+						if (Enigine_GameObjects[mob]->attacking(dt)) {
+							Enigine_GameObjects[0]->setHP(Enigine_GameObjects[0]->getHP() - Enigine_GameObjects[mob]->getAttackPower());
 						}
 					}
 				}

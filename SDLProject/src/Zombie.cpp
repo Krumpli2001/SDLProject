@@ -93,3 +93,24 @@ void Zombie::Enemy_Collision(Uint64 dt)
 		Enemy_IsGrounded = false;
 	}
 }
+
+bool Zombie::attacking(Uint64 dt)
+{
+	if (Enemy_IsAttacking)
+	{
+		Enemy_AttackTimer -= dt;
+		Enemy_IsAttacking = false;
+		return true;
+	}
+
+	if ( !Enemy_IsAttacking and Enemy_AttackTimer < 1000) {
+		Enemy_AttackTimer -= dt;
+	}
+
+	if (Enemy_AttackTimer < 0) {
+		Enemy_AttackTimer = 1000;
+		Enemy_IsAttacking = true;
+	}
+
+	return false;
+}

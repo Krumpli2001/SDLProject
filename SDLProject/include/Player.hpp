@@ -45,6 +45,9 @@ public:
 	inline void setUnderWater(bool e) { Player_IsUnderWater = e; }
 	virtual inline Collider* getCollider() { return Player_Collider; }
 
+	virtual inline void setAttacking(bool e) {}; // csak enemy hasznalja
+	virtual bool attacking(Uint64 dt) { return false; } // et is
+
 	virtual void Draw(double scale = 1.0);
 	virtual void Update(Uint64 dt);
 	virtual void Clean();

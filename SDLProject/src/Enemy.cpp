@@ -18,14 +18,13 @@ Enemy::Enemy(Properties* props) : Character(props)
 
 void Enemy::Update(Uint64 dt)
 {
-	Enemy_RigidBody->SetForceToZero();
 
+	
+	Enemy_RigidBody->SetForceToZero();
 	getPlayerPosition();
 	move(dt);
-
 	Enemy_Collision(dt);
-
-	//Enemy_SpriteAnimation->SetProps("zombie_idle", 0, 4, 400);
+	//attacking(dt);
 	AnimationState();
 	Enemy_RigidBody->Update(dt);
 	Enemy_SpriteAnimation->Update(dt);

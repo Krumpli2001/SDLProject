@@ -93,3 +93,8 @@ void Skeleton::Enemy_Collision(Uint64 dt)
 		Enemy_IsGrounded = false;
 	}
 }
+
+bool Skeleton::attacking(Uint64 dt)
+{
+	return false;
+}

@@ -15,6 +15,7 @@ protected:
 
 	SpriteAnimation* Enemy_SpriteAnimation;
 
+	bool Enemy_IsAttacking = true;
 	int Enemy_AttackPower{};
 	double Enemy_AttackTimer = {};
 
@@ -36,10 +37,12 @@ public:
 	virtual void Draw(double scale = 1.0);
 	virtual void Clean();
 	virtual void reset();
+	virtual bool attacking(Uint64 dt) = 0;
 	virtual inline void setGravity(double G) { Enemy_RigidBody->setRigidBody_Gravity(G); } 
 	virtual inline Collider* getCollider() { return Enemy_Collider; }
-	virtual inline bool isAttacking() { return false; }
-	virtual inline double getAttacktime() { return 0; }
+	virtual inline bool isAttacking() { return Enemy_IsAttacking; }
+	virtual inline void setAttacking(bool e) { Enemy_IsAttacking = e; }
+	virtual inline double getAttacktime() { return Enemy_AttackTimer; }
 	virtual inline int getAttackPower() { return 0; }
 	virtual void AnimationState() = 0;
 	virtual void move(Uint64 dt) = 0;
@@ -60,6 +63,7 @@ public:
 	virtual void AnimationState();
 	virtual void move(Uint64 dt);
 	virtual void Enemy_Collision(Uint64 dt);
+	virtual bool attacking(Uint64 dt);
 	inline int getAttackPower() { return Enemy_AttackPower; }
 	inline double getAttackTimer() { return Enemy_AttackTimer; }
 };
@@ -70,5 +74,5 @@ public:
 	virtual void AnimationState();
 	virtual void move(Uint64 dt);
 	virtual void Enemy_Collision(Uint64);
-
+	virtual bool attacking(Uint64 dt);
 };

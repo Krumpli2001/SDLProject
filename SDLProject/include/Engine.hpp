@@ -11,7 +11,7 @@
 #define CREATION_WIDTH 1280
 #define CREATION_HEIGHT 720
 
-#define SPAWN 10000
+#define SPAWN 1000
 
 class Engine
 {
