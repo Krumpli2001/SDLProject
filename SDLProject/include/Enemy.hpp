@@ -33,7 +33,6 @@ public:
 	Enemy(Properties* props);
 
 	virtual void Update(Uint64 dt);
-	virtual void Enemy_Collision(Uint64) = 0;
 	virtual void Draw(double scale = 1.0);
 	virtual void Clean();
 	virtual void reset();
@@ -47,6 +46,8 @@ public:
 	virtual void AnimationState() = 0;
 	virtual void move(Uint64 dt) = 0;
 	virtual inline void setAttackPower(int power) { Enemy_AttackPower = power; }
+
+	virtual inline void Enemy_Collision(Uint64 dt);
 
 	void getPlayerPosition();
 };
@@ -62,7 +63,6 @@ public:
 	};
 	virtual void AnimationState();
 	virtual void move(Uint64 dt);
-	virtual void Enemy_Collision(Uint64 dt);
 	virtual bool attacking(Uint64 dt);
 	inline int getAttackPower() { return Enemy_AttackPower; }
 	inline double getAttackTimer() { return Enemy_AttackTimer; }
@@ -73,6 +73,5 @@ public:
 	Skeleton(Properties* props) : Enemy(props) {};
 	virtual void AnimationState();
 	virtual void move(Uint64 dt);
-	virtual void Enemy_Collision(Uint64);
 	virtual bool attacking(Uint64 dt);
 };
