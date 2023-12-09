@@ -115,15 +115,20 @@ void Engine::Update()
 		//ez itt csak a spawnolás
 		if (Engine_SpawnTimer == SPAWN) {
 			int bal_jobb = RNG::GetInstance()->genRandomInt(2);
+			//mi a rak lett ez az auto XD
 			auto iter = Engine_PropsMap.begin();
-			int randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size()-1) + 1;
+			int randomMob;
+			do {
+				iter = Engine_PropsMap.begin();
+				randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size()-1) + 1;
+				std::advance(iter, randomMob);
+			} while (iter->first == "PLAYER" || iter->first == "ARROW");
 			
-			std::advance(iter, randomMob);
 			/*for (int i = 0; i < randomMob; i++) {
 				iter++;
 			}*/
 
-			if (iter->first != "PLAYER") {
+			//if (iter->first != "PLAYER") {
 
 				if (bal_jobb == BAL) {
 					if ((Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120) > 0) {
@@ -136,7 +141,7 @@ void Engine::Update()
 					}
 				}
 
-			}
+			//}
 			Engine_SpawnTimer -= dt;
 		}
 		else {

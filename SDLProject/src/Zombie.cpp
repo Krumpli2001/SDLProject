@@ -45,25 +45,34 @@ void Zombie::move(Uint64 dt)
 		Enemy_IsFalling = false;
 	}
 
+	//tudom hogy ez bena helyen van de egyenlore megfelelelelele
+	Enemy_AttackTimer = Enemy_AttackTimer < 0 && Enemy_AttackTimer != 1000 ? 1000 : Enemy_AttackTimer -= dt;
+
+
 }
 
 bool Zombie::attacking(Uint64 dt)
 {
-	if (Enemy_IsAttacking)
+	/*if (Enemy_IsAttacking)
 	{
 		Enemy_AttackTimer -= dt;
 		Enemy_IsAttacking = false;
 		return true;
+	}*/
+
+	if (Enemy_AttackTimer == 1000) {
+		Enemy_AttackTimer -= dt;
+		return true;
 	}
 
-	if ( !Enemy_IsAttacking and Enemy_AttackTimer < 1000) {
+	/*if ( !Enemy_IsAttacking and Enemy_AttackTimer < 1000) {
 		Enemy_AttackTimer -= dt;
 	}
 
 	if (Enemy_AttackTimer < 0) {
 		Enemy_AttackTimer = 1000;
 		Enemy_IsAttacking = true;
-	}
+	}*/
 
 	return false;
 }

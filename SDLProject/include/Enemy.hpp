@@ -69,8 +69,12 @@ public:
 };
 
 class Skeleton : public Enemy{
+private:
+	
 public:
-	Skeleton(Properties* props) : Enemy(props) {};
+	Skeleton(Properties* props) : Enemy(props) {
+		Enemy_AttackTimer = 3000;
+	};
 	virtual void AnimationState();
 	virtual void move(Uint64 dt);
 	virtual bool attacking(Uint64 dt);
