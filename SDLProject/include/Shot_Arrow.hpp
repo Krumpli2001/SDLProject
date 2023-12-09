@@ -23,6 +23,7 @@ public:
 		Arrow_SpriteAnimation = new SpriteAnimation();
 		TargetPosX = TX;
 		TargetPosY = TY;
+		Arrow_SpriteAnimation->SetProps("shot_arrow", 0, 1, 1);
 	}
 
 	virtual bool attacking(Uint64 dt) { return false; }
