@@ -1,4 +1,5 @@
 #include "Enemy.hpp"
+#include "ObjectFactory.hpp"
 
 static Registrar < Skeleton > registrar("SKELETON");
 
@@ -49,5 +50,7 @@ void Skeleton::move(Uint64 dt)
 
 bool Skeleton::attacking(Uint64 dt)
 {
+	Engine::GetInstance()->spawnSpecial("ARROW", Enemy_RigidBody->getRigidBody_Position().getX(), Enemy_RigidBody->getRigidBody_Position().getY(), 1, 10);
+	//Engine::GetInstance()->getGameObjects()->push_back(ObjectFactory::GetInstance()->CreateObject("ARROW", Engine::GetInstance()->getPropsMap()->find("ARROW")->second));
 	return false;
 }

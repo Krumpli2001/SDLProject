@@ -46,7 +46,6 @@ private:
 	int Engine_CollisionLayer = 0;
 
 	void spawn(std::string name);
-	void spawnSpecial(std::string name, double x, double y, int hp, int power);
 
 
 public:
@@ -70,6 +69,7 @@ public:
 	inline bool getMenuShowing() { return Engine_MenuShowing; }
 	inline void setMenuShowing(bool set) { Engine_MenuShowing = set; }
 	inline std::vector<GameObject*>* getGameObjects() { return &Enigine_GameObjects; }
+	inline std::unordered_map<std::string, Properties*>* getPropsMap() { return &Engine_PropsMap; }
 	inline bool getResetFlag() { return Engine_ResetFlag; }
 	inline void setResetFlag(bool e) { Engine_ResetFlag = e; }
 	inline void setCollisionLayer(int e) { Engine_CollisionLayer = e; }
@@ -89,5 +89,8 @@ public:
 	void Update();
 	void Render();
 	void Events();
+
+	void spawnSpecial(std::string name, double x, double y, int hp, int power);
+
 
 };

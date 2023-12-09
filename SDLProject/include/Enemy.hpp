@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Character.hpp"
-#include "RigidBody.hpp"
-#include "SpriteAnimation.hpp"
+//#include "RigidBody.hpp"
+//#include "SpriteAnimation.hpp"
 #include "ObjectFactory.hpp"
 #include "Engine.hpp"
 
@@ -57,7 +57,7 @@ private:
 	
 	
 public:
-	Zombie(Properties* props) : Enemy(props) {
+	inline Zombie(Properties* props) : Enemy(props) {
 		Enemy_AttackPower = 10;
 		Enemy_AttackTimer = 1000;
 	};

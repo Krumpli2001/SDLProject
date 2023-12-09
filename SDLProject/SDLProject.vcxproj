@@ -149,6 +149,7 @@
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\ObjectFactory.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Shot_Arrow.cpp" />
     <ClCompile Include="src\Skeleton.cpp" />
     <ClCompile Include="src\SpriteAnimation.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="include\Point.hpp" />
     <ClInclude Include="include\RigidBody.hpp" />
     <ClInclude Include="include\Rng.hpp" />
+    <ClInclude Include="include\Shot_Arrow.hpp" />
     <ClInclude Include="include\SpriteAnimation.hpp" />
     <ClInclude Include="include\TextureManager.hpp" />
     <ClInclude Include="include\TileLayer.hpp" />

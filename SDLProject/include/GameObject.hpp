@@ -5,6 +5,9 @@
 #include "Transform.hpp"
 #include "Point.hpp"
 #include "Collider.hpp"
+#include "RigidBody.hpp"
+#include "SpriteAnimation.hpp"
+//#include "ObjectFactory.hpp"
 
 #define PLAYER_ATTACK_TIME 300.0
 
