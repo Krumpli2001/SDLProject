@@ -26,11 +26,11 @@ public:
 		Arrow_SpriteAnimation->SetProps("shot_arrow", 0, 1, 1);
 	}
 
-	virtual bool attacking(Uint64 dt) { return false; }
+	virtual bool attacking(Uint64 dt);
 	virtual void setAttacking(bool e) {}
-	virtual bool isAttacking() { return false; }
+	virtual bool isAttacking() { return true; }
 	virtual Collider* getCollider() { return Arrow_Collider; }
-	virtual void Update(Uint64 dt) {}
+	void Update(Uint64 dt);
 
 	void Draw(double scale);
 	void Clean();
@@ -38,7 +38,7 @@ public:
 
 	virtual void setGravity(double G) {}
 	virtual double getAttacktime() { return 0; }
-	virtual int getAttackPower() { return 10; }
+	int getAttackPower() { return 10; }
 	virtual void setAttackPower(int power) {}
 
 };

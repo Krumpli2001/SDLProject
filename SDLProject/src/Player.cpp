@@ -41,6 +41,8 @@ void Player::Draw(double scale)
 
 void Player::Update(Uint64 dt)
 {
+
+	GameObject_hp = GameObject_hp < GameObject_MaxHP ? GameObject_hp += 1 : GameObject_hp;
 	Player_ImunityTime = Player_ImunityTime <= 0 ? 0 : Player_ImunityTime-dt;
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
