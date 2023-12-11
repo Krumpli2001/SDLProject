@@ -1,4 +1,5 @@
 #include "Shot_Arrow.hpp"
+#include <cmath>
 
 static Registrar < Shot_Arrow > registrararrow("ARROW");
 
@@ -15,12 +16,29 @@ bool Shot_Arrow::attacking(Uint64 dt)
 void Shot_Arrow::Update(Uint64 dt)
 {
 	//ehelyett a magic number kep meret helyett kell majd jobb megoldás...
+	//Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 20, 100);
+	Arrow_RigidBody->SetForceToZero();
+
+	Arrow_RigidBody->ApplyForceX(BALRA * 4);
+
+	bool kuka;
+	if (CollisionHandler::GetInstance()->MapCollision(this, &kuka)) {
+		GameObject_hp = 0;
+	}
+
+	GameObject_Transform->setX(GameObject_Transform->getX() + Arrow_RigidBody->getRigidBody_Position().getX());
+	GameObject_Transform->setY(GameObject_Transform->getY() + Arrow_RigidBody->getRigidBody_Position().getY());
 	Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 20, 100);
+
+	std::cout << Arrow_RigidBody->getRigidBody_Velocity().getY() << " " << Arrow_RigidBody->getRigidBody_Velocity().getX() << "\n";
+	angle = atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * -180 / M_PI;
+	std::cout << angle << "\n";
+	Arrow_RigidBody->Update(dt);
 }
 
 void Shot_Arrow::Draw(double scale)
 {
-	Arrow_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip, scale);
+	Arrow_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, SDL_FLIP_VERTICAL, angle, scale);
 }
 
 void Shot_Arrow::Clean()

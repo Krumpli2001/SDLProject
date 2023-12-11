@@ -13,6 +13,8 @@ private:
 	int TargetPosX{};
 	int TargetPosY{};
 
+	double angle = 0;
+
 public:
 	inline Shot_Arrow(Properties* props, int TX = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getX(), int TY = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getY()) : GameObject(props) {
 		GameObject_hp = props->Properies_hp;

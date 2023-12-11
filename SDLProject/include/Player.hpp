@@ -22,6 +22,8 @@ private:
 
 	double Player_JumpForce;
 
+	double regenTimer = 200;
+
 	bool Player_IsUnderWater;
 	double Player_UnderWaterTime;
 
