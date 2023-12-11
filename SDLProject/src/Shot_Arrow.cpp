@@ -30,9 +30,14 @@ void Shot_Arrow::Update(Uint64 dt)
 	GameObject_Transform->setY(GameObject_Transform->getY() + Arrow_RigidBody->getRigidBody_Position().getY());
 	Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 20, 100);
 
-	std::cout << Arrow_RigidBody->getRigidBody_Velocity().getY() << " " << Arrow_RigidBody->getRigidBody_Velocity().getX() << "\n";
-	angle = atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * -180 / M_PI;
-	std::cout << angle << "\n";
+	//std::cout << Arrow_RigidBody->getRigidBody_Velocity().getY() << " " << Arrow_RigidBody->getRigidBody_Velocity().getX() << "\n";
+	if(Arrow_RigidBody->getRigidBody_Velocity().getX() < 0)
+		angle = 90 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * ( - 180) / M_PI;
+
+	else
+		angle = 270 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-180) / M_PI;
+
+	//std::cout << angle << "\n";
 	Arrow_RigidBody->Update(dt);
 }
 
