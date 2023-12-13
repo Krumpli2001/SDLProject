@@ -6,11 +6,15 @@
 #include <SDL_image.h>
 #include <map>
 
+struct dimenziok {
+	int w, h;
+};
+
 class TextureManager
 {
 private:
 	static TextureManager* TextureManager_Instance;
-	std::map<std::string, SDL_Texture*> TextureManager_TextureMap;
+	std::map<std::string, std::pair<SDL_Texture*, dimenziok>> TextureManager_TextureMap;
 
 public:
 	TextureManager() {};
@@ -31,5 +35,5 @@ public:
 	void Drop(std::string id);
 	void Clean();
 
-	inline std::map<std::string, SDL_Texture*> getTextureMap() { return TextureManager_TextureMap; }
+	inline std::map<std::string, std::pair<SDL_Texture*, dimenziok>>* getTextureMap() { return &TextureManager_TextureMap; }
 };

@@ -19,7 +19,13 @@ void Shot_Arrow::Update(Uint64 dt)
 	//Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 20, 100);
 	Arrow_RigidBody->SetForceToZero();
 
-	Arrow_RigidBody->ApplyForceX(BALRA * 4);
+	if (TargetPosX < GameObject_Transform->getX()) {
+		Arrow_RigidBody->ApplyForceX(BALRA * 4);
+	}
+	else {
+		Arrow_RigidBody->ApplyForceX(JOBBRA * 4);
+	}
+
 
 	bool kuka;
 	if (CollisionHandler::GetInstance()->MapCollision(this, &kuka)) {

@@ -21,7 +21,11 @@ bool TextureManager::Load(std::string id, std::string filename)
 		return false;
 	}
 
-	TextureManager_TextureMap[id] = texture;
+	dimenziok d = { surface->w, surface->h };
+
+	auto data = std::make_pair(texture, d);
+
+	TextureManager_TextureMap[id] = data;
 	SDL_FreeSurface(surface);
 	return true;
 }
@@ -67,7 +71,7 @@ void TextureManager::Draw(std::string id, int x, int y, int w, int h, int srcx, 
 	
 
 	//SDL_Rect dstRect = { x, y, w, h };
-	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
+	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, flip);
 }
 
 void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip)
@@ -81,7 +85,7 @@ void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y,
 	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), tilesize, tilesize};
 
 	//SDL_Rect dstRect = { x, y, tilesize, tilesize };
-	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[tilesetID], &srcRect, &dstRect /*0, nullptr, flip*/);
+	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[tilesetID].first, &srcRect, &dstRect /*0, nullptr, flip*/);
 }
 
 void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, double angle, SDL_RendererFlip flip)
@@ -93,21 +97,21 @@ void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h,
 	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), w * scale, h * scale };
 
 	//SDL_Rect dstRect = { x, y, w, h };
-	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id], &srcRect, &dstRect, angle, nullptr, flip);
+	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, nullptr, flip);
 }
 
 void TextureManager::Drop(std::string id)
 {
-	SDL_DestroyTexture(TextureManager_TextureMap[id]);
+	SDL_DestroyTexture(TextureManager_TextureMap[id].first);
 	TextureManager_TextureMap.erase(id);
 }
 
 void TextureManager::Clean()
 {
-	std::map<std::string, SDL_Texture*>::iterator it;
+	std::map<std::string, std::pair<SDL_Texture*, dimenziok>>::iterator it;
 	for (it = TextureManager_TextureMap.begin(); it != TextureManager_TextureMap.end(); it++)
 	{
-		SDL_DestroyTexture(it->second);
+		SDL_DestroyTexture(it->second.first);
 	}
 	TextureManager_TextureMap.clear();
 

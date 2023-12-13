@@ -55,7 +55,8 @@ bool Skeleton::attacking(Uint64 dt)
 
 	if (Enemy_AttackTimer == 3000) {
 		Enemy_AttackTimer -= dt;
-		Engine::GetInstance()->spawnSpecial("ARROW", GameObject_Transform->getX(), GameObject_Transform->getY(), 1, 10);
+		double x = Enemy_TargetPosX < GameObject_Transform->getX() ? 0 : 190;
+		Engine::GetInstance()->spawnSpecial("ARROW", GameObject_Transform->getX(), GameObject_Transform->getY()-50, 1, 10);
 	}
 	//Engine::GetInstance()->getGameObjects()->push_back(ObjectFactory::GetInstance()->CreateObject("ARROW", Engine::GetInstance()->getPropsMap()->find("ARROW")->second));
 	return false;
