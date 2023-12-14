@@ -46,33 +46,19 @@ void Zombie::move(Uint64 dt)
 	}
 
 	//tudom hogy ez bena helyen van de egyenlore megfelelelelele
-	Enemy_AttackTimer = Enemy_AttackTimer < 0 && Enemy_AttackTimer != 1000 ? 1000 : Enemy_AttackTimer -= dt;
-
+	//Enemy_AttackTimer = Enemy_AttackTimer < 0 && Enemy_AttackTimer != 1000 ? 1000 : Enemy_AttackTimer -= dt;
 
 }
 
-bool Zombie::attacking(Uint64 dt)
+void Zombie::attacking(Uint64 dt)
 {
-	/*if (Enemy_IsAttacking)
-	{
-		Enemy_AttackTimer -= dt;
-		Enemy_IsAttacking = false;
-		return true;
-	}*/
-
-	if (Enemy_AttackTimer == 1000) {
-		Enemy_AttackTimer -= dt;
-		return true;
+	auto player = (*Engine::GetInstance()->getGameObjects())[0];
+	if (CollisionHandler::GetInstance()->CheckCollision(this->Enemy_Collider->getBox(), player->getCollider()->getBox())) {
+		if (Enemy_AttackTimer == 1000) {
+			Enemy_AttackTimer -= dt;
+			player->setHP(player->getHP() - Enemy_AttackPower);
+		}
 	}
 
-	/*if ( !Enemy_IsAttacking and Enemy_AttackTimer < 1000) {
-		Enemy_AttackTimer -= dt;
-	}
-
-	if (Enemy_AttackTimer < 0) {
-		Enemy_AttackTimer = 1000;
-		Enemy_IsAttacking = true;
-	}*/
-
-	return false;
+	Enemy_AttackTimer = Enemy_AttackTimer < 0 && Enemy_AttackTimer != 1000 ? 1000 : Enemy_AttackTimer -= dt;
 }

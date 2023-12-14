@@ -3,14 +3,13 @@
 
 static Registrar < Shot_Arrow > registrararrow("ARROW");
 
-bool Shot_Arrow::attacking(Uint64 dt)
+void Shot_Arrow::attacking(Uint64 dt)
 {
-	/*if (Enemy_AttackTimer == 1000) {
-		Enemy_AttackTimer -= dt;*/
+	auto player = (*Engine::GetInstance()->getGameObjects())[0];
+	if (CollisionHandler::GetInstance()->CheckCollision(this->Arrow_Collider->getBox(), player->getCollider()->getBox())) {
 		GameObject_hp = 0;
-		return true;
-	//}
-	//return false;
+		player->setHP(player->getHP() - getAttackPower());
+	}
 }
 
 void Shot_Arrow::Update(Uint64 dt)
@@ -20,11 +19,13 @@ void Shot_Arrow::Update(Uint64 dt)
 	Arrow_RigidBody->SetForceToZero();
 
 	if (TargetPosX < GameObject_Transform->getX()) {
-		Arrow_RigidBody->ApplyForceX(BALRA * 4);
+		Arrow_RigidBody->ApplyForceX(BALRA * 2);
 	}
 	else {
-		Arrow_RigidBody->ApplyForceX(JOBBRA * 4);
+		Arrow_RigidBody->ApplyForceX(JOBBRA * 2);
 	}
+
+	Arrow_RigidBody->ApplyForceY(FEL * 1);
 
 
 	bool kuka;

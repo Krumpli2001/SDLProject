@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Character.hpp"
-//#include "RigidBody.hpp"
-//#include "SpriteAnimation.hpp"
 #include "ObjectFactory.hpp"
 #include "Engine.hpp"
 
@@ -36,7 +34,7 @@ public:
 	virtual void Draw(double scale = 1.0);
 	virtual void Clean();
 	virtual void reset();
-	virtual bool attacking(Uint64 dt) = 0;
+	virtual void attacking(Uint64 dt) = 0;
 	virtual inline void setGravity(double G) { Enemy_RigidBody->setRigidBody_Gravity(G); } 
 	virtual inline Collider* getCollider() { return Enemy_Collider; }
 	virtual inline bool isAttacking() { return Enemy_IsAttacking; }
@@ -63,7 +61,7 @@ public:
 	};
 	virtual void AnimationState();
 	virtual void move(Uint64 dt);
-	virtual bool attacking(Uint64 dt);
+	virtual void attacking(Uint64 dt);
 	inline int getAttackPower() { return Enemy_AttackPower; }
 	inline double getAttackTimer() { return Enemy_AttackTimer; }
 };
@@ -77,5 +75,5 @@ public:
 	};
 	virtual void AnimationState();
 	virtual void move(Uint64 dt);
-	virtual bool attacking(Uint64 dt);
+	virtual void attacking(Uint64 dt);
 };

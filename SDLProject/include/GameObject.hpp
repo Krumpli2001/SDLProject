@@ -68,7 +68,7 @@ public:
 	inline void setMaxHP(int newhp){ GameObject_MaxHP = newhp; }
 	inline int getMaxHP() { return GameObject_MaxHP; }
 
-	virtual bool attacking(Uint64 dt) = 0;
+	virtual void attacking(Uint64 dt) = 0;
 	virtual void setAttacking(bool e) = 0;
 	virtual bool isAttacking() = 0;
 	

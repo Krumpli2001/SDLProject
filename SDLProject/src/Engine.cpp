@@ -170,10 +170,12 @@ void Engine::Update()
 							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects[0]->getAttackPower());
 						}
 						//utes mob
-						if (Enigine_GameObjects[mob]->attacking(dt)) {
+						/*if (Enigine_GameObjects[mob]->attacking(dt)) {
 							Enigine_GameObjects[0]->setHP(Enigine_GameObjects[0]->getHP() - Enigine_GameObjects[mob]->getAttackPower());
-						}
+						}*/
 					}
+					Enigine_GameObjects[mob]->attacking(dt);
+
 				}
 				Enigine_GameObjects[i]->Update(dt);
 			}

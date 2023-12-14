@@ -46,18 +46,16 @@ void Skeleton::move(Uint64 dt)
 		Enemy_IsFalling = false;
 	}
 
-	Enemy_AttackTimer = Enemy_AttackTimer < 0 && Enemy_AttackTimer != 3000 ? 3000 : Enemy_AttackTimer -= dt;
-
 }
 
-bool Skeleton::attacking(Uint64 dt)
+void Skeleton::attacking(Uint64 dt)
 {
-
-	if (Enemy_AttackTimer == 3000) {
-		Enemy_AttackTimer -= dt;
-		double x = Enemy_TargetPosX < GameObject_Transform->getX() ? 0 : 190;
-		Engine::GetInstance()->spawnSpecial("ARROW", GameObject_Transform->getX(), GameObject_Transform->getY()-50, 1, 10);
+	if (abs(Enemy_TargetPosX - GameObject_Transform->getX()) < 10 * 120) {
+		if (Enemy_AttackTimer == 3000) {
+			Enemy_AttackTimer -= dt;
+			double x = Enemy_TargetPosX < GameObject_Transform->getX() ? 0 : 190;
+			Engine::GetInstance()->spawnSpecial("ARROW", GameObject_Transform->getX(), GameObject_Transform->getY() + 50, 1, 10);
+		}
 	}
-	//Engine::GetInstance()->getGameObjects()->push_back(ObjectFactory::GetInstance()->CreateObject("ARROW", Engine::GetInstance()->getPropsMap()->find("ARROW")->second));
-	return false;
+	Enemy_AttackTimer = Enemy_AttackTimer < 0 && Enemy_AttackTimer != 3000 ? 3000 : Enemy_AttackTimer -= dt;
 }

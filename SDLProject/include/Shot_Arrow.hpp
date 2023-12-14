@@ -16,7 +16,7 @@ private:
 	double angle = 0;
 
 public:
-	inline Shot_Arrow(Properties* props, int TX = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getX(), int TY = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getY()) : GameObject(props) {
+	inline Shot_Arrow(Properties* props, int TX = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getX()+190/2, int TY = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getY()+240/2) : GameObject(props) {
 		GameObject_hp = props->Properies_hp;
 		Arrow_RigidBody = new RigidBody();
 		Arrow_RigidBody->setRigidBody_Gravity(GRAVITY);
@@ -28,7 +28,7 @@ public:
 		Arrow_SpriteAnimation->SetProps("shot_arrow", 0, 1, 1);
 	}
 
-	virtual bool attacking(Uint64 dt);
+	virtual void attacking(Uint64 dt);
 	virtual void setAttacking(bool e) {}
 	virtual bool isAttacking() { return true; }
 	virtual Collider* getCollider() { return Arrow_Collider; }
