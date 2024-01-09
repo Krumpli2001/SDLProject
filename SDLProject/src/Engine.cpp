@@ -239,11 +239,21 @@ int Engine::legmamasabbBlock(int x)
 
 	x /= size;
 
-	for (int i = 0; i < map->size(); i++) {
+	int max = 0;
+
+	for (int i = 1; i < map->size()-2; i++) {
 		if ((*map)[i][x] == 0) { continue; }
 		else {
 			//ez az y coord
-			return i * size - 2*size;
+			//return i * size - 2*size;
+
+			max = (i - 1) * size - size;
+			max = i * size - size > max ? i * size - size : max;
+			max = (i + 1) * size - size > max ? (i + 1) * size - size : max;
+
+			//ez csak a biztonsag kedveert van itt
+			max--;
+			return max;
 		}
 	}
 
