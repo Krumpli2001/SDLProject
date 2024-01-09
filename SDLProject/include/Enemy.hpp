@@ -68,7 +68,7 @@ public:
 
 class Skeleton : public Enemy{
 private:
-	
+	bool isAiming = false;
 public:
 	Skeleton(Properties* props) : Enemy(props) {
 		Enemy_AttackTimer = 3000;

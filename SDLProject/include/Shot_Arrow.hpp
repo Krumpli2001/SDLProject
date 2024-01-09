@@ -1,5 +1,4 @@
 #include "Engine.hpp"
-//#include "GameObject.hpp"
 #include "ObjectFactory.hpp"
 
 
@@ -14,6 +13,8 @@ private:
 	int TargetPosY{};
 
 	double angle = 0;
+	//bal=-1 jobb=1
+	int irany = 0;
 
 public:
 	inline Shot_Arrow(Properties* props, int TX = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getX()+190/2, int TY = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getY()+240/2) : GameObject(props) {

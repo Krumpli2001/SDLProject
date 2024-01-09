@@ -123,13 +123,8 @@ void Engine::Update()
 				randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size()-1) + 1;
 				std::advance(iter, randomMob);
 			} while (iter->first == "PLAYER" || iter->first == "ARROW");
-			
-			/*for (int i = 0; i < randomMob; i++) {
-				iter++;
-			}*/
 
-			//if (iter->first != "PLAYER") {
-
+			//maga a spawnolas
 				if (bal_jobb == BAL) {
 					if ((Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120) > 0) {
 						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120) - iter->second->Properties_Height, 100, 10);
@@ -141,7 +136,6 @@ void Engine::Update()
 					}
 				}
 
-			//}
 			Engine_SpawnTimer -= dt;
 		}
 		else {
@@ -169,10 +163,6 @@ void Engine::Update()
 						if ((Enigine_GameObjects[0]->isAttacking()) and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)) {
 							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects[0]->getAttackPower());
 						}
-						//utes mob
-						/*if (Enigine_GameObjects[mob]->attacking(dt)) {
-							Enigine_GameObjects[0]->setHP(Enigine_GameObjects[0]->getHP() - Enigine_GameObjects[mob]->getAttackPower());
-						}*/
 					}
 					Enigine_GameObjects[mob]->attacking(dt);
 
@@ -252,8 +242,8 @@ int Engine::legmamasabbBlock(int x)
 	for (int i = 0; i < map->size(); i++) {
 		if ((*map)[i][x] == 0) { continue; }
 		else {
-			//std::cout << x << " " << i * size + size << "\n";
-			return i * size - size/2;
+			//ez az y coord
+			return i * size - 2*size;
 		}
 	}
 

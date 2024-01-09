@@ -18,7 +18,20 @@ void Shot_Arrow::Update(Uint64 dt)
 	//Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 20, 100);
 	Arrow_RigidBody->SetForceToZero();
 
-	if (TargetPosX < GameObject_Transform->getX()) {
+	/*if (irany == 0) {
+		if (TargetPosX < GameObject_Transform->getX()) {
+			irany = -1;
+		}
+		else {
+			irany = 1;
+		}
+		irany = TargetPosX < GameObject_Transform->getX() ? -1 : 1;
+	}*/
+
+	//ez aztan a c, a felso resz a magyarazat XD
+	irany = irany == 0 ? irany = TargetPosX < GameObject_Transform->getX() ? -1 : 1:irany;
+
+	if (irany==-1) {
 		Arrow_RigidBody->ApplyForceX(BALRA * 2);
 	}
 	else {
