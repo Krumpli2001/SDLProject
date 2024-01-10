@@ -18,10 +18,15 @@ private:
 	SDL_Color color = { 255, 255, 255 };
 	SDL_Surface* surfaceMessage = nullptr;
 	SDL_Texture* Message = nullptr;
-	SDL_Rect Message_rect{ 0,0,100 * static_cast<int>(Engine::GetInstance()->getTScale()), 100 * static_cast<int>(Engine::GetInstance()->getTScale()) };
+	SDL_Rect Message_rect{ 0,0,0,0 };
+	//SDL_Rect Message_rect{ 0,0,100 * static_cast<int>(Engine::GetInstance()->getTScale()), 100 * static_cast<int>(Engine::GetInstance()->getTScale()) };
 
 	int php{};
 	int mphp{};
+
+	SDL_Surface* inventoryKocka = nullptr;
+	SDL_Texture* inventoryKockaTextura = nullptr;
+	SDL_Rect inventoryKockaHely{ 0,0,0,0 };
 
 
 public:
