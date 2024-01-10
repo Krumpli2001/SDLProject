@@ -14,8 +14,9 @@ void UI::Update()
 	Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 	Message_rect = { static_cast<int>((*Engine::GetInstance()->getWindow_W() - 150) * 1/scale), 0, static_cast<int>(100 * (1 / scale)), static_cast<int>(20 * (1 / scale)) };
 
+	//azert 32 mert 8*8*8*8 az utolso 8 bit az az alpha
 	inventoryKocka = SDL_CreateRGBSurface(0, 60, 60, 32, 0, 0, 0, 0);
-	SDL_FillRect(inventoryKocka, 0, SDL_MapRGB(inventoryKocka->format, 30, 10, 200));
+	SDL_FillRect(inventoryKocka, 0, SDL_MapRGB(inventoryKocka->format, 10, 90, 230));
 	inventoryKockaTextura = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), inventoryKocka);
 	inventoryKockaHely = { 20,20, static_cast<int>(60 * (1 / scale)), static_cast<int>(60 * (1 / scale)) };
 }
