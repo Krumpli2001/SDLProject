@@ -27,6 +27,7 @@ private:
 	SDL_Surface* inventoryKocka = nullptr;
 	SDL_Texture* inventoryKockaTextura = nullptr;
 	SDL_Rect inventoryKockaHely{ 0,0,0,0 };
+	bool showInventory = false;
 
 
 public:
@@ -40,9 +41,13 @@ public:
 		return UI_Instance;
 	}
 
+	void UIInit();
 	void Update();
 	void Draw();
+	void TextureReset();
 	void Clean();
 	inline void setFpsShowing(bool e) { FpsShowing = e; }
 	inline bool getFpsShowing() { return FpsShowing; }
+	inline void setInventoryShowing(bool e) { showInventory = e; }
+	inline bool getInventoryShowing() { return showInventory; }
 };

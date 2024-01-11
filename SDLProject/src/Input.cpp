@@ -92,6 +92,8 @@ int Input::getElse()
 	//ez a 2 a texturakhoz
 	if (getKeyDown(SDL_SCANCODE_3)) { return SDL_SCANCODE_3; }
 	if (getKeyDown(SDL_SCANCODE_4)) { return SDL_SCANCODE_4; }
+	//inventory mutatas
+	if (getKeyDown(SDL_SCANCODE_E)) { return SDL_SCANCODE_E; }
 	return 0;
 }
 
@@ -101,42 +103,43 @@ void Input::interpret(int kod)
 	{
 	case SDL_SCANCODE_1:
 		if(Timer::GetInstance()->pressable(200)){ Timer::GetInstance()->setFPSLock(!Timer::GetInstance()->getFPSLock()); }
-		// Timer::GetInstance()->setFPSLock(!Timer::GetInstance()->getFPSLock());
-		//SDL_Delay(200);
 		break;
+
 	case SDL_SCANCODE_KP_PLUS:
 		if (Timer::GetInstance()->pressable(200)) {
 			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 0.01); 
 		}
-		//SDL_Delay(200);
 		break;
+
 	case SDL_SCANCODE_MINUS:
 		if (Timer::GetInstance()->pressable(200)) {
 			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.01);
 		}
-		//SDL_Delay(200);
+
 		break;
+
 	case SDL_SCANCODE_2:
 		if (Timer::GetInstance()->pressable(200)) {
 			UI::GetInstance()->setFpsShowing(!UI::GetInstance()->getFpsShowing());
 		}
 		break;
+
 	case SDL_SCANCODE_3:
 		if (Timer::GetInstance()->pressable(200)) {
 			Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() + 0.1);
-			//if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() + 0.1); }
-			//Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
 		}
-		//SDL_Delay(200);
 		break;
+
 	case SDL_SCANCODE_4:
 		if (Timer::GetInstance()->pressable(200)) {
 			Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() - 0.1);
-			//if (Engine::GetInstance()->getScaleTimer() == 0) { Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() - 0.1); }
-			//Engine::GetInstance()->setScaleTimer(Engine::GetInstance()->getScaleTimer() + Timer::GetInstance()->getTimer_DeltaTime());
 		}
-		//SDL_Delay(200);
 		break;
+
+	case SDL_SCANCODE_E:
+		if (Timer::GetInstance()->pressable(200)) {
+			UI::GetInstance()->setInventoryShowing(!UI::GetInstance()->getInventoryShowing());
+		}
 	}
 }
 

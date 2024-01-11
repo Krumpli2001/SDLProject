@@ -72,6 +72,8 @@ bool Engine::Init()
 
 	Menu::GetInstance()->MenuInit();
 
+	UI::GetInstance()->UIInit();
+
 	return Engine_IsRunning = true;
 }
 

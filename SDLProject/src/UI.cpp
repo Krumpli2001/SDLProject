@@ -1,8 +1,17 @@
 #include "UI.hpp"
 
+void UI::UIInit()
+{
+	//azert 32 mert 8*8*8*8 az utolso 8 bit az az alpha
+	inventoryKocka = SDL_CreateRGBSurface(0, 60, 60, 32, 0, 0, 0, 0);
+	SDL_FillRect(inventoryKocka, 0, SDL_MapRGB(inventoryKocka->format, 10, 90, 230));
+	inventoryKockaTextura = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), inventoryKocka);
+}
+
 void UI::Update()
 {
 	scale = Engine::GetInstance()->getScale();
+
 	if (FpsShowing) {
 		FPSCounter::GetInstance()->Update();
 	}
@@ -14,11 +23,6 @@ void UI::Update()
 	Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 	Message_rect = { static_cast<int>((*Engine::GetInstance()->getWindow_W() - 150) * 1/scale), 0, static_cast<int>(100 * (1 / scale)), static_cast<int>(20 * (1 / scale)) };
 
-	//azert 32 mert 8*8*8*8 az utolso 8 bit az az alpha
-	inventoryKocka = SDL_CreateRGBSurface(0, 60, 60, 32, 0, 0, 0, 0);
-	SDL_FillRect(inventoryKocka, 0, SDL_MapRGB(inventoryKocka->format, 10, 90, 230));
-	inventoryKockaTextura = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), inventoryKocka);
-	inventoryKockaHely = { 20,20, static_cast<int>(60 * (1 / scale)), static_cast<int>(60 * (1 / scale)) };
 }
 
 void UI::Draw()
@@ -45,8 +49,43 @@ void UI::Draw()
 	}
 
 	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), Message, 0, &Message_rect);
-	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), inventoryKockaTextura, 0, &inventoryKockaHely);
-	Clean();
+
+	{
+		int x = 20;
+		int y = 20;
+		for (int sor = 0; sor < 4; sor++) {
+			//int y = 20;
+			for (int oszlop = 0; oszlop < 10; oszlop++) {
+				//int x = 20;
+				inventoryKockaHely = { x,y, static_cast<int>(60 * (1 / scale)), static_cast<int>(60 * (1 / scale)) };
+				SDL_RenderCopy(Engine::GetInstance()->getRenderer(), inventoryKockaTextura, 0, &inventoryKockaHely);
+				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
+			}
+			if (!showInventory) {
+				break;
+			}
+			x = 20;
+			y += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
+		}
+	}
+
+	TextureReset();
+}
+
+void UI::TextureReset()
+{
+	if (FpsShowing) {
+		FPSCounter::GetInstance()->Clean();
+	}
+	if (surfaceMessage) { SDL_FreeSurface(surfaceMessage); }
+	if (Message) { SDL_DestroyTexture(Message); }
+	surfaceMessage = nullptr;
+	Message = nullptr;
+
+	/*if (inventoryKocka) { SDL_FreeSurface(inventoryKocka); }
+	if (inventoryKockaTextura) { SDL_DestroyTexture(inventoryKockaTextura); }
+	inventoryKocka = nullptr;
+	inventoryKockaTextura = nullptr;*/
 }
 
 void UI::Clean()
