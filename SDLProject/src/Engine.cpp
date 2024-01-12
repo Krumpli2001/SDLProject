@@ -215,7 +215,7 @@ void Engine::Update()
 
 void Engine::Render()
 {
-	if (!Engine_MenuShowing) {
+	if (!Engine_MenuShowing or mapIsLoaded) {
 		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
@@ -226,6 +226,7 @@ void Engine::Render()
 		}
 
 		UI::GetInstance()->Draw();
+		mapIsLoaded = true;
 	}
 	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);

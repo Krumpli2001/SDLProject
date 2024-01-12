@@ -44,9 +44,9 @@ private:
 
 	bool Engine_ResetFlag = false;
 	int Engine_CollisionLayer = 0;
+	bool mapIsLoaded = false;
 
 	void spawn(std::string name);
-
 
 public:
 	static inline Engine* GetInstance()
@@ -78,6 +78,7 @@ public:
 	inline double getScale() { return scale; }
 	inline void setTScale(double s) { Tscale = s; }
 	inline double getTScale() { return Tscale; }
+	inline void setmapIsLoaded(bool e) { mapIsLoaded = e; }
 	//inline void setFPSShowing(bool e) { Engine_FPSShowing = e; }
 	//inline bool getFPSShowing() { return Engine_FPSShowing; }
 	inline void setLevelMap(GameMap* p) { Engine_LevelMap = p; }

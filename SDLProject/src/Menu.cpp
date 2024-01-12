@@ -109,7 +109,10 @@ void Menu::Update()
 				Title = true;
 				MapParser::GetInstance()->Clean();
 				TextureManager::GetInstance()->Clean();
+				Engine::GetInstance()->setmapIsLoaded(false);
+				//SDL_RenderClear(Engine::GetInstance()->getRenderer());
 				//Reset();
+				
 			}
 		}
 		else { 
@@ -300,9 +303,14 @@ void Menu::Update()
 
 void Menu::Draw()
 {
-	SDL_RenderClear(Engine::GetInstance()->getRenderer());
+	//SDL_RenderClear(Engine::GetInstance()->getRenderer());
 	if (!Title) {
+		//SDL_RenderClear(Engine::GetInstance()->getRenderer());
 		SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 100);
+		SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), 0);
+	}
+	else {
+		SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 255);
 		SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), 0);
 	}
 
