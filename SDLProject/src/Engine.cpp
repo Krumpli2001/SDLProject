@@ -51,6 +51,8 @@ bool Engine::Init()
 		return false;
 	}
 
+	SDL_SetRenderDrawBlendMode(Engine_Renderer, SDL_BLENDMODE_BLEND);
+
 	//map betoltese
 	//if (!MapParser::GetInstance()->Load("map"))
 	//{
@@ -220,7 +222,7 @@ void Engine::Render()
 
 		//azert megy hatrafele hogy a player legyen legfelul
 		for (int i = Enigine_GameObjects.size() - 1; i >= 0; i--) {
-			Enigine_GameObjects[i]->Draw(/*Tscale*/);
+			Enigine_GameObjects[i]->Draw();
 		}
 
 		UI::GetInstance()->Draw();

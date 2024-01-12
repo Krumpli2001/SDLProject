@@ -300,8 +300,11 @@ void Menu::Update()
 
 void Menu::Draw()
 {
-	SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 255);
 	SDL_RenderClear(Engine::GetInstance()->getRenderer());
+	if (!Title) {
+		SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 100);
+		SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), 0);
+	}
 
 	for (int i = 0; i < options.size(); i++) {
 		SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);

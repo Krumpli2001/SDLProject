@@ -3,9 +3,9 @@
 void UI::UIInit()
 {
 	//azert 32 mert 8*8*8*8 az utolso 8 bit az az alpha
-	inventoryKocka = SDL_CreateRGBSurface(0, 60, 60, 32, 0, 0, 0, 0);
-	SDL_FillRect(inventoryKocka, 0, SDL_MapRGB(inventoryKocka->format, 10, 90, 230));
-	inventoryKockaTextura = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), inventoryKocka);
+	//inventoryKocka = SDL_CreateRGBSurface(0, 60, 60, 32, 0, 0, 0, 0);
+	//SDL_FillRect(inventoryKocka, 0, SDL_MapRGB(inventoryKocka->format, 10, 90, 230));
+	//inventoryKockaTextura = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), inventoryKocka);
 }
 
 void UI::Update()
@@ -47,18 +47,19 @@ void UI::Draw()
 			kezdopixel += 40;
 		}
 	}
-
 	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), Message, 0, &Message_rect);
 
+	//inventory
 	{
 		int x = 20;
 		int y = 20;
+		auto renderer = Engine::GetInstance()->getRenderer();
 		for (int sor = 0; sor < 4; sor++) {
-			//int y = 20;
 			for (int oszlop = 0; oszlop < 10; oszlop++) {
-				//int x = 20;
 				inventoryKockaHely = { x,y, static_cast<int>(60 * (1 / scale)), static_cast<int>(60 * (1 / scale)) };
-				SDL_RenderCopy(Engine::GetInstance()->getRenderer(), inventoryKockaTextura, 0, &inventoryKockaHely);
+				SDL_SetRenderDrawColor(renderer, 10, 90, 230, 200);
+				SDL_RenderFillRect(renderer, &inventoryKockaHely);
+				//SDL_RenderCopy(Engine::GetInstance()->getRenderer(), inventoryKockaTextura, 0, &inventoryKockaHely);
 				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
 			}
 			if (!showInventory) {
