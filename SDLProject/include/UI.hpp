@@ -28,7 +28,7 @@ private:
 	SDL_Texture* inventoryKockaTextura = nullptr;
 	SDL_Rect inventoryKockaHely{ 0,0,0,0 };
 	bool showInventory = false;
-
+	int collisionLayer;
 
 public:
 	inline static UI* GetInstance()
@@ -50,4 +50,5 @@ public:
 	inline bool getFpsShowing() { return FpsShowing; }
 	inline void setInventoryShowing(bool e) { showInventory = e; }
 	inline bool getInventoryShowing() { return showInventory; }
+	inline void setCollisionLayer(int i) { collisionLayer = i; }
 };

@@ -7,6 +7,7 @@
 #include "Timer.hpp"
 #include "MapParser.hpp"
 #include "TextureManager.hpp"
+#include "UI.hpp"
 
 Menu* Menu::Menu_Instance = nullptr;
 
@@ -245,7 +246,10 @@ void Menu::Update()
 					enter = false;
 					if (MapParser::GetInstance()->Load(saves[i])) {
 						Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
+						UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
 						CollisionHandler::GetInstance()->reset();
+						Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
+						Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
 					}
 					Load = false;
 					Main = true;

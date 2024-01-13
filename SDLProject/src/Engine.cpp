@@ -1,5 +1,5 @@
 #include <iostream>
-#include <bitset>
+//#include <bitset>
 
 #include <SDL_image.h>
 
@@ -162,7 +162,7 @@ void Engine::Update()
 				if (i != 0) {
 					unsigned int mob = i;
 
-					if (CollisionHandler::GetInstance()->CheckCollision(Enigine_GameObjects[0]->getCollider()->getBox(), Enigine_GameObjects[mob]->getCollider()->getBox())) {
+					if (CollisionHandler::GetInstance()->CheckCollision(*Enigine_GameObjects[0]->getCollider()->getBox(), *Enigine_GameObjects[mob]->getCollider()->getBox())) {
 						//utes (player)
 						if ((Enigine_GameObjects[0]->isAttacking()) and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)) {
 							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects[0]->getAttackPower());
@@ -239,22 +239,19 @@ void Engine::Events()
 
 int Engine::legmamasabbBlock(int x)
 {
-	auto map = CollisionHandler::GetInstance()->getCollisionTileMap();
-	int size = CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize();
-
-	x /= size;
+	x /= TileSize;
 
 	int max = 0;
 
-	for (int i = 1; i < map->size()-2; i++) {
-		if ((*map)[i][x] == 0) { continue; }
+	for (int i = 1; i < Engine_CollisionLayerVector->size()-2; i++) {
+		if ((*Engine_CollisionLayerVector)[i][x] == 0) { continue; }
 		else {
 			//ez az y coord
 			//return i * size - 2*size;
 
-			max = (i - 1) * size - size;
-			max = i * size - size > max ? i * size - size : max;
-			max = (i + 1) * size - size > max ? (i + 1) * size - size : max;
+			max = (i - 1) * TileSize - TileSize;
+			max = i * TileSize - TileSize > max ? i * TileSize - TileSize : max;
+			max = (i + 1) * TileSize - TileSize > max ? (i + 1) * TileSize - TileSize : max;
 
 			//ez csak a biztonsag kedveert van itt
 			max--;

@@ -10,11 +10,19 @@ CollisionHandler::CollisionHandler()
 {
     CollisionHandler_CollisionLayer = (TileLayer*)(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()];
     CollisionHandler_CollitionTileMap = *CollisionHandler_CollisionLayer->getTileMap();
-};
+
+    tileSize = CollisionHandler_CollisionLayer->getTileSize();
+    rowCount = CollisionHandler_CollisionLayer->getRowCount();
+    colCount = CollisionHandler_CollisionLayer->getColCount();
+}
 
 void CollisionHandler::reset() {
     CollisionHandler_CollisionLayer = (TileLayer*)(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()];
     CollisionHandler_CollitionTileMap = *CollisionHandler_CollisionLayer->getTileMap();
+
+    tileSize = CollisionHandler_CollisionLayer->getTileSize();
+    rowCount = CollisionHandler_CollisionLayer->getRowCount();
+    colCount = CollisionHandler_CollisionLayer->getColCount();
 }
 
 bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
@@ -26,16 +34,12 @@ bool CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
 
 bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
 {
-    int tileSize = CollisionHandler_CollisionLayer->getTileSize();
-    int rowCount = CollisionHandler_CollisionLayer->getRowCount();
-    int colCount = CollisionHandler_CollisionLayer->getColCount();
-
     //ezek itt coordinaatak
-    int left_tile = g->getCollider()->getBox().x / tileSize; //karakter legbaloldalibb pixele
-    int right_tile = (g->getCollider()->getBox().x + g->getCollider()->getBox().w) / tileSize; //karakter legjobboldalibb pixele
+    int left_tile = g->getCollider()->getBox()->x / tileSize; //karakter legbaloldalibb pixele
+    int right_tile = (g->getCollider()->getBox()->x + g->getCollider()->getBox()->w) / tileSize; //karakter legjobboldalibb pixele
 
-    int top_tile = g->getCollider()->getBox().y / tileSize;//karakter legfelso pixele
-    int bottom_tile = (g->getCollider()->getBox().y + g->getCollider()->getBox().h - 1) / tileSize; //karakter legalso pixele
+    int top_tile = g->getCollider()->getBox()->y / tileSize;//karakter legfelso pixele
+    int bottom_tile = (g->getCollider()->getBox()->y + g->getCollider()->getBox()->h - 1) / tileSize; //karakter legalso pixele
 
     //map szelei
     if (left_tile < 0) { left_tile = 0; }
@@ -44,7 +48,7 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
     if (top_tile < 0) { top_tile = 0; }
     if (bottom_tile > rowCount) { bottom_tile = rowCount; }
 
-    if ((g->getCollider()->getBox().x < 0) || ((g->getCollider()->getBox().x + g->getCollider()->getBox().w) >= (colCount * tileSize)) || (g->getCollider()->getBox().y < 0) || ((g->getCollider()->getBox().y + g->getCollider()->getBox().h) >= (rowCount * tileSize))) { return true; }    
+    if ((g->getCollider()->getBox()->x < 0) || ((g->getCollider()->getBox()->x + g->getCollider()->getBox()->w) >= (colCount * tileSize)) || (g->getCollider()->getBox()->y < 0) || ((g->getCollider()->getBox()->y + g->getCollider()->getBox()->h) >= (rowCount * tileSize))) { return true; }    
 
     for (int i = left_tile; i <= right_tile; i++)
     {
@@ -61,9 +65,11 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
 
                         if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == attetszo[i] and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == attetszo[i]) {
                             *grounded = false;
+                            //return false;
                         }
                         else {
                             *grounded = true;
+                            //return true;
                         }
                         return true;
                     }

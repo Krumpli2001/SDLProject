@@ -53,7 +53,7 @@ void Zombie::move(Uint64 dt)
 void Zombie::attacking(Uint64 dt)
 {
 	auto player = (*Engine::GetInstance()->getGameObjects())[0];
-	if (CollisionHandler::GetInstance()->CheckCollision(this->Enemy_Collider->getBox(), player->getCollider()->getBox())) {
+	if (CollisionHandler::GetInstance()->CheckCollision(*this->Enemy_Collider->getBox(), *player->getCollider()->getBox())) {
 		if (Enemy_AttackTimer == 1000) {
 			Enemy_AttackTimer -= dt;
 			player->setHP(player->getHP() - Enemy_AttackPower);

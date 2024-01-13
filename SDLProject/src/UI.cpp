@@ -2,20 +2,20 @@
 
 void UI::UIInit()
 {
-	//azert 32 mert 8*8*8*8 az utolso 8 bit az az alpha
-	//inventoryKocka = SDL_CreateRGBSurface(0, 60, 60, 32, 0, 0, 0, 0);
-	//SDL_FillRect(inventoryKocka, 0, SDL_MapRGB(inventoryKocka->format, 10, 90, 230));
-	//inventoryKockaTextura = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), inventoryKocka);
+	
 }
 
 void UI::Update()
 {
+	//skala
 	scale = Engine::GetInstance()->getScale();
 
+	//fps frissules
 	if (FpsShowing) {
 		FPSCounter::GetInstance()->Update();
 	}
 
+	//hp szamolas + felette a szoveg letrehozasa
 	php = (*Engine::GetInstance()->getGameObjects())[0]->getHP();
 	mphp = (*Engine::GetInstance()->getGameObjects())[0]->getMaxHP();
 	std::string str = std::to_string(php) + " / " + std::to_string(mphp);
@@ -23,10 +23,24 @@ void UI::Update()
 	Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 	Message_rect = { static_cast<int>((*Engine::GetInstance()->getWindow_W() - 150) * 1/scale), 0, static_cast<int>(100 * (1 / scale)), static_cast<int>(20 * (1 / scale)) };
 
+	//block highlight
+	int cx, cy;
+	Uint32 e = SDL_GetMouseState(&cx, &cy);
+	GameObject* player = (*Engine::GetInstance()->getGameObjects())[0];
+	int px = player->getPosition()->getX();
+	int py = player->getPosition()->getY();
+	cx = cx + px;
+	cy = cy + py;
+	//std::cout << cx << "\t" << cy << "\n";
+	int size = Engine::GetInstance()->getTileSize();
+	/*int blokkX = cx - cx % size;
+	int blockY = cy - cy % size;*/
+
 }
 
 void UI::Draw()
 {
+	//fps mutato
 	if (FpsShowing) {
 		FPSCounter::GetInstance()->Draw();
 	}
@@ -59,7 +73,6 @@ void UI::Draw()
 				inventoryKockaHely = { x,y, static_cast<int>(60 * (1 / scale)), static_cast<int>(60 * (1 / scale)) };
 				SDL_SetRenderDrawColor(renderer, 10, 90, 230, 200);
 				SDL_RenderFillRect(renderer, &inventoryKockaHely);
-				//SDL_RenderCopy(Engine::GetInstance()->getRenderer(), inventoryKockaTextura, 0, &inventoryKockaHely);
 				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
 			}
 			if (!showInventory) {

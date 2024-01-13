@@ -46,6 +46,9 @@ private:
 	int Engine_CollisionLayer = 0;
 	bool mapIsLoaded = false;
 
+	std::vector<std::vector<int>>* Engine_CollisionLayerVector = nullptr;
+	int TileSize;
+
 	void spawn(std::string name);
 
 public:
@@ -79,9 +82,11 @@ public:
 	inline void setTScale(double s) { Tscale = s; }
 	inline double getTScale() { return Tscale; }
 	inline void setmapIsLoaded(bool e) { mapIsLoaded = e; }
-	//inline void setFPSShowing(bool e) { Engine_FPSShowing = e; }
-	//inline bool getFPSShowing() { return Engine_FPSShowing; }
 	inline void setLevelMap(GameMap* p) { Engine_LevelMap = p; }
+	inline void setCollisionLayerVector(std::vector<std::vector<int>>* p) { Engine_CollisionLayerVector = p; }
+	//inline std::vector<std::vector<int>>* getColli
+	inline void setTileSize(int i) { TileSize = i; }
+	inline int getTileSize() { return TileSize; }
 	int legmamasabbBlock(int x);
 
 	bool Init();

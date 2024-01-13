@@ -155,8 +155,12 @@ void Player::Update(Uint64 dt)
 			int szam = 0;
 			Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
 			while (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded)) {
+			//while(!Player_IsGrounded){
+				//szam = GameObject_Transform->getX() + 240 % CollisionHandler::GetInstance()->getTileSize();
+				//std::cout << "p " << szam << "\t"<<Player_IsGrounded<<"\n";
 				szam += 1;
 				Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
+				if (szam > CollisionHandler::GetInstance()->getTileSize()) { break; }
 			}
 			Player_LastSafePosition.setY(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam);
 		

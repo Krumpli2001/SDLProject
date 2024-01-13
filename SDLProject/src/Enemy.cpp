@@ -75,8 +75,10 @@ void Enemy::Enemy_Collision(Uint64 dt) {
 		int szam = 0;
 		Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Enemy_RigidBody->getGravity() - szam, 190, 240);
 		while (CollisionHandler::GetInstance()->MapCollision(this, &Enemy_IsGrounded)) {
+			std::cout << "e " << szam << "\n";
 			szam += 1;
 			Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Enemy_RigidBody->getGravity() - szam, 190, 240);
+			if (szam > CollisionHandler::GetInstance()->getTileSize()) { break; }
 		}
 		Enemy_LastSafePosition.setY(GameObject_Transform->getY() + dt * Enemy_RigidBody->getGravity() - szam);
 
