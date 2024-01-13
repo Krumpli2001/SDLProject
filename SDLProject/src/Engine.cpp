@@ -239,27 +239,21 @@ void Engine::Events()
 
 int Engine::legmamasabbBlock(int x)
 {
+	//ha tobb x kockat is meg akarunk nezni akkor nested loop kell imo
 	x /= TileSize;
 
-	int max = 0;
+	//int max = 0;
+	int i;
+	//std::cout << Engine_CollisionLayerVector->size() << std::endl;
 
-	for (int i = 1; i < Engine_CollisionLayerVector->size()-2; i++) {
+	for (i = 1; i < Engine_CollisionLayerVector->size(); i++) {
 		if ((*Engine_CollisionLayerVector)[i][x] == 0) { continue; }
 		else {
-			//ez az y coord
-			//return i * size - 2*size;
-
-			max = (i - 1) * TileSize - TileSize;
-			max = i * TileSize - TileSize > max ? i * TileSize - TileSize : max;
-			max = (i + 1) * TileSize - TileSize > max ? (i + 1) * TileSize - TileSize : max;
-
-			//ez csak a biztonsag kedveert van itt
-			max--;
-			return max;
+			return (i - 1) * TileSize;
 		}
 	}
 
-	return 1;
+	return (i - 1) * TileSize;
 }
 
 //ez inkabb tesztkent szolgal, mert igy mindig a bal felso sarokba spawnol
