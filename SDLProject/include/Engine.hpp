@@ -88,6 +88,7 @@ public:
 	inline void setTileSize(int i) { TileSize = i; }
 	inline int getTileSize() { return TileSize; }
 	int legmamasabbBlock(int x);
+	bool spawnolhat(int x, int* y, int w, int h);
 
 	bool Init();
 	bool Clean();

@@ -129,14 +129,20 @@ void Engine::Update()
 			} while (iter->first == "PLAYER" || iter->first == "ARROW");
 
 			//maga a spawnolas
+
+			int x = 0;
+			int y = 0;
+
 				if (bal_jobb == BAL) {
-					if ((Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120) > 0) {
-						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() - 50 * 120) - iter->second->Properties_Height, 100, 10);
+					x = Enigine_GameObjects[0]->getPosition()->getX() - (50 * TileSize);
+					if (x > 0 && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
+						spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 				if (bal_jobb == JOBB) {
-					if ((Enigine_GameObjects[0]->getPosition()->getX() + 50 * 120) < Map_W) {
-						spawnSpecial(iter->first, Enigine_GameObjects[0]->getPosition()->getX() + 50 * 120, legmamasabbBlock(Enigine_GameObjects[0]->getPosition()->getX() + 50 * 120) - iter->second->Properties_Height, 100, 10);
+					x = Enigine_GameObjects[0]->getPosition()->getX() + (50 * TileSize);
+					if (x < Map_W && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
+						spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 
@@ -254,6 +260,24 @@ int Engine::legmamasabbBlock(int x)
 	}
 
 	return (i - 1) * TileSize;
+}
+
+bool Engine::spawnolhat(int x, int* y, int w, int h) {
+	*y = legmamasabbBlock(x);
+	if (x + w < Map_W) {
+		int egyszer = legmamasabbBlock(x + w);
+		if (*y > egyszer) {
+			*y = egyszer;
+			x += w;
+		}
+	}
+	x /= TileSize;
+	//*y = *y > egyszer ? egyszer : *y;
+
+	int magassagblock = (*y - h) / TileSize + 1;
+
+	if ((*Engine_CollisionLayerVector)[magassagblock][x] == 0) { return true; }
+	return false;
 }
 
 //ez inkabb tesztkent szolgal, mert igy mindig a bal felso sarokba spawnol
