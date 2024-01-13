@@ -44,6 +44,9 @@ protected:
 	std::string GameObject_TextureID;
 	SDL_RendererFlip GameObject_Flip;
 	Point* GameObject_Origin;
+
+	//int w{};
+	//int h{};
 public:
 	inline GameObject(Properties* props)
 	{

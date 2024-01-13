@@ -138,7 +138,7 @@ void Player::Update(Uint64 dt)
 	Player_LastSafePosition.setX(GameObject_Transform->getX());
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
-
+	//std::cout << GameObject_Width << "\t" << GameObject_Height << "\n";
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 	{
@@ -155,10 +155,9 @@ void Player::Update(Uint64 dt)
 			int szam = 0;
 			Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
 			while (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded)) {
-			//while(!Player_IsGrounded){
-				//szam = GameObject_Transform->getX() + 240 % CollisionHandler::GetInstance()->getTileSize();
-				//std::cout << "p " << szam << "\t"<<Player_IsGrounded<<"\n";
+				//ha mozgatjuk az ablakot a szamlalo felmegy...
 				szam += 1;
+				//std::cout << szam << "\n";
 				Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
 				if (szam > CollisionHandler::GetInstance()->getTileSize()) { break; }
 			}
