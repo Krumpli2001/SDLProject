@@ -103,7 +103,7 @@ void UI::Draw()
 	//block highlight
 	{
 		//ez nem jo, zoommal elcsuszik
-		/*int tilesize = Engine::GetInstance()->getTileSize();
+		int tilesize = Engine::GetInstance()->getTileSize();
 		int x = cx - cx % static_cast<int>(tilesize*scale);
 		int y = cy - cy % static_cast<int>(tilesize * scale);
 		x *= (1.0 / scale);
@@ -111,7 +111,7 @@ void UI::Draw()
 		std::cout << x << "\t" << y << "\n";
 		SDL_Rect highlightHely = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
-		SDL_RenderFillRect(renderer, &highlightHely);*/
+		SDL_RenderFillRect(renderer, &highlightHely);
 
 		/*int tilesize = Engine::GetInstance()->getTileSize();
 		highlightUI.w = tilesize;
