@@ -44,9 +44,9 @@ void UI::Update()
 
 	//cx += kepernyoX;
 	//cy += kepernyoY;
-	kepernyoX += cx;
-	kepernyoY += cy;
-	//std::cout << kepernyoX << "\t" << kepernyoY << "\t";
+	kepernyoX += cx*(1.0/scale);
+	kepernyoY += cy*(1.0/scale);
+	//std::cout << kepernyoX << "\t" << kepernyoY << "\n";
 	int size = Engine::GetInstance()->getTileSize();
 	/*int blokkX = cx - cx % size;
 	int blockY = cy - cy % size;*/
@@ -103,12 +103,14 @@ void UI::Draw()
 	//block highlight
 	{
 		//ez nem jo, zoommal elcsuszik
+		//auto palya = Engine::GetInstance()->getCollisionLayerVector();
+
 		int tilesize = Engine::GetInstance()->getTileSize();
-		int x = cx - cx % static_cast<int>(tilesize*scale);
-		int y = cy - cy % static_cast<int>(tilesize * scale);
+		int x = kepernyoX - kepernyoX % static_cast<int>(tilesize*scale*scale); //*scale
+		int y = kepernyoY - kepernyoY % static_cast<int>(tilesize*scale*scale); //*scale
 		x *= (1.0 / scale);
 		y *= (1.0 / scale);
-		std::cout << x << "\t" << y << "\n";
+		//std::cout << x << "\t" << y << "\n";
 		SDL_Rect highlightHely = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
 		SDL_RenderFillRect(renderer, &highlightHely);

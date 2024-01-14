@@ -84,7 +84,7 @@ public:
 	inline void setmapIsLoaded(bool e) { mapIsLoaded = e; }
 	inline void setLevelMap(GameMap* p) { Engine_LevelMap = p; }
 	inline void setCollisionLayerVector(std::vector<std::vector<int>>* p) { Engine_CollisionLayerVector = p; }
-	//inline std::vector<std::vector<int>>* getColli
+	inline std::vector<std::vector<int>>* getCollisionLayerVector() { return Engine_CollisionLayerVector; }
 	inline void setTileSize(int i) { TileSize = i; }
 	inline int getTileSize() { return TileSize; }
 	int legmamasabbBlock(int x);

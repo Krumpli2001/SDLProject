@@ -35,7 +35,7 @@ private:
 	int kepernyoX{};
 	int kepernyoY{};
 
-	//SDL_Rect highlightUI = {};
+	SDL_Rect highlightUI = {};
 
 public:
 	inline static UI* GetInstance()
@@ -60,5 +60,5 @@ public:
 	inline void setCollisionLayer(int i) { collisionLayer = i; }
 	inline int getkepernyoX() { return kepernyoX; }
 	inline int getkepernyoY() { return kepernyoY; }
-	//inline SDL_Rect* getHLRp() { return &highlightUI; }
+	inline SDL_Rect* getHLRp() { return &highlightUI; }
 };

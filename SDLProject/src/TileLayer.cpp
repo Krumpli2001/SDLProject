@@ -1,5 +1,6 @@
 #include "TileLayer.hpp"
 #include "TextureManager.hpp"
+#include "UI.hpp"
 
 TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::vector<int>> tilemap, std::vector<Tileset>* tilesets) :
 	TileLayer_TileSize(tilesize), TileLayer_ColCount(colcount), TileLayer_RowCount(rowcount), TileLayer_TileMap(tilemap), TileLayer_TileSets(*tilesets)
@@ -23,6 +24,7 @@ void TileLayer::Render(int x, int y)
 		for (int j = bal; j < jobb; j++)
 		{
 			int tileID = TileLayer_TileMap[i][j];
+
 
 			if (tileID == 0)
 			{
@@ -55,6 +57,18 @@ void TileLayer::Render(int x, int y)
 				}
 
 				TextureManager::GetInstance()->DrawTile(tileset.Name, tileset.TileSize, j * tileset.TileSize, i * tileset.TileSize, tilerow, tilecol);
+				
+				//auto cx = UI::GetInstance()->getkepernyoX();
+				//auto cy = UI::GetInstance()->getkepernyoY();
+				//auto palya = Engine::GetInstance()->getCollisionLayerVector();
+
+				//if (j == cx / tileset.TileSize && i == cy / tileset.TileSize) { std::cout << cx << " " << cy << "\n"; }
+
+				/*if (i == 15 && j == 15) {
+					std::cout << j * tileset.TileSize
+						<< " " << i * tileset.TileSize
+						<< "\n";
+				}*/
 			}
 		}
 	}
