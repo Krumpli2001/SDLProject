@@ -1,6 +1,5 @@
 #include "TileLayer.hpp"
 #include "TextureManager.hpp"
-//#include "TileNames.hpp"
 
 TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::vector<int>> tilemap, std::vector<Tileset>* tilesets) :
 	TileLayer_TileSize(tilesize), TileLayer_ColCount(colcount), TileLayer_RowCount(rowcount), TileLayer_TileMap(tilemap), TileLayer_TileSets(*tilesets)
@@ -24,9 +23,6 @@ void TileLayer::Render(int x, int y)
 		for (int j = bal; j < jobb; j++)
 		{
 			int tileID = TileLayer_TileMap[i][j];
-			//int tileid2 = tileID;
-
-			//std::cout << tileID << "\n";
 
 			if (tileID == 0)
 			{
@@ -58,17 +54,7 @@ void TileLayer::Render(int x, int y)
 					tilecol = tileset.ColCount - 1;
 				}
 
-				//if (tileid2 == 12) {
-				//	std::cout<<SDL_SetTextureAlphaMod(TextureManager::GetInstance()->getTextureMap()[tileset.Name],200)<<"\n";
-				//	SDL_SetTextureBlendMode(TextureManager::GetInstance()->getTextureMap()[tileset.Name], SDL_BLENDMODE_BLEND);
-				//}
-				//else {
-				//	//SDL_SetTextureAlphaMod(TextureManager::GetInstance()->getTextureMap()[tileset.Name], 0);
-				//	SDL_SetTextureBlendMode(TextureManager::GetInstance()->getTextureMap()[tileset.Name], SDL_BLENDMODE_NONE);
-				//}
-
 				TextureManager::GetInstance()->DrawTile(tileset.Name, tileset.TileSize, j * tileset.TileSize, i * tileset.TileSize, tilerow, tilecol);
-
 			}
 		}
 	}

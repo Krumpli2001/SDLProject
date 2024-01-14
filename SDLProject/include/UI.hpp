@@ -10,7 +10,7 @@ class UI {
 private:
 	UI() {};
 
-	double scale{};
+	double scale = 1;
 	bool FpsShowing{};
 
 	//ezek szovegnek kellenek - itt a hp-t szamba kiirni
@@ -24,11 +24,18 @@ private:
 	int php{};
 	int mphp{};
 
-	SDL_Surface* inventoryKocka = nullptr;
-	SDL_Texture* inventoryKockaTextura = nullptr;
-	SDL_Rect inventoryKockaHely{ 0,0,0,0 };
+	//SDL_Surface* inventoryKocka = nullptr;
+	//SDL_Texture* inventoryKockaTextura = nullptr;
+	//SDL_Rect inventoryKockaHely{ 0,0,0,0 };
 	bool showInventory = false;
 	int collisionLayer;
+
+	int cx{};
+	int cy{};
+	int kepernyoX{};
+	int kepernyoY{};
+
+	SDL_Rect highlightUI = {};
 
 public:
 	inline static UI* GetInstance()
@@ -51,4 +58,7 @@ public:
 	inline void setInventoryShowing(bool e) { showInventory = e; }
 	inline bool getInventoryShowing() { return showInventory; }
 	inline void setCollisionLayer(int i) { collisionLayer = i; }
+	inline int getkepernyoX() { return kepernyoX; }
+	inline int getkepernyoY() { return kepernyoY; }
+	inline SDL_Rect* getHLRp() { return &highlightUI; }
 };

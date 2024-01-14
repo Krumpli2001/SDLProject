@@ -226,12 +226,13 @@ void Engine::Render()
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
 
+		UI::GetInstance()->Draw();
+
 		//azert megy hatrafele hogy a player legyen legfelul
 		for (int i = Enigine_GameObjects.size() - 1; i >= 0; i--) {
 			Enigine_GameObjects[i]->Draw();
 		}
 
-		UI::GetInstance()->Draw();
 		mapIsLoaded = true;
 	}
 	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
