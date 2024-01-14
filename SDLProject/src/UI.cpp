@@ -15,9 +15,11 @@ void UI::Update()
 		FPSCounter::GetInstance()->Update();
 	}
 
+	GameObject* player = (*Engine::GetInstance()->getGameObjects())[0];
+
 	//hp szamolas + felette a szoveg letrehozasa
-	php = (*Engine::GetInstance()->getGameObjects())[0]->getHP();
-	mphp = (*Engine::GetInstance()->getGameObjects())[0]->getMaxHP();
+	php = player->getHP();
+	mphp = player->getMaxHP();
 	std::string str = std::to_string(php) + " / " + std::to_string(mphp);
 	surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
 	Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
@@ -25,13 +27,24 @@ void UI::Update()
 
 	//block highlight
 	int cx, cy;
-	Uint32 e = SDL_GetMouseState(&cx, &cy);
-	GameObject* player = (*Engine::GetInstance()->getGameObjects())[0];
-	int px = player->getPosition()->getX();
-	int py = player->getPosition()->getY();
-	cx = cx + px;
-	cy = cy + py;
-	//std::cout << cx << "\t" << cy << "\n";
+	SDL_GetMouseState(&cx, &cy);
+
+	int M_WIDTH = Engine::GetInstance()->getMap_W();
+	int M_HEIGHT = Engine::GetInstance()->getMap_H();
+	int C_Width = *Engine::GetInstance()->getWindow_W();
+	int C_Height = *Engine::GetInstance()->getWindow_H();
+
+	int kepernyoX = player->getOrigin()->getX() - C_Width / (2.0 * scale);
+	int kepernyoY = player->getOrigin()->getY() - C_Height / (2.0 * scale);
+
+	kepernyoX = kepernyoX < 0 ? 0 : kepernyoX;
+	kepernyoY = kepernyoY < 0 ? 0 : kepernyoY;
+	kepernyoX = kepernyoX > M_WIDTH - C_Width * (1.0 / scale) ? M_WIDTH - C_Width * (1.0 / scale) : kepernyoX;
+	kepernyoY = kepernyoY > M_HEIGHT - C_Height * (1.0 / scale) ? M_HEIGHT - C_Height * (1.0 / scale) : kepernyoY;
+
+	cx += kepernyoX;
+	cy += kepernyoY;
+	std::cout << cx << "\t" << cy << "\n";
 	int size = Engine::GetInstance()->getTileSize();
 	/*int blokkX = cx - cx % size;
 	int blockY = cy - cy % size;*/

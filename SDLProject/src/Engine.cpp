@@ -136,13 +136,13 @@ void Engine::Update()
 				if (bal_jobb == BAL) {
 					x = Enigine_GameObjects[0]->getPosition()->getX() - (50 * TileSize);
 					if (x > 0 && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
-						spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
+						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 				if (bal_jobb == JOBB) {
 					x = Enigine_GameObjects[0]->getPosition()->getX() + (50 * TileSize);
 					if (x < Map_W && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
-						spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
+						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 
