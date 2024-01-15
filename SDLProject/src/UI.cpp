@@ -1,4 +1,5 @@
 #include "UI.hpp"
+#include "Camera.hpp"
 
 void UI::UIInit()
 {
@@ -29,23 +30,10 @@ void UI::Update()
 	//int cx, cy;
 	SDL_GetMouseState(&cx, &cy);
 
-	int M_WIDTH = Engine::GetInstance()->getMap_W();
-	int M_HEIGHT = Engine::GetInstance()->getMap_H();
-	int C_Width = *Engine::GetInstance()->getWindow_W();
-	int C_Height = *Engine::GetInstance()->getWindow_H();
-
-	kepernyoX = player->getOrigin()->getX() - C_Width / (2.0 * scale);
-	kepernyoY = player->getOrigin()->getY() - C_Height / (2.0 * scale);
-
-	kepernyoX = kepernyoX < 0 ? 0 : kepernyoX;
-	kepernyoY = kepernyoY < 0 ? 0 : kepernyoY;
-	kepernyoX = kepernyoX > M_WIDTH - C_Width * (1.0 / scale) ? M_WIDTH - C_Width * (1.0 / scale) : kepernyoX;
-	kepernyoY = kepernyoY > M_HEIGHT - C_Height * (1.0 / scale) ? M_HEIGHT - C_Height * (1.0 / scale) : kepernyoY;
-
-	//cx += kepernyoX;
-	//cy += kepernyoY;
-	kepernyoX += cx*(1.0/scale);
-	kepernyoY += cy*(1.0/scale);
+	kameraX = Camera::GetInstance()->getCamera_ViewBox()->x;
+	kameraY = Camera::GetInstance()->getCamera_ViewBox()->y;
+	kepernyoX = kameraX + cx*(1.0/scale);
+	kepernyoY = kameraY + cy*(1.0/scale);
 	//std::cout << kepernyoX << "\t" << kepernyoY << "\n";
 	int size = Engine::GetInstance()->getTileSize();
 	/*int blokkX = cx - cx % size;
@@ -106,20 +94,14 @@ void UI::Draw()
 		//auto palya = Engine::GetInstance()->getCollisionLayerVector();
 
 		int tilesize = Engine::GetInstance()->getTileSize();
-		int x = kepernyoX - kepernyoX % static_cast<int>(tilesize*scale*scale); //*scale
-		int y = kepernyoY - kepernyoY % static_cast<int>(tilesize*scale*scale); //*scale
-		x *= (1.0 / scale);
-		y *= (1.0 / scale);
-		//std::cout << x << "\t" << y << "\n";
-		SDL_Rect highlightHely = { x, y, tilesize, tilesize };
-		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
-		SDL_RenderFillRect(renderer, &highlightHely);
+		int x = kepernyoX - kameraX - kepernyoX % tilesize;
+		int y = kepernyoY - kameraY - kepernyoY % tilesize;
 
-		/*int tilesize = Engine::GetInstance()->getTileSize();
-		highlightUI.w = tilesize;
-		highlightUI.h = tilesize;
+		//std::cout << x << "\t" << y << "\n";
+		highlightUI = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
-		SDL_RenderFillRect(renderer, &highlightUI);*/
+		SDL_RenderFillRect(renderer, &highlightUI);
+
 	}
 
 

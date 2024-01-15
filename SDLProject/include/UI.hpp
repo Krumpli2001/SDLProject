@@ -32,6 +32,8 @@ private:
 
 	int cx{};
 	int cy{};
+	int kameraX{};
+	int kameraY{};
 	int kepernyoX{};
 	int kepernyoY{};
 
