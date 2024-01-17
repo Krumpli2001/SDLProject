@@ -21,12 +21,19 @@ bool TileData::parseTileData(std::string source)
         if (e->Value() == std::string("block")) {
             TiXmlElement* data = e->FirstChildElement();
             std::string TileName = data->GetText();
+
             data = data->NextSiblingElement();
-            int TileID = std::atoi(data->GetText());
+            auto temp = data->GetText();
+            int TileID = temp ? std::atoi(temp) : -1;
+
             data = data->NextSiblingElement();
-            int LayerID = std::atoi(data->GetText());
+            temp = data->GetText();
+            int LayerID = temp ? std::atoi(temp) : -1;
+
             data = data->NextSiblingElement();
-            bool isTransparent = std::atoi(data->GetText());
+            temp = data->GetText();
+            bool isTransparent = temp ? std::atoi(temp) : -1;
+
             Tile* tile = new Tile(TileID, LayerID, isTransparent);
             Data[TileName] = tile;
         }
