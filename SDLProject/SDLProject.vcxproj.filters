@@ -83,6 +83,9 @@
     <ClCompile Include="src\Shot_Arrow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tiles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tinyxml\tinystr.h">
@@ -169,7 +172,7 @@
     <ClInclude Include="include\mappgen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TileNames.hpp">
+    <ClInclude Include="include\Tiles.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\UI.hpp">

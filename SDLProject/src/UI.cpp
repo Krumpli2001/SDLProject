@@ -27,17 +27,13 @@ void UI::Update()
 	Message_rect = { static_cast<int>((*Engine::GetInstance()->getWindow_W() - 150) * 1/scale), 0, static_cast<int>(100 * (1 / scale)), static_cast<int>(20 * (1 / scale)) };
 
 	//block highlight
-	//int cx, cy;
 	SDL_GetMouseState(&cx, &cy);
-
 	kameraX = Camera::GetInstance()->getCamera_ViewBox()->x;
 	kameraY = Camera::GetInstance()->getCamera_ViewBox()->y;
 	kepernyoX = kameraX + cx*(1.0/scale);
 	kepernyoY = kameraY + cy*(1.0/scale);
 	//std::cout << kepernyoX << "\t" << kepernyoY << "\n";
 	int size = Engine::GetInstance()->getTileSize();
-	/*int blokkX = cx - cx % size;
-	int blockY = cy - cy % size;*/
 
 }
 
@@ -90,14 +86,14 @@ void UI::Draw()
 
 	//block highlight
 	{
-		//ez nem jo, zoommal elcsuszik
-		//auto palya = Engine::GetInstance()->getCollisionLayerVector();
 
 		int tilesize = Engine::GetInstance()->getTileSize();
 		int x = kepernyoX - kameraX - kepernyoX % tilesize;
 		int y = kepernyoY - kameraY - kepernyoY % tilesize;
 
-		//std::cout << x << "\t" << y << "\n";
+		/*std::cout << x << "\t" << y << "\n";
+		std::cout << kepernyoX/tilesize << "\t" << kepernyoY/tilesize << "\n";*/
+
 		highlightUI = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
 		SDL_RenderFillRect(renderer, &highlightUI);
@@ -118,10 +114,6 @@ void UI::TextureReset()
 	surfaceMessage = nullptr;
 	Message = nullptr;
 
-	/*if (inventoryKocka) { SDL_FreeSurface(inventoryKocka); }
-	if (inventoryKockaTextura) { SDL_DestroyTexture(inventoryKockaTextura); }
-	inventoryKocka = nullptr;
-	inventoryKockaTextura = nullptr;*/
 }
 
 void UI::Clean()
@@ -134,8 +126,4 @@ void UI::Clean()
 	surfaceMessage = nullptr;
 	Message = nullptr;
 
-	/*if (inventoryKocka) { SDL_FreeSurface(inventoryKocka); }
-	if (inventoryKockaTextura) { SDL_DestroyTexture(inventoryKockaTextura); }
-	inventoryKocka = nullptr;
-	inventoryKockaTextura = nullptr;*/
 }

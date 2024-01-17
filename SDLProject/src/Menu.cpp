@@ -8,6 +8,7 @@
 #include "MapParser.hpp"
 #include "TextureManager.hpp"
 #include "UI.hpp"
+#include "Tiles.hpp"
 
 Menu* Menu::Menu_Instance = nullptr;
 
@@ -65,73 +66,87 @@ void Menu::Update()
 
 	if (Main) {
 		
-
-		if (melyik("Continue", &index)) {
-			RUpdate("gold", index);
-			if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
-		}
-		else {
-			doelse("white", index);
-		}
-		options.push_back(index);
-
-		if (melyik("Options", &index)) {
-			rublikak[index].setRectLocation(0, 150);
-
-			RUpdate("gold", index);
-			if (cc == 1 or enter) {
-				enter = false;
+		//continue
+		{
+			if (melyik("Continue", &index)) {
+				RUpdate("gold", index);
+				if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
 			}
-		}
-		else { 
-			rublikak[index].setRectLocation(0, 150);
-			doelse("white", index);
-		}
-		options.push_back(index);
-
-
-		if (melyik("Save", &index)) {
-			RUpdate("gold", index);
-			if (cc == 1 or enter) {
-				enter = false;
+			else {
+				doelse("white", index);
 			}
+			options.push_back(index);
 		}
-		else {
-			doelse("white", index);
-		}
-		options.push_back(index);
 
-		if (melyik("Title screen", &index)) {
-			rublikak[index].setRectLocation(0, 450);
-			RUpdate("red", index);
-			if (cc == 1 or enter) {
-				enter = false;
-				Main = false;
-				Title = true;
-				MapParser::GetInstance()->Clean();
-				TextureManager::GetInstance()->Clean();
-				Engine::GetInstance()->setmapIsLoaded(false);
-				//SDL_RenderClear(Engine::GetInstance()->getRenderer());
-				//Reset();
-				
+		//options
+		{
+			if (melyik("Options", &index)) {
+				rublikak[index].setRectLocation(0, 150);
+
+				RUpdate("gold", index);
+				if (cc == 1 or enter) {
+					enter = false;
+				}
 			}
+			else {
+				rublikak[index].setRectLocation(0, 150);
+				doelse("white", index);
+			}
+			options.push_back(index);
 		}
-		else { 
-			rublikak[index].setRectLocation(0, 450);
-			doelse("white", index);
-		}
-		options.push_back(index);
 
-		if (melyik("Quit", &index)) {
-			rublikak[index].setRectLocation(0, 600);
-			RUpdate("red", index);
-			if (cc == 1 or enter) {	/*Main = false; Title = true;*/ Engine::GetInstance()->Quit();  }
+		//save
+		{
+			if (melyik("Save", &index)) {
+				RUpdate("gold", index);
+				if (cc == 1 or enter) {
+					enter = false;
+				}
+			}
+			else {
+				doelse("white", index);
+			}
+			options.push_back(index);
 		}
-		else {
-			rublikak[index].setRectLocation(0, 600);
-			doelse("white", index);
+
+		//title screen
+		{
+			if (melyik("Title screen", &index)) {
+				rublikak[index].setRectLocation(0, 450);
+				RUpdate("red", index);
+				if (cc == 1 or enter) {
+					enter = false;
+					Main = false;
+					Title = true;
+					MapParser::GetInstance()->Clean();
+					TextureManager::GetInstance()->Clean();
+					Engine::GetInstance()->setmapIsLoaded(false);
+					TileData::GetInstance()->ClearData();
+					//SDL_RenderClear(Engine::GetInstance()->getRenderer());
+					//Reset();
+
+				}
+			}
+			else {
+				rublikak[index].setRectLocation(0, 450);
+				doelse("white", index);
+			}
+			options.push_back(index);
 		}
-		options.push_back(index);
+
+		//quit
+		{
+			if (melyik("Quit", &index)) {
+				rublikak[index].setRectLocation(0, 600);
+				RUpdate("red", index);
+				if (cc == 1 or enter) {	/*Main = false; Title = true;*/ Engine::GetInstance()->Quit(); }
+			}
+			else {
+				rublikak[index].setRectLocation(0, 600);
+				doelse("white", index);
+			}
+			options.push_back(index);
+		}
 
 		if (code == SDL_SCANCODE_ESCAPE) {
 			Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
@@ -141,126 +156,12 @@ void Menu::Update()
 
 	else if (GameOver) {
 		
-		if (melyik("Retry", &index)) {
-			RUpdate("gold", index);
-			if (cc == 1 or enter) {
-				enter = false; Reset();
-			}
-		}
-		else {
-			doelse("white", index);
-		}
-		options.push_back(index);
-
-
-		if (melyik("Quit", &index)) {
-			rublikak[index].setRectLocation(0, 150);
-			RUpdate("red", index);
-			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
-		}
-		else {
-			rublikak[index].setRectLocation(0, 150);
-			doelse("white", index);
-		}
-		options.push_back(index);
-
-	}
-
-	else if (Title) {
-
-		if (melyik("Load", &index)) {
-			RUpdate("green", index);
-			if (cc == 1 or enter) { 
-				TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
-				enter = false;
-				Title = false;
-				Load = true;
-				//Main = true;
-				//Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
-			}
-		}
-		else {
-			doelse("white", index);
-		}
-		options.push_back(index);
-
-		if (melyik("Generate", &index)) {
-			RUpdate("green", index);
-			if (cc == 1 or enter) {
-				enter = false;
-			}
-		}
-		else {
-			doelse("white", index);
-		}
-		options.push_back(index);
-
-		if (melyik("Options", &index)) {
-			rublikak[index].setRectLocation(0, 300);
-			RUpdate("red", index);
-			if (cc == 1 or enter) {
-				enter = false;
-			}
-		}
-		else {
-			rublikak[index].setRectLocation(0, 300);
-			doelse("white", index);
-		}
-		options.push_back(index);
-
-		if (melyik("Quit", &index)) {
-			rublikak[index].setRectLocation(0, 450);
-			RUpdate("red", index);
-			if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
-		}
-		else {
-			rublikak[index].setRectLocation(0, 450);
-			doelse("white", index);
-		}
-		options.push_back(index);
-	}
-
-	else if (Load) {
-		if (saves.empty()) {
-			int i = 0;
-			for (const auto& entry : std::filesystem::directory_iterator("saves"))
-			{
-				std::string temp = entry.path().generic_string();
-				temp = temp.substr(6);
-				temp.erase(temp.length() - 4, temp.length());
-
-				int len = temp.length();
-				char* c = new char[temp.length() + 1];
-				strcpy_s(c, temp.length() + 1, temp.c_str());
-				//std::string tempstr = temp;
-
-				saves.push_back(c);
-				rublikak.push_back(rublika(saves[i], 0, (saves.size() - 1) * 150, temp.length() * 60, 150, colors["white"]));
-				i++;
-			}
-		}
-		for (int i = 0; i < saves.size(); i++) {
-			if (melyik(saves[i], &index)) {
-				RUpdate("green", index);
+		//reset
+		{
+			if (melyik("Retry", &index)) {
+				RUpdate("gold", index);
 				if (cc == 1 or enter) {
-					enter = false;
-					if (MapParser::GetInstance()->Load(saves[i])) {
-						Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
-						UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
-						CollisionHandler::GetInstance()->reset();
-						Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
-						Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
-					}
-					Load = false;
-					Main = true;
-					Engine::GetInstance()->setMenuShowing(false);
-
-					for (int j = 0; j < saves.size(); j++) {
-						delete saves[j];
-					}
-					saves.clear();
-
-					break;
+					enter = false; Reset();
 				}
 			}
 			else {
@@ -269,22 +170,165 @@ void Menu::Update()
 			options.push_back(index);
 		}
 
-		if (melyik("Back", &index)) {
-			rublikak[index].setRectLocation(0, saves.size() * 150);
-			RUpdate("green", index);
-			if (cc == 1 or enter) {
-				enter = false;
-				Load = false;
-				Title = true;
-				MapParser::GetInstance()->Clean();
-				TextureManager::GetInstance()->Clean();
+		//quit
+		{
+			if (melyik("Quit", &index)) {
+				rublikak[index].setRectLocation(0, 150);
+				RUpdate("red", index);
+				if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+			}
+			else {
+				rublikak[index].setRectLocation(0, 150);
+				doelse("white", index);
+			}
+			options.push_back(index);
+		}
+
+	}
+
+	else if (Title) {
+
+		//load
+		{
+			if (melyik("Load", &index)) {
+				RUpdate("green", index);
+				if (cc == 1 or enter) {
+					TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
+					enter = false;
+					Title = false;
+					Load = true;
+				}
+			}
+			else {
+				doelse("white", index);
+			}
+			options.push_back(index);
+		}
+
+		//mapgen
+		{
+			if (melyik("Generate", &index)) {
+				RUpdate("green", index);
+				if (cc == 1 or enter) {
+					enter = false;
+				}
+			}
+			else {
+				doelse("white", index);
+			}
+			options.push_back(index);
+		}
+
+		//options
+		{
+			if (melyik("Options", &index)) {
+				rublikak[index].setRectLocation(0, 300);
+				RUpdate("red", index);
+				if (cc == 1 or enter) {
+					enter = false;
+				}
+			}
+			else {
+				rublikak[index].setRectLocation(0, 300);
+				doelse("white", index);
+			}
+			options.push_back(index);
+		}
+
+		//quit
+		{
+			if (melyik("Quit", &index)) {
+				rublikak[index].setRectLocation(0, 450);
+				RUpdate("red", index);
+				if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+			}
+			else {
+				rublikak[index].setRectLocation(0, 450);
+				doelse("white", index);
+			}
+			options.push_back(index);
+		}
+	}
+
+	else if (Load) {
+		//ez itt a mentes nevek feltoltese
+		{
+			if (saves.empty()) {
+				int i = 0;
+				for (const auto& entry : std::filesystem::directory_iterator("saves"))
+				{
+					std::string temp = entry.path().generic_string();
+					temp = temp.substr(6);
+					temp.erase(temp.length() - 4, temp.length());
+
+					int len = temp.length();
+					char* c = new char[temp.length() + 1];
+					strcpy_s(c, temp.length() + 1, temp.c_str());
+
+					saves.push_back(c);
+					rublikak.push_back(rublika(saves[i], 0, (saves.size() - 1) * 150, temp.length() * 60, 150, colors["white"]));
+					i++;
+				}
 			}
 		}
-		else {
-			rublikak[index].setRectLocation(0, saves.size() * 150);
-			doelse("white", index);
+
+		//"inicializalas"
+		{
+			for (int i = 0; i < saves.size(); i++) {
+				if (melyik(saves[i], &index)) {
+					RUpdate("green", index);
+					if (cc == 1 or enter) {
+						enter = false;
+						if (MapParser::GetInstance()->Load(saves[i])) {
+							Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
+							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
+							CollisionHandler::GetInstance()->reset();
+							Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
+							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
+							TileData::GetInstance()->parseTileData("assets/maps/blockdata.xml");
+							auto p = TileData::GetInstance()->getTileData();
+							for (auto it = p->begin(); it != p->end(); it++) {
+								std::cout << it->first << " " << it->second->TileID << " " << it->second->LayerID << " " << it->second->isTransparent << std::endl;
+							}
+						}
+						Load = false;
+						Main = true;
+						Engine::GetInstance()->setMenuShowing(false);
+
+						for (int j = 0; j < saves.size(); j++) {
+							delete saves[j];
+						}
+						saves.clear();
+
+						break;
+					}
+				}
+				else {
+					doelse("white", index);
+				}
+				options.push_back(index);
+			}
 		}
-		options.push_back(index);
+
+		//vissza
+		{
+			if (melyik("Back", &index)) {
+				rublikak[index].setRectLocation(0, saves.size() * 150);
+				RUpdate("green", index);
+				if (cc == 1 or enter) {
+					enter = false;
+					Load = false;
+					Title = true;
+					MapParser::GetInstance()->Clean();
+					TextureManager::GetInstance()->Clean();
+				}
+			}
+			else {
+				rublikak[index].setRectLocation(0, saves.size() * 150);
+				doelse("white", index);
+			}
+			options.push_back(index);
+		}
 	}
 
 	switch (code)

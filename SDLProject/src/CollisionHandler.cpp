@@ -1,8 +1,9 @@
 #include "CollisionHandler.hpp"
 #include "Engine.hpp"
-#include "TileNames.hpp"
+#include "Tiles.hpp"
 
-using namespace Tiles;
+//using namespace Tiles;
+std::array attetszo = { semmi, viz };
 
 CollisionHandler* CollisionHandler::CollisionHandler_Instance = nullptr;
 
@@ -56,7 +57,7 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
         {
             if (CollisionHandler_CollitionTileMap[j][i] > 0)
             {
-                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz ) { //a viz id-ja
+                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz ) {
                     g->setGravity(0.3);
                     return false;
                 }

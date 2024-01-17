@@ -169,8 +169,8 @@ bool MapParser::Load(std::string palyanev)
 
 void MapParser::Clean()
 {
-    std::map<std::string, GameMap*>::iterator it;
-    for (it = MapParser_MapDict.begin(); it != MapParser_MapDict.end(); it++)
+    //std::map<std::string, GameMap*>::iterator it;
+    for (auto it = MapParser_MapDict.begin(); it != MapParser_MapDict.end(); it++)
     {
         it->second->Clean();
         delete it->second;
