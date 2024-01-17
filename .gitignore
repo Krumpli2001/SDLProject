@@ -362,8 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 *.wav
-/SDLProject/assets/maps
-/SDLProject/sajt.tmx
 *.cd
-/SDLProject/saves/sajt.tmx
+/SDLProject/saves/
 /sdl
