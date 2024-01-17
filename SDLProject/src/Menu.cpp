@@ -281,15 +281,11 @@ void Menu::Update()
 						enter = false;
 						if (MapParser::GetInstance()->Load(saves[i])) {
 							Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
+							TileData::GetInstance()->parseTileData("assets/maps/blockdata.xml");
 							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
 							CollisionHandler::GetInstance()->reset();
 							Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
 							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
-							TileData::GetInstance()->parseTileData("assets/maps/blockdata.xml");
-							auto p = TileData::GetInstance()->getTileData();
-							for (auto it = p->begin(); it != p->end(); it++) {
-								std::cout << it->first << " " << it->second->TileID << " " << it->second->LayerID << " " << it->second->isTransparent << std::endl;
-							}
 						}
 						Load = false;
 						Main = true;

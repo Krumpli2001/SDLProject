@@ -1,9 +1,5 @@
 #include "CollisionHandler.hpp"
 #include "Engine.hpp"
-#include "Tiles.hpp"
-
-//using namespace Tiles;
-std::array attetszo = { semmi, viz };
 
 CollisionHandler* CollisionHandler::CollisionHandler_Instance = nullptr;
 
@@ -11,6 +7,12 @@ CollisionHandler::CollisionHandler()
 {
     CollisionHandler_CollisionLayer = (TileLayer*)(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()];
     CollisionHandler_CollitionTileMap = *CollisionHandler_CollisionLayer->getTileMap();
+
+    for (auto it = TileData::GetInstance()->getTileData()->begin(); it != TileData::GetInstance()->getTileData()->end(); it++) {
+        if (it->second->LayerID == "foreground" && it->second->isTransparent) {
+            attetszo.push_back(it->second);
+        }
+    }
 
     tileSize = CollisionHandler_CollisionLayer->getTileSize();
     rowCount = CollisionHandler_CollisionLayer->getRowCount();
@@ -57,22 +59,23 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
         {
             if (CollisionHandler_CollitionTileMap[j][i] > 0)
             {
-                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz ) {
+                //ezt majd kiirom, egyenlore jo itt
+                auto viz = TileData::GetInstance()->getTileIdFromName("viz");
+                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz) {
                     g->setGravity(0.3);
                     return false;
                 }
                 else {    
-                    for (int i = 0; i < attetszo.size(); i++) {
+                    for (auto i = 0; i < attetszo.size(); i++) {
 
-                        if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == attetszo[i] and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == attetszo[i]) {
-                            *grounded = false;
-                            //return false;
-                        }
-                        else {
-                            *grounded = true;
-                            //return true;
-                        }
-                        return true;
+                            if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == attetszo[i]->TileID and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == attetszo[i]->TileID) {
+                                *grounded = false;
+                            }
+                            else {
+                                *grounded = true;
+                            }
+                            return true;
+                        
                     }
                 }
             }

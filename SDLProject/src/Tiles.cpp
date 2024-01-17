@@ -19,6 +19,8 @@ bool TileData::parseTileData(std::string source)
     TiXmlElement* root = xml.RootElement();
     for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
         if (e->Value() == std::string("block")) {
+            //a gettext nullptr-t terit vissza ures stringre aka akkor crashel - gondolom a stdstring constructora behal tole
+            //tehat ki kell tolteni a fajlt
             TiXmlElement* data = e->FirstChildElement();
             std::string TileName = data->GetText();
 
@@ -27,8 +29,7 @@ bool TileData::parseTileData(std::string source)
             int TileID = temp ? std::atoi(temp) : -1;
 
             data = data->NextSiblingElement();
-            temp = data->GetText();
-            int LayerID = temp ? std::atoi(temp) : -1;
+            std::string LayerID = data->GetText();
 
             data = data->NextSiblingElement();
             temp = data->GetText();

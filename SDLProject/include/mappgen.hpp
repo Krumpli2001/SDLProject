@@ -2,9 +2,9 @@
 #include <string>
 #include <fstream>
 #include "Rng.hpp"
-#include "TileNames.hpp"
+#include "Tiles.hpp"
 
-using namespace Tiles;
+//using namespace Tiles;
 
 //#define width 60
 //#define height 20

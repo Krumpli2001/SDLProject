@@ -3,6 +3,7 @@
 #include <vector>
 #include <SDL.h>
 
+#include "Tiles.hpp"
 #include "TileLayer.hpp"
 
 class GameObject; //öszinten nem tudom miert mukodik az elore deklaralas
@@ -13,6 +14,8 @@ private:
 	CollisionHandler();
 	static CollisionHandler* CollisionHandler_Instance;
 	std::vector<std::vector<int>> CollisionHandler_CollitionTileMap;
+
+	std::vector<Tile*> attetszo;
 
 	int tileSize;
 	int rowCount;

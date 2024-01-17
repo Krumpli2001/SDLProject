@@ -1,35 +1,12 @@
 #pragma once
 
 #include <iostream>
-#include <array>
 #include <map>
 
-	/**********************************************************************/
-	enum TileIDs {
-		semmi,
-		fu,
-		pirosvirag,
-		fehervirag,
-		b_eg,
-		b_ko,
-		b_felho,
-		balrafu,
-		fuvesfold,
-		jobbrafu,
-		fold,
-		fublock,
-		viz,
-	};
-
-	//std::array attetszo = {semmi, viz};
-
-	/**********************************************************************/
-
-
 	struct Tile {
-		Tile(int TID, int LID, bool iT) : TileID(TID), LayerID(LID), isTransparent(iT) {}
+		Tile(int TID, std::string LID, bool iT) : TileID(TID), LayerID(LID), isTransparent(iT) {}
 		int TileID;
-		int LayerID;
+		std::string LayerID;
 		bool isTransparent;
 	};
 
