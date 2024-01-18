@@ -4,18 +4,22 @@
 #include <map>
 
 	struct Tile {
-		Tile(std::string LID, bool iT) : LayerID(LID), isTransparent(iT) {}
-		//std::string TileName;
+		Tile(int TID, std::string TN, std::string LID, bool iT) : TileID(TID), TileName(TN), LayerID(LID), isTransparent(iT) {}
+		int TileID;
+		std::string TileName;
 		std::string LayerID;
 		bool isTransparent;
 	};
+
+	//template <typename T>
 
 	class TileData
 	{
 	private:
 
 		TileData(){}
-		std::map<std::pair<int, std::string>, Tile*> Data;
+		std::map<int, Tile*> IData;
+		std::map<std::string, Tile*> SData;
 
 	public:
 
@@ -32,7 +36,8 @@
 			return TileData_Instance;
 		}
 
-		inline std::map<std::pair<int, std::string>, Tile*>* getTileData() { return &Data; }
+		inline std::map<int, Tile*>* getTileIData() { return &IData; }
+		inline std::map<std::string, Tile*>* getTileSData() { return &SData; }
 		std::string getTileNameFromID(int key);
 		int getTileIDFromName(std::string key);
 		Tile* getTileDataFromID(int ID);

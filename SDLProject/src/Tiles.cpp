@@ -4,27 +4,18 @@
 //majd meg kell kerdezni
 std::string TileData::getTileNameFromID(int key)
 {
-    //Data.find(std::pair(0, "semmi"));
-    for (auto i = Data.begin(); i != Data.end(); i++) {
-        if (i->first.first == key) { return i->first.second; }
-    }
+    return IData.find(key)->second->TileName;
 }
 
 int TileData::getTileIDFromName(std::string key) {
-    for (auto i = Data.begin(); i != Data.end(); i++) {
-        if (i->first.second == key) { return i->first.first; }
-    }
+    return SData.find(key)->second->TileID;
 }
 
-Tile* TileData::getTileDataFromID(int ID) {
-    for (auto it = Data.begin(); it != Data.end(); it++) {
-        if (it->first.first == ID) { return it->second; }
-    }
+Tile* TileData::getTileDataFromID(int key) {
+    return IData.find(key)->second;
 }
-Tile* TileData::getTileDataFromName(std::string str) {
-    for (auto it = Data.begin(); it != Data.end(); it++) {
-        if (it->first.second == str) { return it->second; }
-    }
+Tile* TileData::getTileDataFromName(std::string key) {
+    return SData.find(key)->second;
 }
 
 bool TileData::parseTileData(std::string source)
@@ -60,17 +51,17 @@ bool TileData::parseTileData(std::string source)
             temp = data->GetText();
             bool isTransparent = temp ? std::atoi(temp) : -1;
 
-            Tile* tile = new Tile(LayerID, isTransparent);
-            auto key = std::make_pair(TileID, TileName);
-            Data[key] = tile;
+            Tile* tile = new Tile(TileID, TileName, LayerID, isTransparent);
+            IData[TileID] = tile;
+            SData[TileName] = tile;
         }
     }
 }
 
 void TileData::ClearData()
 {
-    for (auto it = Data.begin(); it != Data.end(); it++) {
+    for (auto it = IData.begin(); it != IData.end(); it++) {
         delete it->second;
     }
-    Data.clear();
+    IData.clear();
 }

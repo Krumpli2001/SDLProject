@@ -8,9 +8,9 @@ CollisionHandler::CollisionHandler()
     CollisionHandler_CollisionLayer = (TileLayer*)(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()];
     CollisionHandler_CollitionTileMap = *CollisionHandler_CollisionLayer->getTileMap();
 
-    for (auto it = TileData::GetInstance()->getTileData()->begin(); it != TileData::GetInstance()->getTileData()->end(); it++) {
+    for (auto it = TileData::GetInstance()->getTileIData()->begin(); it != TileData::GetInstance()->getTileIData()->end(); it++) {
         if (it->second->LayerID == "foreground" && it->second->isTransparent) {
-            attetszo.push_back(it->first.first);
+            attetszo.push_back(it->second->TileID);
         }
     }
 
