@@ -365,3 +365,8 @@ FodyWeavers.xsd
 *.cd
 /SDLProject/saves/
 /sdl
+/SDLProject/assets/maps/map (2).tmx
+/SDLProject/assets/maps/map2.tmx
+/SDLProject/sajt.tmx
+/SDLProject/assets/maps/sajt.tmx
+/SDLProject/assets/maps/map3.tmx
