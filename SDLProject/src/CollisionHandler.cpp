@@ -10,7 +10,7 @@ CollisionHandler::CollisionHandler()
 
     for (auto it = TileData::GetInstance()->getTileData()->begin(); it != TileData::GetInstance()->getTileData()->end(); it++) {
         if (it->second->LayerID == "foreground" && it->second->isTransparent) {
-            attetszo.push_back(it->second);
+            attetszo.push_back(it->first.first);
         }
     }
 
@@ -60,7 +60,7 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
             if (CollisionHandler_CollitionTileMap[j][i] > 0)
             {
                 //ezt majd kiirom, egyenlore jo itt
-                auto viz = TileData::GetInstance()->getTileIdFromName("viz");
+                auto viz = TileData::GetInstance()->getTileIDFromName("viz");
                 if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz) {
                     g->setGravity(0.3);
                     return false;
@@ -68,7 +68,7 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
                 else {    
                     for (auto i = 0; i < attetszo.size(); i++) {
 
-                            if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == attetszo[i]->TileID and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == attetszo[i]->TileID) {
+                            if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == attetszo[i] and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == attetszo[i]) {
                                 *grounded = false;
                             }
                             else {

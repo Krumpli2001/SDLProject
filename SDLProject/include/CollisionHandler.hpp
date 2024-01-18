@@ -15,7 +15,7 @@ private:
 	static CollisionHandler* CollisionHandler_Instance;
 	std::vector<std::vector<int>> CollisionHandler_CollitionTileMap;
 
-	std::vector<Tile*> attetszo;
+	std::vector<int> attetszo;
 
 	int tileSize;
 	int rowCount;
