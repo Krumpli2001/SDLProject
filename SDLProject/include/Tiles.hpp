@@ -35,6 +35,8 @@
 		inline std::map<std::pair<int, std::string>, Tile*>* getTileData() { return &Data; }
 		std::string getTileNameFromID(int key);
 		int getTileIDFromName(std::string key);
+		Tile* getTileDataFromID(int ID);
+		Tile* getTileDataFromName(std::string str);
 		bool parseTileData(std::string source);
 		void ClearData();
 	};

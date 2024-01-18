@@ -16,6 +16,17 @@ int TileData::getTileIDFromName(std::string key) {
     }
 }
 
+Tile* TileData::getTileDataFromID(int ID) {
+    for (auto it = Data.begin(); it != Data.end(); it++) {
+        if (it->first.first == ID) { return it->second; }
+    }
+}
+Tile* TileData::getTileDataFromName(std::string str) {
+    for (auto it = Data.begin(); it != Data.end(); it++) {
+        if (it->first.second == str) { return it->second; }
+    }
+}
+
 bool TileData::parseTileData(std::string source)
 {
     TiXmlDocument xml;
