@@ -4,6 +4,8 @@
 #include "SpriteAnimation.hpp"
 #include "RigidBody.hpp"
 #include "Timer.hpp"
+#include "Item.hpp"
+#include "array"
 
 //az ido ms
 #define JUMP_TIME 200.0
@@ -32,11 +34,15 @@ private:
 	double Player_JumpTime;
 	double Player_AttackTime;
 	int Player_AttackPower = 15;
+	double minetime = 0;
 
 	Collider* Player_Collider;
 	SpriteAnimation* Player_SpriteAnimation;
 	RigidBody* Player_RigidBody;
 	Vector2D Player_LastSafePosition;
+
+	int inventoryplace = 0;
+	std::array<Item*, 40> Player_Inventory;
 
 	void AnimationState();
 public:

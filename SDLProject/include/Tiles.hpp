@@ -9,6 +9,7 @@
 		std::string TileName;
 		std::string LayerID;
 		bool isTransparent;
+		uint64_t MineTime = 1000;
 	};
 
 	//template <typename T>
@@ -36,7 +37,9 @@
 			return TileData_Instance;
 		}
 
+		//return the tileData map with integers being the keys
 		inline std::map<int, Tile*>* getTileIData() { return &IData; }
+		//return the tileData map with strings being the keys
 		inline std::map<std::string, Tile*>* getTileSData() { return &SData; }
 		std::string getTileNameFromID(int key);
 		int getTileIDFromName(std::string key);

@@ -71,9 +71,10 @@ bool Input::getKeyDown(SDL_Scancode key)
 
 Uint32 Input::getClickDown()
 {
-	Uint32 returner = Input_ClickStates;
-	Input_ClickStates = 0;
-	return returner;
+	//Uint32 returner = Input_ClickStates;
+	////Input_ClickStates = 0;
+	//return returner;
+	return Input_ClickStates;
 }
 
 

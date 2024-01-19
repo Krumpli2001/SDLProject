@@ -3,6 +3,8 @@
 #include "Player.hpp"
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
+#include "Tiles.hpp"
+#include "UI.hpp"
 
 
 // csinal egy playert es hozza rendeli a PLAYER stringet;
@@ -32,6 +34,8 @@ Player::Player(Properties* props) : Character(props)
 
 	Player_SpriteAnimation = new SpriteAnimation();
 	Player_SpriteAnimation->SetProps(GameObject_TextureID, 0, 6, 100);
+
+	Player_Inventory.fill(nullptr);
 }
 
 void Player::Draw(double scale)
@@ -71,10 +75,33 @@ void Player::Update(Uint64 dt)
 
 	//attack
 	if ((Input::GetInstance()->getClickDown() == 1) or (Input::GetInstance()->getKeyDown(SDL_SCANCODE_K)))
-		//if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_K))
 	{
 		Player_IsAttacking = true;
 		//Player_Animation->setDelta(SDL_GetTicks64());
+
+
+		//ez itt a blokk felvetel
+		auto egerX = UI::GetInstance()->getkepernyoX() / Engine::GetInstance()->getTileSize();
+		auto egerY = UI::GetInstance()->getkepernyoY() / Engine::GetInstance()->getTileSize();
+		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
+		int tileID = (*colllayer)[egerY][egerX];
+		int block_mine_timer = 0;
+		if (tileID != 0) {
+			block_mine_timer = TileData::GetInstance()->getTileDataFromID(tileID)->MineTime;
+			minetime += dt;
+			if (minetime >= block_mine_timer) {
+				auto sajt = new Block(1, "sajt", (*colllayer)[egerY][egerX], 1000);
+				Player_Inventory[inventoryplace] = sajt;
+				(*colllayer)[egerY][egerX] = 0;
+
+				inventoryplace++;
+				if (inventoryplace > 39) { inventoryplace = 0; }
+			}
+		}
+		else {
+			minetime = 0;
+		}
+
 	}
 
 	//jobbra fut / ut
