@@ -36,5 +36,5 @@ public:
 	inline int getTileSize() { return TileLayer_TileSize; }
 	inline int getRowCount() { return TileLayer_RowCount; }
 	inline int getColCount() { return TileLayer_ColCount; }
-
+	//inline std::vector<std::vector<int>>* getTileMap() { return &TileLayer_TileMap; }
 };

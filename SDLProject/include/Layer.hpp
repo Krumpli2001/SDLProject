@@ -10,4 +10,5 @@ public:
 	virtual int getTileSize() = 0;
 	virtual	int getRowCount() = 0;
 	virtual int getColCount() = 0;
+	virtual std::vector<std::vector<int>>* getTileMap() = 0;
 };

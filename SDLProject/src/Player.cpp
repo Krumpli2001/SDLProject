@@ -93,7 +93,7 @@ void Player::Update(Uint64 dt)
 				auto sajt = new Block(1, "sajt", (*colllayer)[egerY][egerX], 1000);
 				Player_Inventory[inventoryplace] = sajt;
 				(*colllayer)[egerY][egerX] = 0;
-
+				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = 0;
 				inventoryplace++;
 				if (inventoryplace > 39) { inventoryplace = 0; }
 			}
