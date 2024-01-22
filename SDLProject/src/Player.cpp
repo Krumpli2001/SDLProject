@@ -35,7 +35,7 @@ Player::Player(Properties* props) : Character(props)
 	Player_SpriteAnimation = new SpriteAnimation();
 	Player_SpriteAnimation->SetProps(GameObject_TextureID, 0, 6, 100);
 
-	Player_Inventory.fill(nullptr);
+	Player_Inventory.fill(std::make_pair(nullptr, 0));
 }
 
 void Player::Draw(double scale)
@@ -91,11 +91,31 @@ void Player::Update(Uint64 dt)
 			minetime += dt;
 			if (minetime >= block_mine_timer) {
 				auto sajt = new Block(1, "sajt", (*colllayer)[egerY][egerX], 1000);
-				Player_Inventory[inventoryplace] = sajt;
+				inventoryplace = 0;
+				bool van = false;
+				
+				while (inventoryplace < 40) {
+					if (Player_Inventory[inventoryplace].first != nullptr) {
+						if (Player_Inventory[inventoryplace].first->getItemID() == sajt->getItemID()) {
+							Player_Inventory[inventoryplace].second++;
+							break;
+						}
+					}
+					if (Player_Inventory[inventoryplace].first == nullptr) {
+						Player_Inventory[inventoryplace].first = sajt;
+						Player_Inventory[inventoryplace].second++;
+						break;
+					}
+					inventoryplace++;
+				}
+				
+
+
+				//kiutott block collider eltuntetese
 				(*colllayer)[egerY][egerX] = 0;
+				//textura eltuntetese
 				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = 0;
-				inventoryplace++;
-				if (inventoryplace > 39) { inventoryplace = 0; }
+				//if (inventoryplace > 39) { inventoryplace = 0; }
 			}
 		}
 		else {

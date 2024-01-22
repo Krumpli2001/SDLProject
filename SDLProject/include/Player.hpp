@@ -42,7 +42,7 @@ private:
 	Vector2D Player_LastSafePosition;
 
 	int inventoryplace = 0;
-	std::array<Item*, 40> Player_Inventory;
+	std::array<std::pair<Item*, int>, 40> Player_Inventory;
 
 	void AnimationState();
 public:
