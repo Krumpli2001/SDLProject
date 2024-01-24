@@ -199,19 +199,30 @@ void Player::Update(Uint64 dt)
 	//levitalas miatt van itt
 	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity())) {
 		//if (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity() < 0) {
-			int szam = 0;
-			Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
-			while (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded)) {
-				//ha mozgatjuk az ablakot a szamlalo felmegy...
-				szam += 1;
-				//std::cout << szam << "\n";
-				Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
-				if (szam > CollisionHandler::GetInstance()->getTileSize()) { break; }
-			}
-			Player_LastSafePosition.setY(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam);
+
+
+			//int szam = 0;
+			//Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
+			//while (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded)) {
+			//	//ha mozgatjuk az ablakot a szamlalo felmegy...
+			//	szam += 1;
+			//	std::cout << szam << "\n";
+			//	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
+			//	if (szam > CollisionHandler::GetInstance()->getTileSize()) { break; }
+			//}
+			//Player_LastSafePosition.setY(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam);
 		
 		//ez jo
 		//Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() )) - (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
+	
+		auto szam = (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) - (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity());
+		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
+		if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
+		{
+			GameObject_Transform->setX(Player_LastSafePosition.getX());
+		}
+
+		Player_LastSafePosition.setY(GameObject_Transform->getY());
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
