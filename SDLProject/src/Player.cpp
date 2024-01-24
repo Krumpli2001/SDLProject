@@ -184,7 +184,7 @@ void Player::Update(Uint64 dt)
 	//collision
 	Player_LastSafePosition.setX(GameObject_Transform->getX());
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Width, GameObject_Height);
 	//std::cout << GameObject_Width << "\t" << GameObject_Height << "\n";
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
@@ -198,8 +198,6 @@ void Player::Update(Uint64 dt)
 
 	//levitalas miatt van itt
 	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity())) {
-		//if (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity() < 0) {
-
 
 			//int szam = 0;
 			//Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
@@ -212,21 +210,18 @@ void Player::Update(Uint64 dt)
 			//}
 			//Player_LastSafePosition.setY(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam);
 		
-		//ez jo
-		//Player_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() )) - (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
-	
-		auto szam = (static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) - (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity());
-		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
+		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
+		std::cout << szam << std::endl;
+		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, GameObject_Width, GameObject_Height);
 		if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 		{
 			GameObject_Transform->setX(Player_LastSafePosition.getX());
 		}
-
 		Player_LastSafePosition.setY(GameObject_Transform->getY());
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 190, 240);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Width, GameObject_Height);
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 	{

@@ -47,7 +47,7 @@ private:
 	bool mapIsLoaded = false;
 
 	std::vector<std::vector<int>>* Engine_CollisionLayerVector = nullptr;
-	int TileSize;
+	int TileSize{};
 
 	void spawn(std::string name);
 

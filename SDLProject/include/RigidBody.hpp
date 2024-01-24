@@ -46,6 +46,6 @@ public:
 		 RigidBody_Accelaration.setY(((RigidBody_Gravity + RigidBody_Force.getY()) / RigidBody_Mass)); // szerintem ez itt rossz
 		 Vector2D voltpos = RigidBody_Position;
 		 RigidBody_Velocity = RigidBody_Accelaration;
-		 RigidBody_Position = RigidBody_Accelaration * dt;
+		 RigidBody_Position = RigidBody_Accelaration * static_cast<double>(dt);
 	 }
 };
