@@ -86,38 +86,39 @@ void Player::Update(Uint64 dt)
 		auto egerY = UI::GetInstance()->getkepernyoY() / Engine::GetInstance()->getTileSize();
 		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
 		int tileID = (*colllayer)[egerY][egerX];
-		int block_mine_timer = 0;
 		if (tileID != 0) {
-			block_mine_timer = TileData::GetInstance()->getTileDataFromID(tileID)->MineTime;
-			minetime += dt;
-			if (minetime >= block_mine_timer) {
-				//auto sajt = new Block(1, "sajt", (*colllayer)[egerY][egerX], 1000);
-				auto sajt = ItemData::GetInstance()->getItemByTileID(tileID);
-				inventoryplace = 0;
-				bool van = false;
-				
-				while (inventoryplace < 40) {
-					if (Player_Inventory[inventoryplace].first != nullptr) {
-						if (Player_Inventory[inventoryplace].first->getItemID() == sajt->getItemID()) {
+			int block_mine_timer = TileData::GetInstance()->getTileDataFromID(tileID)->MineTime;
+			if (block_mine_timer >= 0) {
+				minetime += dt;
+				if (minetime >= block_mine_timer) {
+					//auto sajt = new Block(1, "sajt", (*colllayer)[egerY][egerX], 1000);
+					auto sajt = ItemData::GetInstance()->getItemByTileID(tileID);
+					inventoryplace = 0;
+					bool van = false;
+
+					while (inventoryplace < 40) {
+						if (Player_Inventory[inventoryplace].first != nullptr) {
+							if (Player_Inventory[inventoryplace].first->getItemID() == sajt->getItemID()) {
+								Player_Inventory[inventoryplace].second++;
+								break;
+							}
+						}
+						if (Player_Inventory[inventoryplace].first == nullptr) {
+							Player_Inventory[inventoryplace].first = sajt;
 							Player_Inventory[inventoryplace].second++;
 							break;
 						}
+						inventoryplace++;
 					}
-					if (Player_Inventory[inventoryplace].first == nullptr) {
-						Player_Inventory[inventoryplace].first = sajt;
-						Player_Inventory[inventoryplace].second++;
-						break;
-					}
-					inventoryplace++;
+
+
+
+					//kiutott block collider eltuntetese
+					(*colllayer)[egerY][egerX] = 0;
+					//textura eltuntetese
+					(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = 0;
+					//if (inventoryplace > 39) { inventoryplace = 0; }
 				}
-				
-
-
-				//kiutott block collider eltuntetese
-				(*colllayer)[egerY][egerX] = 0;
-				//textura eltuntetese
-				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = 0;
-				//if (inventoryplace > 39) { inventoryplace = 0; }
 			}
 		}
 		else {

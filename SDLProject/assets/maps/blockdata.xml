@@ -5,77 +5,90 @@
         <TileID>0</TileID>
         <LayerID>foreground</LayerID>
         <isTransparent>1</isTransparent>
+        <mineTime>0</mineTime>
     </block>
     <block>
         <TileName>fu</TileName>
         <TileID>1</TileID>
         <LayerID>flora</LayerID>
         <isTransparent>1</isTransparent>
+        <mineTime>0</mineTime>
     </block>
     <block>
         <TileName>pirosvirag</TileName>
         <TileID>2</TileID>
         <LayerID>flora</LayerID>
         <isTransparent>1</isTransparent>
+        <mineTime>0</mineTime>
     </block>
     <block>
         <TileName>fehervirag</TileName>
         <TileID>3</TileID>
         <LayerID>flora</LayerID>
         <isTransparent>1</isTransparent>
+        <mineTime>0</mineTime>
     </block>
     <block>
         <TileName>b_eg</TileName>
         <TileID>4</TileID>
         <LayerID>background</LayerID>
         <isTransparent>1</isTransparent>
+        <mineTime>0</mineTime>
     </block>
     <block>
         <TileName>b_ko</TileName>
         <TileID>5</TileID>
         <LayerID>background</LayerID>
         <isTransparent>1</isTransparent>
+        <mineTime>0</mineTime>
     </block>
     <block>
         <TileName>b_felho</TileName>
         <TileID>6</TileID>
         <LayerID>background</LayerID>
         <isTransparent>1</isTransparent>
+        <mineTime>0</mineTime>
     </block>
     <block>
         <TileName>balrafu</TileName>
         <TileID>7</TileID>
         <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
+        <mineTime>1000</mineTime>
     </block>
     <block>
         <TileName>fuvesfold</TileName>
         <TileID>8</TileID>
         <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
+        <mineTime>1000</mineTime>
     </block>
     <block>
         <TileName>jobbrafu</TileName>
         <TileID>9</TileID>
         <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
+        <mineTime>1000</mineTime>
     </block>
     <block>
         <TileName>fold</TileName>
         <TileID>10</TileID>
         <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
+        <mineTime>1000</mineTime>
     </block>
     <block>
         <TileName>fublock</TileName>
         <TileID>11</TileID>
         <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
+        <mineTime>1000</mineTime>
     </block>
     <block>
         <TileName>viz</TileName>
         <TileID>12</TileID>
         <LayerID>foreground</LayerID>
         <isTransparent>1</isTransparent>
+        <mineTime>-1</mineTime>
     </block>
 </blocks>

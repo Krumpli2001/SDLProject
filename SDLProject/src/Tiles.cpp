@@ -51,7 +51,11 @@ bool TileData::parseTileData(std::string source)
             temp = data->GetText();
             bool isTransparent = temp ? std::atoi(temp) : -1;
 
-            Tile* tile = new Tile(TileID, TileName, LayerID, isTransparent);
+            data = data->NextSiblingElement();
+            temp = data->GetText();
+            int mineTime = temp ? std::atoi(temp) : -1;
+
+            Tile* tile = new Tile(TileID, TileName, LayerID, isTransparent, mineTime);
             IData[TileID] = tile;
             SData[TileName] = tile;
         }
