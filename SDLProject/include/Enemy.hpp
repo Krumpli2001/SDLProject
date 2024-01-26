@@ -31,7 +31,7 @@ public:
 	Enemy(Properties* props);
 
 	virtual void Update(Uint64 dt);
-	virtual void Draw(double scale = 1.0);
+	virtual void Draw();
 	virtual void Clean();
 	virtual void reset();
 	virtual void attacking(Uint64 dt) = 0;

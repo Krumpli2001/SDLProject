@@ -39,9 +39,9 @@ Player::Player(Properties* props) : Character(props)
 	Player_Inventory.fill(std::make_pair(nullptr, 0));
 }
 
-void Player::Draw(double scale)
+void Player::Draw()
 {
-	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip, scale);
+	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip);
 }
 
 void Player::Update(Uint64 dt)

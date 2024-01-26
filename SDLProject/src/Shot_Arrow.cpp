@@ -61,9 +61,9 @@ void Shot_Arrow::Update(Uint64 dt)
 	Arrow_RigidBody->Update(dt);
 }
 
-void Shot_Arrow::Draw(double scale)
+void Shot_Arrow::Draw()
 {
-	Arrow_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, SDL_FLIP_VERTICAL, angle, scale);
+	Arrow_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, SDL_FLIP_VERTICAL, angle);
 }
 
 void Shot_Arrow::Clean()

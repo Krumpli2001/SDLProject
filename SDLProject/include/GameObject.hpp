@@ -76,7 +76,7 @@ public:
 	virtual bool isAttacking() = 0;
 	
 	virtual Collider* getCollider() = 0;
-	virtual void Draw(double scale = 1.0) = 0;
+	virtual void Draw() = 0;
 	virtual void Update(Uint64 dt) = 0;
 	virtual void Clean() = 0;
 	virtual void setGravity(double G) = 0;

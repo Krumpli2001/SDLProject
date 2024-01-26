@@ -56,7 +56,7 @@ public:
 	virtual inline void setAttacking(bool e) {}; // csak enemy hasznalja
 	virtual inline void attacking(Uint64 dt) {}; // et is
 
-	virtual void Draw(double scale = 1.0);
+	virtual void Draw();
 	virtual void Update(Uint64 dt);
 	virtual void Clean();
 	virtual void reset();

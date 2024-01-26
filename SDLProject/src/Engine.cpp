@@ -61,6 +61,7 @@ bool Engine::Init()
 
 	////itt a map
 	//Engine_LevelMap = MapParser::GetInstance()->getMap("MAP");
+	//TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.h
 
 	//lehet hogy ezt lehetne unique_ptr-el
 	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 240, 240, 0.0, 0.0));
@@ -76,7 +77,8 @@ bool Engine::Init()
 
 	UI::GetInstance()->UIInit();
 
-	return Engine_IsRunning = true;
+	Engine_IsRunning = true;
+	return Engine_IsRunning;
 }
 
 bool Engine::Clean()

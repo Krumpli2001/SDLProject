@@ -35,7 +35,7 @@ public:
 	virtual Collider* getCollider() { return Arrow_Collider; }
 	void Update(Uint64 dt);
 
-	void Draw(double scale);
+	void Draw();
 	void Clean();
 	void reset();
 
