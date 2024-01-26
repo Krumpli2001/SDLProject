@@ -4,6 +4,7 @@
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
 #include "Tiles.hpp"
+//#include "Itemdata.hpp"
 #include "UI.hpp"
 
 
@@ -90,7 +91,8 @@ void Player::Update(Uint64 dt)
 			block_mine_timer = TileData::GetInstance()->getTileDataFromID(tileID)->MineTime;
 			minetime += dt;
 			if (minetime >= block_mine_timer) {
-				auto sajt = new Block(1, "sajt", (*colllayer)[egerY][egerX], 1000);
+				//auto sajt = new Block(1, "sajt", (*colllayer)[egerY][egerX], 1000);
+				auto sajt = ItemData::GetInstance()->getItemByTileID(tileID);
 				inventoryplace = 0;
 				bool van = false;
 				
@@ -211,7 +213,7 @@ void Player::Update(Uint64 dt)
 			//Player_LastSafePosition.setY(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam);
 		
 		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
-		std::cout << szam << std::endl;
+		//std::cout << szam << std::endl;
 		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, GameObject_Width, GameObject_Height);
 		if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 		{

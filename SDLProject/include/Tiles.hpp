@@ -32,7 +32,6 @@
 			if (TileData_Instance == nullptr)
 			{
 				TileData_Instance = new TileData();
-				srand(time(nullptr));
 			}
 			return TileData_Instance;
 		}

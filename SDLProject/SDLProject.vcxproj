@@ -145,6 +145,7 @@
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\FPSCounter.cpp" />
     <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\Itemdata.cpp" />
     <ClCompile Include="src\MapParser.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\ObjectFactory.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="include\Input.hpp" />
     <ClInclude Include="include\IObject.hpp" />
     <ClInclude Include="include\Item.hpp" />
+    <ClInclude Include="include\ItemData.hpp" />
     <ClInclude Include="include\Layer.hpp" />
     <ClInclude Include="include\MapParser.hpp" />
     <ClInclude Include="include\mappgen.hpp" />

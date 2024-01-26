@@ -9,6 +9,7 @@
 #include "TextureManager.hpp"
 #include "UI.hpp"
 #include "Tiles.hpp"
+#include "Itemdata.hpp"
 
 Menu* Menu::Menu_Instance = nullptr;
 
@@ -122,6 +123,7 @@ void Menu::Update()
 					TextureManager::GetInstance()->Clean();
 					Engine::GetInstance()->setmapIsLoaded(false);
 					TileData::GetInstance()->ClearData();
+					ItemData::GetInstance()->ClearData();
 					//SDL_RenderClear(Engine::GetInstance()->getRenderer());
 					//Reset();
 
@@ -282,14 +284,15 @@ void Menu::Update()
 						if (MapParser::GetInstance()->Load(saves[i])) {
 							Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
 							TileData::GetInstance()->parseTileData("assets/maps/blockdata.xml");
+							ItemData::GetInstance()->ParseItemData("assets/itemdata.xml");
 							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
 							CollisionHandler::GetInstance()->reset();
 							Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
 							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
-							auto data = TileData::GetInstance()->getTileIData();
+							/*auto data = TileData::GetInstance()->getTileIData();
 							for (auto it = data->begin(); it != data->end(); it++) {
 								std::cout << it->second->TileID << " " << it->second->TileName << " " << it->second->LayerID << " " << it->second->isTransparent << std::endl;
-							}
+							}*/
 						}
 						Load = false;
 						Main = true;
