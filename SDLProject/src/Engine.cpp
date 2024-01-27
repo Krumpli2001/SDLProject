@@ -61,10 +61,10 @@ bool Engine::Init()
 
 	////itt a map
 	//Engine_LevelMap = MapParser::GetInstance()->getMap("MAP");
-	//TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.h
+	//std::cout<<TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.h;
 
 	//lehet hogy ezt lehetne unique_ptr-el
-	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 240, 240, 0.0, 0.0));
+	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 0, 0, 0.0, 0.0));
 	Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("SKELETON", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("ARROW", new Properties("arrow", 1, 20, 100, 0, 0));
@@ -120,13 +120,13 @@ void Engine::Update()
 
 		//ez itt csak a spawnolás
 		if (Engine_SpawnTimer == SPAWN) {
-			int bal_jobb = RNG::GetInstance()->genRandomInt(2);
+			int bal_jobb = RNG::GetInstance()->genRandomInt(1);
 			//mi a rak lett ez az auto XD
 			auto iter = Engine_PropsMap.begin();
 			int randomMob;
 			do {
 				iter = Engine_PropsMap.begin();
-				randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size()-1) + 1;
+				randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size()-1);
 				std::advance(iter, randomMob);
 			} while (iter->first == "PLAYER" || iter->first == "ARROW");
 

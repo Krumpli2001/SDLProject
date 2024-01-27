@@ -27,7 +27,7 @@ public:
 	}
 
 	inline int genRandomInt(int range = INT_MAX) {
-		std::uniform_int_distribution<int> dist(0, range-1);
+		std::uniform_int_distribution<int> dist(0, range);
 		return dist(rd);
 	}
 };

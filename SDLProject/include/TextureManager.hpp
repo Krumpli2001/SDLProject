@@ -15,7 +15,7 @@ class TextureManager
 private:
 	static TextureManager* TextureManager_Instance;
 	std::map<std::string, std::pair<SDL_Texture*, dimenziok>> TextureManager_TextureMap;
-
+	int frames{};
 public:
 	TextureManager() {};
 	static inline TextureManager* GetInstance()

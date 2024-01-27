@@ -12,6 +12,8 @@ void Camera::Update(Uint64 dt)
 	C_X = Camera_Target->getX() - C_Width / (2.0 * scale);
 	C_Y = Camera_Target->getY() - C_Height / (2.0 * scale);
 
+	//std::cout << Camera_Target->getX() << std::endl;
+
 	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), scale, scale);
 
 	if (Camera_Target != nullptr)

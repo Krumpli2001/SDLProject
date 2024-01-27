@@ -14,6 +14,7 @@ static Registrar < Player > registrar("PLAYER");
 Player::Player(Properties* props) : Character(props)
 {
 	GameObject_hp = props->Properies_hp;
+
 	Player_IsWalking = false;
 	Player_IsJumping = false;
 	Player_IsFalling = false;
@@ -46,6 +47,8 @@ void Player::Draw()
 
 void Player::Update(Uint64 dt)
 {
+	//std::cout << GameObject_Origin->getX() << std::endl;
+
 	//regen
 	regenTimer = regenTimer > 0 ? regenTimer -= dt : 200;
 	if (regenTimer == 200){
@@ -252,8 +255,9 @@ void Player::Update(Uint64 dt)
 		Player_UnderWaterTime = UNDER_WATER_TIME;
 	}
 
-	GameObject_Origin->setX(GameObject_Transform->getX() + GameObject_Width / 2.0);
-	GameObject_Origin->setY(GameObject_Transform->getY() + GameObject_Height / 2.0);
+	//ehhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+	GameObject_Origin->setX(GameObject_Transform->getX()/* + GameObject_Width / 2.0*/);
+	GameObject_Origin->setY(GameObject_Transform->getY()/* + GameObject_Height / 2.0*/);
 
 	AnimationState();
 	Player_RigidBody->Update(dt);
@@ -263,14 +267,33 @@ void Player::Update(Uint64 dt)
 void Player::AnimationState()
 {
 	Player_SpriteAnimation->SetProps("player_idle", 0, 4, 400);
+	GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w;
+	GameObject_Height = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.h;
 
-	if (Player_IsWalking) { Player_SpriteAnimation->SetProps("player_walking", 0, 6, 500); }
+	if (Player_IsWalking) {
+		Player_SpriteAnimation->SetProps("player_walking", 0, 6, 500);
+		GameObject_Width = 240;
+		GameObject_Height = 240;
+	}
 
-	if (Player_IsFalling or !Player_IsGrounded) { Player_SpriteAnimation->SetProps("player_jumping", 0, 1, 1); }
+	if (Player_IsFalling or !Player_IsGrounded) {
+		Player_SpriteAnimation->SetProps("player_jumping", 0, 1, 1);
+		GameObject_Width = 240;
+		GameObject_Height = 240;
+	}
 
-	if (Player_IsAttacking) { Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true); }
+	if (Player_IsAttacking) {
+		Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true);
+		GameObject_Width = 240;
+		GameObject_Height = 240;
+	}
 
-	if (Player_IsWalkAttacking) { Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true); }
+	if (Player_IsWalkAttacking) {
+		Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true);
+		GameObject_Width = 240;
+		GameObject_Height = 240;
+	}
+
 }
 
 void Player::Clean()

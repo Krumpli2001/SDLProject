@@ -21,7 +21,7 @@ bool TextureManager::Load(std::string id, std::string filename)
 		return false;
 	}
 
-	dimenziok d = { surface->w, surface->h };
+	dimenziok d = { surface->w/frames, surface->h };
 
 	auto data = std::make_pair(texture, d);
 
@@ -47,6 +47,9 @@ bool TextureManager::ParseTextures(std::string source)
 		{
 			std::string id = e->Attribute("id");
 			std::string src = e->Attribute("source");
+			if (e->Attribute("frames")) {
+				frames = std::atoi(e->Attribute("frames"));
+			}
 			Load(id, src);
 		}
 	}
