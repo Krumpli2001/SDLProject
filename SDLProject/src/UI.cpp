@@ -84,7 +84,7 @@ void UI::Draw()
 				SDL_SetRenderDrawColor(renderer, 10, 90, 230, 200);
 				SDL_RenderFillRect(renderer, &inventoryKockaHely);
 				if ((*inv)[sor * 10 + oszlop].first) {
-					TextureManager::GetInstance()->Draw("itemtexturemap", x + 10, y + 10, 40, 40, ((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * 50, 0, true, SDL_FLIP_NONE, 1);
+					TextureManager::GetInstance()->DrawItem("itemtexturemap", x+10, y+10, 40 * (1 / scale), 40 * (1 / scale), ((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * 40, 0, 40, 40, true, SDL_FLIP_NONE, 1);
 				}
 				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
 			}
