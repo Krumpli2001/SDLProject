@@ -27,10 +27,7 @@ bool ItemData::ParseItemData(std::string src)
                     data = data->NextSiblingElement();
                     auto TileID = std::atoi(data->GetText());
 
-                    data = data->NextSiblingElement();
-                    std::string TextureID = data->GetText();
-
-                    Block* item = new Block(ItemID, Name, TextureID, TileID);
+                    Block* item = new Block(ItemID, Name, TileID);
                     IData[ItemID] = item;
                     SData[Name] = item;
                     TIDData[TileID] = item;
