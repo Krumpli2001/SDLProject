@@ -272,26 +272,26 @@ void Player::AnimationState()
 
 	if (Player_IsWalking) {
 		Player_SpriteAnimation->SetProps("player_walking", 0, 6, 500);
-		GameObject_Width = 240;
-		GameObject_Height = 240;
+		GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_walking")->second.second.w;
+		GameObject_Height = TextureManager::GetInstance()->getTextureMap()->find("player_walking")->second.second.h;
 	}
 
 	if (Player_IsFalling or !Player_IsGrounded) {
 		Player_SpriteAnimation->SetProps("player_jumping", 0, 1, 1);
-		GameObject_Width = 240;
-		GameObject_Height = 240;
+		GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_jumping")->second.second.w;
+		GameObject_Height = TextureManager::GetInstance()->getTextureMap()->find("player_jumping")->second.second.h;
 	}
 
 	if (Player_IsAttacking) {
 		Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true);
-		GameObject_Width = 240;
-		GameObject_Height = 240;
+		GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_stand_hit")->second.second.w;
+		GameObject_Height = TextureManager::GetInstance()->getTextureMap()->find("player_stand_hit")->second.second.h;
 	}
 
 	if (Player_IsWalkAttacking) {
 		Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true);
-		GameObject_Width = 240;
-		GameObject_Height = 240;
+		GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_walk_hit")->second.second.w;
+		GameObject_Height = TextureManager::GetInstance()->getTextureMap()->find("player_walk_hit")->second.second.h;
 	}
 
 }
