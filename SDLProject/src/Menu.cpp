@@ -288,7 +288,7 @@ void Menu::Update()
 							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
 							CollisionHandler::GetInstance()->reset();
 							Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
-							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
+							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 							/*auto data = TileData::GetInstance()->getTileIData();
 							for (auto it = data->begin(); it != data->end(); it++) {
 								std::cout << it->second->TileID << " " << it->second->TileName << " " << it->second->LayerID << " " << it->second->isTransparent << std::endl;

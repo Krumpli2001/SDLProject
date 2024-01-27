@@ -70,7 +70,7 @@ void Enemy::Enemy_Collision(Uint64 dt) {
 	Enemy_LastSafePosition.setY(GameObject_Transform->getY());
 	//levitalas miatt van itt
 
-	if ((static_cast<int>(Enemy_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Enemy_RigidBody->getGravity())) {
+	if ((static_cast<int>(Enemy_LastSafePosition.getY()) % CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize()) >= (CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize() - dt * Enemy_RigidBody->getGravity())) {
 
 		//int szam = 0;
 		//Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Enemy_RigidBody->getGravity() - szam, 190, 240);
@@ -84,7 +84,7 @@ void Enemy::Enemy_Collision(Uint64 dt) {
 
 		//Enemy_LastSafePosition.setY(GameObject_Transform->getY() + ((CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - 1)) - (static_cast<int>(Enemy_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()));
 	
-		auto szam = ((static_cast<int>(Enemy_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
+		auto szam = ((static_cast<int>(Enemy_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 		std::cout << szam << std::endl;
 		Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Enemy_RigidBody->getGravity() - szam, GameObject_Width, GameObject_Height);
 		if (CollisionHandler::GetInstance()->MapCollision(this, &Enemy_IsGrounded))

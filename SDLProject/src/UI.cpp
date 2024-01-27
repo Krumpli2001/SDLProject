@@ -1,5 +1,10 @@
 #include "UI.hpp"
+#include "FPSCounter.hpp"
+#include "TextureManager.hpp"
 #include "Camera.hpp"
+#include "Player.hpp"
+#include "TileLayer.hpp"
+
 
 void UI::UIInit()
 {
@@ -17,7 +22,7 @@ void UI::Update()
 	}
 
 	GameObject* player = (*Engine::GetInstance()->getGameObjects())[0];
-
+	
 	//hp szamolas + felette a szoveg letrehozasa
 	php = player->getHP();
 	mphp = player->getMaxHP();
@@ -69,6 +74,10 @@ void UI::Draw()
 	{
 		int x = 20;
 		int y = 20;
+
+		//bleh
+		auto inv = static_cast<std::array<std::pair<Item*, int>, 40>*>((*Engine::GetInstance()->getGameObjects())[0]->getInventory());		
+
 		for (int sor = 0; sor < 4; sor++) {
 			for (int oszlop = 0; oszlop < 10; oszlop++) {
 				SDL_Rect inventoryKockaHely = { x,y, static_cast<int>(60 * (1 / scale)), static_cast<int>(60 * (1 / scale)) };

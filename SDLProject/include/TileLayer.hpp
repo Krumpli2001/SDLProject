@@ -30,8 +30,9 @@ public:
 	virtual void Update(int x, int y);
 	virtual void Clean();
 	inline std::vector<std::vector<int>>* getTileMap() { return &TileLayer_TileMap; }
-	inline std::vector<Tileset>* getTileSets() { return &TileLayer_TileSets; }
-	inline int getTileset() { return TileLayer_TileSets[0].ColCount; }
+	//inline std::vector<Tileset>* getTileSets() { return &TileLayer_TileSets; }
+	//inline int getTileset() { return TileLayer_TileSets[0].ColCount; }
+	//inline std::vector<Tileset>* getTilesetVector() { return &TileLayer_TileSets; }
 
 	inline int getTileSize() { return TileLayer_TileSize; }
 	inline int getRowCount() { return TileLayer_RowCount; }

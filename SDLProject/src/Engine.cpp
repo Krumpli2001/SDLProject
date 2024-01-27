@@ -190,7 +190,7 @@ void Engine::Update()
 		Map_W = (*g)[0]->getColCount() * (*g)[0]->getTileSize();
 		Map_H = (*g)[0]->getRowCount() * (*g)[0]->getTileSize();
 
-		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
+		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 		UI::GetInstance()->Update();
 		Camera::GetInstance()->Update(dt);
 
@@ -226,7 +226,7 @@ void Engine::Render()
 	if (!Engine_MenuShowing or mapIsLoaded) {
 		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400);
 
-		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
+		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 
 		UI::GetInstance()->Draw();
 

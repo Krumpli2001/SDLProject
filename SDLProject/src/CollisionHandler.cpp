@@ -5,7 +5,7 @@ CollisionHandler* CollisionHandler::CollisionHandler_Instance = nullptr;
 
 CollisionHandler::CollisionHandler()
 {
-    CollisionHandler_CollisionLayer = (TileLayer*)(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()];
+    CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
     CollisionHandler_CollitionTileMap = *CollisionHandler_CollisionLayer->getTileMap();
 
     for (auto it = TileData::GetInstance()->getTileIData()->begin(); it != TileData::GetInstance()->getTileIData()->end(); it++) {
@@ -20,7 +20,7 @@ CollisionHandler::CollisionHandler()
 }
 
 void CollisionHandler::reset() {
-    CollisionHandler_CollisionLayer = (TileLayer*)(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()];
+    CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
     CollisionHandler_CollitionTileMap = *CollisionHandler_CollisionLayer->getTileMap();
 
     tileSize = CollisionHandler_CollisionLayer->getTileSize();

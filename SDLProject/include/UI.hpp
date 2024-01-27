@@ -3,9 +3,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
-#include "FPSCounter.hpp"
-#include "TextureManager.hpp"
-
 class UI {
 private:
 	UI() {};

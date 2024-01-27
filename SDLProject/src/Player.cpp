@@ -4,7 +4,7 @@
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
 #include "Tiles.hpp"
-//#include "Itemdata.hpp"
+#include "Engine.hpp"
 #include "UI.hpp"
 
 
@@ -203,7 +203,7 @@ void Player::Update(Uint64 dt)
 	//erre majd ra kell kerdezni...
 
 	//levitalas miatt van itt
-	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize()) >= (CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize() - dt * Player_RigidBody->getGravity())) {
+	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize()) >= (CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize() - dt * Player_RigidBody->getGravity())) {
 
 			//int szam = 0;
 			//Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
@@ -216,7 +216,7 @@ void Player::Update(Uint64 dt)
 			//}
 			//Player_LastSafePosition.setY(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam);
 		
-		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
+		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 		//std::cout << szam << std::endl;
 		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w, GameObject_Height);
 		if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))

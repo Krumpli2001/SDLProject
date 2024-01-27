@@ -14,6 +14,7 @@ private:
 	CollisionHandler();
 	static CollisionHandler* CollisionHandler_Instance;
 	std::vector<std::vector<int>> CollisionHandler_CollitionTileMap;
+	TileLayer* CollisionHandler_CollisionLayer;
 
 	std::vector<int> attetszo;
 
@@ -21,7 +22,6 @@ private:
 	int rowCount;
 	int colCount;
 public:
-	TileLayer* CollisionHandler_CollisionLayer;
 
 	static inline CollisionHandler* GetInstance()
 	{
@@ -36,5 +36,6 @@ public:
 	bool MapCollision(GameObject* g, bool* grounded);
 	inline std::vector<std::vector<int>>* getCollisionTileMap() { return &CollisionHandler_CollitionTileMap; }
 	inline int getTileSize() { return tileSize; }
+	inline TileLayer* getCollisionLayer() { return CollisionHandler_CollisionLayer; }
 	void reset();
 };

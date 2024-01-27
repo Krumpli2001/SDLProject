@@ -48,6 +48,7 @@ public:
 	virtual inline void Enemy_Collision(Uint64 dt);
 
 	void getPlayerPosition();
+	inline void* getInventory() override { return nullptr; }
 };
 
 class Zombie : public Enemy{

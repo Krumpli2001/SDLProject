@@ -43,5 +43,6 @@ public:
 	virtual double getAttacktime() { return 0; }
 	int getAttackPower() { return 10; }
 	virtual void setAttackPower(int power) {}
+	inline void* getInventory() override { return nullptr; }
 
 };
