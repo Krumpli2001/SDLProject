@@ -190,7 +190,7 @@ void Player::Update(Uint64 dt)
 	//collision
 	Player_LastSafePosition.setX(GameObject_Transform->getX());
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Width, GameObject_Height);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w, GameObject_Height);
 	//std::cout << GameObject_Width << "\t" << GameObject_Height << "\n";
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
@@ -218,7 +218,7 @@ void Player::Update(Uint64 dt)
 		
 		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->CollisionHandler_CollisionLayer->getTileSize());
 		//std::cout << szam << std::endl;
-		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, GameObject_Width, GameObject_Height);
+		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w, GameObject_Height);
 		if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 		{
 			GameObject_Transform->setX(Player_LastSafePosition.getX());
@@ -227,7 +227,7 @@ void Player::Update(Uint64 dt)
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Width, GameObject_Height);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w, GameObject_Height);
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 	{
