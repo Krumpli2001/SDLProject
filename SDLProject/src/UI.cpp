@@ -74,8 +74,8 @@ void UI::Draw()
 	{
 		int x = 20;
 		int y = 20;
-		/*int xi = x + 10;
-		int yi = y + 10;*/
+		int xi = x + (10.0/scale);
+		int yi = y + (10.0/scale);
 
 		//bleh
 		auto inv = static_cast<std::array<std::pair<Item*, int>, 40>*>((*Engine::GetInstance()->getGameObjects())[0]->getInventory());		
@@ -86,17 +86,17 @@ void UI::Draw()
 				SDL_SetRenderDrawColor(renderer, 10, 90, 230, 200);
 				SDL_RenderFillRect(renderer, &inventoryKockaHely);
 				if ((*inv)[sor * 10 + oszlop].first) {
-					TextureManager::GetInstance()->DrawItem("itemtexturemap", x, y, 40 * (1 / scale), 40 * (1 / scale), ((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * 40, 0, 40, 40);
+					TextureManager::GetInstance()->DrawItem("itemtexturemap", xi, yi, 40 * (1 / scale), 40 * (1 / scale), ((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * 40, 0, 40, 40);
 				}
 				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
-				//xi += static_cast<int>(40 * (1 / scale)) + static_cast<int>(40 * (1 / scale));
+				xi += static_cast<int>(40 * (1 / scale)) + static_cast<int>(40 * (1 / scale));
 			}
 			if (!showInventory) {
 				break;
 			}
 			x = 20;
 			y += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
-			//yi += static_cast<int>(40 * (1 / scale)) + static_cast<int>(40 * (1 / scale));
+			yi += static_cast<int>(40 * (1 / scale)) + static_cast<int>(40 * (1 / scale));
 		}
 	}
 
