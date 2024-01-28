@@ -101,21 +101,13 @@ void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h,
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, nullptr, flip);
 }
 
-void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int srcx, int srcy, int srcw, int srch, bool stayonscreen, SDL_RendererFlip flip, double ScrollRatio)
+void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int srcx, int srcy, int srcw, int srch)
 {
 	SDL_Rect srcRect = { srcx, srcy, srcw, srch };
-	SDL_Rect dstRect;
-	if (stayonscreen) {
-		dstRect = { x, y, w, h };
-	}
-	else {
-		Vector2D cam = Camera::GetInstance()->getPosition() * ScrollRatio;
-		dstRect = { static_cast<int>(x - cam.getX()), static_cast<int>(y - cam.getY()), w, h };
-	}
-
+	SDL_Rect dstRect = { x, y, w, h };
 
 	//SDL_Rect dstRect = { x, y, w, h };
-	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, flip);
+	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
 }
 
 void TextureManager::Drop(std::string id)
