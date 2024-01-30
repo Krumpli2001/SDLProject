@@ -12,11 +12,14 @@ private:
 	const Uint8* Input_KeyStates;
 	Uint32 Input_ClickStates{};
 	SDL_Event event{};
+	int Scroll = 0;
+	int prevScroll = 0;
 	
 	void KeyUp();
 	void KeyDown();
 	void ClickUp();
 	void ClickDown();
+
 public:
 	static inline Input* GetInstance()
 	{
@@ -33,7 +36,8 @@ public:
 	int getAxisKey(Axis axis);
 	int getElse();
 	void interpret(int kod);
+	int getScroll();
 
-	inline SDL_Event getEvent() { return event; }
+	//inline SDL_Event getEvent() { return event; }
 };
 

@@ -49,6 +49,7 @@ public:
 
 	void getPlayerPosition();
 	inline void* getInventory() override { return nullptr; }
+	inline int getSelectedInventory() { return 0; }
 };
 
 class Zombie : public Enemy{

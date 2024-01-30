@@ -44,5 +44,6 @@ public:
 	int getAttackPower() { return 10; }
 	virtual void setAttackPower(int power) {}
 	inline void* getInventory() override { return nullptr; }
+	inline int getSelectedInventory() { return 0; }
 
 };

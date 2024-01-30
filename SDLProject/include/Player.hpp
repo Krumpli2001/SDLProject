@@ -43,6 +43,7 @@ private:
 
 	int inventoryplace = 0;
 	std::array<std::pair<Item*, int>, 40> Player_Inventory;
+	int selectedInventory = 0;
 
 	void AnimationState();
 public:
@@ -71,4 +72,6 @@ public:
 
 	//wow lehet ilyet is - ez rettenet buta lmao
 	inline void* getInventory() override { return &Player_Inventory; }
+	inline int getSelectedInventory() { return selectedInventory; }
+	void setSelectedInventory();
 };

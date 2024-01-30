@@ -77,8 +77,17 @@ void Player::Update(Uint64 dt)
 		Player_IsWalking = true;
 	}
 
+	//scroll
+	auto s = Input::GetInstance()->getScroll();
+	if (s != 0) {
+		if (s < 0) { inventoryplace--; }
+		if (s > 0) { inventoryplace++; }
+		if (inventoryplace < 0) { inventoryplace = 9; }
+		if (inventoryplace > 9) { inventoryplace = 0; }
+	}
+
 	//attack
-	if ((Input::GetInstance()->getClickDown() == 1) or (Input::GetInstance()->getKeyDown(SDL_SCANCODE_K)))
+	if ((SDL_BUTTON(Input::GetInstance()->getClickDown()) == 1) or (Input::GetInstance()->getKeyDown(SDL_SCANCODE_K)))
 	{
 		Player_IsAttacking = true;
 		//Player_Animation->setDelta(SDL_GetTicks64());
@@ -128,6 +137,45 @@ void Player::Update(Uint64 dt)
 			minetime = 0;
 		}
 
+	}
+
+
+	//std::cout << SDL_BUTTON(Input::GetInstance()->getClickDown()) << std::endl;
+	//jobb click - 8-at terit vissza, mert a 3adik bit lesz az egyes - imo bugos ez a makro de nem akarom megjavitani most...
+	if (SDL_BUTTON(Input::GetInstance()->getClickDown()) == 8) {
+		auto egerX = UI::GetInstance()->getkepernyoX() / Engine::GetInstance()->getTileSize();
+		auto egerY = UI::GetInstance()->getkepernyoY() / Engine::GetInstance()->getTileSize();
+		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
+		int tileID = (*colllayer)[egerY][egerX];
+		if (tileID == 0) {
+					auto sajt = ItemData::GetInstance()->getItemByTileID(tileID);
+					inventoryplace = 0;
+					bool van = false;
+
+					while (inventoryplace < 40) {
+						if (Player_Inventory[inventoryplace].first != nullptr) {
+							if (Player_Inventory[inventoryplace].first->getItemID() == sajt->getItemID()) {
+								Player_Inventory[inventoryplace].second++;
+								break;
+							}
+						}
+						if (Player_Inventory[inventoryplace].first == nullptr) {
+							Player_Inventory[inventoryplace].first = sajt;
+							Player_Inventory[inventoryplace].second++;
+							break;
+						}
+						inventoryplace++;
+					}
+
+
+
+					//kiutott block collider eltuntetese
+					(*colllayer)[egerY][egerX] = 0;
+					//textura eltuntetese
+					(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = 0;
+					//if (inventoryplace > 39) { inventoryplace = 0; }
+				
+		}
 	}
 
 	//jobbra fut / ut
@@ -306,4 +354,8 @@ void Player::reset()
 	GameObject_hp = 100;
 	GameObject_Transform->setX(0);
 	GameObject_Transform->setY(0);
+}
+
+void Player::setSelectedInventory()
+{
 }

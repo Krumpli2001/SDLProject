@@ -85,4 +85,5 @@ public:
 	virtual void setAttackPower(int power) = 0;
 	virtual void reset() = 0;
 	virtual void* getInventory() = 0;
+	virtual int getSelectedInventory() = 0;
 };

@@ -57,6 +57,24 @@ void Input::Listen()
 			case SDL_MOUSEBUTTONDOWN:
 				ClickDown();
 				break;
+			case SDL_MOUSEWHEEL:
+				if (event.wheel.y > 0) // scroll up
+				{
+					if (Scroll <= 0) {
+						Scroll = 0;
+					}
+					Scroll++;
+					//std::cout << "fel\n";
+				}
+				else if (event.wheel.y < 0) // scroll down
+				{
+					if (Scroll >= 0) {
+						Scroll = 0;
+					}
+					Scroll--;
+					//std::cout << "le\n";
+				}
+				break;
 			case SDL_MOUSEBUTTONUP:
 				ClickUp();
 				break;
@@ -77,6 +95,15 @@ Uint32 Input::getClickDown()
 	return Input_ClickStates;
 }
 
+int Input::getScroll() {
+	if (Scroll == prevScroll) {
+		return 0;
+	}
+
+
+	prevScroll = Scroll;
+	return Scroll;
+}
 
 int Input::getElse()
 {
