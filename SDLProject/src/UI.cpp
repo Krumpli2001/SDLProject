@@ -79,11 +79,16 @@ void UI::Draw()
 
 		//bleh
 		auto inv = static_cast<std::array<std::pair<Item*, int>, 40>*>((*Engine::GetInstance()->getGameObjects())[0]->getInventory());		
-
+		auto selected = (*Engine::GetInstance()->getGameObjects())[0]->getSelectedInventory();
+		//std::cout << selected << "\n";
 		for (int sor = 0; sor < 4; sor++) {
 			for (int oszlop = 0; oszlop < 10; oszlop++) {
 				SDL_Rect inventoryKockaHely = { x,y, static_cast<int>(60 * (1 / scale)), static_cast<int>(60 * (1 / scale)) };
 				SDL_SetRenderDrawColor(renderer, 10, 90, 230, 200);
+				if (sor*10 + selected == oszlop)
+				{
+					SDL_SetRenderDrawColor(renderer, 10, 90, 255, 255);
+				}
 				SDL_RenderFillRect(renderer, &inventoryKockaHely);
 				if ((*inv)[sor * 10 + oszlop].first) {
 					TextureManager::GetInstance()->DrawItem("itemtexturemap", xi, yi, 40 * (1 / scale), 40 * (1 / scale), ((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * 40, 0, 40, 40);
