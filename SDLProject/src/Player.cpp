@@ -148,12 +148,12 @@ void Player::Update(Uint64 dt)
 		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
 		int tileID = (*colllayer)[egerY][egerX];
 		if (tileID == 0) {
-			if (Player_Inventory[inventoryplace].second != 0) {
-				(*colllayer)[egerY][egerX] = Player_Inventory[inventoryplace].first->getTileID();
-				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = Player_Inventory[inventoryplace].first->getTileID();
-				Player_Inventory[inventoryplace].second--;
-				if (Player_Inventory[inventoryplace].second == 0) {
-					Player_Inventory[inventoryplace].first = nullptr;
+			if (Player_Inventory[selectedInventory].second != 0) {
+				(*colllayer)[egerY][egerX] = Player_Inventory[selectedInventory].first->getTileID();
+				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = Player_Inventory[selectedInventory].first->getTileID();
+				Player_Inventory[selectedInventory].second--;
+				if (Player_Inventory[selectedInventory].second == 0) {
+					Player_Inventory[selectedInventory].first = nullptr;
 				}
 			}
 		}
