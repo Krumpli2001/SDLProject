@@ -80,10 +80,10 @@ void Player::Update(Uint64 dt)
 	//scroll
 	auto s = Input::GetInstance()->getScroll();
 	if (s != 0) {
-		if (s < 0) { inventoryplace--; }
-		if (s > 0) { inventoryplace++; }
-		if (inventoryplace < 0) { inventoryplace = 9; }
-		if (inventoryplace > 9) { inventoryplace = 0; }
+		if (s < 0) { selectedInventory--; }
+		if (s > 0) { selectedInventory++; }
+		if (selectedInventory < 0) { selectedInventory = 9; }
+		if (selectedInventory > 9) { selectedInventory = 0; }
 	}
 
 	//attack
@@ -109,13 +109,13 @@ void Player::Update(Uint64 dt)
 					bool van = false;
 
 					while (inventoryplace < 40) {
-						if (Player_Inventory[inventoryplace].first != nullptr) {
+						if (Player_Inventory[inventoryplace].second != 0) {
 							if (Player_Inventory[inventoryplace].first->getItemID() == sajt->getItemID()) {
 								Player_Inventory[inventoryplace].second++;
 								break;
 							}
 						}
-						if (Player_Inventory[inventoryplace].first == nullptr) {
+						if (Player_Inventory[inventoryplace].second == 0) {
 							Player_Inventory[inventoryplace].first = sajt;
 							Player_Inventory[inventoryplace].second++;
 							break;
@@ -148,33 +148,14 @@ void Player::Update(Uint64 dt)
 		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
 		int tileID = (*colllayer)[egerY][egerX];
 		if (tileID == 0) {
-					auto sajt = ItemData::GetInstance()->getItemByTileID(tileID);
-					inventoryplace = 0;
-					bool van = false;
-
-					while (inventoryplace < 40) {
-						if (Player_Inventory[inventoryplace].first != nullptr) {
-							if (Player_Inventory[inventoryplace].first->getItemID() == sajt->getItemID()) {
-								Player_Inventory[inventoryplace].second++;
-								break;
-							}
-						}
-						if (Player_Inventory[inventoryplace].first == nullptr) {
-							Player_Inventory[inventoryplace].first = sajt;
-							Player_Inventory[inventoryplace].second++;
-							break;
-						}
-						inventoryplace++;
-					}
-
-
-
-					//kiutott block collider eltuntetese
-					(*colllayer)[egerY][egerX] = 0;
-					//textura eltuntetese
-					(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = 0;
-					//if (inventoryplace > 39) { inventoryplace = 0; }
-				
+			if (Player_Inventory[inventoryplace].second != 0) {
+				(*colllayer)[egerY][egerX] = Player_Inventory[inventoryplace].first->getTileID();
+				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = Player_Inventory[inventoryplace].first->getTileID();
+				Player_Inventory[inventoryplace].second--;
+				if (Player_Inventory[inventoryplace].second == 0) {
+					Player_Inventory[inventoryplace].first = nullptr;
+				}
+			}
 		}
 	}
 
