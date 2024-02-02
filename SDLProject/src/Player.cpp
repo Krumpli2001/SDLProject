@@ -100,6 +100,7 @@ void Player::Update(Uint64 dt)
 		int tileID = (*colllayer)[egerY][egerX];
 		if (tileID != 0) {
 			int block_mine_timer = TileData::GetInstance()->getTileDataFromID(tileID)->MineTime;
+			//igy csak az a bak ha athuzod masik blockra akkor is hozzaadja a timerhez
 			if (block_mine_timer >= 0) {
 				minetime += dt;
 				if (minetime >= block_mine_timer) {

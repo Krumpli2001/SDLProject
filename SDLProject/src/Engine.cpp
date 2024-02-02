@@ -53,6 +53,8 @@ bool Engine::Init()
 
 	SDL_SetRenderDrawBlendMode(Engine_Renderer, SDL_BLENDMODE_BLEND);
 
+	TextureManager::GetInstance()->Init();
+
 	//map betoltese
 	//if (!MapParser::GetInstance()->Load("map"))
 	//{
@@ -91,6 +93,7 @@ bool Engine::Clean()
 	Engine_PropsMap.clear();
 
 	TextureManager::GetInstance()->Clean();
+	TextureManager::GetInstance()->Clearfont();
 	UI::GetInstance()->Clean();
 	Menu::GetInstance()->Clean();
 	SDL_DestroyRenderer(Engine_Renderer);

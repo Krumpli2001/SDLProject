@@ -15,6 +15,7 @@ class TextureManager
 private:
 	static TextureManager* TextureManager_Instance;
 	std::map<std::string, std::pair<SDL_Texture*, dimenziok>> TextureManager_TextureMap;
+	std::map<char, SDL_Texture*> chars_map;
 	int frames{};
 public:
 	TextureManager() {};
@@ -27,6 +28,8 @@ public:
 		return TextureManager_Instance;
 	}
 
+	bool Init();
+
 	bool Load(std::string id, std::string filename);
 	bool ParseTextures(std::string source);
 	void Draw(std::string id, int x, int y, int w, int h, int srcx = 0, int srcy = 0, bool stayonscreen = false, SDL_RendererFlip flip = SDL_FLIP_NONE, double ScrollRatio = 0.4);
@@ -35,6 +38,7 @@ public:
 	void DrawItem(std::string id, int x, int y, int w, int h, int srcx = 0, int srcy = 0, int srcw = 0, int srch = 0);
 	void Drop(std::string id);
 	void Clean();
+	void Clearfont();
 
 	inline std::map<std::string, std::pair<SDL_Texture*, dimenziok>>* getTextureMap() { return &TextureManager_TextureMap; }
 };

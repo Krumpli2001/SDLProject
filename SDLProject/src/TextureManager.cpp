@@ -1,9 +1,55 @@
+#include "SDL_ttf.h"
+
 #include "TextureManager.hpp"
 #include "Engine.hpp"
 #include "Camera.hpp"
 #include "tinyxml.h"
 
 TextureManager* TextureManager::TextureManager_Instance = nullptr;
+
+
+
+bool TextureManager::Init()
+{
+	//tudom hogy sok az ismetles, nem akartam kulon fuggvenyt irni csak erre
+	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
+	for (char i = '0'; i <= '9'; i++) {
+		SDL_Color color = { 255, 255, 255 };
+		std::string str{ i };
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
+
+		chars_map[i] = Message;
+		SDL_FreeSurface(surfaceMessage);
+	}
+	std::cout << "numbers made\n";
+
+	for (char i = 'a'; i <= 'z'; i++) {
+		SDL_Color color = { 255, 255, 255 };
+		std::string str{ i };
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
+
+		chars_map[i] = Message;
+		SDL_FreeSurface(surfaceMessage);
+	}
+	std::cout << "chars made\n";
+
+	for (char i = 'A'; i <= 'Z'; i++) {
+		SDL_Color color = { 255, 255, 255 };
+		std::string str{ i };
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
+
+		chars_map[i] = Message;
+		SDL_FreeSurface(surfaceMessage);
+	}
+	std::cout << "CHARS MADE\n";
+
+	TTF_CloseFont(font);
+
+	return true;
+}
 
 bool TextureManager::Load(std::string id, std::string filename)
 {
@@ -54,6 +100,7 @@ bool TextureManager::ParseTextures(std::string source)
 		}
 	}
 	std::cout << "Textures loaded!\n";
+	
 	return true;
 }
 
@@ -91,7 +138,8 @@ void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y,
 
 void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, double angle, SDL_RendererFlip flip)
 {
-	SDL_Rect srcRect = { w * frame, h * row, w, h };
+	//ez is a scale/clip miatt van, marmint a -1ek
+	SDL_Rect srcRect = { w * frame, h * row, w-1, h-1 };
 
 	Vector2D cam = Camera::GetInstance()->getPosition();
 
@@ -118,12 +166,26 @@ void TextureManager::Drop(std::string id)
 
 void TextureManager::Clean()
 {
-	std::map<std::string, std::pair<SDL_Texture*, dimenziok>>::iterator it;
-	for (it = TextureManager_TextureMap.begin(); it != TextureManager_TextureMap.end(); it++)
+	//std::map<std::string, std::pair<SDL_Texture*, dimenziok>>::iterator it;
+	for (auto it = TextureManager_TextureMap.begin(); it != TextureManager_TextureMap.end(); it++)
 	{
 		SDL_DestroyTexture(it->second.first);
 	}
 	TextureManager_TextureMap.clear();
 
 	std::cout << "Textures deleted!\n";
+
+}
+
+void TextureManager::Clearfont()
+{
+	std::cout << "Numbers deleted!\n";
+
+	for (auto it = chars_map.begin(); it != chars_map.end(); it++)
+	{
+		SDL_DestroyTexture(it->second);
+	}
+	chars_map.clear();
+
+	std::cout << "Chars deleted!\n";
 }
