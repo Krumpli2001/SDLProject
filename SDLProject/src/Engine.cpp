@@ -55,6 +55,8 @@ bool Engine::Init()
 
 	TextureManager::GetInstance()->Init();
 
+	Menu::GetInstance()->MenuInit();
+
 	//map betoltese
 	//if (!MapParser::GetInstance()->Load("map"))
 	//{
@@ -65,7 +67,7 @@ bool Engine::Init()
 	//Engine_LevelMap = MapParser::GetInstance()->getMap("MAP");
 	//std::cout<<TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.h;
 
-	//lehet hogy ezt lehetne unique_ptr-el
+	//lehet hogy ezt lehetne unique_ptr-el - illetve nem itt kene lennie
 	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 0, 0, 0.0, 0.0));
 	Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("SKELETON", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
@@ -74,8 +76,6 @@ bool Engine::Init()
 	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("PLAYER")->second));	//player a nulladik elem
 																																	//Enigine_GameObjects.push_back(mob);
 	Camera::GetInstance()->setTarget(Enigine_GameObjects[0]->getOrigin());
-
-	Menu::GetInstance()->MenuInit();
 
 	UI::GetInstance()->UIInit();
 

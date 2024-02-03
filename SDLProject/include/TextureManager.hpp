@@ -15,7 +15,7 @@ class TextureManager
 private:
 	static TextureManager* TextureManager_Instance;
 	std::map<std::string, std::pair<SDL_Texture*, dimenziok>> TextureManager_TextureMap;
-	std::map<char, SDL_Texture*> chars_map;
+	std::map<char, std::pair<SDL_Texture*, dimenziok>> chars_map;
 	int frames{};
 public:
 	TextureManager() {};
@@ -29,6 +29,8 @@ public:
 	}
 
 	bool Init();
+
+	void TCharsOut(std::string str, int x, int y, int size);
 
 	bool Load(std::string id, std::string filename);
 	bool ParseTextures(std::string source);

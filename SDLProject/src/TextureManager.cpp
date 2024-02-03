@@ -19,7 +19,9 @@ bool TextureManager::Init()
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 
-		chars_map[i] = Message;
+		chars_map[i].first = Message;
+		chars_map[i].second = { surfaceMessage->w, surfaceMessage->h };
+		
 		SDL_FreeSurface(surfaceMessage);
 	}
 	std::cout << "numbers made\n";
@@ -30,7 +32,9 @@ bool TextureManager::Init()
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 
-		chars_map[i] = Message;
+		chars_map[i].first = Message;
+		chars_map[i].second = { surfaceMessage->w, surfaceMessage->h };
+
 		SDL_FreeSurface(surfaceMessage);
 	}
 	std::cout << "chars made\n";
@@ -41,7 +45,9 @@ bool TextureManager::Init()
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
 
-		chars_map[i] = Message;
+		chars_map[i].first = Message;
+		chars_map[i].second = { surfaceMessage->w, surfaceMessage->h };
+
 		SDL_FreeSurface(surfaceMessage);
 	}
 	std::cout << "CHARS MADE\n";
@@ -49,6 +55,28 @@ bool TextureManager::Init()
 	TTF_CloseFont(font);
 
 	return true;
+}
+
+//a scale-elesbe nem nyul bele, se a meretbe, se a pozicioba
+void TextureManager::TCharsOut(std::string str, int x, int y, int size)
+{
+	int w=0;
+	int h = chars_map[str[0]].second.h;
+	double scale = static_cast<double>(size) / static_cast<double>(h);
+	h *= scale;
+
+	for (int i = 0; i < str.length(); i++) {
+		SDL_Rect dstRect = { x,y,chars_map[str[i]].second.w * scale, h };
+		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), chars_map[str[i]].first, NULL, &dstRect, 0, 0, SDL_FLIP_NONE);
+
+		x += chars_map[str[i]].second.w * scale;
+
+		if (str[i] == ' ') {
+			//10 mert nincs ra okom
+			x += 10 * scale;
+		}
+	}
+
 }
 
 bool TextureManager::Load(std::string id, std::string filename)
@@ -183,7 +211,7 @@ void TextureManager::Clearfont()
 
 	for (auto it = chars_map.begin(); it != chars_map.end(); it++)
 	{
-		SDL_DestroyTexture(it->second);
+		SDL_DestroyTexture(it->second.first);
 	}
 	chars_map.clear();
 

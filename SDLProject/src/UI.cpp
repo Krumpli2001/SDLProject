@@ -59,6 +59,7 @@ void UI::Draw()
 
 			for (int i = szivekSzama; i > 0; i--) {
 				double seged = php % 20 / 20.0 == 0 ? 1.0 : php % 20 / 20.0;
+				//holy shit ez a line
 				int x = i == 1 ? (*Engine::GetInstance()->getWindow_W() - kezdopixel + heartmeret * (1.0 - (seged))) * (1.0 / scale) : ((*Engine::GetInstance()->getWindow_W() - kezdopixel) / scale);
 				int w = i == 1 ? heartmeret * (seged) * (1.0 / scale) : heartmeret * (1.0 / scale);
 				int srcx = i == 1 ? heartmeret * (1.0 - (seged)) : 0;
@@ -104,6 +105,9 @@ void UI::Draw()
 			yi += static_cast<int>(40 * (1 / scale)) + static_cast<int>(40 * (1 / scale));
 		}
 	}
+
+	//fasza, mukodik
+	//TextureManager::GetInstance()->charsout("sajt123SAJT asd", 500, 500, 100);
 
 	//block highlight
 	{
