@@ -60,13 +60,14 @@ bool TextureManager::Init()
 //a scale-elesbe nem nyul bele, se a meretbe, se a pozicioba
 void TextureManager::TCharsOut(std::string str, int x, int y, int size)
 {
-	int w=0;
+	int originalX = x;
+	int w{};
 	int h = chars_map[str[0]].second.h;
 	double scale = static_cast<double>(size) / static_cast<double>(h);
 	h *= scale;
 
 	for (int i = 0; i < str.length(); i++) {
-		SDL_Rect dstRect = { x,y,chars_map[str[i]].second.w * scale, h };
+		SDL_Rect dstRect = { x, y, chars_map[str[i]].second.w * scale, h };
 		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), chars_map[str[i]].first, NULL, &dstRect, 0, 0, SDL_FLIP_NONE);
 
 		x += chars_map[str[i]].second.w * scale;
@@ -74,6 +75,11 @@ void TextureManager::TCharsOut(std::string str, int x, int y, int size)
 		if (str[i] == ' ') {
 			//10 mert nincs ra okom
 			x += 10 * scale;
+		}
+
+		if (str[i] == '\n') {
+			y += h;
+			x = originalX;
 		}
 	}
 
