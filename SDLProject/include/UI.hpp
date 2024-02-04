@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#include <string>
+
 class UI {
 private:
 	UI() {};
@@ -11,15 +13,16 @@ private:
 	bool FpsShowing{};
 
 	//ezek szovegnek kellenek - itt a hp-t szamba kiirni
-	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
+	/*TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
 	SDL_Color color = { 255, 255, 255 };
 	SDL_Surface* surfaceMessage = nullptr;
 	SDL_Texture* Message = nullptr;
-	SDL_Rect Message_rect{ 0,0,0,0 };
+	SDL_Rect Message_rect{ 0,0,0,0 };*/
 	//SDL_Rect Message_rect{ 0,0,100 * static_cast<int>(Engine::GetInstance()->getTScale()), 100 * static_cast<int>(Engine::GetInstance()->getTScale()) };
 
 	int php{};
 	int mphp{};
+	std::string str_hp;
 
 	//SDL_Surface* inventoryKocka = nullptr;
 	//SDL_Texture* inventoryKockaTextura = nullptr;

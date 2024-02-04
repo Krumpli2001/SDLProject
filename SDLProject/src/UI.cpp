@@ -26,10 +26,10 @@ void UI::Update()
 	//hp szamolas + felette a szoveg letrehozasa
 	php = player->getHP();
 	mphp = player->getMaxHP();
-	std::string str = std::to_string(php) + " / " + std::to_string(mphp);
-	surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
+	str_hp = std::to_string(php) + " / " + std::to_string(mphp);
+	/*surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
 	Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
-	Message_rect = { static_cast<int>((*Engine::GetInstance()->getWindow_W() - 150) * 1/scale), 0, static_cast<int>(100 * (1 / scale)), static_cast<int>(20 * (1 / scale)) };
+	Message_rect = { static_cast<int>((*Engine::GetInstance()->getWindow_W() - 150) * 1/scale), 0, static_cast<int>(100 * (1 / scale)), static_cast<int>(20 * (1 / scale)) };*/
 
 	//block highlight
 	SDL_GetMouseState(&cx, &cy);
@@ -68,7 +68,9 @@ void UI::Draw()
 				kezdopixel += 40;
 			}
 		}
-		SDL_RenderCopy(renderer, Message, 0, &Message_rect);
+		//SDL_RenderCopy(renderer, Message, 0, &Message_rect);
+		//hp szam
+		TextureManager::GetInstance()->TCharsOut(str_hp, static_cast<int>((*Engine::GetInstance()->getWindow_W() - 150) * 1 / scale), 0, 25.0 / scale);
 	}
 
 	//inventory
@@ -140,10 +142,10 @@ void UI::TextureReset()
 	if (FpsShowing) {
 		FPSCounter::GetInstance()->Clean();
 	}
-	if (surfaceMessage) { SDL_FreeSurface(surfaceMessage); }
+	/*if (surfaceMessage) { SDL_FreeSurface(surfaceMessage); }
 	if (Message) { SDL_DestroyTexture(Message); }
 	surfaceMessage = nullptr;
-	Message = nullptr;
+	Message = nullptr;*/
 
 }
 
@@ -152,9 +154,9 @@ void UI::Clean()
 	if (FpsShowing) {
 		FPSCounter::GetInstance()->Clean();
 	}
-	if (surfaceMessage) { SDL_FreeSurface(surfaceMessage); }
+	/*if (surfaceMessage) { SDL_FreeSurface(surfaceMessage); }
 	if (Message) { SDL_DestroyTexture(Message); }
 	surfaceMessage = nullptr;
-	Message = nullptr;
+	Message = nullptr;*/
 
 }
