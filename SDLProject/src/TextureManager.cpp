@@ -13,8 +13,10 @@ bool TextureManager::Init()
 {
 	//tudom hogy sok az ismetles, nem akartam kulon fuggvenyt irni csak erre
 	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
+	SDL_Color color = { 255, 255, 255 };
+
+	//szamok
 	for (char i = '0'; i <= '9'; i++) {
-		SDL_Color color = { 255, 255, 255 };
 		std::string str{ i };
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
@@ -26,8 +28,8 @@ bool TextureManager::Init()
 	}
 	std::cout << "numbers made\n";
 
+	//kis betuk
 	for (char i = 'a'; i <= 'z'; i++) {
-		SDL_Color color = { 255, 255, 255 };
 		std::string str{ i };
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
@@ -39,8 +41,9 @@ bool TextureManager::Init()
 	}
 	std::cout << "chars made\n";
 
+	//nagy betuk
 	for (char i = 'A'; i <= 'Z'; i++) {
-		SDL_Color color = { 255, 255, 255 };
+		
 		std::string str{ i };
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
@@ -51,6 +54,17 @@ bool TextureManager::Init()
 		SDL_FreeSurface(surfaceMessage);
 	}
 	std::cout << "CHARS MADE\n";
+
+	//////////////
+	{
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "/", color);
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
+
+		chars_map['/'].first = Message;
+		chars_map['/'].second = {surfaceMessage->w, surfaceMessage->h};
+
+		SDL_FreeSurface(surfaceMessage);
+	}
 
 	TTF_CloseFont(font);
 
