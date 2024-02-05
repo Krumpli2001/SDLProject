@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <map>
+#include <unordered_map>
 
 struct dimenziok {
 	int w, h;
@@ -16,6 +17,7 @@ private:
 	static TextureManager* TextureManager_Instance;
 	std::map<std::string, std::pair<SDL_Texture*, dimenziok>> TextureManager_TextureMap;
 	std::map<char, std::pair<SDL_Texture*, dimenziok>> chars_map;
+	std::unordered_map<std::string, SDL_Color> colors;
 	int frames{};
 public:
 	TextureManager() {};
@@ -42,5 +44,9 @@ public:
 	void Clean();
 	void Clearfont();
 
+	void fillColorMap(std::string source);
+
 	inline std::map<std::string, std::pair<SDL_Texture*, dimenziok>>* getTextureMap() { return &TextureManager_TextureMap; }
+
+	inline std::unordered_map<std::string, SDL_Color>* getColors() { return &colors; }
 };

@@ -9,6 +9,7 @@
 
 class Menu;
 
+//recolouring sdl2 textures - stack overflow, vagy lazy foo color modulation
 struct rublika {
 
 	const char* szoveg;
@@ -39,7 +40,6 @@ private:
 	Menu() {};
 
 	static Menu* Menu_Instance;
-	std::unordered_map<std::string, SDL_Color> colors;
 	std::vector<rublika> rublikak;
 	std::vector<int> options;
 	std::vector<char*> saves;
@@ -55,6 +55,8 @@ private:
 	bool Title = true;
 	double menuScale{};
 	bool Load = false;
+
+	std::unordered_map<std::string, SDL_Color>* colors = TextureManager::GetInstance()->getColors();
 
 public:
 	static inline Menu* GetInstance()
@@ -73,8 +75,8 @@ public:
 	void Reset();
 	void doelse(std::string str, int index);
 
-	void fillColorMap(std::string source);
-	inline SDL_Color getColor(std::string color) { return colors[color]; }
+	
+	//inline SDL_Color getColor(std::string color) { return colors[color]; }
 	void setHighlighted(int i);
 	inline void setEnter(bool e) { enter = e; }
 	inline void setMain(bool e) { Main = e; }
@@ -101,7 +103,7 @@ public:
 	}
 
 	inline void RUpdate(std::string str, int index) {
-		rublikak[index].color = getColor(str);
+		rublikak[index].color = (*colors)[str];
 		rublikak[index].letrehoz();
 		highLighted = index;
 	}

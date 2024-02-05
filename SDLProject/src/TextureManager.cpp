@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "SDL_ttf.h"
 
 #include "TextureManager.hpp"
@@ -68,11 +70,13 @@ bool TextureManager::Init()
 
 	TTF_CloseFont(font);
 
+	fillColorMap("assets/colors.txt");
+
 	return true;
 }
 
 //a scale-elesbe nem nyul bele, se a meretbe, se a pozicioba
-void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* width = nullptr)
+void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* width)
 {
 	int originalX = x;
 	int w{};
@@ -96,7 +100,9 @@ void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* wid
 			x = originalX;
 		}
 	}
-	*width = x;
+	if (width) {
+		*width = x;
+	}
 }
 
 bool TextureManager::Load(std::string id, std::string filename)
@@ -236,4 +242,70 @@ void TextureManager::Clearfont()
 	chars_map.clear();
 
 	std::cout << "Chars deleted!\n";
+}
+
+
+void TextureManager::fillColorMap(std::string source)
+{
+	std::string egysor = "";
+	std::string szin = "";
+	std::string szam = "";
+	unsigned char r = 0; unsigned char g = 0; unsigned char b = 0;
+	std::ifstream f(source);
+	//int i = 0;
+	int betu = 0;
+
+	if (f.is_open()) {
+		while (std::getline(f, egysor)) {
+			//int i = 0;
+			int betu = 0;
+			while (betu < egysor.length()) {
+				while (egysor[betu] != '_' or egysor[betu + 1] != ' ') {
+					szin += std::tolower(egysor[betu]);
+					betu++;
+				}
+				while (egysor[betu] != ' ' and egysor[betu + 1] != '(') { betu++; }
+
+				betu++;
+
+				if (egysor[betu] == ' ' and egysor[betu + 1] == '(') {
+					int vesszok = 0;
+					betu += 2;
+					while (vesszok <= 2) {
+						if (egysor[betu] != ',' and egysor[betu] != ')') {
+							szam += egysor[betu];
+							betu++;
+						}
+						else {
+							switch (vesszok) {
+							case 0:
+								r = std::stoi(szam);
+								break;
+							case 1:
+								g = std::stoi(szam);
+								break;
+							case 2:
+								b = std::stoi(szam);
+								break;
+							}
+
+							szam = "";
+							vesszok++;
+							betu++;
+						}
+
+					}
+				}
+				colors[szin] = SDL_Color{ r,g,b };
+				betu = egysor.length();
+			}
+			egysor = "";
+			//std::cout << szin<<"\n";
+			szin = "";
+		}
+		f.close();
+	}
+	else {
+		std::cerr << "\nnem lehetett megnyitni a szines fajlt\n";
+	}
 }

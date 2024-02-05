@@ -14,22 +14,22 @@
 Menu* Menu::Menu_Instance = nullptr;
 
 void Menu::MenuInit() {
-	fillColorMap("assets/colors.txt");
+	//fillColorMap("assets/colors.txt");
 
 	//rublikak.reserve(20);
 
-	rublikak.push_back(rublika("Continue", 0, 0, 500, 150, colors["white"]));
-	rublikak.push_back(rublika("Options", 0, 150, 500, 150, colors["white"]));
-	rublikak.push_back(rublika("Save", 0, 300, 250, 150, colors["white"]));
-	rublikak.push_back(rublika("Title screen", 0, 450, 600, 150, colors["white"]));
-	rublikak.push_back(rublika("Quit", 0, 600, 250, 150, colors["white"]));
+	rublikak.push_back(rublika("Continue", 0, 0, 500, 150, (*colors)["white"]));
+	rublikak.push_back(rublika("Options", 0, 150, 500, 150, (*colors)["white"]));
+	rublikak.push_back(rublika("Save", 0, 300, 250, 150, (*colors)["white"]));
+	rublikak.push_back(rublika("Title screen", 0, 450, 600, 150, (*colors)["white"]));
+	rublikak.push_back(rublika("Quit", 0, 600, 250, 150, (*colors)["white"]));
 
-	rublikak.push_back(rublika("Retry", 0, 0, 300, 150, colors["white"]));
+	rublikak.push_back(rublika("Retry", 0, 0, 300, 150, (*colors)["white"]));
 
-	rublikak.push_back(rublika("Load", 0, 0, 250, 150, colors["white"]));
-	rublikak.push_back(rublika("Generate", 0, 150, 500, 150, colors["white"]));
+	rublikak.push_back(rublika("Load", 0, 0, 250, 150, (*colors)["white"]));
+	rublikak.push_back(rublika("Generate", 0, 150, 500, 150, (*colors)["white"]));
 
-	rublikak.push_back(rublika("Back", 0, 0, 250, 150, colors["white"]));
+	rublikak.push_back(rublika("Back", 0, 0, 250, 150, (*colors)["white"]));
 
 
 	for (int i = 0; i < rublikak.size(); i++) {
@@ -268,7 +268,7 @@ void Menu::Update()
 					strcpy_s(c, temp.length() + 1, temp.c_str());
 
 					saves.push_back(c);
-					rublikak.push_back(rublika(saves[i], 0, (saves.size() - 1) * 150, temp.length() * 60, 150, colors["white"]));
+					rublikak.push_back(rublika(saves[i], 0, (saves.size() - 1) * 150, temp.length() * 60, 150, (*colors)["white"]));
 					i++;
 				}
 			}
@@ -385,74 +385,9 @@ void Menu::Clean()
 	
 	rublikak.clear();
 
-	colors.clear();
+	//colors.clear();
 
 	std::cout << "\nText is deleted\n";
-}
-
-void Menu::fillColorMap(std::string source)
-{
-	std::string egysor = "";
-	std::string szin = "";
-	std::string szam = "";
-	unsigned char r = 0; unsigned char g = 0; unsigned char b = 0;
-	std::ifstream f(source);
-	//int i = 0;
-	int betu = 0;
-
-	if (f.is_open()) {
-		while (std::getline(f, egysor)) {
-			//int i = 0;
-			int betu = 0;
-			while (betu < egysor.length()) {
-				while (egysor[betu] != '_' or egysor[betu+1] != ' ') {
-					szin += std::tolower(egysor[betu]);
-					betu++;
-				}
-				while (egysor[betu] != ' ' and egysor[betu+1] != '(') { betu++; }
-
-				betu++;
-
-				if (egysor[betu] == ' ' and egysor[betu+1] == '(') {
-					int vesszok = 0;
-					betu += 2;
-					while (vesszok <= 2) {
-						if (egysor[betu] != ',' and egysor[betu] != ')') {
-							szam += egysor[betu];
-							betu++;
-						}
-						else { 
-							switch (vesszok){
-							case 0:
-								r = std::stoi(szam);
-								break;
-							case 1:
-								g = std::stoi(szam);
-								break;
-							case 2:
-								b = std::stoi(szam);
-								break;
-							}
-
-							szam = "";
-							vesszok++;
-							betu++;
-						}
-
-					}
-				}
-				colors[szin] = SDL_Color{ r,g,b };
-				betu = egysor.length();
-			}
-			egysor = "";
-			//std::cout << szin<<"\n";
-			szin = "";
-		}
-		f.close();
-	}
-	else {
-		std::cerr << "\nnem lehetett megnyitni a szines fajlt\n";
-	}
 }
 
 //billentyuzethez
@@ -497,6 +432,6 @@ void Menu::Reset()
 }
 
 void Menu::doelse(std::string str, int index) {
-	rublikak[index].color = getColor(str);
+	rublikak[index].color = (*colors)[str];
 	rublikak[index].letrehoz();
 }
