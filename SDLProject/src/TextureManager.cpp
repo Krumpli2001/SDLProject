@@ -76,7 +76,7 @@ bool TextureManager::Init()
 }
 
 //a scale-elesbe nem nyul bele, se a meretbe, se a pozicioba
-void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* width)
+void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* width, std::string szin)
 {
 	int originalX = x;
 	int w{};
@@ -86,7 +86,14 @@ void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* wid
 
 	for (int i = 0; i < str.length(); i++) {
 		SDL_Rect dstRect = { x, y, chars_map[str[i]].second.w * scale, h };
-		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), chars_map[str[i]].first, NULL, &dstRect, 0, 0, SDL_FLIP_NONE);
+		if (szin != "") {
+			setTextColor(chars_map[str[i]].first, szin);
+			SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), chars_map[str[i]].first, NULL, &dstRect, 0, 0, SDL_FLIP_NONE);
+			setTextColor(chars_map[str[i]].first, "white");
+		}
+		else {
+			SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), chars_map[str[i]].first, NULL, &dstRect, 0, 0, SDL_FLIP_NONE);
+		}
 
 		x += chars_map[str[i]].second.w * scale;
 
@@ -309,3 +316,11 @@ void TextureManager::fillColorMap(std::string source)
 		std::cerr << "\nnem lehetett megnyitni a szines fajlt\n";
 	}
 }
+
+void TextureManager::setTextColor(SDL_Texture* texture, std::string szin)
+{
+	auto color = colors[szin];
+	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+}
+
+

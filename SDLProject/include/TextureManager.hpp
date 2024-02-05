@@ -32,7 +32,7 @@ public:
 
 	bool Init();
 
-	void TCharsOut(std::string str, int x, int y, int size, int* width = nullptr);
+	void TCharsOut(std::string str, int x, int y, int size, int* width = nullptr, std::string szin="");
 
 	bool Load(std::string id, std::string filename);
 	bool ParseTextures(std::string source);
@@ -49,4 +49,6 @@ public:
 	inline std::map<std::string, std::pair<SDL_Texture*, dimenziok>>* getTextureMap() { return &TextureManager_TextureMap; }
 
 	inline std::unordered_map<std::string, SDL_Color>* getColors() { return &colors; }
+
+	void setTextColor(SDL_Texture* texture, std::string szin);
 };

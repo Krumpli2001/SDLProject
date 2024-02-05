@@ -115,7 +115,8 @@ void UI::Draw()
 	}
 
 	//fasza, mukodik
-	//TextureManager::GetInstance()->TCharsOut("sajt\n123SAJT asd", 500, 500, 100);
+	TextureManager::GetInstance()->TCharsOut("sajt\n123SAJT asd", 500, 500, 100,nullptr, "green");
+	TextureManager::GetInstance()->TCharsOut("ab", 700, 700, 200);
 
 	//block highlight
 	{
