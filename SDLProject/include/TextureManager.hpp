@@ -30,7 +30,7 @@ public:
 
 	bool Init();
 
-	void TCharsOut(std::string str, int x, int y, int size);
+	void TCharsOut(std::string str, int x, int y, int size, int* width = nullptr);
 
 	bool Load(std::string id, std::string filename);
 	bool ParseTextures(std::string source);

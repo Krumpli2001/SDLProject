@@ -72,7 +72,7 @@ bool TextureManager::Init()
 }
 
 //a scale-elesbe nem nyul bele, se a meretbe, se a pozicioba
-void TextureManager::TCharsOut(std::string str, int x, int y, int size)
+void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* width = nullptr)
 {
 	int originalX = x;
 	int w{};
@@ -96,7 +96,7 @@ void TextureManager::TCharsOut(std::string str, int x, int y, int size)
 			x = originalX;
 		}
 	}
-
+	*width = x;
 }
 
 bool TextureManager::Load(std::string id, std::string filename)
