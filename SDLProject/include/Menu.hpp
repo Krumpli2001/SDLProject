@@ -12,26 +12,28 @@ class Menu;
 //recolouring sdl2 textures - stack overflow, vagy lazy foo color modulation
 struct rublika {
 
+	int x, y, w, h;
 	const char* szoveg;
-	SDL_Rect doboz;
-	SDL_Surface* surfaceMessage{};
-	SDL_Texture* Message{};
-	SDL_Color color;// = { 255,255,255 };
-	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
-	int szoveghossz{};
+	std::string color;
+	//SDL_Rect doboz;
+	//SDL_Surface* surfaceMessage{};
+	//SDL_Texture* Message{};
+	//SDL_Color color;// = { 255,255,255 };
+	//TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
+	//int szoveghossz{};
 	bool isHighlighted = false;
 
 
-	rublika(const char* sz, int x, int y, int w, int h, SDL_Color c) {
-		doboz.x = x; doboz.y = y; doboz.w = w; doboz.h = h; szoveg = sz; color = c;
+	rublika(const char* sz, int x, int y, int w, int h) {
+		rublika::x = x; rublika::y = y; rublika::w = w; rublika::h = h; szoveg = sz;
 	}
 
-	inline void letrehoz() {
+	/*inline void letrehoz() {
 		surfaceMessage = TTF_RenderText_Solid(font, szoveg, color);
 		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
-	}
+	}*/
 
-	inline void setRectLocation(int x, int y) { doboz.x = x; doboz.y = y; }
+	inline void setRectLocation(int x, int y) { rublika::x = x; rublika::y = y; }
 };
 
 class Menu
@@ -73,7 +75,6 @@ public:
 	void Draw();
 	void Clean();
 	void Reset();
-	void doelse(std::string str, int index);
 
 	
 	//inline SDL_Color getColor(std::string color) { return colors[color]; }
@@ -81,6 +82,7 @@ public:
 	inline void setEnter(bool e) { enter = e; }
 	inline void setMain(bool e) { Main = e; }
 	inline void setGameOver(bool e) { GameOver = e; }
+
 	inline void getIndex(const char* str, int* index) {
 		int i = 0;
 		for (i; i < rublikak.size(); i++) {
@@ -94,17 +96,23 @@ public:
 	inline bool melyik(const char* str, int* index) {
 		getIndex(str, index);
 		//options.push_back(i);
-		if ((cx >= rublikak[*index].doboz.x and cy > rublikak[*index].doboz.y
-			and cx <= rublikak[*index].doboz.w + rublikak[*index].doboz.x and
-			cy <= rublikak[*index].doboz.h + rublikak[*index].doboz.y) and eger or rublikak[*index].isHighlighted) {
+		if ((cx >= rublikak[*index].x and cy > rublikak[*index].y
+			and cx <= rublikak[*index].w + rublikak[*index].x and
+			cy <= rublikak[*index].h + rublikak[*index].y) and eger or rublikak[*index].isHighlighted) {
 			return str;
 		}
 		else { return false; }
 	}
 
+	inline void doelse(std::string str, int index) {
+		//TextureManager::GetInstance()->TCharsOut(rublikak[index].szoveg, rublikak[index].x, rublikak[index].y, rublikak[index].h, &rublikak[index].w, str);
+		rublikak[index].color = str;
+	}
+
+
 	inline void RUpdate(std::string str, int index) {
-		rublikak[index].color = (*colors)[str];
-		rublikak[index].letrehoz();
+		//TextureManager::GetInstance()->TCharsOut(rublikak[index].szoveg, rublikak[index].x, rublikak[index].y, rublikak[index].h, &rublikak[index].w, str);
+		rublikak[index].color = str;
 		highLighted = index;
 	}
 
