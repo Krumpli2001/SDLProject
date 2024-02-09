@@ -1,4 +1,7 @@
+#include <fstream>
+
 #include <SDL.h>
+#include <tinyxml.h>
 
 #include "Player.hpp"
 #include "ObjectFactory.hpp"
@@ -338,6 +341,43 @@ void Player::reset()
 	GameObject_Transform->setY(0);
 }
 
-void Player::setSelectedInventory()
+void Player::saveInventory()
 {
+	std::ofstream f("saves/inventory.xml");
+	if (f.is_open()) {
+		f << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		f << "<slots>\n";
+		for (int i = 0; i < Player_Inventory.size(); i++) {
+			if (Player_Inventory[i].first) {
+				f << "<slot ItemID=\"" << Player_Inventory[i].first->getItemID() << "\" Amount=\"" << Player_Inventory[i].second << "\" />\n";
+			}
+			else {
+				f << "<slot ItemID=\"" << -1 << "\" Amount=\"" << 0 << "\" />\n";
+			}
+		}
+		f << "</slots>\n";
+	}
+}
+
+void Player::readInventory()
+{
+	TiXmlDocument xml;
+	std::string source = "saves/inventory.xml";
+	xml.LoadFile(source);
+	if (xml.Error()) {
+		std::cout << "Failde to load: " << source << std::endl;
+		return;
+	}
+	TiXmlElement* root = xml.RootElement();
+	int i = 0;
+	for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
+		if (e->Value() == std::string("slot")) {
+			int ItemID = std::atoi(e->Attribute("ItemID"));
+			int Amount = std::atoi(e->Attribute("Amount"));
+
+			Player_Inventory[i].first = ItemData::GetInstance()->getItemByID(ItemID);
+			Player_Inventory[i].second = Amount;
+			i++;
+		}
+	}
 }

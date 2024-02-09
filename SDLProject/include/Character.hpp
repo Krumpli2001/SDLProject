@@ -14,4 +14,7 @@ public:
 	virtual void setGravity(double G) = 0;
 	virtual void* getInventory() = 0;
 	virtual int getSelectedInventory() = 0;
+
+	virtual void saveInventory() = 0;
+	virtual void readInventory() = 0;
 };

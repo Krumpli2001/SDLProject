@@ -58,6 +58,8 @@ private:
 	double menuScale{};
 	bool Load = false;
 
+	std::string loaded_map_name;
+
 	std::unordered_map<std::string, SDL_Color>* colors = TextureManager::GetInstance()->getColors();
 
 public:
@@ -127,6 +129,8 @@ public:
 		}
 		std::cout<<std::endl;
 	}
+
+	inline std::string* getMapName() { return &loaded_map_name; }
 };
 
 

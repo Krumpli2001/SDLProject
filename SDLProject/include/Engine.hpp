@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <unordered_map>
+#include <fstream>
 
 #include "GameMap.hpp"
 #include "GameObject.hpp"
@@ -99,5 +100,7 @@ public:
 
 	void spawnSpecial(std::string name, double x, double y, int hp, int power);
 
+
+	void map_save();
 
 };

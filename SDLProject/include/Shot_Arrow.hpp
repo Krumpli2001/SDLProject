@@ -46,4 +46,7 @@ public:
 	inline void* getInventory() override { return nullptr; }
 	inline int getSelectedInventory() { return 0; }
 
+	virtual void saveInventory() { return; }
+	virtual void readInventory() { return; }
+
 };

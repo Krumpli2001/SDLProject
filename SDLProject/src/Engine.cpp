@@ -10,8 +10,10 @@
 #include "Menu.hpp"
 #include "Camera.hpp"
 #include "TextureManager.hpp"
-#include "Rng.hpp"
+//#include "Rng.hpp" a mappgen miatt lett kiveve
 #include "UI.hpp"
+
+#include "mappgen.hpp"
 
 Engine* Engine::Engine_Instance = nullptr;
 
@@ -85,6 +87,8 @@ bool Engine::Init()
 
 bool Engine::Clean()
 {
+
+
 	for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
 	{
 		Enigine_GameObjects[i]->Clean();
@@ -297,4 +301,39 @@ void Engine::spawnSpecial(std::string name, double x, double y, int hp = 100, in
 	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setHP(hp);
 	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setPosition(x, y);
 	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setAttackPower(power);
+}
+
+void Engine::map_save(/*std::ofstream& file, int** f, int width, int height*/) {
+
+
+	if (Engine_LevelMap->getMapLayers()) {
+		auto map = *Engine_LevelMap->getMapLayers();
+
+		std::vector<std::vector<int>> flora;
+		std::vector<std::vector<int>> background;
+		std::vector<std::vector<int>> foreground;
+
+		int width = Map_W/TileSize;
+		int height = Map_H/TileSize;
+
+		
+		for (int i = 0; i < map.size(); i++) {
+			auto k = map[i]->getTilesetVector();
+			//elvileg a tileszet vektor es a map layer vektornak meg kell egyezni a meretenek
+			if ((*k)[i].Name == "flora") {
+				flora = *map[i]->getTileMap();
+			}
+			if ((*k)[i].Name == "background") {
+				background = *map[i]->getTileMap();
+			}
+			if ((*k)[i].Name == "foreground") {
+				foreground = *map[i]->getTileMap();
+			}
+
+		}
+
+		mappgen::szoveg(/**Menu::GetInstance()->getMapName()*/"mentes", width, height, flora, background, foreground);
+
+	}
+	
 }

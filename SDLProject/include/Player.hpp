@@ -73,5 +73,7 @@ public:
 	//wow lehet ilyet is - ez rettenet buta lmao
 	inline void* getInventory() override { return &Player_Inventory; }
 	inline int getSelectedInventory() { return selectedInventory; }
-	void setSelectedInventory();
+
+	void saveInventory();
+	void readInventory();
 };

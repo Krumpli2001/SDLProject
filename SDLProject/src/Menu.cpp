@@ -104,6 +104,8 @@ void Menu::Update()
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false;
+					Engine::GetInstance()->map_save();
+					(*Engine::GetInstance()->getGameObjects())[0]->saveInventory();
 				}
 			}
 			else {
@@ -295,6 +297,7 @@ void Menu::Update()
 							for (auto it = data->begin(); it != data->end(); it++) {
 								std::cout << it->second->TileID << " " << it->second->TileName << " " << it->second->LayerID << " " << it->second->isTransparent << std::endl;
 							}*/
+							loaded_map_name = saves[i];
 						}
 						Load = false;
 						Main = true;
