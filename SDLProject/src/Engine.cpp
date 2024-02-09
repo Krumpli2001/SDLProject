@@ -332,7 +332,7 @@ void Engine::map_save(/*std::ofstream& file, int** f, int width, int height*/) {
 
 		}
 
-		mappgen::szoveg(/**Menu::GetInstance()->getMapName()*/"mentes", width, height, flora, background, foreground);
+		mappgen::szoveg(/**Menu::GetInstance()->getMapName()*/loaded_map_name, width, height, flora, background, foreground);
 
 	}
 	

@@ -52,6 +52,8 @@ private:
 
 	void spawn(std::string name);
 
+	std::string loaded_map_name;
+
 public:
 	static inline Engine* GetInstance()
 	{
@@ -90,6 +92,9 @@ public:
 	inline int getTileSize() { return TileSize; }
 	int legmamasabbBlock(int x);
 	bool spawnolhat(int x, int* y, int w, int h);
+
+	inline void setMapName(std::string str) { loaded_map_name = str; }
+	inline std::string getMapName() { return loaded_map_name; }
 
 	bool Init();
 	bool Clean();

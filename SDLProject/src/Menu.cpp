@@ -265,15 +265,18 @@ void Menu::Update()
 				{
 					std::string temp = entry.path().generic_string();
 					temp = temp.substr(6);
-					temp.erase(temp.length() - 4, temp.length());
+					std::string ext = temp.substr(temp.length() - 3, temp.length());
+					if (ext == "tmx") {
+						temp.erase(temp.length() - 4, temp.length());
 
-					int len = temp.length();
-					char* c = new char[temp.length() + 1];
-					strcpy_s(c, temp.length() + 1, temp.c_str());
+						int len = temp.length();
+						char* c = new char[temp.length() + 1];
+						strcpy_s(c, temp.length() + 1, temp.c_str());
 
-					saves.push_back(c);
-					rublikak.push_back(rublika(saves[i], 0, (saves.size() - 1) * 150, temp.length() * 60, 150));
-					i++;
+						saves.push_back(c);
+						rublikak.push_back(rublika(saves[i], 0, (saves.size() - 1) * 150, temp.length() * 60, 150));
+						i++;
+					}
 				}
 			}
 		}
@@ -297,6 +300,8 @@ void Menu::Update()
 							for (auto it = data->begin(); it != data->end(); it++) {
 								std::cout << it->second->TileID << " " << it->second->TileName << " " << it->second->LayerID << " " << it->second->isTransparent << std::endl;
 							}*/
+							Engine::GetInstance()->setMapName(saves[i]);
+							(*Engine::GetInstance()->getGameObjects())[0]->readInventory();
 							loaded_map_name = saves[i];
 						}
 						Load = false;

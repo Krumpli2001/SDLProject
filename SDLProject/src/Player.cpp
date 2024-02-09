@@ -343,10 +343,12 @@ void Player::reset()
 
 void Player::saveInventory()
 {
-	std::ofstream f("saves/inventory.xml");
+	std::string str = "saves/" + Engine::GetInstance()->getMapName() + ".xml";
+	std::ofstream f(str);
 	if (f.is_open()) {
 		f << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-		f << "<slots>\n";
+		f << "<player>\n";
+		f << "<coords X=\"" << GameObject_Transform->getX() << "\" Y=\"" << GameObject_Transform->getY() << "\" />\n";
 		for (int i = 0; i < Player_Inventory.size(); i++) {
 			if (Player_Inventory[i].first) {
 				f << "<slot ItemID=\"" << Player_Inventory[i].first->getItemID() << "\" Amount=\"" << Player_Inventory[i].second << "\" />\n";
@@ -355,22 +357,32 @@ void Player::saveInventory()
 				f << "<slot ItemID=\"" << 0 << "\" Amount=\"" << 0 << "\" />\n";
 			}
 		}
-		f << "</slots>\n";
+		f << "</player>\n";
+		f.close();
 	}
 }
 
 void Player::readInventory()
 {
 	TiXmlDocument xml;
-	std::string source = "saves/inventory.xml";
+	std::string source = "saves/" + Engine::GetInstance()->getMapName() + ".xml";
 	xml.LoadFile(source);
 	if (xml.Error()) {
 		std::cout << "Failde to load: " << source << std::endl;
 		return;
 	}
 	TiXmlElement* root = xml.RootElement();
+	/*TiXmlElement* coords = root->FirstChildElement();
+	if (coords->Value() == "coords") {
+		GameObject_Transform->setX(std::atoi(coords->Attribute("X")));
+		GameObject_Transform->setY(std::atoi(coords->Attribute("Y")));
+	}*/
 	int i = 0;
 	for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
+		if (e->Value() == std::string("coords")) {
+			GameObject_Transform->setX(std::atoi(e->Attribute("X")));
+			GameObject_Transform->setY(std::atoi(e->Attribute("Y")));
+		}
 		if (e->Value() == std::string("slot")) {
 			int ItemID = std::atoi(e->Attribute("ItemID"));
 			int Amount = std::atoi(e->Attribute("Amount"));
