@@ -352,7 +352,7 @@ void Player::saveInventory()
 				f << "<slot ItemID=\"" << Player_Inventory[i].first->getItemID() << "\" Amount=\"" << Player_Inventory[i].second << "\" />\n";
 			}
 			else {
-				f << "<slot ItemID=\"" << -1 << "\" Amount=\"" << 0 << "\" />\n";
+				f << "<slot ItemID=\"" << 0 << "\" Amount=\"" << 0 << "\" />\n";
 			}
 		}
 		f << "</slots>\n";
@@ -375,8 +375,10 @@ void Player::readInventory()
 			int ItemID = std::atoi(e->Attribute("ItemID"));
 			int Amount = std::atoi(e->Attribute("Amount"));
 
-			Player_Inventory[i].first = ItemData::GetInstance()->getItemByID(ItemID);
-			Player_Inventory[i].second = Amount;
+			if (Amount > 0) {
+				Player_Inventory[i].first = ItemData::GetInstance()->getItemByID(ItemID);
+				Player_Inventory[i].second = Amount;
+			}
 			i++;
 		}
 	}
