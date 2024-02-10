@@ -118,9 +118,10 @@ void Engine::Update()
 {
 	if (Engine_ResetFlag) {
 		Enigine_GameObjects[0]->reset();
-		Engine_MenuShowing = false;
+		//Engine_MenuShowing = false;
 		Engine_ResetFlag = false;
 	}
+
 	if (!Engine_MenuShowing) {
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 		Timer::GetInstance()->setmenu(false);

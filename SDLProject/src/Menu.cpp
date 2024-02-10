@@ -73,7 +73,11 @@ void Menu::Update()
 				RUpdate("gold", index);
 				//TextureManager::GetInstance()->TCharsOut(rublikak[index].szoveg, rublikak[index].x, rublikak[index].y, rublikak[index].h, &rublikak[index].w, "gold");
 				//highLighted = index;
-				if (cc == 1 or enter) { enter = false; Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing()); }
+				if (cc == 1 or enter) {
+					enter = false;
+					Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
+					cc = 0;
+				}
 			}
 			else {
 				doelse("white", index);
@@ -85,10 +89,10 @@ void Menu::Update()
 		{
 			if (melyik("Options", &index)) {
 				rublikak[index].setRectLocation(0, 150);
-
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false;
+					cc = 0;
 				}
 			}
 			else {
@@ -106,6 +110,7 @@ void Menu::Update()
 					enter = false;
 					Engine::GetInstance()->map_save();
 					(*Engine::GetInstance()->getGameObjects())[0]->saveInventory();
+					cc = 0;
 				}
 			}
 			else {
@@ -129,8 +134,10 @@ void Menu::Update()
 					TileData::GetInstance()->ClearData();
 					ItemData::GetInstance()->ClearData();
 					//SDL_RenderClear(Engine::GetInstance()->getRenderer());
-					//Reset();
-
+					Reset();
+					Main = false; //ez igy egy buta megoldas
+					Engine::GetInstance()->setMenuShowing(true);
+					cc = 0;
 				}
 			}
 			else {
@@ -145,7 +152,10 @@ void Menu::Update()
 			if (melyik("Quit", &index)) {
 				rublikak[index].setRectLocation(0, 600);
 				RUpdate("red", index);
-				if (cc == 1 or enter) {	/*Main = false; Title = true;*/ Engine::GetInstance()->Quit(); }
+				if (cc == 1 or enter) {
+					Engine::GetInstance()->Quit();
+					cc = 0;
+				}
 			}
 			else {
 				rublikak[index].setRectLocation(0, 600);
@@ -168,6 +178,9 @@ void Menu::Update()
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false; Reset();
+					Main = true;
+					Engine::GetInstance()->setMenuShowing(false);
+					cc = 0;
 				}
 			}
 			else {
@@ -181,7 +194,10 @@ void Menu::Update()
 			if (melyik("Quit", &index)) {
 				rublikak[index].setRectLocation(0, 150);
 				RUpdate("red", index);
-				if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+				if (cc == 1 or enter) {
+					Engine::GetInstance()->Quit();
+					cc = 0;
+				}
 			}
 			else {
 				rublikak[index].setRectLocation(0, 150);
@@ -203,6 +219,7 @@ void Menu::Update()
 					enter = false;
 					Title = false;
 					Load = true;
+					cc = 0;
 				}
 			}
 			else {
@@ -217,6 +234,7 @@ void Menu::Update()
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					enter = false;
+					cc = 0;
 				}
 			}
 			else {
@@ -232,6 +250,7 @@ void Menu::Update()
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					enter = false;
+					cc = 0;
 				}
 			}
 			else {
@@ -246,7 +265,10 @@ void Menu::Update()
 			if (melyik("Quit", &index)) {
 				rublikak[index].setRectLocation(0, 450);
 				RUpdate("red", index);
-				if (cc == 1 or enter) { Engine::GetInstance()->Quit(); }
+				if (cc == 1 or enter) {
+					Engine::GetInstance()->Quit();
+					cc = 0;
+				}
 			}
 			else {
 				rublikak[index].setRectLocation(0, 450);
@@ -312,7 +334,7 @@ void Menu::Update()
 							delete saves[j];
 						}
 						saves.clear();
-
+						cc = 0;
 						break;
 					}
 				}
@@ -334,6 +356,7 @@ void Menu::Update()
 					Title = true;
 					MapParser::GetInstance()->Clean();
 					TextureManager::GetInstance()->Clean();
+					cc = 0;
 				}
 			}
 			else {
@@ -438,12 +461,8 @@ void Menu::Reset()
 {
 	Engine::GetInstance()->setResetFlag(true);
 	GameOver = false;
-	Main = true;
+	//Main = true;
 	std::ignore = melyik("Quit", &index);
 	rublikak[index].setRectLocation(0, 450);
 }
 
-//void Menu::doelse(std::string str, int index) {
-//	rublikak[index].color = (*colors)[str];
-//	rublikak[index].letrehoz();
-//}
