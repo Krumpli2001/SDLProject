@@ -39,14 +39,24 @@ void Shot_Arrow::Update(Uint64 dt)
 	int distX = abs(OriginalX - TargetPosX);
 	int distY = abs(OriginalY - TargetPosY);
 
+	double maxY = 2;
+	//int maxDist = 10 * Engine::GetInstance()->getTileSize();
+	int distPerKetto = distX / 2;
+
+	double ForceY = maxY - ((abs(GameObject_Transform->getX() - OriginalX)) / distPerKetto);
+	std::cout << ForceY << "\n";
+
 	if (irany==-1) {
 		Arrow_RigidBody->ApplyForceX(BALRA * 2);
 		if (OriginalX - GameObject_Transform->getX() < distX / 2) {
-			Arrow_RigidBody->ApplyForceY(FEL * 2);
+			Arrow_RigidBody->ApplyForceY(FEL * ForceY);
 		}
 	}
 	else {
 		Arrow_RigidBody->ApplyForceX(JOBBRA * 2);
+		if (OriginalX - GameObject_Transform->getX() < distX / 2) {
+			Arrow_RigidBody->ApplyForceY(FEL * ForceY);
+		}
 	}
 
 	

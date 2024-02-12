@@ -71,7 +71,7 @@ bool Engine::Init()
 
 	//lehet hogy ezt lehetne unique_ptr-el - illetve nem itt kene lennie
 	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 0, 0, 0.0, 0.0));
-	//Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
+	Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("SKELETON", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("ARROW", new Properties("arrow", 1, 20, 100, 0, 0));
 
@@ -80,6 +80,9 @@ bool Engine::Init()
 	Camera::GetInstance()->setTarget(Enigine_GameObjects[0]->getOrigin());
 
 	UI::GetInstance()->UIInit();
+
+	spawnSpecial("SKELETON", 1000, 0);
+	spawnSpecial("ZOMBIE", 1000, 0);
 
 	Engine_IsRunning = true;
 	return Engine_IsRunning;
@@ -146,13 +149,13 @@ void Engine::Update()
 				if (bal_jobb == BAL) {
 					x = Enigine_GameObjects[0]->getPosition()->getX() - (50 * TileSize);
 					if (x > 0 && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
-						spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
+						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 				if (bal_jobb == JOBB) {
 					x = Enigine_GameObjects[0]->getPosition()->getX() + (50 * TileSize);
 					if (x < Map_W && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
-						spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
+						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 
@@ -296,7 +299,7 @@ void Engine::spawn(std::string name) {
 	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject(name, Engine_PropsMap.find(name)->second));
 }
 
-void Engine::spawnSpecial(std::string name, double x, double y, int hp = 100, int power = 10)
+void Engine::spawnSpecial(std::string name, double x, double y, int hp, int power)
 {
 	spawn(name);
 	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setHP(hp);

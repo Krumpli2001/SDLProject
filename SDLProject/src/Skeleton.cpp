@@ -52,7 +52,7 @@ void Skeleton::move(Uint64 dt)
 
 void Skeleton::attacking(Uint64 dt)
 {
-	if (abs(Enemy_TargetPosX - GameObject_Transform->getX()) < 10 * 120) {
+	if (abs(Enemy_TargetPosX - GameObject_Transform->getX()) < 10 * Engine::GetInstance()->getTileSize()) {
 		isAiming = true;
 		if (Enemy_AttackTimer == 3000) {
 			Enemy_AttackTimer -= dt;

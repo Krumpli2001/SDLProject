@@ -103,7 +103,7 @@ public:
 	void Render();
 	void Events();
 
-	void spawnSpecial(std::string name, double x, double y, int hp, int power);
+	void spawnSpecial(std::string name, double x, double y, int hp = 100, int power = 10);
 
 
 	void map_save();

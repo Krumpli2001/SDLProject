@@ -207,6 +207,8 @@ void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h,
 	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), w * scale, h * scale };
 
 	//SDL_Rect dstRect = { x, y, w, h };
+
+	//SDL_Point point = { w * frame/2, h * row/2 };
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, nullptr, flip);
 }
 
