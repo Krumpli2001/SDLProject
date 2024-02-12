@@ -31,31 +31,45 @@ void Shot_Arrow::Update(Uint64 dt)
 	//ez aztan a c, a felso resz a magyarazat XD
 	irany = irany == 0 ? irany = TargetPosX < GameObject_Transform->getX() ? -1 : 1:irany;
 
+	if (OriginalX == -1 and OriginalY == -1) {
+		OriginalX = GameObject_Transform->getX();
+		OriginalY = GameObject_Transform->getY();
+	}
+
+	int distX = abs(OriginalX - TargetPosX);
+	int distY = abs(OriginalY - TargetPosY);
+
 	if (irany==-1) {
 		Arrow_RigidBody->ApplyForceX(BALRA * 2);
+		if (OriginalX - GameObject_Transform->getX() < distX / 2) {
+			Arrow_RigidBody->ApplyForceY(FEL * 2);
+		}
 	}
 	else {
 		Arrow_RigidBody->ApplyForceX(JOBBRA * 2);
 	}
 
-	Arrow_RigidBody->ApplyForceY(FEL * 1);
+	
 
 
-	bool kuka;
-	if (CollisionHandler::GetInstance()->MapCollision(this, &kuka)) {
+	if (Arrow_RigidBody->getRigidBody_Velocity().getX() < 0) {
+		angle = 90 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * ( - 180) / M_PI;
+	}
+	else {
+		angle = 270 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-180) / M_PI;
+	}
+
+
+	if (CollisionHandler::GetInstance()->MapCollision(this)) {
 		GameObject_hp = 0;
 	}
+
+
 
 	GameObject_Transform->setX(GameObject_Transform->getX() + Arrow_RigidBody->getRigidBody_Position().getX());
 	GameObject_Transform->setY(GameObject_Transform->getY() + Arrow_RigidBody->getRigidBody_Position().getY());
 	Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 20, 100);
 
-	//std::cout << Arrow_RigidBody->getRigidBody_Velocity().getY() << " " << Arrow_RigidBody->getRigidBody_Velocity().getX() << "\n";
-	if(Arrow_RigidBody->getRigidBody_Velocity().getX() < 0)
-		angle = 90 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * ( - 180) / M_PI;
-
-	else
-		angle = 270 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-180) / M_PI;
 
 	//std::cout << angle << "\n";
 	Arrow_RigidBody->Update(dt);

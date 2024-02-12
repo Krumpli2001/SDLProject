@@ -69,9 +69,11 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
                     for (auto i = 0; i < attetszo.size(); i++) {
 
                             if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == attetszo[i] and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == attetszo[i]) {
+                                if(grounded)
                                 *grounded = false;
                             }
                             else {
+                                if(grounded)
                                 *grounded = true;
                             }
                             return true;

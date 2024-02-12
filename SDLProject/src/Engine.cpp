@@ -71,7 +71,7 @@ bool Engine::Init()
 
 	//lehet hogy ezt lehetne unique_ptr-el - illetve nem itt kene lennie
 	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 0, 0, 0.0, 0.0));
-	Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
+	//Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("SKELETON", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("ARROW", new Properties("arrow", 1, 20, 100, 0, 0));
 
@@ -146,13 +146,13 @@ void Engine::Update()
 				if (bal_jobb == BAL) {
 					x = Enigine_GameObjects[0]->getPosition()->getX() - (50 * TileSize);
 					if (x > 0 && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
-						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
+						spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 				if (bal_jobb == JOBB) {
 					x = Enigine_GameObjects[0]->getPosition()->getX() + (50 * TileSize);
 					if (x < Map_W && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
-						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
+						spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 

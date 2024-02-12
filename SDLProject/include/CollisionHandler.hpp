@@ -33,7 +33,7 @@ public:
 	}
 
 	bool CheckCollision(SDL_Rect a, SDL_Rect b);
-	bool MapCollision(GameObject* g, bool* grounded);
+	bool MapCollision(GameObject* g, bool* grounded = nullptr);
 	inline std::vector<std::vector<int>>* getCollisionTileMap() { return &CollisionHandler_CollitionTileMap; }
 	inline int getTileSize() { return tileSize; }
 	inline TileLayer* getCollisionLayer() { return CollisionHandler_CollisionLayer; }

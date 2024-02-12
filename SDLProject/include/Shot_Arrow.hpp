@@ -9,6 +9,9 @@ private:
 	Vector2D Arrow_LastSafePosition;
 	SpriteAnimation* Arrow_SpriteAnimation;
 
+	int OriginalX = -1;
+	int OriginalY = -1;
+
 	int TargetPosX{};
 	int TargetPosY{};
 
