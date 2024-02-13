@@ -77,6 +77,9 @@ void UI::Draw()
 
 	//inventory
 	{
+
+		const int hatter_meret = 60;
+		const int item_meret = 40;
 		int x = 20;
 		int y = 20;
 		int xi = x + (10.0/scale);
@@ -95,7 +98,7 @@ void UI::Draw()
 		for (int sor = 0; sor < kiirando_sor; sor++) {
 			for (int oszlop = 0; oszlop < 10; oszlop++) {
 				//kek kockak
-				SDL_Rect inventoryKockaHely = { x,y, static_cast<int>(60 * (1 / scale)), static_cast<int>(60 * (1 / scale)) };
+				SDL_Rect inventoryKockaHely = { x,y, static_cast<int>(hatter_meret * (1 / scale)), static_cast<int>(hatter_meret * (1 / scale)) };
 				SDL_SetRenderDrawColor(renderer, 10, 90, 230, 200);
 				if (sor*10 + selected == oszlop)
 				{
@@ -105,27 +108,33 @@ void UI::Draw()
 				//itemek
 				if ((*inv)[sor * 10 + oszlop].first) {
 					//textura kiirasa
-					TextureManager::GetInstance()->DrawItem("itemtexturemap", xi, yi, 40 * (1 / scale), 40 * (1 / scale), ((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * 40, 0, 40, 40);
+					TextureManager::GetInstance()->DrawItem("itemtexturemap", xi, yi, item_meret * (1 / scale), item_meret * (1 / scale), ((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * item_meret, 0, item_meret, item_meret);
 				}
 				if ((*inv)[sor * 10 + oszlop].second>0) {
 					//szam kiirasa
 					TextureManager::GetInstance()->TCharsOut(std::to_string((*inv)[sor * 10 + oszlop].second), x, y, 35.0/scale);
 				}
 
-				if (cx > kepernyoX and cx < kepernyoX + 60 and cy>kepernyoY and cy < kepernyoY + 60) {
-					std::cout << std::format("{} {} {} {} {} {}\n", cx, inventoryKockaHely.x, inventoryKockaHely.x + inventoryKockaHely.w, cy, inventoryKockaHely.y, inventoryKockaHely.y + inventoryKockaHely.h);
+				if (static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
+					klikkelhetoInventory = true;
 				}
-
-				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
-				kepernyoX += 20 + 60;
-				xi += static_cast<int>(40 * (1 / scale)) + static_cast<int>(40 * (1 / scale));
+				else {
+					klikkelhetoInventory = false;
+					//std::cout << std::format("{} {} {} {}\n", static_cast<double>(cx) / scale > inventoryKockaHely.x, static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w, static_cast<double>(cy) / scale > inventoryKockaHely.y, static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h);
+				}
+				//std::cout << std::format("{}\t{}\t{}\t{}\t{}\t{}\n", static_cast<double>(cx)/scale, inventoryKockaHely.x, inventoryKockaHely.x + inventoryKockaHely.w, static_cast<double>(cy)/scale, inventoryKockaHely.y, inventoryKockaHely.y + inventoryKockaHely.h);
+				/*if (klikkelhetoInventory) { std::cout << "igen\n"; }
+				else { std::cout << "nem\n"; }*/
+				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(hatter_meret * (1 / scale));
+				kepernyoX += 20 + hatter_meret;
+				xi += static_cast<int>(item_meret * (1 / scale)) + static_cast<int>(item_meret * (1 / scale));
 			}
 
 			x = 20;
 			kepernyoX = 20;
-			y += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
-			kepernyoY += 20 + 60;
-			yi += static_cast<int>(40 * (1 / scale)) + static_cast<int>(40 * (1 / scale));
+			y += static_cast<int>(20 * (1 / scale)) + static_cast<int>(hatter_meret * (1 / scale));
+			kepernyoY += 20 + hatter_meret;
+			yi += static_cast<int>(item_meret * (1 / scale)) + static_cast<int>(item_meret * (1 / scale));
 		}
 	}
 

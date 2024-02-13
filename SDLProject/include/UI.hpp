@@ -28,6 +28,9 @@ private:
 	//SDL_Texture* inventoryKockaTextura = nullptr;
 	//SDL_Rect inventoryKockaHely{ 0,0,0,0 };
 	bool showInventory = false;
+
+	bool klikkelhetoInventory = false;
+
 	int collisionLayer{};
 
 	int cx{};
