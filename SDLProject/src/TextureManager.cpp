@@ -197,7 +197,7 @@ void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y,
 	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[tilesetID].first, &srcRect, &dstRect /*0, nullptr, flip*/);
 }
 
-void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, double angle, SDL_RendererFlip flip)
+void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, double angle, SDL_RendererFlip flip, int flipX, int flipY)
 {
 	//ez is a scale/clip miatt van, marmint a -1ek
 	SDL_Rect srcRect = { w * frame, h * row, w-1, h-1 };
@@ -209,7 +209,13 @@ void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h,
 	//SDL_Rect dstRect = { x, y, w, h };
 
 	//SDL_Point point = { w * frame/2, h * row/2 };
-	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, nullptr, flip);
+	if (flipX != 0 and flipY != 0) {
+		SDL_Point point{ flipX / 2, flipY / 2 };
+		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, &point, flip);
+	}
+	else {
+		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, nullptr, flip);
+	}
 }
 
 void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int srcx, int srcy, int srcw, int srch)

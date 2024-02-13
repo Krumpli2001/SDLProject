@@ -23,7 +23,7 @@ public:
 
 
 	virtual void Update(Uint64 dt);
-	void Draw(double x, double y, int spriteW, int spriteH, SDL_RendererFlip flip, double angle = 0, double scale = 1);
+	void Draw(double x, double y, int spriteW, int spriteH, SDL_RendererFlip flip, double angle = 0, double scale = 1, int flipX = 0, int flipY = 0);
 	void SetProps(std::string textureID, int spriteRow, int frameCount, int aniSpeed , bool startFrame = false);
 
 };

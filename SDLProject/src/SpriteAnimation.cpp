@@ -16,9 +16,9 @@ void SpriteAnimation::Update(Uint64 dt)
 	}
 }
 
-void SpriteAnimation::Draw(double x, double y, int spriteW, int spriteH, SDL_RendererFlip flip, double angle, double scale)
+void SpriteAnimation::Draw(double x, double y, int spriteW, int spriteH, SDL_RendererFlip flip, double angle, double scale, int flipX, int flipY)
 {
-	TextureManager::GetInstance()->DrawFrame(SpriteAnimation_TextureID, x, y, spriteW, spriteH, SpriteAnimation_SpriteRow, SpriteAnimation_CurrentFrame, SpriteAnimation_StartFrame, scale, angle, flip);
+	TextureManager::GetInstance()->DrawFrame(SpriteAnimation_TextureID, x, y, spriteW, spriteH, SpriteAnimation_SpriteRow, SpriteAnimation_CurrentFrame, SpriteAnimation_StartFrame, scale, angle, flip, flipX, flipY);
 }
 
 void SpriteAnimation::SetProps(std::string textureID, int spriteRow, int frameCount, int aniSpeed, bool startFrame)
