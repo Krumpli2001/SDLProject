@@ -1,3 +1,5 @@
+#include <format>
+
 #include "UI.hpp"
 #include "FPSCounter.hpp"
 #include "TextureManager.hpp"
@@ -120,7 +122,7 @@ void UI::Draw()
 
 	//block highlight
 	{
-
+		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
 		int tilesize = Engine::GetInstance()->getTileSize();
 		int x = kepernyoX - kameraX - kepernyoX % tilesize;
 		int y = kepernyoY - kameraY - kepernyoY % tilesize;
@@ -130,7 +132,10 @@ void UI::Draw()
 
 		highlightUI = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
-		SDL_RenderFillRect(renderer, &highlightUI);
+		//std::cout << std::format("{} {}, {}\n", (*colllayer)[kepernyoY / tilesize][kepernyoX / tilesize], kepernyoY/tilesize, kepernyoX/tilesize);
+		if ((*colllayer)[kepernyoY/tilesize][kepernyoX/tilesize] != 0) {
+			SDL_RenderFillRect(renderer, &highlightUI);
+		}
 
 	}
 
