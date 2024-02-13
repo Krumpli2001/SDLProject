@@ -44,7 +44,7 @@ void Shot_Arrow::Update(Uint64 dt)
 	int distPerKetto = distX / 2;
 
 	double ForceY = maxY - ((abs(GameObject_Transform->getX() - OriginalX)) / distPerKetto);
-	std::cout << ForceY << "\n";
+	//std::cout << ForceY << "\n";
 
 	if (irany==-1) {
 		Arrow_RigidBody->ApplyForceX(BALRA * 2);

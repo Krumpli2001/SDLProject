@@ -51,6 +51,9 @@ void Player::Draw()
 void Player::Update(Uint64 dt)
 {
 	//std::cout << GameObject_Origin->getX() << std::endl;
+	if (Player_Dimenziok.w == 0 and Player_Dimenziok.h == 0) {
+		Player_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second;
+	}
 
 	//regen
 	regenTimer = regenTimer > 0 ? regenTimer -= dt : 200;
@@ -223,7 +226,7 @@ void Player::Update(Uint64 dt)
 	//collision
 	Player_LastSafePosition.setX(GameObject_Transform->getX());
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w, GameObject_Height);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), Player_Dimenziok.w, GameObject_Height);
 	//std::cout << GameObject_Width << "\t" << GameObject_Height << "\n";
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
@@ -251,7 +254,7 @@ void Player::Update(Uint64 dt)
 		
 		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 		//std::cout << szam << std::endl;
-		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w, GameObject_Height);
+		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, Player_Dimenziok.w, GameObject_Height);
 		if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 		{
 			GameObject_Transform->setX(Player_LastSafePosition.getX());
@@ -260,7 +263,7 @@ void Player::Update(Uint64 dt)
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Width = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w, GameObject_Height);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), Player_Dimenziok.w, GameObject_Height);
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 	{

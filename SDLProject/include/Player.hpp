@@ -45,6 +45,8 @@ private:
 	std::array<std::pair<Item*, int>, 40> Player_Inventory;
 	int selectedInventory = 0;
 
+	dimenziok Player_Dimenziok{ 0,0 };
+
 	void AnimationState();
 public:
 
