@@ -81,8 +81,8 @@ bool Engine::Init()
 
 	UI::GetInstance()->UIInit();
 
-	spawnSpecial("SKELETON", 1000, 0);
-	spawnSpecial("ZOMBIE", 1000, 0);
+	/*spawnSpecial("SKELETON", 1000, 0);
+	spawnSpecial("ZOMBIE", 1000, 0);*/
 
 	Engine_IsRunning = true;
 	return Engine_IsRunning;

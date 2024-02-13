@@ -1,4 +1,5 @@
 #include <fstream>
+#include <format>
 
 #include "SDL_ttf.h"
 
@@ -204,16 +205,23 @@ void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h,
 
 	Vector2D cam = Camera::GetInstance()->getPosition();
 
-	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), w * scale, h * scale };
+	SDL_Rect dstRect{0,0,0,0};
 
-	//SDL_Rect dstRect = { x, y, w, h };
+	if (flip == SDL_FLIP_NONE) {
+		dstRect = { static_cast<int>(x - cam.getX()), static_cast<int>(y - cam.getY()), static_cast<int>(w * scale), static_cast<int>(h * scale) };
+	}
+	else {
+		dstRect = { static_cast<int>(x - cam.getX() - (w * scale - flipX)), static_cast<int>(y - cam.getY()), static_cast<int>(w * scale), static_cast<int>(h * scale)};
+	}
 
 	//SDL_Point point = { w * frame/2, h * row/2 };
 	if (flipX != 0 and flipY != 0) {
 		SDL_Point point{ flipX / 2, flipY / 2 };
+		//std::cout << std::format("{} / {}\n", point.x, point.y);
 		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, &point, flip);
 	}
 	else {
+		//std::cout << std::format("{} / {}\n", dstRect.w/2, dstRect.h/2);
 		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, nullptr, flip);
 	}
 }

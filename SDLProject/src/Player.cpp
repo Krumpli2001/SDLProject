@@ -45,7 +45,7 @@ Player::Player(Properties* props) : Character(props)
 
 void Player::Draw()
 {
-	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip);
+	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip , 0.0,1.0, Player_Dimenziok.w, Player_Dimenziok.h);
 }
 
 void Player::Update(Uint64 dt)
