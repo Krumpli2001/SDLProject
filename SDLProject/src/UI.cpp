@@ -82,11 +82,17 @@ void UI::Draw()
 		int xi = x + (10.0/scale);
 		int yi = y + (10.0/scale);
 
+		int kepernyoX = 20;
+		int kepernyoY = 20;
+
+		auto kiirando_sor = 1;
+		if (showInventory) { kiirando_sor = 4; }
+
 		//bleh
 		auto inv = static_cast<std::array<std::pair<Item*, int>, 40>*>((*Engine::GetInstance()->getGameObjects())[0]->getInventory());		
 		auto selected = (*Engine::GetInstance()->getGameObjects())[0]->getSelectedInventory();
 		//std::cout << selected << "\n";
-		for (int sor = 0; sor < 4; sor++) {
+		for (int sor = 0; sor < kiirando_sor; sor++) {
 			for (int oszlop = 0; oszlop < 10; oszlop++) {
 				//kek kockak
 				SDL_Rect inventoryKockaHely = { x,y, static_cast<int>(60 * (1 / scale)), static_cast<int>(60 * (1 / scale)) };
@@ -98,20 +104,27 @@ void UI::Draw()
 				SDL_RenderFillRect(renderer, &inventoryKockaHely);
 				//itemek
 				if ((*inv)[sor * 10 + oszlop].first) {
+					//textura kiirasa
 					TextureManager::GetInstance()->DrawItem("itemtexturemap", xi, yi, 40 * (1 / scale), 40 * (1 / scale), ((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * 40, 0, 40, 40);
 				}
 				if ((*inv)[sor * 10 + oszlop].second>0) {
+					//szam kiirasa
 					TextureManager::GetInstance()->TCharsOut(std::to_string((*inv)[sor * 10 + oszlop].second), x, y, 35.0/scale);
 				}
 
+				if (cx > kepernyoX and cx < kepernyoX + 60 and cy>kepernyoY and cy < kepernyoY + 60) {
+					std::cout << std::format("{} {} {} {} {} {}\n", cx, inventoryKockaHely.x, inventoryKockaHely.x + inventoryKockaHely.w, cy, inventoryKockaHely.y, inventoryKockaHely.y + inventoryKockaHely.h);
+				}
+
 				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
+				kepernyoX += 20 + 60;
 				xi += static_cast<int>(40 * (1 / scale)) + static_cast<int>(40 * (1 / scale));
 			}
-			if (!showInventory) {
-				break;
-			}
+
 			x = 20;
+			kepernyoX = 20;
 			y += static_cast<int>(20 * (1 / scale)) + static_cast<int>(60 * (1 / scale));
+			kepernyoY += 20 + 60;
 			yi += static_cast<int>(40 * (1 / scale)) + static_cast<int>(40 * (1 / scale));
 		}
 	}
@@ -132,7 +145,7 @@ void UI::Draw()
 
 		highlightUI = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
-		//std::cout << std::format("{} {}, {}\n", (*colllayer)[kepernyoY / tilesize][kepernyoX / tilesize], kepernyoY/tilesize, kepernyoX/tilesize);
+		//std::cout << std::format("{} {}, {}\n", (*colllayer)[kepernyoY / tilesize][kepernyoX / tilesize], cx, cy);
 		if ((*colllayer)[kepernyoY/tilesize][kepernyoX/tilesize] != 0) {
 			SDL_RenderFillRect(renderer, &highlightUI);
 		}
