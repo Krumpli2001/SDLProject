@@ -4,8 +4,8 @@
 #include "FPSCounter.hpp"
 #include "TextureManager.hpp"
 #include "Camera.hpp"
-#include "Player.hpp"
 #include "TileLayer.hpp"
+#include "Input.hpp"
 
 
 void UI::UIInit()
@@ -117,9 +117,24 @@ void UI::Draw()
 					TextureManager::GetInstance()->TCharsOut(std::to_string((*inv)[sor * 10 + oszlop].second), x, y, 35.0/scale);
 				}
 
-				if (static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
-					klikkelhetoInventory = true;
+				if(Timer::GetInstance()->pressable(200)){
+
+					if ((*inv)[sor * 10 + oszlop].first and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
+						transfer.first = (*inv)[sor * 10 + oszlop].first;
+						transfer.second = (*inv)[sor * 10 + oszlop].second;
+						(*inv)[sor * 10 + oszlop].first = nullptr;
+						(*inv)[sor * 10 + oszlop].second = 0;
+					}
+
+					else if ((*inv)[sor * 10 + oszlop].first == nullptr and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
+						(*inv)[sor * 10 + oszlop].first = transfer.first;
+						(*inv)[sor * 10 + oszlop].second = transfer.second;
+						transfer.first = nullptr;
+						transfer.second = 0;
+					}
 				}
+
+				if (transfer.first) { std::cout << std::format("{}\n", transfer.first->getItemID()); }
 
 				//std::cout << std::format("{}\t{}\t{}\t{}\t{}\t{}\n", static_cast<double>(cx)/scale, inventoryKockaHely.x, inventoryKockaHely.x + inventoryKockaHely.w, static_cast<double>(cy)/scale, inventoryKockaHely.y, inventoryKockaHely.y + inventoryKockaHely.h);
 				

@@ -5,6 +5,9 @@
 
 #include <string>
 
+#include "Player.hpp"
+
+
 class UI {
 private:
 	UI() {};
@@ -41,6 +44,8 @@ private:
 	int kepernyoY{};
 
 	SDL_Rect highlightUI = {};
+
+	std::pair<Item*, int> transfer{};
 
 public:
 	inline static UI* GetInstance()

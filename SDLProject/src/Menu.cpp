@@ -405,7 +405,6 @@ void Menu::Draw()
 		auto scale = Engine::GetInstance()->getScale();
 		TextureManager::GetInstance()->TCharsOut(rublikak[options[i]].szoveg, rublikak[options[i]].x, rublikak[options[i]].y/scale, rublikak[options[i]].h/scale, &rublikak[options[i]].w, rublikak[options[i]].color);
 	}
-	std::cout << std::format("{}\t{}\n", rublikak[options[0]].h, rublikak[options[0]].szoveg);
 }
 
 void Menu::Clean()
