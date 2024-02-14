@@ -53,7 +53,7 @@ void Menu::Update()
 		}
 	}
 
-	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), 1.0f, 1.0f);
+	//SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), 1.0f, 1.0f);
 
 
 	if (cx != prevx or cy != prevy) {
@@ -63,7 +63,7 @@ void Menu::Update()
 
 	options.clear();
 	int code = Input::GetInstance()->getElse();
-	//enter = false;
+
 
 	if (Main) {
 		
@@ -402,10 +402,10 @@ void Menu::Draw()
 		/*SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
 		SDL_FreeSurface(rublikak[options[i]].surfaceMessage); rublikak[options[i]].surfaceMessage = nullptr;
 		SDL_DestroyTexture(rublikak[options[i]].Message); rublikak[options[i]].Message = nullptr;*/
-
-		TextureManager::GetInstance()->TCharsOut(rublikak[options[i]].szoveg, rublikak[options[i]].x, rublikak[options[i]].y, rublikak[options[i]].h, &rublikak[options[i]].w, rublikak[options[i]].color);
+		auto scale = Engine::GetInstance()->getScale();
+		TextureManager::GetInstance()->TCharsOut(rublikak[options[i]].szoveg, rublikak[options[i]].x, rublikak[options[i]].y/scale, rublikak[options[i]].h/scale, &rublikak[options[i]].w, rublikak[options[i]].color);
 	}
-
+	std::cout << std::format("{}\t{}\n", rublikak[options[0]].h, rublikak[options[0]].szoveg);
 }
 
 void Menu::Clean()

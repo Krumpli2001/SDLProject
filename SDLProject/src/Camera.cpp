@@ -14,8 +14,6 @@ void Camera::Update(Uint64 dt)
 
 	//std::cout << Camera_Target->getX() << std::endl;
 
-	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), scale, scale);
-
 	if (Camera_Target != nullptr)
 	{
 		Camera_ViewBox = { C_X, C_Y, C_Width, C_Height };

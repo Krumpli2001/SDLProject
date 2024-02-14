@@ -86,6 +86,7 @@ bool Engine::Init()
 
 	Engine_IsRunning = true;
 	return Engine_IsRunning;
+
 }
 
 bool Engine::Clean()
@@ -119,6 +120,8 @@ void Engine::Quit()
 
 void Engine::Update()
 {
+	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), scale, scale);
+
 	if (Engine_ResetFlag) {
 		Enigine_GameObjects[0]->reset();
 		//Engine_MenuShowing = false;

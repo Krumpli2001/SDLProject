@@ -30,7 +30,7 @@ private:
 	std::vector<GameObject*> Enigine_GameObjects;
 	Mix_Music* Engine_Music{};
 	double scale = 0.5;
-	double Tscale = 1.0;
+	//double Tscale = 1.0;
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
 
@@ -82,8 +82,8 @@ public:
 	inline int getCollisionLayer() { return Engine_CollisionLayer; }
 	inline void setScale(double s) { scale = s; }
 	inline double getScale() { return scale; }
-	inline void setTScale(double s) { Tscale = s; }
-	inline double getTScale() { return Tscale; }
+	//inline void setTScale(double s) { Tscale = s; }
+	//inline double getTScale() { return Tscale; }
 	inline void setmapIsLoaded(bool e) { mapIsLoaded = e; }
 	inline void setLevelMap(GameMap* p) { Engine_LevelMap = p; }
 	inline void setCollisionLayerVector(std::vector<std::vector<int>>* p) { Engine_CollisionLayerVector = p; }

@@ -28,11 +28,6 @@ struct rublika {
 		rublika::x = x; rublika::y = y; rublika::w = w; rublika::h = h; szoveg = sz;
 	}
 
-	/*inline void letrehoz() {
-		surfaceMessage = TTF_RenderText_Solid(font, szoveg, color);
-		Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
-	}*/
-
 	inline void setRectLocation(int x, int y) { rublika::x = x; rublika::y = y; }
 };
 
@@ -97,6 +92,7 @@ public:
 
 	inline bool melyik(const char* str, int* index) {
 		getIndex(str, index);
+		auto scale = Engine::GetInstance()->getScale();
 		//options.push_back(i);
 		if ((cx >= rublikak[*index].x and cy > rublikak[*index].y
 			and cx <= rublikak[*index].w + rublikak[*index].x and
@@ -106,11 +102,12 @@ public:
 		else { return false; }
 	}
 
+	//csak siman kiirja a sort
 	inline void doelse(std::string str, int index) {
 		rublikak[index].color = str;
 	}
 
-
+	//kiirja es kivalasztja a highlight-ot
 	inline void RUpdate(std::string str, int index) {
 		rublikak[index].color = str;
 		highLighted = index;

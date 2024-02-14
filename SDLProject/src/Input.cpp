@@ -152,7 +152,7 @@ void Input::interpret(int kod)
 		}
 		break;
 
-	case SDL_SCANCODE_3:
+	/*case SDL_SCANCODE_3:
 		if (Timer::GetInstance()->pressable(200)) {
 			Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() + 0.1);
 		}
@@ -162,7 +162,7 @@ void Input::interpret(int kod)
 		if (Timer::GetInstance()->pressable(200)) {
 			Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() - 0.1);
 		}
-		break;
+		break;*/
 
 	case SDL_SCANCODE_E:
 		if (Timer::GetInstance()->pressable(200)) {

@@ -88,6 +88,8 @@ void UI::Draw()
 		int kepernyoX = 20;
 		int kepernyoY = 20;
 
+		klikkelhetoInventory = false;
+
 		auto kiirando_sor = 1;
 		if (showInventory) { kiirando_sor = 4; }
 
@@ -118,13 +120,9 @@ void UI::Draw()
 				if (static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
 					klikkelhetoInventory = true;
 				}
-				else {
-					klikkelhetoInventory = false;
-					//std::cout << std::format("{} {} {} {}\n", static_cast<double>(cx) / scale > inventoryKockaHely.x, static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w, static_cast<double>(cy) / scale > inventoryKockaHely.y, static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h);
-				}
+
 				//std::cout << std::format("{}\t{}\t{}\t{}\t{}\t{}\n", static_cast<double>(cx)/scale, inventoryKockaHely.x, inventoryKockaHely.x + inventoryKockaHely.w, static_cast<double>(cy)/scale, inventoryKockaHely.y, inventoryKockaHely.y + inventoryKockaHely.h);
-				/*if (klikkelhetoInventory) { std::cout << "igen\n"; }
-				else { std::cout << "nem\n"; }*/
+				
 				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(hatter_meret * (1 / scale));
 				kepernyoX += 20 + hatter_meret;
 				xi += static_cast<int>(item_meret * (1 / scale)) + static_cast<int>(item_meret * (1 / scale));
@@ -136,6 +134,7 @@ void UI::Draw()
 			kepernyoY += 20 + hatter_meret;
 			yi += static_cast<int>(item_meret * (1 / scale)) + static_cast<int>(item_meret * (1 / scale));
 		}
+		//std::cout << std::format("{}\n", klikkelhetoInventory);
 	}
 
 	//fasza, mukodik
