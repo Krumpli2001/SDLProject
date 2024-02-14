@@ -134,7 +134,13 @@ void UI::Draw()
 					}
 				}
 
-				if (transfer.first) { std::cout << std::format("{}\n", transfer.first->getItemID()); }
+				if (transfer.first) {
+					int cx, cy;
+					SDL_GetMouseState(&cx, &cy);
+					TextureManager::GetInstance()->DrawItem("itemtexturemap", cx/scale,cy/scale, item_meret * (1 / scale), item_meret * (1 / scale), (transfer.first->getItemID() - 1) * item_meret, 0, item_meret, item_meret);
+				}
+
+				//if (transfer.first) { std::cout << std::format("{}\n", transfer.first->getItemID()); }
 
 				//std::cout << std::format("{}\t{}\t{}\t{}\t{}\t{}\n", static_cast<double>(cx)/scale, inventoryKockaHely.x, inventoryKockaHely.x + inventoryKockaHely.w, static_cast<double>(cy)/scale, inventoryKockaHely.y, inventoryKockaHely.y + inventoryKockaHely.h);
 				
