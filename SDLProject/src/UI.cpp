@@ -101,7 +101,7 @@ void UI::Draw()
 			for (int oszlop = 0; oszlop < 10; oszlop++) {
 				//kek kockak
 				SDL_Rect inventoryKockaHely = { x,y, static_cast<int>(hatter_meret * (1 / scale)), static_cast<int>(hatter_meret * (1 / scale)) };
-				SDL_SetRenderDrawColor(renderer, 10, 90, 230, 200);
+				SDL_SetRenderDrawColor(renderer, 10, 90, 230, 100);
 				if (sor*10 + selected == oszlop)
 				{
 					SDL_SetRenderDrawColor(renderer, 10, 90, 255, 255);
@@ -117,18 +117,26 @@ void UI::Draw()
 					TextureManager::GetInstance()->TCharsOut(std::to_string((*inv)[sor * 10 + oszlop].second), x, y, 35.0/scale);
 				}
 
-				if(Timer::GetInstance()->pressable(200)){
+				if(Timer::GetInstance()->pressable(75)){
 
-					if ((*inv)[sor * 10 + oszlop].first and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
+					if (transfer.first == nullptr and (*inv)[sor * 10 + oszlop].first and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
 						transfer.first = (*inv)[sor * 10 + oszlop].first;
 						transfer.second = (*inv)[sor * 10 + oszlop].second;
 						(*inv)[sor * 10 + oszlop].first = nullptr;
 						(*inv)[sor * 10 + oszlop].second = 0;
 					}
 
-					else if ((*inv)[sor * 10 + oszlop].first == nullptr and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
+					else if ( transfer.first and (*inv)[sor * 10 + oszlop].first == nullptr and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
 						(*inv)[sor * 10 + oszlop].first = transfer.first;
 						(*inv)[sor * 10 + oszlop].second = transfer.second;
+						transfer.first = nullptr;
+						transfer.second = 0;
+					}
+
+
+					if (transfer.first == (*inv)[sor * 10 + oszlop].first and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h)
+					{
+						(*inv)[sor * 10 + oszlop].second += transfer.second;
 						transfer.first = nullptr;
 						transfer.second = 0;
 					}
@@ -150,6 +158,7 @@ void UI::Draw()
 			}
 
 			x = 20;
+			xi = x + (10.0 / scale);
 			kepernyoX = 20;
 			y += static_cast<int>(20 * (1 / scale)) + static_cast<int>(hatter_meret * (1 / scale));
 			kepernyoY += 20 + hatter_meret;

@@ -115,21 +115,36 @@ void Player::Update(Uint64 dt)
 					inventoryplace = 0;
 					bool van = false;
 
+					bool found = false;
+
 					while (inventoryplace < 40) {
-						if (Player_Inventory[inventoryplace].second != 0) {
+						if (Player_Inventory[inventoryplace].first != nullptr) {
 							if (Player_Inventory[inventoryplace].first->getItemID() == sajt->getItemID()) {
+								found = true;
 								Player_Inventory[inventoryplace].second++;
-								break;
+								
 							}
-						}
-						if (Player_Inventory[inventoryplace].second == 0) {
-							Player_Inventory[inventoryplace].first = sajt;
-							Player_Inventory[inventoryplace].second++;
-							break;
 						}
 						inventoryplace++;
 					}
+					inventoryplace = 0;
 
+					if (!found) {
+						while (inventoryplace < 40) {
+							if (Player_Inventory[inventoryplace].second != 0) {
+								if (Player_Inventory[inventoryplace].first->getItemID() == sajt->getItemID()) {
+									Player_Inventory[inventoryplace].second++;
+									break;
+								}
+							}
+							if (Player_Inventory[inventoryplace].second == 0) {
+								Player_Inventory[inventoryplace].first = sajt;
+								Player_Inventory[inventoryplace].second++;
+								break;
+							}
+							inventoryplace++;
+						}
+					}
 
 
 					//kiutott block collider eltuntetese
