@@ -170,11 +170,19 @@ void Player::Update(Uint64 dt)
 		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
 		int tileID = (*colllayer)[egerY][egerX];
 		if (tileID == 0) {
-			if (Player_Inventory[selectedInventory].second != 0) {
+			if (UI::GetInstance()->getTransfer()->first!=nullptr) {
+				(*colllayer)[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getTileID();
+				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getTileID();
+				UI::GetInstance()->getTransfer()->second--;
+				if (UI::GetInstance()->getTransfer()->second <= 0) {
+					UI::GetInstance()->getTransfer()->first = nullptr;
+				}
+			}
+			else if (Player_Inventory[selectedInventory].second != 0) {
 				(*colllayer)[egerY][egerX] = Player_Inventory[selectedInventory].first->getTileID();
 				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = Player_Inventory[selectedInventory].first->getTileID();
 				Player_Inventory[selectedInventory].second--;
-				if (Player_Inventory[selectedInventory].second == 0) {
+				if (Player_Inventory[selectedInventory].second <= 0) {
 					Player_Inventory[selectedInventory].first = nullptr;
 				}
 			}

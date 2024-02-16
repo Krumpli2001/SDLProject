@@ -45,7 +45,7 @@ private:
 
 	SDL_Rect highlightUI = {};
 
-	std::pair<Item*, int> transfer{};
+	std::pair<Item*, int> transfer{ nullptr, 0 };
 
 public:
 	inline static UI* GetInstance()
@@ -71,4 +71,6 @@ public:
 	inline int getkepernyoX() { return kepernyoX; }
 	inline int getkepernyoY() { return kepernyoY; }
 	inline SDL_Rect* getHLRp() { return &highlightUI; }
+
+	inline std::pair<Item*, int>* getTransfer() { return &transfer; }
 };
