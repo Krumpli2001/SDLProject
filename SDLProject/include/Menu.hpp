@@ -31,6 +31,14 @@ struct rublika {
 	inline void setRectLocation(int x, int y) { rublika::x = x; rublika::y = y; }
 };
 
+enum sub {
+	Main,
+	GameOver,
+	Title,
+	Settings,
+	Load,
+};
+
 class Menu
 {
 private:
@@ -47,11 +55,15 @@ private:
 	int cy = -1;
 	bool enter = false;
 	bool ResetFlag = false;
-	bool Main = false;
-	bool GameOver = false;
-	bool Title = true;
+
+	int submenu = sub::Title;
+
+	//bool Main = false;
+	//bool GameOver = false;
+	//bool Title = true;
+	//bool settings = false;
+	//bool Load = false;
 	double menuScale{};
-	bool Load = false;
 
 	std::string loaded_map_name;
 
@@ -77,8 +89,12 @@ public:
 	//inline SDL_Color getColor(std::string color) { return colors[color]; }
 	void setHighlighted(int i);
 	inline void setEnter(bool e) { enter = e; }
-	inline void setMain(bool e) { Main = e; }
-	inline void setGameOver(bool e) { GameOver = e; }
+	inline void setMain(bool e) { 
+		if (e) { submenu = sub::Main; }
+	}
+	inline void setGameOver(bool e) { 
+		if (e) { submenu = sub::GameOver; }
+	}
 
 	inline void getIndex(const char* str, int* index) {
 		int i = 0;

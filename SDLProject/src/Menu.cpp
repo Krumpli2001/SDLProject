@@ -31,6 +31,8 @@ void Menu::MenuInit() {
 
 	rublikak.push_back(rublika("Back", 0, 0, 250, 150));
 
+	rublikak.push_back(rublika("Volume: ", 0, 0, 0, 150));
+
 
 	/*for (int i = 0; i < rublikak.size(); i++) {
 		rublikak[i].letrehoz();
@@ -65,11 +67,12 @@ void Menu::Update()
 	int code = Input::GetInstance()->getElse();
 
 
-	if (Main) {
+	if (submenu == sub::Main) {
 		
 		//continue
 		{
 			if (melyik("Continue", &index)) {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("gold", index);
 				//TextureManager::GetInstance()->TCharsOut(rublikak[index].szoveg, rublikak[index].x, rublikak[index].y, rublikak[index].h, &rublikak[index].w, "gold");
 				//highLighted = index;
@@ -80,6 +83,7 @@ void Menu::Update()
 				}
 			}
 			else {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -88,15 +92,18 @@ void Menu::Update()
 		//options
 		{
 			if (melyik("Options", &index)) {
-				rublikak[index].setRectLocation(0, 150);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
+					submenu = sub::Settings;
+					//settings = true;
+					//Main = false;
 					enter = false;
 					cc = 0;
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, 150);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -105,6 +112,7 @@ void Menu::Update()
 		//save
 		{
 			if (melyik("Save", &index)) {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false;
@@ -114,6 +122,7 @@ void Menu::Update()
 				}
 			}
 			else {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -122,12 +131,13 @@ void Menu::Update()
 		//title screen
 		{
 			if (melyik("Title screen", &index)) {
-				rublikak[index].setRectLocation(0, 450);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					Main = false;
-					Title = true;
+					//Main = false;
+					//Title = true;
+					submenu = sub::Title;
 					MapParser::GetInstance()->Clean();
 					TextureManager::GetInstance()->Clean();
 					Engine::GetInstance()->setmapIsLoaded(false);
@@ -135,13 +145,13 @@ void Menu::Update()
 					ItemData::GetInstance()->ClearData();
 					//SDL_RenderClear(Engine::GetInstance()->getRenderer());
 					Reset();
-					Main = false; //ez igy egy buta megoldas
+					//Main = false; //ez igy egy buta megoldas
 					Engine::GetInstance()->setMenuShowing(true);
 					cc = 0;
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, 450);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -150,7 +160,7 @@ void Menu::Update()
 		//quit
 		{
 			if (melyik("Quit", &index)) {
-				rublikak[index].setRectLocation(0, 600);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					Engine::GetInstance()->Quit();
@@ -158,7 +168,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, 600);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -170,20 +180,23 @@ void Menu::Update()
 		}
 	}
 
-	else if (GameOver) {
+	else if (submenu == sub::GameOver) {
 		
 		//reset
 		{
 			if (melyik("Retry", &index)) {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false; Reset();
-					Main = true;
+					//Main = true;
+					submenu = sub::Main;
 					Engine::GetInstance()->setMenuShowing(false);
 					cc = 0;
 				}
 			}
 			else {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -192,7 +205,7 @@ void Menu::Update()
 		//quit
 		{
 			if (melyik("Quit", &index)) {
-				rublikak[index].setRectLocation(0, 150);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					Engine::GetInstance()->Quit();
@@ -200,7 +213,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, 150);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -208,21 +221,24 @@ void Menu::Update()
 
 	}
 
-	else if (Title) {
+	else if (submenu == sub::Title) {
 
 		//load
 		{
 			if (melyik("Load", &index)) {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 					enter = false;
-					Title = false;
-					Load = true;
+					//Title = false;
+					//Load = true;
+					submenu = sub::Load;
 					cc = 0;
 				}
 			}
 			else {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -231,6 +247,7 @@ void Menu::Update()
 		//mapgen
 		{
 			if (melyik("Generate", &index)) {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					enter = false;
@@ -238,6 +255,7 @@ void Menu::Update()
 				}
 			}
 			else {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -246,15 +264,18 @@ void Menu::Update()
 		//options
 		{
 			if (melyik("Options", &index)) {
-				rublikak[index].setRectLocation(0, 300);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
+					//Title = false;
+					//settings = true;
+					submenu = sub::Settings;
 					enter = false;
 					cc = 0;
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, 300);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -263,7 +284,7 @@ void Menu::Update()
 		//quit
 		{
 			if (melyik("Quit", &index)) {
-				rublikak[index].setRectLocation(0, 450);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					Engine::GetInstance()->Quit();
@@ -271,14 +292,14 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, 450);
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
 		}
 	}
 
-	else if (Load) {
+	else if (submenu == sub::Load) {
 		//ez itt a mentes nevek feltoltese
 		{
 			if (saves.empty()) {
@@ -326,8 +347,9 @@ void Menu::Update()
 							(*Engine::GetInstance()->getGameObjects())[0]->readInventory();
 							loaded_map_name = saves[i];
 						}
-						Load = false;
-						Main = true;
+						//Load = false;
+						//Main = true;
+						submenu = sub::Main;
 						Engine::GetInstance()->setMenuShowing(false);
 
 						for (int j = 0; j < saves.size(); j++) {
@@ -352,8 +374,9 @@ void Menu::Update()
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					Load = false;
-					Title = true;
+					//Load = false;
+					//Title = true;
+					submenu = sub::Title;
 					MapParser::GetInstance()->Clean();
 					TextureManager::GetInstance()->Clean();
 					cc = 0;
@@ -361,6 +384,41 @@ void Menu::Update()
 			}
 			else {
 				rublikak[index].setRectLocation(0, saves.size() * 150);
+				doelse("white", index);
+			}
+			options.push_back(index);
+		}
+	}
+
+	else if (submenu == sub::Settings) {
+		//hang
+		{
+			if(melyik("Volume: ", &index)){
+				rublikak[index].setRectLocation(0, options.size() * 150);
+				RUpdate("red", index);
+			}
+			else {
+				rublikak[index].setRectLocation(0, saves.size() * 150);
+				doelse("white", index);
+			}
+			options.push_back(index);
+		}
+
+		//vissza
+		{
+			if (melyik("Back", &index)) {
+				rublikak[index].setRectLocation(0, options.size() * 150);
+				RUpdate("red", index);
+				if (cc == 1 or enter) {
+					enter = false;
+					//settings = false;
+					//Title = true;
+					submenu = sub::Title;
+					cc = 0;
+				}
+			}
+			else {
+				rublikak[index].setRectLocation(0, options.size() * 150);
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -388,7 +446,7 @@ void Menu::Update()
 void Menu::Draw()
 {
 	//SDL_RenderClear(Engine::GetInstance()->getRenderer());
-	if (!Title) {
+	if (submenu!=sub::Title) {
 		//SDL_RenderClear(Engine::GetInstance()->getRenderer());
 		SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 100);
 		SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), 0);
@@ -459,9 +517,9 @@ void Menu::setHighlighted(int i) {
 void Menu::Reset()
 {
 	Engine::GetInstance()->setResetFlag(true);
-	GameOver = false;
+	//GameOver = false;
 	//Main = true;
 	std::ignore = melyik("Quit", &index);
-	rublikak[index].setRectLocation(0, 450);
+	rublikak[index].setRectLocation(0, options.size() * 150);
 }
 
