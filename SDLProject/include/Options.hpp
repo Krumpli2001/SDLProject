@@ -19,6 +19,11 @@ public:
 		return Options_Instance;
 	}
 
+	double* getSavedScale() { return &savedScale; }
+	void setSavedScale(double e) { savedScale = e; }
+	int* getSavedVolume() { return &savedVolume; }
+	void setSavedVolume(int e) { savedVolume = e; }
+
 	void readSettings(std::string source = "settings.set");
 	void saveSettings();
 };

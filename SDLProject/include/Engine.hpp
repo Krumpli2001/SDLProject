@@ -30,6 +30,7 @@ private:
 	std::vector<GameObject*> Enigine_GameObjects;
 	Mix_Music* Engine_Music{};
 	double scale = 0.5;
+	int volume = MIX_MAX_VOLUME;
 	//double Tscale = 1.0;
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;

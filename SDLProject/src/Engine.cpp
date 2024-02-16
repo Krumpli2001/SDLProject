@@ -15,6 +15,8 @@
 
 #include "mappgen.hpp"
 
+#include "Options.hpp"
+
 Engine* Engine::Engine_Instance = nullptr;
 
 enum irany {BAL, JOBB};
@@ -84,6 +86,10 @@ bool Engine::Init()
 	/*spawnSpecial("SKELETON", 1000, 0);
 	spawnSpecial("ZOMBIE", 1000, 0);*/
 
+	Options::GetInstance()->readSettings();
+	scale = *Options::GetInstance()->getSavedScale();
+	volume = *Options::GetInstance()->getSavedVolume();
+
 	Engine_IsRunning = true;
 	return Engine_IsRunning;
 
@@ -104,6 +110,14 @@ bool Engine::Clean()
 	TextureManager::GetInstance()->Clearfont();
 	UI::GetInstance()->Clean();
 	Menu::GetInstance()->Clean();
+
+	//settings kiirasa fajlba
+	{
+		Options::GetInstance()->setSavedScale(scale);
+		Options::GetInstance()->setSavedVolume(volume);
+		Options::GetInstance()->saveSettings();
+	}
+
 	SDL_DestroyRenderer(Engine_Renderer);
 	SDL_DestroyWindow(Engine_Window);
 	TTF_Quit();

@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "tinyxml.h"
 
 #include "Options.hpp"
@@ -23,4 +25,13 @@ void Options::readSettings(std::string source)
 
 void Options::saveSettings()
 {
+	std::string str = "saves/settings.set";
+	std::ofstream f(str);
+	if (f.is_open()) {
+		f << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		f << "<settings>\n";
+		f << "<setting scale=\"" << savedScale << "\" volume=\"" << savedVolume << "\" />\n";
+		f << "</settings>\n";
+		f.close();
+	}
 }
