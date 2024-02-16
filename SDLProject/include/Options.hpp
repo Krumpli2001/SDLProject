@@ -24,6 +24,6 @@ public:
 	int* getSavedVolume() { return &savedVolume; }
 	void setSavedVolume(int e) { savedVolume = e; }
 
-	void readSettings(std::string source = "settings.set");
+	void readSettings(std::string source = "saves/settings.set");
 	void saveSettings();
 };

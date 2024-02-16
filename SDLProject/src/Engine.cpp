@@ -87,8 +87,12 @@ bool Engine::Init()
 	spawnSpecial("ZOMBIE", 1000, 0);*/
 
 	Options::GetInstance()->readSettings();
-	scale = *Options::GetInstance()->getSavedScale();
-	volume = *Options::GetInstance()->getSavedVolume();
+	if (*Options::GetInstance()->getSavedScale() != -1) {
+		scale = *Options::GetInstance()->getSavedScale();
+	}
+	if (*Options::GetInstance()->getSavedVolume() != -1) {
+		volume = *Options::GetInstance()->getSavedVolume();
+	}
 
 	Engine_IsRunning = true;
 	return Engine_IsRunning;

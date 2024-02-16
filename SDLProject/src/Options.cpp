@@ -15,9 +15,10 @@ void Options::readSettings(std::string source)
 	}
 	TiXmlElement* root = xml.RootElement();
 	for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
-		if (e->Value() == "setting") {
+		if (e->Value() == std::string("setting")) {
 			savedScale = std::stod(e->Attribute("scale"));
 			savedVolume = std::stoi(e->Attribute("volume"));
+			//std::cout << "blah\n";
 		}
 	}
 	std::cout << "Settings loaded\n";
@@ -30,8 +31,9 @@ void Options::saveSettings()
 	if (f.is_open()) {
 		f << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		f << "<settings>\n";
-		f << "<setting scale=\"" << savedScale << "\" volume=\"" << savedVolume << "\" />\n";
+		f << "  <setting scale = \"" << savedScale << "\" volume=\"" << savedVolume << "\" />\n";
 		f << "</settings>\n";
 		f.close();
+		std::cout << "settings saved\n";
 	}
 }
