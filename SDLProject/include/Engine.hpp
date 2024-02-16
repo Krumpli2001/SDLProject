@@ -23,7 +23,6 @@ private:
 	static Engine* Engine_Instance;
 	bool Engine_IsRunning{};
 	bool Engine_MenuShowing = true;
-	//bool Engine_FPSShowing = false;
 	SDL_Window* Engine_Window{};
 	SDL_Renderer* Engine_Renderer{};
 	GameMap* Engine_LevelMap{};
@@ -31,7 +30,6 @@ private:
 	Mix_Music* Engine_Music{};
 	double scale = 0.5;
 	int volume = MIX_MAX_VOLUME;
-	//double Tscale = 1.0;
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
 
@@ -83,8 +81,6 @@ public:
 	inline int getCollisionLayer() { return Engine_CollisionLayer; }
 	inline void setScale(double s) { scale = s; }
 	inline double getScale() { return scale; }
-	//inline void setTScale(double s) { Tscale = s; }
-	//inline double getTScale() { return Tscale; }
 	inline void setmapIsLoaded(bool e) { mapIsLoaded = e; }
 	inline void setLevelMap(GameMap* p) { Engine_LevelMap = p; }
 	inline void setCollisionLayerVector(std::vector<std::vector<int>>* p) { Engine_CollisionLayerVector = p; }

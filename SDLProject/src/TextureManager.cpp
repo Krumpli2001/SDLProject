@@ -178,9 +178,6 @@ void TextureManager::Draw(std::string id, int x, int y, int w, int h, int srcx, 
 		Vector2D cam = Camera::GetInstance()->getPosition() * ScrollRatio;
 		dstRect = { static_cast<int>(x - cam.getX()), static_cast<int>(y - cam.getY()), w, h };
 	}
-	
-
-	//SDL_Rect dstRect = { x, y, w, h };
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, flip);
 }
 
@@ -217,11 +214,9 @@ void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h,
 	//SDL_Point point = { w * frame/2, h * row/2 };
 	if (flipX != 0 and flipY != 0) {
 		SDL_Point point{ flipX / 2, flipY / 2 };
-		//std::cout << std::format("{} / {}\n", point.x, point.y);
 		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, &point, flip);
 	}
 	else {
-		//std::cout << std::format("{} / {}\n", dstRect.w/2, dstRect.h/2);
 		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, nullptr, flip);
 	}
 }
@@ -231,7 +226,6 @@ void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int sr
 	SDL_Rect srcRect = { srcx, srcy, srcw, srch };
 	SDL_Rect dstRect = { x, y, w, h };
 
-	//SDL_Rect dstRect = { x, y, w, h };
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
 }
 
@@ -243,7 +237,6 @@ void TextureManager::Drop(std::string id)
 
 void TextureManager::Clean()
 {
-	//std::map<std::string, std::pair<SDL_Texture*, dimenziok>>::iterator it;
 	for (auto it = TextureManager_TextureMap.begin(); it != TextureManager_TextureMap.end(); it++)
 	{
 		SDL_DestroyTexture(it->second.first);
@@ -275,12 +268,10 @@ void TextureManager::fillColorMap(std::string source)
 	std::string szam = "";
 	unsigned char r = 0; unsigned char g = 0; unsigned char b = 0;
 	std::ifstream f(source);
-	//int i = 0;
 	int betu = 0;
 
 	if (f.is_open()) {
 		while (std::getline(f, egysor)) {
-			//int i = 0;
 			int betu = 0;
 			while (betu < egysor.length()) {
 				while (egysor[betu] != '_' or egysor[betu + 1] != ' ') {
@@ -323,7 +314,6 @@ void TextureManager::fillColorMap(std::string source)
 				betu = egysor.length();
 			}
 			egysor = "";
-			//std::cout << szin<<"\n";
 			szin = "";
 		}
 		f.close();

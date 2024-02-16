@@ -14,9 +14,6 @@
 Menu* Menu::Menu_Instance = nullptr;
 
 void Menu::MenuInit() {
-	//fillColorMap("assets/colors.txt");
-
-	//rublikak.reserve(20);
 
 	rublikak.push_back(rublika("Continue", 0, 0, 500, 150));
 	rublikak.push_back(rublika("Options", 0, 150, 500, 150));
@@ -33,11 +30,6 @@ void Menu::MenuInit() {
 
 	rublikak.push_back(rublika("Volume: ", 0, 0, 0, 150));
 
-
-	/*for (int i = 0; i < rublikak.size(); i++) {
-		rublikak[i].letrehoz();
-	}*/
-	//menuScale = Engine::GetInstance()->getScale();
 }
 
 void Menu::Update()
@@ -48,15 +40,11 @@ void Menu::Update()
 	if (e == 1) {
 		if (Timer::GetInstance()->pressable(200) and e == 1) {
 			cc = 1;
-			//SDL_BUTTON(1);
 		}
 		else {
 			cc = 0;
 		}
 	}
-
-	//SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), 1.0f, 1.0f);
-
 
 	if (cx != prevx or cy != prevy) {
 		rublikak[highLighted].isHighlighted = false;
@@ -74,8 +62,6 @@ void Menu::Update()
 			if (melyik("Continue", &index)) {
 				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("gold", index);
-				//TextureManager::GetInstance()->TCharsOut(rublikak[index].szoveg, rublikak[index].x, rublikak[index].y, rublikak[index].h, &rublikak[index].w, "gold");
-				//highLighted = index;
 				if (cc == 1 or enter) {
 					enter = false;
 					Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
@@ -96,8 +82,6 @@ void Menu::Update()
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					submenu = sub::Settings;
-					//settings = true;
-					//Main = false;
 					enter = false;
 					cc = 0;
 				}
@@ -135,17 +119,13 @@ void Menu::Update()
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					//Main = false;
-					//Title = true;
 					submenu = sub::Title;
 					MapParser::GetInstance()->Clean();
 					TextureManager::GetInstance()->Clean();
 					Engine::GetInstance()->setmapIsLoaded(false);
 					TileData::GetInstance()->ClearData();
 					ItemData::GetInstance()->ClearData();
-					//SDL_RenderClear(Engine::GetInstance()->getRenderer());
 					Reset();
-					//Main = false; //ez igy egy buta megoldas
 					Engine::GetInstance()->setMenuShowing(true);
 					cc = 0;
 				}
@@ -189,7 +169,6 @@ void Menu::Update()
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false; Reset();
-					//Main = true;
 					submenu = sub::Main;
 					Engine::GetInstance()->setMenuShowing(false);
 					cc = 0;
@@ -231,8 +210,6 @@ void Menu::Update()
 				if (cc == 1 or enter) {
 					TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
 					enter = false;
-					//Title = false;
-					//Load = true;
 					submenu = sub::Load;
 					cc = 0;
 				}
@@ -267,8 +244,6 @@ void Menu::Update()
 				rublikak[index].setRectLocation(0, options.size() * 150);
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
-					//Title = false;
-					//settings = true;
 					submenu = sub::Settings;
 					enter = false;
 					cc = 0;
@@ -339,16 +314,10 @@ void Menu::Update()
 							CollisionHandler::GetInstance()->reset();
 							Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
 							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
-							/*auto data = TileData::GetInstance()->getTileIData();
-							for (auto it = data->begin(); it != data->end(); it++) {
-								std::cout << it->second->TileID << " " << it->second->TileName << " " << it->second->LayerID << " " << it->second->isTransparent << std::endl;
-							}*/
 							Engine::GetInstance()->setMapName(saves[i]);
 							(*Engine::GetInstance()->getGameObjects())[0]->readInventory();
 							loaded_map_name = saves[i];
 						}
-						//Load = false;
-						//Main = true;
 						submenu = sub::Main;
 						Engine::GetInstance()->setMenuShowing(false);
 
@@ -374,8 +343,6 @@ void Menu::Update()
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					//Load = false;
-					//Title = true;
 					submenu = sub::Title;
 					MapParser::GetInstance()->Clean();
 					TextureManager::GetInstance()->Clean();
@@ -411,8 +378,6 @@ void Menu::Update()
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					//settings = false;
-					//Title = true;
 					submenu = sub::Title;
 					cc = 0;
 				}
@@ -445,9 +410,7 @@ void Menu::Update()
 
 void Menu::Draw()
 {
-	//SDL_RenderClear(Engine::GetInstance()->getRenderer());
 	if (submenu!=sub::Title) {
-		//SDL_RenderClear(Engine::GetInstance()->getRenderer());
 		SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 100);
 		SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), 0);
 	}
@@ -457,40 +420,24 @@ void Menu::Draw()
 	}
 
 	for (int i = 0; i < options.size(); i++) {
-		/*SDL_RenderCopy(Engine::GetInstance()->getRenderer(), rublikak[options[i]].Message, NULL, &rublikak[options[i]].doboz);
-		SDL_FreeSurface(rublikak[options[i]].surfaceMessage); rublikak[options[i]].surfaceMessage = nullptr;
-		SDL_DestroyTexture(rublikak[options[i]].Message); rublikak[options[i]].Message = nullptr;*/
 		auto scale = Engine::GetInstance()->getScale();
 		TextureManager::GetInstance()->TCharsOut(rublikak[options[i]].szoveg, rublikak[options[i]].x, rublikak[options[i]].y/scale, rublikak[options[i]].h/scale, &rublikak[options[i]].w, rublikak[options[i]].color);
 	}
 }
 
+//ez is mar teljesen feles
 void Menu::Clean()
 {
-	/*if (!Engine::GetInstance()->getMenuShowing()) {
-		for (int i = 0; i < rublikak.size(); i++)
-		{
-			SDL_FreeSurface(rublikak[i].surfaceMessage);
-			SDL_DestroyTexture(rublikak[i].Message);
-		}
-	}*/
-	
 	rublikak.clear();
-
-	//colors.clear();
-
-	std::cout << "\nText is deleted\n";
 }
 
 //billentyuzethez
 void Menu::setHighlighted(int i) {
-	//if (highLighted > options.size() - 1) { highLighted = options.size() - 1; }
-	//if (highLighted < 0) { highLighted = 0; }
+
 	int index=0;
 	for(int j = 0; j<options.size();j++){if(options[j]==highLighted){ index = j; } }
 	int prevHol = index;
 
-	//int prevHol = 0;
 	eger = false;
 	rublikak[options[index]].isHighlighted = true;
 	
@@ -517,8 +464,6 @@ void Menu::setHighlighted(int i) {
 void Menu::Reset()
 {
 	Engine::GetInstance()->setResetFlag(true);
-	//GameOver = false;
-	//Main = true;
 	std::ignore = melyik("Quit", &index);
 	rublikak[index].setRectLocation(0, options.size() * 150);
 }

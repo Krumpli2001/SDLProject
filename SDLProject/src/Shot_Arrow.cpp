@@ -14,8 +14,6 @@ void Shot_Arrow::attacking(Uint64 dt)
 
 void Shot_Arrow::Update(Uint64 dt)
 {
-	//ehelyett a magic number kep meret helyett kell majd jobb megoldás...
-	//Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 20, 100);
 	Arrow_RigidBody->SetForceToZero();
 
 	/*if (irany == 0) {
@@ -40,11 +38,9 @@ void Shot_Arrow::Update(Uint64 dt)
 	int distY = abs(OriginalY - TargetPosY);
 
 	double maxY = 2;
-	//int maxDist = 10 * Engine::GetInstance()->getTileSize();
 	int distPerKetto = distX / 2;
 
 	double ForceY = maxY - ((abs(GameObject_Transform->getX() - OriginalX)) / distPerKetto);
-	//std::cout << ForceY << "\n";
 
 	if (irany==-1) {
 		Arrow_RigidBody->ApplyForceX(BALRA * 2);
@@ -80,8 +76,6 @@ void Shot_Arrow::Update(Uint64 dt)
 	GameObject_Transform->setY(GameObject_Transform->getY() + Arrow_RigidBody->getRigidBody_Position().getY());
 	Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 20, 100);
 
-
-	//std::cout << angle << "\n";
 	Arrow_RigidBody->Update(dt);
 }
 

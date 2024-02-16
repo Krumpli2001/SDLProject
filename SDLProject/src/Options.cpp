@@ -18,7 +18,6 @@ void Options::readSettings(std::string source)
 		if (e->Value() == std::string("setting")) {
 			savedScale = std::stod(e->Attribute("scale"));
 			savedVolume = std::stoi(e->Attribute("volume"));
-			//std::cout << "blah\n";
 		}
 	}
 	std::cout << "Settings loaded\n";

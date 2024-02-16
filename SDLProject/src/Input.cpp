@@ -64,7 +64,6 @@ void Input::Listen()
 						Scroll = 0;
 					}
 					Scroll++;
-					//std::cout << "fel\n";
 				}
 				else if (event.wheel.y < 0) // scroll down
 				{
@@ -72,7 +71,6 @@ void Input::Listen()
 						Scroll = 0;
 					}
 					Scroll--;
-					//std::cout << "le\n";
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:
@@ -89,9 +87,6 @@ bool Input::getKeyDown(SDL_Scancode key)
 
 Uint32 Input::getClickDown()
 {
-	//Uint32 returner = Input_ClickStates;
-	////Input_ClickStates = 0;
-	//return returner;
 	return Input_ClickStates;
 }
 
@@ -173,36 +168,6 @@ void Input::interpret(int kod)
 		}
 	}
 }
-
-//dEpriCateD
-//void Input::interpret(int kod)
-//{
-//	int i = 0;
-//	switch (kod)
-//	{
-//	case 1:
-//		Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
-//		SDL_Delay(150);
-//		break;
-//	case 2:
-//		Timer::GetInstance()->fpslock = !Timer::GetInstance()->fpslock;
-//		SDL_Delay(150);
-//		break;
-//	case 3:
-//		Menu::GetInstance()->setHighlighted(-1);
-//		SDL_Delay(150);
-//		break;
-//	case 4:
-//		Menu::GetInstance()->setHighlighted(1);
-//		SDL_Delay(150);
-//		break;
-//	case 5:
-//		Menu::GetInstance()->setEnter();
-//		SDL_Delay(150);
-//		break;
-//	}
-//
-//}
 
 int Input::getAxisKey(Axis axis)
 {

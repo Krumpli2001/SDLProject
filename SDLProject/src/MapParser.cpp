@@ -47,7 +47,6 @@ bool MapParser::Parse(std::string id, std::string source)
             std::string str;
             str = e->Attribute("name");
             if (str == "foreground") {
-                /*std::cout << "megvan\n";*/
                 Engine::GetInstance()->setCollisionLayer(i);
             }
             i++;
@@ -57,7 +56,6 @@ bool MapParser::Parse(std::string id, std::string source)
 
     MapParser_MapDict[id] = gamemap;
     MapParsed = true;
-    //xml.Clear();
     return true;
 
 }
@@ -160,7 +158,6 @@ bool MapParser::Load(std::string palyanev)
 {
     if (!MapParsed) {
         return Parse("MAP", "saves/" + palyanev + ".tmx");
-        //Parse("MAP", "saves.sajt.tmx");
     }
     else {
         return false;
@@ -169,7 +166,6 @@ bool MapParser::Load(std::string palyanev)
 
 void MapParser::Clean()
 {
-    //std::map<std::string, GameMap*>::iterator it;
     for (auto it = MapParser_MapDict.begin(); it != MapParser_MapDict.end(); it++)
     {
         it->second->Clean();

@@ -25,7 +25,6 @@ public:
 		Arrow_RigidBody = new RigidBody();
 		Arrow_RigidBody->setRigidBody_Gravity(GRAVITY);
 		Arrow_Collider = new Collider();
-		Arrow_Collider->setBuffer(0, 0, 0, 0);
 		Arrow_SpriteAnimation = new SpriteAnimation();
 		TargetPosX = TX;
 		TargetPosY = TY;

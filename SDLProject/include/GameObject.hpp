@@ -7,7 +7,6 @@
 #include "Collider.hpp"
 #include "RigidBody.hpp"
 #include "SpriteAnimation.hpp"
-//#include "ObjectFactory.hpp"
 
 #define PLAYER_ATTACK_TIME 300.0
 
@@ -45,8 +44,6 @@ protected:
 	SDL_RendererFlip GameObject_Flip;
 	Point* GameObject_Origin;
 
-	//int w{};
-	//int h{};
 public:
 	inline GameObject(Properties* props)
 	{

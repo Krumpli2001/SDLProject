@@ -7,8 +7,6 @@ class RNG
 {
 private:
 	RNG() {};
-	//static RNG* RNG_Instance;
-	//int randomInt{};
 
 	std::random_device rd;
 public:
@@ -21,7 +19,6 @@ public:
 		if (RNG_Instance == nullptr)
 		{
 			RNG_Instance = new RNG();
-			//srand(time(nullptr));
 		}
 		return RNG_Instance;
 	}

@@ -7,12 +7,10 @@ void Camera::Update(Uint64 dt)
 	scale = Engine::GetInstance()->getScale();
 	M_WIDTH = Engine::GetInstance()->getMap_W();
 	M_HEIGHT = Engine::GetInstance()->getMap_H();
-	C_Width = *Engine::GetInstance()->getWindow_W();/* * Engine::GetInstance()->getScale();*/
-	C_Height = *Engine::GetInstance()->getWindow_H();/* *Engine::GetInstance()->getScale();*/
+	C_Width = *Engine::GetInstance()->getWindow_W();
+	C_Height = *Engine::GetInstance()->getWindow_H();
 	C_X = Camera_Target->getX() - C_Width / (2.0 * scale);
 	C_Y = Camera_Target->getY() - C_Height / (2.0 * scale);
-
-	//std::cout << Camera_Target->getX() << std::endl;
 
 	if (Camera_Target != nullptr)
 	{
@@ -42,5 +40,4 @@ void Camera::Update(Uint64 dt)
 		Camera_Position = Vector2D(Camera_ViewBox.x, Camera_ViewBox.y);
 
 	}
-	//std::cout << Camera_ViewBox.x << "\t" << Camera_ViewBox.y << "\n";
 }

@@ -37,7 +37,5 @@ public:
 	int getElse();
 	void interpret(int kod);
 	int getScroll();
-
-	//inline SDL_Event getEvent() { return event; }
 };
 

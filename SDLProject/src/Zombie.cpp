@@ -25,7 +25,6 @@ void Zombie::move(Uint64 dt)
 	//jump
 	if (fal and Enemy_IsGrounded) {
 		Enemy_RigidBody->ApplyForceY(FEL * 2.5);
-		//Enemy_JumpTime -= dt;
 		Enemy_IsGrounded = false;
 		Enemy_IsJumping = true;
 	}
@@ -44,10 +43,6 @@ void Zombie::move(Uint64 dt)
 	{
 		Enemy_IsFalling = false;
 	}
-
-	//tudom hogy ez bena helyen van de egyenlore megfelelelelele
-	//Enemy_AttackTimer = Enemy_AttackTimer < 0 && Enemy_AttackTimer != 1000 ? 1000 : Enemy_AttackTimer -= dt;
-
 }
 
 void Zombie::attacking(Uint64 dt)

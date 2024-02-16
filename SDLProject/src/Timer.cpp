@@ -29,8 +29,6 @@ void Timer::getTick()
 	pressedtimer = !pressed ? 0 : pressedtimer-=Timer_DeltaTime;
 	pressed = pressedtimer <= 0?false : true;
 
-	//std::cout << pressedtimer << " " << pressed << "\n";
-
 	Timer_LastTime = SDL_GetTicks64();
 }
 

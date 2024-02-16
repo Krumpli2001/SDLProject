@@ -10,7 +10,6 @@
 #include "Menu.hpp"
 #include "Camera.hpp"
 #include "TextureManager.hpp"
-//#include "Rng.hpp" a mappgen miatt lett kiveve
 #include "UI.hpp"
 
 #include "mappgen.hpp"
@@ -253,8 +252,7 @@ void Engine::Update()
 	scale = scale > 1 ? 1 : scale;
 	volume = volume < 0 ? 0 : volume;
 	volume = volume > SDL_MIX_MAXVOLUME ? MIX_MAX_VOLUME : volume;
-	//std::cout << scale << "\n";
-	//std::cout << TextureManager::GetInstance()->getMapSize()<<"\n";
+
 }
 
 void Engine::Render()
@@ -289,7 +287,6 @@ int Engine::legmamasabbBlock(int x)
 
 	//int max = 0;
 	int i;
-	//std::cout << Engine_CollisionLayerVector->size() << std::endl;
 
 	for (i = 1; i < Engine_CollisionLayerVector->size(); i++) {
 		if ((*Engine_CollisionLayerVector)[i][x] == 0) { continue; }
@@ -311,7 +308,6 @@ bool Engine::spawnolhat(int x, int* y, int w, int h) {
 		}
 	}
 	x /= TileSize;
-	//*y = *y > egyszer ? egyszer : *y;
 
 	int magassagblock = (*y - h) / TileSize + 1;
 
@@ -332,7 +328,7 @@ void Engine::spawnSpecial(std::string name, double x, double y, int hp, int powe
 	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setAttackPower(power);
 }
 
-void Engine::map_save(/*std::ofstream& file, int** f, int width, int height*/) {
+void Engine::map_save() {
 
 
 	if (Engine_LevelMap->getMapLayers()) {
@@ -361,7 +357,7 @@ void Engine::map_save(/*std::ofstream& file, int** f, int width, int height*/) {
 
 		}
 
-		mappgen::szoveg(/**Menu::GetInstance()->getMapName()*/loaded_map_name, width, height, flora, background, foreground);
+		mappgen::szoveg(loaded_map_name, width, height, flora, background, foreground);
 
 	}
 	

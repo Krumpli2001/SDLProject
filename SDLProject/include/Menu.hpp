@@ -15,12 +15,6 @@ struct rublika {
 	int x, y, w, h;
 	const char* szoveg;
 	std::string color;
-	//SDL_Rect doboz;
-	//SDL_Surface* surfaceMessage{};
-	//SDL_Texture* Message{};
-	//SDL_Color color;// = { 255,255,255 };
-	//TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
-	//int szoveghossz{};
 	bool isHighlighted = false;
 
 
@@ -57,12 +51,6 @@ private:
 	bool ResetFlag = false;
 
 	int submenu = sub::Title;
-
-	//bool Main = false;
-	//bool GameOver = false;
-	//bool Title = true;
-	//bool settings = false;
-	//bool Load = false;
 	double menuScale{};
 
 	std::string loaded_map_name;
@@ -86,7 +74,6 @@ public:
 	void Reset();
 
 	
-	//inline SDL_Color getColor(std::string color) { return colors[color]; }
 	void setHighlighted(int i);
 	inline void setEnter(bool e) { enter = e; }
 	inline void setMain(bool e) { 
@@ -109,7 +96,6 @@ public:
 	inline bool melyik(const char* str, int* index) {
 		getIndex(str, index);
 		auto scale = Engine::GetInstance()->getScale();
-		//options.push_back(i);
 		if ((cx >= rublikak[*index].x and cy > rublikak[*index].y
 			and cx <= rublikak[*index].w + rublikak[*index].x and
 			cy <= rublikak[*index].h + rublikak[*index].y) and eger or rublikak[*index].isHighlighted) {

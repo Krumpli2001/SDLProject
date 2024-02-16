@@ -31,7 +31,7 @@ bool TileData::parseTileData(std::string source)
         if (e->Value() == std::string("block")) {
             //a gettext nullptr-t terit vissza ures stringre aka akkor crashel - gondolom a stdstring constructora behal tole
             // 
-            //tehat ki kell tolteni a fajlt
+            //tehat ki kell tolteni a fajlt - vagy majd kesobb lehet adok neki vmi defaultot
 
             //tile nev
             TiXmlElement* data = e->FirstChildElement();

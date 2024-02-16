@@ -32,7 +32,6 @@ Player::Player(Properties* props) : Character(props)
 	Player_UnderWaterTime = UNDER_WATER_TIME;
 
 	Player_Collider = new Collider();
-	Player_Collider->setBuffer(0, 0, 0, 0);
 
 	Player_RigidBody = new RigidBody();
 	Player_RigidBody->setRigidBody_Gravity(GRAVITY);
@@ -50,7 +49,6 @@ void Player::Draw()
 
 void Player::Update(Uint64 dt)
 {
-	//std::cout << GameObject_Origin->getX() << std::endl;
 	if (Player_Dimenziok.w == 0 and Player_Dimenziok.h == 0) {
 		Player_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second;
 	}
@@ -70,7 +68,7 @@ void Player::Update(Uint64 dt)
 	//fut jobbra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and !Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE);// *dt);
+		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE);
 		GameObject_Flip = SDL_FLIP_NONE;
 		Player_IsWalking = true;
 	}
@@ -78,7 +76,7 @@ void Player::Update(Uint64 dt)
 	//fut balra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == BALRA and !Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE);// * dt);
+		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 		Player_IsWalking = true;
 	}
@@ -96,8 +94,6 @@ void Player::Update(Uint64 dt)
 	if ((SDL_BUTTON(Input::GetInstance()->getClickDown()) == 1) or (Input::GetInstance()->getKeyDown(SDL_SCANCODE_K)))
 	{
 		Player_IsAttacking = true;
-		//Player_Animation->setDelta(SDL_GetTicks64());
-
 
 		//ez itt a blokk felvetel
 		auto egerX = UI::GetInstance()->getkepernyoX() / Engine::GetInstance()->getTileSize();
@@ -110,7 +106,6 @@ void Player::Update(Uint64 dt)
 			if (block_mine_timer >= 0) {
 				minetime += dt;
 				if (minetime >= block_mine_timer) {
-					//auto sajt = new Block(1, "sajt", (*colllayer)[egerY][egerX], 1000);
 					auto sajt = ItemData::GetInstance()->getItemByTileID(tileID);
 					inventoryplace = 0;
 					bool van = false;
@@ -151,7 +146,6 @@ void Player::Update(Uint64 dt)
 					(*colllayer)[egerY][egerX] = 0;
 					//textura eltuntetese
 					(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = 0;
-					//if (inventoryplace > 39) { inventoryplace = 0; }
 				}
 			}
 		}
@@ -250,7 +244,6 @@ void Player::Update(Uint64 dt)
 	Player_LastSafePosition.setX(GameObject_Transform->getX());
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
 	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), Player_Dimenziok.w, GameObject_Height);
-	//std::cout << GameObject_Width << "\t" << GameObject_Height << "\n";
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 	{
@@ -263,20 +256,8 @@ void Player::Update(Uint64 dt)
 
 	//levitalas miatt van itt
 	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize()) >= (CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize() - dt * Player_RigidBody->getGravity())) {
-
-			//int szam = 0;
-			//Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
-			//while (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded)) {
-			//	//ha mozgatjuk az ablakot a szamlalo felmegy...
-			//	szam += 1;
-			//	std::cout << szam << "\n";
-			//	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, 190, 240);
-			//	if (szam > CollisionHandler::GetInstance()->getTileSize()) { break; }
-			//}
-			//Player_LastSafePosition.setY(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam);
 		
 		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
-		//std::cout << szam << std::endl;
 		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, Player_Dimenziok.w, GameObject_Height);
 		if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 		{
@@ -314,9 +295,8 @@ void Player::Update(Uint64 dt)
 		Player_UnderWaterTime = UNDER_WATER_TIME;
 	}
 
-	//ehhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-	GameObject_Origin->setX(GameObject_Transform->getX()/* + GameObject_Width / 2.0*/);
-	GameObject_Origin->setY(GameObject_Transform->getY()/* + GameObject_Height / 2.0*/);
+	GameObject_Origin->setX(GameObject_Transform->getX());
+	GameObject_Origin->setY(GameObject_Transform->getY());
 
 	AnimationState();
 	Player_RigidBody->Update(dt);

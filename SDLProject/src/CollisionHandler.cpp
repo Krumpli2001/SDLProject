@@ -61,7 +61,9 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
             {
                 //ezt majd kiirom, egyenlore jo itt
                 auto viz = TileData::GetInstance()->getTileIDFromName("viz");
-                if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz) {
+                if ((CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz) or
+                    (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 0) or
+                    (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 0 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz)) {
                     g->setGravity(0.3);
                     return false;
                 }

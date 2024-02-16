@@ -12,8 +12,6 @@
 		uint64_t MineTime;
 	};
 
-	//template <typename T>
-
 	class TileData
 	{
 	private:

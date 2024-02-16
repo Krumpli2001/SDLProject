@@ -29,9 +29,6 @@ void UI::Update()
 	php = player->getHP();
 	mphp = player->getMaxHP();
 	str_hp = std::to_string(php) + " / " + std::to_string(mphp);
-	/*surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
-	Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
-	Message_rect = { static_cast<int>((*Engine::GetInstance()->getWindow_W() - 150) * 1/scale), 0, static_cast<int>(100 * (1 / scale)), static_cast<int>(20 * (1 / scale)) };*/
 
 	//block highlight
 	SDL_GetMouseState(&cx, &cy);
@@ -39,7 +36,6 @@ void UI::Update()
 	kameraY = Camera::GetInstance()->getCamera_ViewBox()->y;
 	kepernyoX = kameraX + cx*(1.0/scale);
 	kepernyoY = kameraY + cy*(1.0/scale);
-	//std::cout << kepernyoX << "\t" << kepernyoY << "\n";
 	int size = Engine::GetInstance()->getTileSize();
 
 }
@@ -70,7 +66,6 @@ void UI::Draw()
 				kezdopixel += 40;
 			}
 		}
-		//SDL_RenderCopy(renderer, Message, 0, &Message_rect);
 		//hp szam
 		TextureManager::GetInstance()->TCharsOut(str_hp, static_cast<int>((*Engine::GetInstance()->getWindow_W() - 150) * 1 / scale), 0, 25.0 / scale);
 	}
@@ -96,7 +91,6 @@ void UI::Draw()
 		//bleh
 		auto inv = static_cast<std::array<std::pair<Item*, int>, 40>*>((*Engine::GetInstance()->getGameObjects())[0]->getInventory());		
 		auto selected = (*Engine::GetInstance()->getGameObjects())[0]->getSelectedInventory();
-		//std::cout << selected << "\n";
 		for (int sor = 0; sor < kiirando_sor; sor++) {
 			for (int oszlop = 0; oszlop < 10; oszlop++) {
 				//kek kockak
@@ -147,10 +141,6 @@ void UI::Draw()
 					SDL_GetMouseState(&cx, &cy);
 					TextureManager::GetInstance()->DrawItem("itemtexturemap", cx/scale,cy/scale, item_meret * (1 / scale), item_meret * (1 / scale), (transfer.first->getItemID() - 1) * item_meret, 0, item_meret, item_meret);
 				}
-
-				//if (transfer.first) { std::cout << std::format("{}\n", transfer.first->getItemID()); }
-
-				//std::cout << std::format("{}\t{}\t{}\t{}\t{}\t{}\n", static_cast<double>(cx)/scale, inventoryKockaHely.x, inventoryKockaHely.x + inventoryKockaHely.w, static_cast<double>(cy)/scale, inventoryKockaHely.y, inventoryKockaHely.y + inventoryKockaHely.h);
 				
 				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(hatter_meret * (1 / scale));
 				kepernyoX += 20 + hatter_meret;
@@ -164,12 +154,7 @@ void UI::Draw()
 			kepernyoY += 20 + hatter_meret;
 			yi += static_cast<int>(item_meret * (1 / scale)) + static_cast<int>(item_meret * (1 / scale));
 		}
-		//std::cout << std::format("{}\n", klikkelhetoInventory);
 	}
-
-	//fasza, mukodik
-	//TextureManager::GetInstance()->TCharsOut("sajt\n123SAJT asd", 500, 500, 100,nullptr, "green");
-	//TextureManager::GetInstance()->TCharsOut("ab", 700, 700, 200);
 
 	//block highlight
 	{
@@ -178,12 +163,8 @@ void UI::Draw()
 		int x = kepernyoX - kameraX - kepernyoX % tilesize;
 		int y = kepernyoY - kameraY - kepernyoY % tilesize;
 
-		/*std::cout << x << "\t" << y << "\n";
-		std::cout << kepernyoX/tilesize << "\t" << kepernyoY/tilesize << "\n";*/
-
 		highlightUI = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
-		//std::cout << std::format("{} {}, {}\n", (*colllayer)[kepernyoY / tilesize][kepernyoX / tilesize], cx, cy);
 		if ((*colllayer)[kepernyoY/tilesize][kepernyoX/tilesize] != 0) {
 			SDL_RenderFillRect(renderer, &highlightUI);
 		}
@@ -199,11 +180,6 @@ void UI::TextureReset()
 	if (FpsShowing) {
 		FPSCounter::GetInstance()->Clean();
 	}
-	/*if (surfaceMessage) { SDL_FreeSurface(surfaceMessage); }
-	if (Message) { SDL_DestroyTexture(Message); }
-	surfaceMessage = nullptr;
-	Message = nullptr;*/
-
 }
 
 void UI::Clean()
@@ -211,7 +187,6 @@ void UI::Clean()
 	if (FpsShowing) {
 		FPSCounter::GetInstance()->Clean();
 	}
-	/*if (surfaceMessage) { SDL_FreeSurface(surfaceMessage); }
 	if (Message) { SDL_DestroyTexture(Message); }
 	surfaceMessage = nullptr;
 	Message = nullptr;*/

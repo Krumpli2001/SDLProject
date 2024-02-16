@@ -27,7 +27,6 @@ void Skeleton::move(Uint64 dt)
 		//jump
 		if (fal and Enemy_IsGrounded) {
 			Enemy_RigidBody->ApplyForceY(FEL * 1.7);
-			//Enemy_JumpTime -= dt;
 			Enemy_IsGrounded = false;
 			Enemy_IsJumping = true;
 		}
@@ -62,6 +61,6 @@ void Skeleton::attacking(Uint64 dt)
 	else {
 		isAiming = false;
 	}
-	Enemy_AttackTimer = Enemy_AttackTimer < 0 /*&& Enemy_AttackTimer != 3000*/ ? 3000 : Enemy_AttackTimer;
+	Enemy_AttackTimer = Enemy_AttackTimer < 0 ? 3000 : Enemy_AttackTimer;
 	Enemy_AttackTimer = Enemy_AttackTimer != 3000 ? Enemy_AttackTimer -= dt : Enemy_AttackTimer;
 }

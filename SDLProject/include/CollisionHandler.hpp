@@ -32,7 +32,9 @@ public:
 		return CollisionHandler_Instance;
 	}
 
+	//checkolja 2 entity kozotti atfedest
 	bool CheckCollision(SDL_Rect a, SDL_Rect b);
+	//checkolja hogy egy enteti erintkezik e a mappal
 	bool MapCollision(GameObject* g, bool* grounded = nullptr);
 	inline std::vector<std::vector<int>>* getCollisionTileMap() { return &CollisionHandler_CollitionTileMap; }
 	inline int getTileSize() { return tileSize; }
