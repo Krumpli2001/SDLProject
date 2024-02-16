@@ -398,20 +398,16 @@ void Player::readInventory()
 		return;
 	}
 	TiXmlElement* root = xml.RootElement();
-	/*TiXmlElement* coords = root->FirstChildElement();
-	if (coords->Value() == "coords") {
-		GameObject_Transform->setX(std::atoi(coords->Attribute("X")));
-		GameObject_Transform->setY(std::atoi(coords->Attribute("Y")));
-	}*/
+	
 	int i = 0;
 	for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
 		if (e->Value() == std::string("coords")) {
-			GameObject_Transform->setX(std::atoi(e->Attribute("X")));
-			GameObject_Transform->setY(std::atoi(e->Attribute("Y")));
+			GameObject_Transform->setX(std::stoi(e->Attribute("X")));
+			GameObject_Transform->setY(std::stoi(e->Attribute("Y")));
 		}
 		if (e->Value() == std::string("slot")) {
-			int ItemID = std::atoi(e->Attribute("ItemID"));
-			int Amount = std::atoi(e->Attribute("Amount"));
+			int ItemID = std::stoi(e->Attribute("ItemID"));
+			int Amount = std::stoi(e->Attribute("Amount"));
 
 			if (Amount > 0) {
 				Player_Inventory[i].first = ItemData::GetInstance()->getItemByID(ItemID);

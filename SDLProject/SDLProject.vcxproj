@@ -149,6 +149,7 @@
     <ClCompile Include="src\MapParser.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\ObjectFactory.cpp" />
+    <ClCompile Include="src\Options.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Shot_Arrow.cpp" />
     <ClCompile Include="src\Skeleton.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="include\mappgen.hpp" />
     <ClInclude Include="include\Menu.hpp" />
     <ClInclude Include="include\ObjectFactory.hpp" />
+    <ClInclude Include="include\Options.hpp" />
     <ClInclude Include="include\Player.hpp" />
     <ClInclude Include="include\Point.hpp" />
     <ClInclude Include="include\RigidBody.hpp" />

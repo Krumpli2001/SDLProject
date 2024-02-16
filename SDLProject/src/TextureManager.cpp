@@ -156,7 +156,7 @@ bool TextureManager::ParseTextures(std::string source)
 			std::string id = e->Attribute("id");
 			std::string src = e->Attribute("source");
 			if (e->Attribute("frames")) {
-				frames = std::atoi(e->Attribute("frames"));
+				frames = std::stoi(e->Attribute("frames"));
 			}
 			Load(id, src);
 		}

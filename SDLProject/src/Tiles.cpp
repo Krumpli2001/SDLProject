@@ -40,7 +40,7 @@ bool TileData::parseTileData(std::string source)
             //id
             data = data->NextSiblingElement();
             auto temp = data->GetText();
-            int TileID = temp ? std::atoi(temp) : -1;
+            int TileID = temp ? std::stoi(temp) : -1;
 
             //layerid
             data = data->NextSiblingElement();
@@ -49,11 +49,11 @@ bool TileData::parseTileData(std::string source)
             //"atlatszo"
             data = data->NextSiblingElement();
             temp = data->GetText();
-            bool isTransparent = temp ? std::atoi(temp) : -1;
+            bool isTransparent = temp ? std::stoi(temp) : -1;
 
             data = data->NextSiblingElement();
             temp = data->GetText();
-            int mineTime = temp ? std::atoi(temp) : -1;
+            int mineTime = temp ? std::stoi(temp) : -1;
 
             Tile* tile = new Tile(TileID, TileName, LayerID, isTransparent, mineTime);
             IData[TileID] = tile;

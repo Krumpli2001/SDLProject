@@ -8,7 +8,7 @@ class RNG
 private:
 	RNG() {};
 	//static RNG* RNG_Instance;
-	int randomInt{};
+	//int randomInt{};
 
 	std::random_device rd;
 public:

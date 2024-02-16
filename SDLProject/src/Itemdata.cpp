@@ -19,13 +19,13 @@ bool ItemData::ParseItemData(std::string src)
 
                 if (ItemType == "Block") {
                     data = data->NextSiblingElement();
-                    auto ItemID = std::atoi(data->GetText());
+                    auto ItemID = std::stoi(data->GetText());
 
                     data = data->NextSiblingElement();
                     std::string Name = data->GetText();
 
                     data = data->NextSiblingElement();
-                    auto TileID = std::atoi(data->GetText());
+                    auto TileID = std::stoi(data->GetText());
 
                     Block* item = new Block(ItemID, Name, TileID);
                     IData[ItemID] = item;
