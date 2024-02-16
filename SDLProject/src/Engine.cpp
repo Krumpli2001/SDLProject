@@ -140,6 +140,8 @@ void Engine::Update()
 {
 	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), scale, scale);
 
+	Mix_VolumeMusic(volume);
+
 	if (Engine_ResetFlag) {
 		Enigine_GameObjects[0]->reset();
 		//Engine_MenuShowing = false;
@@ -249,6 +251,8 @@ void Engine::Update()
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
 	scale = scale < 0.2 ? 0.2 : scale;
 	scale = scale > 1 ? 1 : scale;
+	volume = volume < 0 ? 0 : volume;
+	volume = volume > SDL_MIX_MAXVOLUME ? MIX_MAX_VOLUME : volume;
 	//std::cout << scale << "\n";
 	//std::cout << TextureManager::GetInstance()->getMapSize()<<"\n";
 }

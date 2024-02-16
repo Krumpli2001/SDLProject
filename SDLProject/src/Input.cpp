@@ -122,6 +122,9 @@ int Input::getElse()
 	if (getKeyDown(SDL_SCANCODE_4)) { return SDL_SCANCODE_4; }
 	//inventory mutatas
 	if (getKeyDown(SDL_SCANCODE_E)) { return SDL_SCANCODE_E; }
+	if (getKeyDown(SDL_SCANCODE_F2)) { return SDL_SCANCODE_F2; }
+	if (getKeyDown(SDL_SCANCODE_F3)) { return SDL_SCANCODE_F3; }
+
 	return 0;
 }
 
@@ -152,17 +155,17 @@ void Input::interpret(int kod)
 		}
 		break;
 
-	/*case SDL_SCANCODE_3:
-		if (Timer::GetInstance()->pressable(200)) {
-			Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() + 0.1);
+	case SDL_SCANCODE_F2:
+		if (Timer::GetInstance()->pressable(40)) {
+			Engine::GetInstance()->setVolume(Engine::GetInstance()->getVolume() - 1);
 		}
 		break;
 
-	case SDL_SCANCODE_4:
-		if (Timer::GetInstance()->pressable(200)) {
-			Engine::GetInstance()->setTScale(Engine::GetInstance()->getTScale() - 0.1);
+	case SDL_SCANCODE_F3:
+		if (Timer::GetInstance()->pressable(40)) {
+			Engine::GetInstance()->setVolume(Engine::GetInstance()->getVolume() + 1);
 		}
-		break;*/
+		break;
 
 	case SDL_SCANCODE_E:
 		if (Timer::GetInstance()->pressable(200)) {

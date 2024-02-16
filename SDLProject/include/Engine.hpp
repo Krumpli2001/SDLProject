@@ -97,6 +97,9 @@ public:
 	inline void setMapName(std::string str) { loaded_map_name = str; }
 	inline std::string getMapName() { return loaded_map_name; }
 
+	inline int getVolume() { return volume; }
+	inline void setVolume(int e) { volume = e; }
+
 	bool Init();
 	bool Clean();
 	void Quit();
