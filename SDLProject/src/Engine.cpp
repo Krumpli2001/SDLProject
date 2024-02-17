@@ -137,8 +137,6 @@ void Engine::Quit()
 
 void Engine::Update()
 {
-	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), scale, scale);
-
 	Mix_VolumeMusic(volume);
 
 	if (Engine_ResetFlag) {
@@ -253,10 +251,12 @@ void Engine::Update()
 	volume = volume < 0 ? 0 : volume;
 	volume = volume > SDL_MIX_MAXVOLUME ? MIX_MAX_VOLUME : volume;
 
+
 }
 
 void Engine::Render()
 {
+
 	if (!Engine_MenuShowing or mapIsLoaded) {
 		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400);
 
@@ -271,8 +271,11 @@ void Engine::Render()
 
 		mapIsLoaded = true;
 	}
+	//?????????????????????????????????????????????????????????????????????
+	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), scale, scale);
 	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);
+
 }
 
 void Engine::Events()

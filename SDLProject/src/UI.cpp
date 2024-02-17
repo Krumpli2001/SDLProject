@@ -93,6 +93,7 @@ void UI::Draw()
 		auto selected = (*Engine::GetInstance()->getGameObjects())[0]->getSelectedInventory();
 		for (int sor = 0; sor < kiirando_sor; sor++) {
 			for (int oszlop = 0; oszlop < 10; oszlop++) {
+
 				//kek kockak
 				SDL_Rect inventoryKockaHely = { x,y, static_cast<int>(hatter_meret * (1 / scale)), static_cast<int>(hatter_meret * (1 / scale)) };
 				SDL_SetRenderDrawColor(renderer, 10, 90, 230, 100);
@@ -101,6 +102,7 @@ void UI::Draw()
 					SDL_SetRenderDrawColor(renderer, 10, 90, 255, 255);
 				}
 				SDL_RenderFillRect(renderer, &inventoryKockaHely);
+
 				//itemek
 				if ((*inv)[sor * 10 + oszlop].first) {
 					//textura kiirasa

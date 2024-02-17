@@ -419,10 +419,17 @@ void Menu::Draw()
 		SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), 0);
 	}
 
+	auto scale = Engine::GetInstance()->getScale();
 	for (int i = 0; i < options.size(); i++) {
-		auto scale = Engine::GetInstance()->getScale();
 		TextureManager::GetInstance()->TCharsOut(rublikak[options[i]].szoveg, rublikak[options[i]].x, rublikak[options[i]].y/scale, rublikak[options[i]].h/scale, &rublikak[options[i]].w, rublikak[options[i]].color);
 	}
+
+	//melyik("Volume: ", &index);
+	//if (submenu == sub::Settings) {
+	//	SDL_Rect kockahely = { rublikak[index].w, rublikak[index].y, (*Engine::GetInstance()->getWindow_W() - rublikak[index].w) /*200*/ / scale, rublikak[index].h / scale };
+	//	SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 255, 255, 255, 255);
+	//	SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), &kockahely);
+	//}
 }
 
 //ez is mar teljesen feles
