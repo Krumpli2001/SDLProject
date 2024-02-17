@@ -51,6 +51,7 @@ private:
 	bool ResetFlag = false;
 
 	int submenu = sub::Title;
+	int prevSubmenu = sub::Title;
 	double menuScale{};
 
 	std::string loaded_map_name;

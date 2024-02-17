@@ -187,8 +187,4 @@ void UI::Clean()
 	if (FpsShowing) {
 		FPSCounter::GetInstance()->Clean();
 	}
-	if (Message) { SDL_DestroyTexture(Message); }
-	surfaceMessage = nullptr;
-	Message = nullptr;*/
-
 }

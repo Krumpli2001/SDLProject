@@ -56,7 +56,7 @@ void Menu::Update()
 
 
 	if (submenu == sub::Main) {
-		
+		prevSubmenu = submenu;
 		//continue
 		{
 			if (melyik("Continue", &index)) {
@@ -201,7 +201,7 @@ void Menu::Update()
 	}
 
 	else if (submenu == sub::Title) {
-
+		prevSubmenu = submenu;
 		//load
 		{
 			if (melyik("Load", &index)) {
@@ -343,7 +343,7 @@ void Menu::Update()
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					submenu = sub::Title;
+					submenu = prevSubmenu;
 					MapParser::GetInstance()->Clean();
 					TextureManager::GetInstance()->Clean();
 					cc = 0;
@@ -378,7 +378,7 @@ void Menu::Update()
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					submenu = sub::Title;
+					submenu = prevSubmenu;
 					cc = 0;
 				}
 			}
