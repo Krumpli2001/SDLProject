@@ -106,7 +106,8 @@ void UI::Draw()
 				//itemek
 				if ((*inv)[sor * 10 + oszlop].first) {
 					//textura kiirasa
-					TextureManager::GetInstance()->DrawItem("itemtexturemap", xi, yi, item_meret * (1 / scale), item_meret * (1 / scale), ((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * item_meret, 0, item_meret, item_meret);
+					TextureManager::GetInstance()->DrawItem("itemtexturemap", xi, yi, item_meret * (1 / scale), item_meret * (1 / scale),
+					((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * item_meret, 0, item_meret, item_meret);
 				}
 				if ((*inv)[sor * 10 + oszlop].second>0) {
 					//szam kiirasa
@@ -141,7 +142,8 @@ void UI::Draw()
 				if (transfer.first) {
 					int cx, cy;
 					SDL_GetMouseState(&cx, &cy);
-					TextureManager::GetInstance()->DrawItem("itemtexturemap", cx/scale,cy/scale, item_meret * (1 / scale), item_meret * (1 / scale), (transfer.first->getItemID() - 1) * item_meret, 0, item_meret, item_meret);
+					TextureManager::GetInstance()->DrawItem("itemtexturemap", cx/scale,cy/scale, item_meret * (1 / scale), item_meret * (1 / scale),
+					(transfer.first->getItemID() - 1) * item_meret, 0, item_meret, item_meret);
 				}
 				
 				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(hatter_meret * (1 / scale));
