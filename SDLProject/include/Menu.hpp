@@ -98,9 +98,9 @@ public:
 		getIndex(str, index);
 		auto scale = Engine::GetInstance()->getScale();
 		if ((cx >= rublikak[*index].x and cy > rublikak[*index].y
-			and cx <= rublikak[*index].w + rublikak[*index].x and
+			and cx <= rublikak[*index].w*scale + rublikak[*index].x and
 			cy <= rublikak[*index].h + rublikak[*index].y) and eger or rublikak[*index].isHighlighted) {
-			return str;
+			return true;
 		}
 		else { return false; }
 	}
