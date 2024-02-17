@@ -261,6 +261,8 @@ void Engine::Render()
 {
 
 	if (!Engine_MenuShowing or mapIsLoaded) {
+		SDL_SetRenderDrawColor(Engine_Renderer, 255, 0, 247, 255);
+		SDL_RenderClear(Engine_Renderer);
 		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
