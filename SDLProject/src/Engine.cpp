@@ -60,6 +60,8 @@ bool Engine::Init()
 
 	Menu::GetInstance()->MenuInit();
 
+	TileData::GetInstance()->parseTileData("assets/maps/blockdata.xml");
+
 	//map betoltese
 	//if (!MapParser::GetInstance()->Load("map"))
 	//{
@@ -113,6 +115,7 @@ bool Engine::Clean()
 	TextureManager::GetInstance()->Clearfont();
 	UI::GetInstance()->Clean();
 	Menu::GetInstance()->Clean();
+	TileData::GetInstance()->ClearData();
 
 	//settings kiirasa fajlba
 	{
@@ -313,6 +316,7 @@ bool Engine::spawnolhat(int x, int* y, int w, int h) {
 	x /= TileSize;
 
 	int magassagblock = (*y - h) / TileSize + 1;
+	magassagblock = magassagblock < 0 ? 0 : magassagblock;
 
 	if ((*Engine_CollisionLayerVector)[magassagblock][x] == 0) { return true; }
 	return false;
@@ -360,7 +364,7 @@ void Engine::map_save() {
 
 		}
 
-		mappgen::szoveg(loaded_map_name, width, height, flora, background, foreground);
+		mappgen::szoveg(loaded_map_name, width, height, &flora, &background, &foreground);
 
 	}
 	

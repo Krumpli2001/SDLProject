@@ -11,6 +11,8 @@
 #include "Tiles.hpp"
 #include "Itemdata.hpp"
 
+#include "mappgen.hpp"
+
 Menu* Menu::Menu_Instance = nullptr;
 
 void Menu::MenuInit() {
@@ -123,7 +125,6 @@ void Menu::Update()
 					MapParser::GetInstance()->Clean();
 					TextureManager::GetInstance()->Clean();
 					Engine::GetInstance()->setmapIsLoaded(false);
-					TileData::GetInstance()->ClearData();
 					ItemData::GetInstance()->ClearData();
 					Reset();
 					Engine::GetInstance()->setMenuShowing(true);
@@ -229,6 +230,11 @@ void Menu::Update()
 				if (cc == 1 or enter) {
 					enter = false;
 					cc = 0;
+					if (mappgen::gen("gen", 300, 100)) {
+						TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
+						submenu = sub::Load;
+					}
+					
 				}
 			}
 			else {
@@ -308,7 +314,6 @@ void Menu::Update()
 						enter = false;
 						if (MapParser::GetInstance()->Load(saves[i])) {
 							Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
-							TileData::GetInstance()->parseTileData("assets/maps/blockdata.xml");
 							ItemData::GetInstance()->ParseItemData("assets/itemdata.xml");
 							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
 							CollisionHandler::GetInstance()->reset();

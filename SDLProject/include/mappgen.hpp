@@ -12,7 +12,7 @@
 namespace mappgen {
 
 	//ez jo
-	void fajlba_matrix(std::ofstream& file, std::vector<std::vector<int>> f, int width, int height) {
+	inline void fajlba_matrix(std::ofstream& file, std::vector<std::vector<int>> f, int width, int height) {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				if (i == height - 1 && j == width - 1) { file << f[i][j]; break; }
@@ -22,21 +22,42 @@ namespace mappgen {
 		}
 	}
 
-	void genForeground(std::vector<std::vector<int>> foreground, int width, int height) {
-		
+	inline void genForeground(std::vector<std::vector<int>>* foreground, int width, int height) {
+		auto data = TileData::GetInstance();
+		for (int i = 0; i < height; i++) {
+			if (i < 5) {
+				for (int j = 0; j < width; j++) {
+					(*foreground)[i][j] = data->getTileIDFromName("semmi");
+				}
+			}
+
+			else {
+				for (int j = 0; j < width; j++) {
+					(*foreground)[i][j] = data->getTileIDFromName("fold");
+				}
+			}
+		}
 	}
 
-	void genBackground(std::vector<std::vector<int>> background, std::vector<std::vector<int>> foreground, int width, int height) {
-		
+	inline void genBackground(std::vector<std::vector<int>>* background, std::vector<std::vector<int>>* foreground, int width, int height) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				(*background)[i][j] = 0;
+			}
+		}
 	}
 
-	void genFlora(std::vector<std::vector<int>> flora, std::vector<std::vector<int>> foreground, int width, int height) {
-		
+	inline void genFlora(std::vector<std::vector<int>>* flora, std::vector<std::vector<int>>* foreground, int width, int height) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				(*flora)[i][j] = 0;
+			}
+		}
 	}
 
 
 	//tesztnek
-	void printMatrix(int** y, int width, int height) {
+	inline void printMatrix(int** y, int width, int height) {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				std::cout << y[i][j] << " ";
@@ -46,9 +67,8 @@ namespace mappgen {
 		std::cout << "\n";
 	}
 
-
 	//ez lesz a mentesre is
-	void szoveg(std::string fajlnev, int width, int height, std::vector<std::vector<int>> flora, std::vector<std::vector<int>> background, std::vector<std::vector<int>> foreground) {
+	inline void szoveg(std::string fajlnev, int width, int height, std::vector<std::vector<int>>* flora, std::vector<std::vector<int>>* background, std::vector<std::vector<int>>* foreground) {
 		std::ofstream f("saves/" + fajlnev + ".tmx");
 		if (f.is_open()) {//ahol nagyreszt szamok vannak ott lehet oket kicserelni valtozokra
 			f << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -67,21 +87,21 @@ namespace mappgen {
 
 				<< " <layer id=\"3\" name=\"flora\" width=\"" << width << "\" height=\"" << height << "\">\n"// visible=\"0\">\n"
 				<< "  <data encoding=\"csv\">\n";
-			fajlba_matrix(f, flora, width, height);
+			fajlba_matrix(f, *flora, width, height);
 			f << "</data>\n"
 				<< " </layer>\n"
 
 
 				<< " <layer id=\"2\" name=\"background\" width=\"" << width << "\" height=\"" << height << "\">\n"
 				<< "  <data encoding=\"csv\">\n";
-			fajlba_matrix(f, background, width, height);
+			fajlba_matrix(f, *background, width, height);
 			f << "</data>\n"
 				<< " </layer>\n"
 
 
 				<< " <layer id=\"1\" name=\"foreground\" width=\"" << width << "\" height=\"" << height << "\">\n"// visible=\"0\">\n"
 				<< "  <data encoding=\"csv\">\n";
-			fajlba_matrix(f, foreground, width, height);
+			fajlba_matrix(f, *foreground, width, height);
 			f << "</data>\n"
 				<< " </layer>\n"
 
@@ -92,23 +112,24 @@ namespace mappgen {
 		}
 	}
 
-	void gen(std::string fajlnev, int width, int height) {
+	inline bool gen(std::string fajlnev, int width, int height) {
 
 
-		std::vector<std::vector<int>> flora;// = matrixLetrehoz(width, height);
+		std::vector<std::vector<int>> flora(height, std::vector<int>(width));
 		//printMatrix(flora);
-		std::vector<std::vector<int>> background;// = matrixLetrehoz(width, height);
+		std::vector<std::vector<int>> background(height, std::vector<int>(width));
 		//printMatrix(background);
-		std::vector<std::vector<int>> foreground;// = matrixLetrehoz(width, height);
+		std::vector<std::vector<int>> foreground(height, std::vector<int>(width));
 		//printMatrix(foreground);
-		genForeground(foreground, width, height);
+		genForeground(&foreground, width, height);
 		//printMatrix(foreground);
-		genBackground(background, foreground, width, height);
+		genBackground(&background, &foreground, width, height);
 		//printMatrix(background);
-		genFlora(flora, foreground, width, height);
+		genFlora(&flora, &foreground, width, height);
 		//printMatrix(flora);
 
-		szoveg(fajlnev, width, height, flora, background, foreground);
+		szoveg(fajlnev, width, height, &flora, &background, &foreground);
+		return true;
 	}
 
 }
