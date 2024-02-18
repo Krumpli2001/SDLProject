@@ -16,5 +16,7 @@
     <texture id="shot_arrow" source="assets/nyil.png" frames="1"/>
 
     <texture id="itemtexturemap" source="assets/itemtexturemap.png" frames="1"/>
+
+    <texture id="texture_map" source="assets/texture_map.png"/>
     
 </textures>

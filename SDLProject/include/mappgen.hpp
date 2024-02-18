@@ -25,7 +25,7 @@ namespace mappgen {
 	inline void genForeground(std::vector<std::vector<int>>* foreground, int width, int height) {
 		auto data = TileData::GetInstance();
 		auto rand = RNG::GetInstance();
-		int genheight = height - (height / 3);
+		int genheight = height - (2*height / 3);
 		//int genheight = height-10;
 		for (int i = 0; i < width; i++) {
 
@@ -34,10 +34,18 @@ namespace mappgen {
 			genheight = rand->genRandomInt(maxheight, minheight);
 			genheight = genheight < 0 ? 0 : genheight;
 			genheight = genheight > height - 1 ? height - 1 : genheight;
+			int minko = genheight + 4;
+			int maxko = genheight + 7;
+			int genko = rand->genRandomInt(maxko, minko);
 
 			for (int j = height-1; j > genheight; j--){
 				(*foreground)[j][i] = data->getTileIDFromName("fold");
+				if (j > genko) {
+					//proba miatt viz
+					(*foreground)[j][i] = data->getTileIDFromName("viz");
+				}
 			}
+			//for(j=)
 			(*foreground)[genheight][i] = data->getTileIDFromName("fuvesfold");
 
 		}

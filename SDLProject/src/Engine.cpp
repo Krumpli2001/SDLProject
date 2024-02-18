@@ -60,7 +60,7 @@ bool Engine::Init()
 
 	Menu::GetInstance()->MenuInit();
 
-	TileData::GetInstance()->parseTileData("assets/maps/blockdata.xml");
+	TileData::GetInstance()->parseTileData("assets/blockdata.xml");
 
 	//map betoltese
 	//if (!MapParser::GetInstance()->Load("map"))
