@@ -10,7 +10,7 @@
 #include "UI.hpp"
 //#include "Tiles.hpp"
 #include "Itemdata.hpp"
-
+#include "Camera.hpp"
 #include "mappgen.hpp"
 
 Menu* Menu::Menu_Instance = nullptr;
@@ -334,6 +334,8 @@ void Menu::Update()
 						}
 						saves.clear();
 						cc = 0;
+						Camera::GetInstance()->Update();
+						UI::GetInstance()->Update();
 						Engine::GetInstance()->Update();
 						break;
 					}

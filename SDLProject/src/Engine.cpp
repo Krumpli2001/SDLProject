@@ -152,12 +152,6 @@ void Engine::Update()
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 		Timer::GetInstance()->setmenu(false);
 
-		//kamera update direkt van meghivva ketszer,
-		//itt azert, ha nagy mapprol kicsire valtunk akkor ne legyen crash a tul nagy ertekek miatt, aka frissuljon az x meg az y
-		//lejebb meg azert hogy ne vibraljon -- otletem sincs azt miert csinalja -- release-be normalis
-		Camera::GetInstance()->Update();
-		UI::GetInstance()->Update();
-
 		//ez itt csak a spawnolás
 		if (Engine_SpawnTimer == SPAWN) {
 			int bal_jobb = RNG::GetInstance()->genRandomInt(1);
@@ -232,6 +226,7 @@ void Engine::Update()
 
 		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 		Camera::GetInstance()->Update();
+		UI::GetInstance()->Update();
 
 
 		if (Mix_PlayingMusic())
