@@ -8,7 +8,7 @@ CollisionHandler::CollisionHandler()
     CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
     CollisionHandler_CollitionTileMap = *CollisionHandler_CollisionLayer->getTileMap();
 
-    for (auto it = TileData::GetInstance()->getTileIData()->begin(); it != TileData::GetInstance()->getTileIData()->end(); it++) {
+    for (auto it = ItemData::GetInstance()->getTileDataByID()->begin(); it != ItemData::GetInstance()->getTileDataByID()->end(); it++) {
         if (it->second->LayerID == "foreground" && it->second->isTransparent) {
             attetszo.push_back(it->second->TileID);
         }
@@ -60,7 +60,7 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
             if (CollisionHandler_CollitionTileMap[j][i] > 0)
             {
                 //ezt majd kiirom, egyenlore jo itt
-                auto viz = TileData::GetInstance()->getTileIDFromName("viz");
+                auto viz = ItemData::GetInstance()->getTileIDFromName("viz");
                 if ((CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz) or
                     (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 0) or
                     (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 0 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz)) {

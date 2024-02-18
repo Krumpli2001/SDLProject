@@ -2,7 +2,7 @@
 
 Camera* Camera::Camera_Instance = nullptr;
 
-void Camera::Update(Uint64 dt)
+void Camera::Update()
 {
 	scale = Engine::GetInstance()->getScale();
 	M_WIDTH = Engine::GetInstance()->getMap_W();

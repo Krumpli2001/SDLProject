@@ -44,6 +44,6 @@ public:
 	inline Vector2D getPosition() { return Camera_Position; }
 	inline void setTarget(Point* target) { Camera_Target = target; }
 
-	void Update(Uint64 dt);
+	void Update();
 
 };

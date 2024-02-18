@@ -6,7 +6,7 @@
 #include "Player.hpp"
 #include "ObjectFactory.hpp"
 #include "Input.hpp"
-#include "Tiles.hpp"
+#include "ItemData.hpp"
 #include "Engine.hpp"
 #include "UI.hpp"
 
@@ -101,7 +101,7 @@ void Player::Update(Uint64 dt)
 		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
 		int tileID = (*colllayer)[egerY][egerX];
 		if (tileID != 0) {
-			int block_mine_timer = TileData::GetInstance()->getTileDataFromID(tileID)->MineTime;
+			int block_mine_timer = ItemData::GetInstance()->getTileDataFromID(tileID)->MineTime;
 			//igy csak az a bak ha athuzod masik blockra akkor is hozzaadja a timerhez
 			if (block_mine_timer >= 0) {
 				minetime += dt;
@@ -163,7 +163,7 @@ void Player::Update(Uint64 dt)
 		auto egerY = UI::GetInstance()->getkepernyoY() / Engine::GetInstance()->getTileSize();
 		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
 		int tileID = (*colllayer)[egerY][egerX];
-		if (tileID == 0) {
+		if (tileID == 0 and !CollisionHandler::GetInstance()->CheckCollision(*Player_Collider->getBox(), {egerX* Engine::GetInstance()->getTileSize(), egerY* Engine::GetInstance()->getTileSize(), Engine::GetInstance()->getTileSize(), Engine::GetInstance()->getTileSize()})) {
 			if (UI::GetInstance()->getTransfer()->first!=nullptr) {
 				(*colllayer)[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getTileID();
 				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getTileID();

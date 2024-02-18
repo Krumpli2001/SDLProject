@@ -3,7 +3,7 @@
 #include <vector>
 #include <SDL.h>
 
-#include "Tiles.hpp"
+#include "ItemData.hpp"
 #include "TileLayer.hpp"
 
 class GameObject; //öszinten nem tudom miert mukodik az elore deklaralas

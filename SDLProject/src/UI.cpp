@@ -42,6 +42,7 @@ void UI::Update()
 
 void UI::Draw()
 {
+
 	auto renderer = Engine::GetInstance()->getRenderer();
 	//fps mutato
 	if (FpsShowing) {
@@ -170,10 +171,9 @@ void UI::Draw()
 
 		highlightUI = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
-		if ((*colllayer)[kepernyoY/tilesize][kepernyoX/tilesize] != 0) {
+		if ((*colllayer)[kepernyoY / tilesize][kepernyoX / tilesize] != 0) {
 			SDL_RenderFillRect(renderer, &highlightUI);
 		}
-
 	}
 
 

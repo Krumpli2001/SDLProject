@@ -11,7 +11,7 @@
 #include "Camera.hpp"
 #include "TextureManager.hpp"
 #include "UI.hpp"
-
+//#include "ItemData.hpp"
 #include "mappgen.hpp"
 
 #include "Options.hpp"
@@ -60,7 +60,7 @@ bool Engine::Init()
 
 	Menu::GetInstance()->MenuInit();
 
-	TileData::GetInstance()->parseTileData("assets/blockdata.xml");
+	ItemData::GetInstance()->ParseData("assets/itemdata.xml");
 
 	//map betoltese
 	//if (!MapParser::GetInstance()->Load("map"))
@@ -115,7 +115,7 @@ bool Engine::Clean()
 	TextureManager::GetInstance()->Clearfont();
 	UI::GetInstance()->Clean();
 	Menu::GetInstance()->Clean();
-	TileData::GetInstance()->ClearData();
+	ItemData::GetInstance()->ClearData();
 
 	//settings kiirasa fajlba
 	{
@@ -151,6 +151,12 @@ void Engine::Update()
 	if (!Engine_MenuShowing) {
 		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
 		Timer::GetInstance()->setmenu(false);
+
+		//kamera update direkt van meghivva ketszer,
+		//itt azert, ha nagy mapprol kicsire valtunk akkor ne legyen crash a tul nagy ertekek miatt, aka frissuljon az x meg az y
+		//lejebb meg azert hogy ne vibraljon -- otletem sincs azt miert csinalja -- release-be normalis
+		Camera::GetInstance()->Update();
+		UI::GetInstance()->Update();
 
 		//ez itt csak a spawnolás
 		if (Engine_SpawnTimer == SPAWN) {
@@ -225,8 +231,8 @@ void Engine::Update()
 		//Map_H = (*g)[0]->getRowCount() * (*g)[0]->getTileSize();
 
 		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
-		UI::GetInstance()->Update();
-		Camera::GetInstance()->Update(dt);
+		Camera::GetInstance()->Update();
+
 
 		if (Mix_PlayingMusic())
 		{

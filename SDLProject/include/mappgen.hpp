@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "Rng.hpp"
-#include "Tiles.hpp"
+#include "ItemData.hpp"
 
 
 namespace mappgen {
@@ -23,7 +23,7 @@ namespace mappgen {
 	}
 
 	inline void genForeground(std::vector<std::vector<int>>* foreground, int width, int height) {
-		auto data = TileData::GetInstance();
+		auto data = ItemData::GetInstance();
 		auto rand = RNG::GetInstance();
 		int genheight = height - (2*height / 3);
 		//int genheight = height-10;

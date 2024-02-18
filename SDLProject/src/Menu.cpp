@@ -8,7 +8,7 @@
 #include "MapParser.hpp"
 #include "TextureManager.hpp"
 #include "UI.hpp"
-#include "Tiles.hpp"
+//#include "Tiles.hpp"
 #include "Itemdata.hpp"
 
 #include "mappgen.hpp"
@@ -125,7 +125,7 @@ void Menu::Update()
 					MapParser::GetInstance()->Clean();
 					TextureManager::GetInstance()->Clean();
 					Engine::GetInstance()->setmapIsLoaded(false);
-					ItemData::GetInstance()->ClearData();
+					//ItemData::GetInstance()->ClearData();
 					Reset();
 					Engine::GetInstance()->setMenuShowing(true);
 					cc = 0;
@@ -317,7 +317,7 @@ void Menu::Update()
 							auto g = Engine::GetInstance()->getLevelMap()->getMapLayers();
 							Engine::GetInstance()->setMap_W((*g)[0]->getColCount()* (*g)[0]->getTileSize());
 							Engine::GetInstance()->setMap_H((*g)[0]->getRowCount()* (*g)[0]->getTileSize());
-							ItemData::GetInstance()->ParseItemData("assets/itemdata.xml");
+							//ItemData::GetInstance()->ParseItemData("assets/itemdata.xml");
 							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
 							CollisionHandler::GetInstance()->reset();
 							Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
@@ -334,6 +334,7 @@ void Menu::Update()
 						}
 						saves.clear();
 						cc = 0;
+						Engine::GetInstance()->Update();
 						break;
 					}
 				}

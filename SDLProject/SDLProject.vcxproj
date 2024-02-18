@@ -156,7 +156,6 @@
     <ClCompile Include="src\SpriteAnimation.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\TileLayer.cpp" />
-    <ClCompile Include="src\Tiles.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\UI.cpp" />
     <ClCompile Include="src\Zombie.cpp" />
@@ -193,7 +192,6 @@
     <ClInclude Include="include\SpriteAnimation.hpp" />
     <ClInclude Include="include\TextureManager.hpp" />
     <ClInclude Include="include\TileLayer.hpp" />
-    <ClInclude Include="include\Tiles.hpp" />
     <ClInclude Include="include\Timer.hpp" />
     <ClInclude Include="include\Transform.hpp" />
     <ClInclude Include="include\UI.hpp" />
