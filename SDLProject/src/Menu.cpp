@@ -314,6 +314,9 @@ void Menu::Update()
 						enter = false;
 						if (MapParser::GetInstance()->Load(saves[i])) {
 							Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
+							auto g = Engine::GetInstance()->getLevelMap()->getMapLayers();
+							Engine::GetInstance()->setMap_W((*g)[0]->getColCount()* (*g)[0]->getTileSize());
+							Engine::GetInstance()->setMap_H((*g)[0]->getRowCount()* (*g)[0]->getTileSize());
 							ItemData::GetInstance()->ParseItemData("assets/itemdata.xml");
 							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
 							CollisionHandler::GetInstance()->reset();

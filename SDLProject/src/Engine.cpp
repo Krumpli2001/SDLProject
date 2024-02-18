@@ -218,11 +218,11 @@ void Engine::Update()
 		}
 
 
-		auto g = Engine_LevelMap->getMapLayers();
-		(*g)[0]->getColCount();
+		//auto g = Engine_LevelMap->getMapLayers();
+		//(*g)[0]->getColCount();
 
-		Map_W = (*g)[0]->getColCount() * (*g)[0]->getTileSize();
-		Map_H = (*g)[0]->getRowCount() * (*g)[0]->getTileSize();
+		//Map_W = (*g)[0]->getColCount() * (*g)[0]->getTileSize();
+		//Map_H = (*g)[0]->getRowCount() * (*g)[0]->getTileSize();
 
 		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 		UI::GetInstance()->Update();

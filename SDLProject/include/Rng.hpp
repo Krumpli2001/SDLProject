@@ -25,8 +25,8 @@ public:
 		return RNG_Instance;
 	}
 
-	inline int genRandomInt(int range = INT_MAX) {
-		std::uniform_int_distribution<int> dist(0, range);
+	inline int genRandomInt(int range = INT_MAX, int min = 0) {
+		std::uniform_int_distribution<int> dist(min, range);
 		return dist(rd);
 	}
 };

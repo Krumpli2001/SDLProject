@@ -374,7 +374,11 @@ void Player::readInventory()
 	std::string source = "saves/" + Engine::GetInstance()->getMapName() + ".xml";
 	xml.LoadFile(source);
 	if (xml.Error()) {
+
 		std::cout << "Failde to load: " << source << std::endl;
+		std::cout << "setting to default loc\n";
+		GameObject_Transform->setX(Engine::GetInstance()->getMap_W() / 2);
+		GameObject_Transform->setY(Engine::GetInstance()->legmamasabbBlock(GameObject_Transform->getX()) - TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.h);
 		return;
 	}
 	TiXmlElement* root = xml.RootElement();

@@ -71,6 +71,8 @@ public:
 	inline int* getWindow_H() { return &Window_H; }
 	inline int getMap_W() { return Map_W; }
 	inline int getMap_H() { return Map_H; }
+	inline void setMap_W(int e) { Map_W = e; }
+	inline void setMap_H(int e) { Map_H = e; }
 	inline bool getMenuShowing() { return Engine_MenuShowing; }
 	inline void setMenuShowing(bool set) { Engine_MenuShowing = set; }
 	inline std::vector<GameObject*>* getGameObjects() { return &Enigine_GameObjects; }

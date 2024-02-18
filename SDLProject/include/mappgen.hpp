@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 
 #include <iostream>
 #include <string>
@@ -24,18 +24,22 @@ namespace mappgen {
 
 	inline void genForeground(std::vector<std::vector<int>>* foreground, int width, int height) {
 		auto data = TileData::GetInstance();
-		for (int i = 0; i < height; i++) {
-			if (i < 5) {
-				for (int j = 0; j < width; j++) {
-					(*foreground)[i][j] = data->getTileIDFromName("semmi");
-				}
-			}
+		auto rand = RNG::GetInstance();
+		int genheight = height - (height / 3);
+		//int genheight = height-10;
+		for (int i = 0; i < width; i++) {
 
-			else {
-				for (int j = 0; j < width; j++) {
-					(*foreground)[i][j] = data->getTileIDFromName("fold");
-				}
+			int minheight = genheight - 2;
+			int maxheight = genheight + 2;
+			genheight = rand->genRandomInt(maxheight, minheight);
+			genheight = genheight < 0 ? 0 : genheight;
+			genheight = genheight > height - 1 ? height - 1 : genheight;
+
+			for (int j = height-1; j > genheight; j--){
+				(*foreground)[j][i] = data->getTileIDFromName("fold");
 			}
+			(*foreground)[genheight][i] = data->getTileIDFromName("fuvesfold");
+
 		}
 	}
 
