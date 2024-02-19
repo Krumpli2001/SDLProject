@@ -42,7 +42,7 @@ namespace mappgen {
 				(*foreground)[j][i] = data->getTileIDFromName("fold");
 				if (j > genko) {
 					//proba miatt viz
-					(*foreground)[j][i] = data->getTileIDFromName("viz");
+					(*foreground)[j][i] = data->getTileIDFromName("b_ko");
 				}
 			}
 			//for(j=)

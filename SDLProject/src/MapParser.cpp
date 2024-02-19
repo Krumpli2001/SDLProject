@@ -167,10 +167,6 @@ void MapParser::Clean()
 {
     for (auto it = MapParser_MapDict.begin(); it != MapParser_MapDict.end(); it++)
     {
-
-        for (int i = 0; i < it->second->getMapLayers()->size(); i++) {
-            it->second->Clean();
-        }
         it->second->Clean();
         delete it->second;
         it->second = nullptr;

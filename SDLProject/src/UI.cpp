@@ -174,10 +174,16 @@ void UI::Draw()
 		int tilesize = Engine::GetInstance()->getTileSize();
 		int x = kepernyoX - kameraX - kepernyoX % tilesize;
 		int y = kepernyoY - kameraY - kepernyoY % tilesize;
+		int yv = kepernyoY / tilesize;
+		int xv = kepernyoX / tilesize;
+		yv = yv < 0 ? 0 : yv;
+		yv = yv > (*colllayer).size() - 1 ? (*colllayer).size() - 1 : yv;
+		xv = xv < 0 ? 0 : xv;
+		xv = xv > (*colllayer)[0].size() - 1 ? (*colllayer)[0].size() - 1 : xv;
 
 		highlightUI = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
-		if ((*colllayer)[kepernyoY / tilesize][kepernyoX / tilesize] != 0) {
+		if ((*colllayer)[yv][xv] != 0) {
 			SDL_RenderFillRect(renderer, &highlightUI);
 		}
 	}
