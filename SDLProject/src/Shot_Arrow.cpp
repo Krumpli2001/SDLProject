@@ -55,9 +55,6 @@ void Shot_Arrow::Update(Uint64 dt)
 		}
 	}
 
-	
-
-
 	if (Arrow_RigidBody->getRigidBody_Velocity().getX() < 0) {
 		angle = 90 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * ( - 180) / M_PI;
 	}

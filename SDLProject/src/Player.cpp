@@ -106,7 +106,7 @@ void Player::Update(Uint64 dt)
 			if (block_mine_timer >= 0) {
 				minetime += dt;
 				if (minetime >= block_mine_timer) {
-					auto sajt = ItemData::GetInstance()->getItemByTileID(tileID);
+					auto sajt = ItemData::GetInstance()->getItemByID(tileID);
 					inventoryplace = 0;
 					bool van = false;
 
@@ -165,16 +165,16 @@ void Player::Update(Uint64 dt)
 		int tileID = (*colllayer)[egerY][egerX];
 		if (tileID == 0 and !CollisionHandler::GetInstance()->CheckCollision(*Player_Collider->getBox(), {egerX* Engine::GetInstance()->getTileSize(), egerY* Engine::GetInstance()->getTileSize(), Engine::GetInstance()->getTileSize(), Engine::GetInstance()->getTileSize()})) {
 			if (UI::GetInstance()->getTransfer()->first!=nullptr) {
-				(*colllayer)[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getTileID();
-				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getTileID();
+				(*colllayer)[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getItemID();
+				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getItemID();
 				UI::GetInstance()->getTransfer()->second--;
 				if (UI::GetInstance()->getTransfer()->second <= 0) {
 					UI::GetInstance()->getTransfer()->first = nullptr;
 				}
 			}
 			else if (Player_Inventory[selectedInventory].second != 0) {
-				(*colllayer)[egerY][egerX] = Player_Inventory[selectedInventory].first->getTileID();
-				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = Player_Inventory[selectedInventory].first->getTileID();
+				(*colllayer)[egerY][egerX] = Player_Inventory[selectedInventory].first->getItemID();
+				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = Player_Inventory[selectedInventory].first->getItemID();
 				Player_Inventory[selectedInventory].second--;
 				if (Player_Inventory[selectedInventory].second <= 0) {
 					Player_Inventory[selectedInventory].first = nullptr;

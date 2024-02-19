@@ -15,23 +15,36 @@ bool ItemData::ParseData(std::string src)
         for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
             if (e->Value() == std::string("item")) {
                 TiXmlElement* data = e->FirstChildElement();
-                std::string ItemType = data->GetText();
 
-                if (ItemType == "Block") {
-                    data = data->NextSiblingElement();
-                    auto ItemID = std::stoi(data->GetText());
+                //ID
+                auto temp = data->GetText();
+                int ID = temp ? std::stoi(temp) : -1;
 
-                    data = data->NextSiblingElement();
-                    std::string Name = data->GetText();
+                //tile nev
+                data = data->NextSiblingElement();
+                std::string TileName = data->GetText();
 
-                    data = data->NextSiblingElement();
-                    auto TileID = std::stoi(data->GetText());
+                //std::string ItemType = data->GetText();
 
-                    Block* item = new Block(ItemID, Name, TileID);
-                    IData[ItemID] = item;
-                    SData[Name] = item;
-                    TIDData[TileID] = item;
-                }
+                //if (ItemType == "Block") {
+                //    data = data->NextSiblingElement();
+                //    auto ItemID = std::stoi(data->GetText());
+
+                //    data = data->NextSiblingElement();
+                //    std::string Name = data->GetText();
+
+                //    data = data->NextSiblingElement();
+                //    auto TileID = std::stoi(data->GetText());
+
+                //    Block* item = new Block(ItemID, Name, TileID);
+                //    int_ItemData[ItemID] = item;
+                //    string_ItemData[Name] = item;
+                //    //int_TileData[TileID] = item;
+                //}
+
+                Item* item = new Tool(ID, TileName);
+                int_ItemData[ID] = item;
+                string_ItemData[TileName] = item;
 
             }
 
@@ -40,18 +53,16 @@ bool ItemData::ParseData(std::string src)
                 // 
                 //tehat ki kell tolteni a fajlt - vagy majd kesobb lehet adok neki vmi defaultot
 
-                //tile nev
                 TiXmlElement* data = e->FirstChildElement();
-                std::string TileName = data->GetText();
 
                 //id
-                data = data->NextSiblingElement();
                 auto temp = data->GetText();
-                int TileID = temp ? std::stoi(temp) : -1;
+                int ID = temp ? std::stoi(temp) : -1;
 
-                //layerid
+                //tile nev
                 data = data->NextSiblingElement();
-                std::string LayerID = data->GetText();
+                std::string TileName = data->GetText();
+
 
                 //"atlatszo"
                 data = data->NextSiblingElement();
@@ -62,9 +73,17 @@ bool ItemData::ParseData(std::string src)
                 temp = data->GetText();
                 int mineTime = temp ? std::stoi(temp) : -1;
 
-                Tile* tile = new Tile(TileID, TileName, LayerID, isTransparent, mineTime);
-                TData[TileID] = tile;
-                TSData[TileName] = tile;
+                Tile* tile = new Tile(ID, TileName, isTransparent, mineTime);
+                Item* item = new Block(ID, TileName);
+
+                int_ItemData[ID] = item;
+                string_ItemData[TileName] = item;
+
+                int_TileData[ID] = tile;
+                string_TileData[TileName] = tile;
+
+                //int_TileData[ID] = tile;
+                //string_TileData[TileName] = tile;
             }
         }
     }
@@ -72,27 +91,28 @@ bool ItemData::ParseData(std::string src)
 
 std::string ItemData::getTileNameFromID(int key)
 {
-    return TData.find(key)->second->TileName;
+    return int_TileData.find(key)->second->TileName;
 }
 
 int ItemData::getTileIDFromName(std::string key) {
-    return TSData.find(key)->second->TileID;
+    return string_TileData.find(key)->second->TileID;
 }
 
 Tile* ItemData::getTileDataFromID(int key) {
-    return TData.find(key)->second;
+    return int_TileData.find(key)->second;
 }
+
 Tile* ItemData::getTileDataFromName(std::string key) {
-    return TSData.find(key)->second;
+    return string_TileData.find(key)->second;
 }
 
 void ItemData::ClearData()
 {
-    for (auto it = IData.begin(); it != IData.end(); it++) {
+    for (auto it = int_ItemData.begin(); it != int_ItemData.end(); it++) {
         delete it->second;
     }
-    for (auto it = TData.begin(); it != TData.end(); it++) {
+    for (auto it = int_TileData.begin(); it != int_TileData.end(); it++) {
         delete it->second;
     }
-    //IData.clear();
+    //int_ItemData.clear();
 }

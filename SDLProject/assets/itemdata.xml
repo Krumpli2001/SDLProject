@@ -1,131 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<items>
-    <item>
-        <type>Block</type>
-        <ItemID>1</ItemID>
-        <Name>BalFu</Name>
-        <TileID>7</TileID>
-    </item>
-    <item>
-        <type>Block</type>
-        <ItemID>2</ItemID>
-        <Name>FuvesFold</Name>
-        <TileID>8</TileID>
-    </item>
-    <item>
-        <type>Block</type>
-        <ItemID>3</ItemID>
-        <Name>JobbFu</Name>
-        <TileID>9</TileID>
-    </item>
-    <item>
-        <type>Block</type>
-        <ItemID>4</ItemID>
-        <Name>Fold</Name>
-        <TileID>10</TileID>
-    </item>
-    <item>
-        <type>Block</type>
-        <ItemID>5</ItemID>
-        <Name>FuBlokk</Name>
-        <TileID>11</TileID>
-    </item>
-    <item>
-        <type>Block</type>
-        <ItemID>6</ItemID>
-        <Name>Viz</Name>
-        <TileID>12</TileID>
-    </item>
+<!-- minden block item, de nem minden item block-->
+<stuff>
 
     <block>
+        <ID>0</ID>
         <TileName>semmi</TileName>
-        <TileID>0</TileID>
-        <LayerID>foreground</LayerID>
         <isTransparent>1</isTransparent>
-        <mineTime>0</mineTime>
+        <MineTime>0</MineTime>
     </block>
+
     <block>
+        <ID>1</ID>
         <TileName>fu</TileName>
-        <TileID>1</TileID>
-        <LayerID>flora</LayerID>
         <isTransparent>1</isTransparent>
         <mineTime>0</mineTime>
     </block>
+
     <block>
+        <ID>2</ID>
         <TileName>pirosvirag</TileName>
-        <TileID>2</TileID>
-        <LayerID>flora</LayerID>
         <isTransparent>1</isTransparent>
         <mineTime>0</mineTime>
     </block>
+
     <block>
+        <ID>3</ID>
         <TileName>fehervirag</TileName>
-        <TileID>3</TileID>
-        <LayerID>flora</LayerID>
         <isTransparent>1</isTransparent>
         <mineTime>0</mineTime>
     </block>
+
     <block>
+        <ID>4</ID>
         <TileName>b_eg</TileName>
-        <TileID>4</TileID>
-        <LayerID>background</LayerID>
         <isTransparent>1</isTransparent>
         <mineTime>0</mineTime>
     </block>
+
     <block>
+        <ID>5</ID>
         <TileName>b_ko</TileName>
-        <TileID>5</TileID>
-        <LayerID>background</LayerID>
         <isTransparent>1</isTransparent>
         <mineTime>0</mineTime>
     </block>
+
     <block>
+        <ID>6</ID>
         <TileName>b_felho</TileName>
-        <TileID>6</TileID>
-        <LayerID>background</LayerID>
         <isTransparent>1</isTransparent>
         <mineTime>0</mineTime>
     </block>
+
     <block>
+        <ID>7</ID>
         <TileName>balrafu</TileName>
-        <TileID>7</TileID>
-        <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
         <mineTime>1000</mineTime>
     </block>
+
     <block>
+        <ID>8</ID>
         <TileName>fuvesfold</TileName>
-        <TileID>8</TileID>
-        <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
         <mineTime>1000</mineTime>
     </block>
+
     <block>
+        <ID>9</ID>
         <TileName>jobbrafu</TileName>
-        <TileID>9</TileID>
-        <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
         <mineTime>1000</mineTime>
     </block>
+
     <block>
+        <ID>10</ID>
         <TileName>fold</TileName>
-        <TileID>10</TileID>
-        <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
         <mineTime>1000</mineTime>
     </block>
+
     <block>
+        <ID>11</ID>
         <TileName>fublock</TileName>
-        <TileID>11</TileID>
-        <LayerID>foreground</LayerID>
         <isTransparent>0</isTransparent>
         <mineTime>1000</mineTime>
     </block>
+
     <block>
+        <ID>12</ID>
         <TileName>viz</TileName>
-        <TileID>12</TileID>
-        <LayerID>foreground</LayerID>
         <isTransparent>1</isTransparent>
         <mineTime>-1</mineTime>
     </block>
-</items>
+
+   <!-- 
+    <item>
+        <ID>
+        <TileName>    
+    </item>
+   -->
+
+</stuff>

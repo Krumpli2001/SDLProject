@@ -109,7 +109,7 @@ void UI::Draw()
 				if ((*inv)[sor * 10 + oszlop].first) {
 					//textura kiirasa
 					TextureManager::GetInstance()->DrawItem("texture_map", xi, yi, item_meret * (1 / scale), item_meret * (1 / scale),
-					((*inv)[sor * 10 + oszlop].first->getTileID() - 1) * item_texture_meret, 0, item_texture_meret, item_texture_meret);
+					((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * item_texture_meret, 0, item_texture_meret, item_texture_meret);
 				}
 				if ((*inv)[sor * 10 + oszlop].second>0) {
 					//szam kiirasa
@@ -118,14 +118,18 @@ void UI::Draw()
 
 				if(Timer::GetInstance()->pressable(75)){
 
-					if (transfer.first == nullptr and (*inv)[sor * 10 + oszlop].first and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
+					if (transfer.first == nullptr and (*inv)[sor * 10 + oszlop].first and Input::GetInstance()->getClickDown() and
+						static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and
+						static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
 						transfer.first = (*inv)[sor * 10 + oszlop].first;
 						transfer.second = (*inv)[sor * 10 + oszlop].second;
 						(*inv)[sor * 10 + oszlop].first = nullptr;
 						(*inv)[sor * 10 + oszlop].second = 0;
 					}
 
-					else if ( transfer.first and (*inv)[sor * 10 + oszlop].first == nullptr and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
+					else if ( transfer.first and (*inv)[sor * 10 + oszlop].first == nullptr and Input::GetInstance()->getClickDown() and
+						static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and
+						static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h) {
 						(*inv)[sor * 10 + oszlop].first = transfer.first;
 						(*inv)[sor * 10 + oszlop].second = transfer.second;
 						transfer.first = nullptr;
@@ -133,7 +137,9 @@ void UI::Draw()
 					}
 
 
-					if (transfer.first == (*inv)[sor * 10 + oszlop].first and Input::GetInstance()->getClickDown() and static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h)
+					if (transfer.first == (*inv)[sor * 10 + oszlop].first and Input::GetInstance()->getClickDown() and
+						static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and
+						static_cast<double>(cy) / scale > inventoryKockaHely.y and static_cast<double>(cy) / scale < inventoryKockaHely.y + inventoryKockaHely.h)
 					{
 						(*inv)[sor * 10 + oszlop].second += transfer.second;
 						transfer.first = nullptr;
@@ -145,7 +151,7 @@ void UI::Draw()
 					int cx, cy;
 					SDL_GetMouseState(&cx, &cy);
 					TextureManager::GetInstance()->DrawItem("texture_map", cx/scale,cy/scale, item_meret * (1 / scale), item_meret * (1 / scale),
-					(transfer.first->getTileID() - 1) * item_texture_meret, 0, item_texture_meret, item_texture_meret);
+					(transfer.first->getItemID() - 1) * item_texture_meret, 0, item_texture_meret, item_texture_meret);
 				}
 				
 				x += static_cast<int>(20 * (1 / scale)) + static_cast<int>(hatter_meret * (1 / scale));
