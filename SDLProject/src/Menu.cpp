@@ -123,6 +123,8 @@ void Menu::Update()
 					enter = false;
 					submenu = sub::Title;
 					MapParser::GetInstance()->Clean();
+					Engine::GetInstance()->getLevelMap()->Clean();
+					
 					TextureManager::GetInstance()->Clean();
 					Engine::GetInstance()->setmapIsLoaded(false);
 					//ItemData::GetInstance()->ClearData();
@@ -328,6 +330,15 @@ void Menu::Update()
 						}
 						submenu = sub::Main;
 						Engine::GetInstance()->setMenuShowing(false);
+
+						/*auto it = rublikak.begin();
+						for (int i = 0; i < rublikak.size(); i++) {
+							for (int j = 0; j < saves.size(); j++) {
+								if (rublikak[i].szoveg == saves[j])
+									rublikak.erase(it);
+							}
+							it++;
+						}*/
 
 						for (int j = 0; j < saves.size(); j++) {
 							delete saves[j];

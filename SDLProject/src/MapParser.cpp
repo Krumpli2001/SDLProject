@@ -53,7 +53,6 @@ bool MapParser::Parse(std::string id, std::string source)
         }
     }
 
-
     MapParser_MapDict[id] = gamemap;
     MapParsed = true;
     return true;
@@ -168,6 +167,10 @@ void MapParser::Clean()
 {
     for (auto it = MapParser_MapDict.begin(); it != MapParser_MapDict.end(); it++)
     {
+
+        for (int i = 0; i < it->second->getMapLayers()->size(); i++) {
+            it->second->Clean();
+        }
         it->second->Clean();
         delete it->second;
         it->second = nullptr;
