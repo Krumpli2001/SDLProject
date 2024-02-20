@@ -118,6 +118,7 @@ public:
 	void Quit();
 	void Update();
 	void Render();
+	void drawBG(std::string id, int y);
 	void Events();
 
 	void spawnSpecial(std::string name, double x, double y, int hp = 100, int power = 10);

@@ -255,13 +255,8 @@ void Engine::Render()
 	if (!Engine_MenuShowing or mapIsLoaded) {
 		SDL_SetRenderDrawColor(Engine_Renderer, 255, 0, 247, 255);
 		SDL_RenderClear(Engine_Renderer);
-		auto ppos = Enigine_GameObjects[0]->getPosition();
-		auto t = TextureManager::GetInstance()->getTextureMap();
-		int x = (static_cast<int>(ppos->getX()) / t->find("bg")->second.second.w) * t->find("bg")->second.second.w;
-
-		//kb 55, legyen 60 x tile fel bele ha legjobban ki vagyunk zoomolva - az y pedig kb 40 tile
-
-		TextureManager::GetInstance()->DrawBackgroundPicture("bg", x, 0, t->find("bg")->second.second.w, t->find("bg")->second.second.h, 1);
+		
+		drawBG("bg", 2000);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 
@@ -278,6 +273,25 @@ void Engine::Render()
 	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), scale, scale);
 	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);
+
+}
+
+void Engine::drawBG(std::string id, int y)
+{
+	auto ppos = Enigine_GameObjects[0]->getPosition();
+	auto t = TextureManager::GetInstance()->getTextureMap();
+	auto dim = t->find(id)->second.second;
+	int x = (static_cast<int>(ppos->getX()) / dim.w) * dim.w;
+	int x2 = x - t->find(id)->second.second.w;
+	int x3 = x + t->find(id)->second.second.w;
+	auto scroll = 1;
+	//int y = 1000;
+
+	//kb 55, legyen 60 x tile fel bele ha legjobban ki vagyunk zoomolva - az y pedig kb 40 tile
+
+	TextureManager::GetInstance()->DrawBackgroundPicture(id, x, y, dim.w, dim.h, scroll);
+	TextureManager::GetInstance()->DrawBackgroundPicture(id, x2, y, dim.w, dim.h, scroll);
+	TextureManager::GetInstance()->DrawBackgroundPicture(id, x3, y, dim.w, dim.h, scroll);
 
 }
 
