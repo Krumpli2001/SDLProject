@@ -6,7 +6,7 @@ CollisionHandler* CollisionHandler::CollisionHandler_Instance = nullptr;
 CollisionHandler::CollisionHandler()
 {
     CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
-    CollisionHandler_CollitionTileMap = *CollisionHandler_CollisionLayer->getTileMap();
+    CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 
     for (auto it = ItemData::GetInstance()->getTileDataByID()->begin(); it != ItemData::GetInstance()->getTileDataByID()->end(); it++) {
         if (/*it->second->LayerID == "foreground" && */it->second->isTransparent) {
@@ -21,7 +21,7 @@ CollisionHandler::CollisionHandler()
 
 void CollisionHandler::reset() {
     CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
-    CollisionHandler_CollitionTileMap = *CollisionHandler_CollisionLayer->getTileMap();
+    CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 
     tileSize = CollisionHandler_CollisionLayer->getTileSize();
     rowCount = CollisionHandler_CollisionLayer->getRowCount();
@@ -57,22 +57,22 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
     {
         for (int j = top_tile; j <= bottom_tile; j++)
         {
-            if (CollisionHandler_CollitionTileMap[j][i] > 0)
+            if ((*CollisionHandler_CollitionTileMap)[j][i] > 0)
             {
                 //ezt majd kiirom, egyenlore jo itt
                 auto viz = ItemData::GetInstance()->getTileIDFromName("viz");
-                if ((CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz) or
-                    (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == viz and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == 0) or
-                    (CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == 0 and CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == viz)) {
+                if (((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == viz and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == viz) or
+                    ((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == viz and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == 0) or
+                    ((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == 0 and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == viz)) {
                     g->setGravity(0.3);
                     return false;
                 }
                 else {    
                     for (auto i = 0; i < attetszo.size(); i++) {
 
-                            if (CollisionHandler_CollitionTileMap[bottom_tile][left_tile + (right_tile-left_tile)/2] == attetszo[i] and
-                                CollisionHandler_CollitionTileMap[bottom_tile][left_tile] == attetszo[i] and
-                                CollisionHandler_CollitionTileMap[bottom_tile][right_tile] == attetszo[i]) {
+                        if ((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile + (right_tile - left_tile) / 2] == attetszo[i] and
+                            (*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == attetszo[i] and
+                            (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == attetszo[i]) {
                                 if(grounded)
                                 *grounded = false;
                             }

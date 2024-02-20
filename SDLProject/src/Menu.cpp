@@ -322,7 +322,10 @@ void Menu::Update()
 							//ItemData::GetInstance()->ParseItemData("assets/itemdata.xml");
 							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
 							CollisionHandler::GetInstance()->reset();
-							Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
+							//Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
+							//TileLayer* bleh = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
+							//std::vector<std::vector<int>>* blah = bleh->getTileMap();
+							Engine::GetInstance()->setCollisionLayerVector((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap());
 							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 							Engine::GetInstance()->setMapName(saves[i]);
 							(*Engine::GetInstance()->getGameObjects())[0]->readInventory();

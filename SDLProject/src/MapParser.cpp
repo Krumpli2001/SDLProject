@@ -49,6 +49,12 @@ bool MapParser::Parse(std::string id, std::string source)
             if (str == "foreground") {
                 Engine::GetInstance()->setCollisionLayer(i);
             }
+            if (str == "background") {
+                Engine::GetInstance()->setBackgroundLayer(i);
+            }
+            if (str == "flora") {
+                Engine::GetInstance()->setFloraLayer(i);
+            }
             i++;
         }
     }

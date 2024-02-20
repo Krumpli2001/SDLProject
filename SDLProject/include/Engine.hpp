@@ -44,9 +44,13 @@ private:
 
 	bool Engine_ResetFlag = false;
 	int Engine_CollisionLayer = 0;
+	int flora_layer{};
+	int background_layer{};
 	bool mapIsLoaded = false;
 
 	std::vector<std::vector<int>>* Engine_CollisionLayerVector = nullptr;
+	std::vector<std::vector<int>>* Engine_FloraLayerVector = nullptr;
+	std::vector<std::vector<int>>* Engine_BackgroundLayerVector = nullptr;
 	int TileSize{};
 
 	void spawn(std::string name);
@@ -98,6 +102,17 @@ public:
 	inline int getVolume() { return volume; }
 	inline void setVolume(int e) { volume = e; }
 
+	inline void setFloraLayer(int e) { flora_layer = e; }
+	inline void setBackgroundLayer(int e) { background_layer = e; }
+	inline int getFloraLayer() { return flora_layer; }
+	inline int getBackgroundLayer() { return background_layer; }
+
+	inline void setFloraLayerVector(std::vector<std::vector<int>>* p) { Engine_FloraLayerVector = p; }
+	inline void setBackgroundLayerVector(std::vector<std::vector<int>>* p) { Engine_BackgroundLayerVector = p; }
+	inline std::vector<std::vector<int>>* getFloraLayerVector() { return Engine_FloraLayerVector; }
+	inline std::vector<std::vector<int>>* getBackgroundLayerVector() { return Engine_BackgroundLayerVector; }
+
+
 	bool Init();
 	bool Clean();
 	void Quit();
@@ -109,5 +124,7 @@ public:
 
 
 	void map_save();
+
+
 
 };

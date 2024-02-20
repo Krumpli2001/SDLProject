@@ -13,7 +13,7 @@ class CollisionHandler
 private:
 	CollisionHandler();
 	static CollisionHandler* CollisionHandler_Instance;
-	std::vector<std::vector<int>> CollisionHandler_CollitionTileMap;
+	std::vector<std::vector<int>>* CollisionHandler_CollitionTileMap;
 	TileLayer* CollisionHandler_CollisionLayer;
 
 	std::vector<int> attetszo;
@@ -36,7 +36,7 @@ public:
 	bool CheckCollision(SDL_Rect a, SDL_Rect b);
 	//checkolja hogy egy enteti erintkezik e a mappal
 	bool MapCollision(GameObject* g, bool* grounded = nullptr);
-	inline std::vector<std::vector<int>>* getCollisionTileMap() { return &CollisionHandler_CollitionTileMap; }
+	inline std::vector<std::vector<int>>* getCollisionTileMap() { return CollisionHandler_CollitionTileMap; }
 	inline int getTileSize() { return tileSize; }
 	inline TileLayer* getCollisionLayer() { return CollisionHandler_CollisionLayer; }
 	void reset();
