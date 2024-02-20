@@ -145,7 +145,7 @@ void Player::Update(Uint64 dt)
 					//kiutott block collider eltuntetese
 					(*colllayer)[egerY][egerX] = 0;
 					//textura eltuntetese
-					(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = 0;
+					//(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = 0;
 				}
 			}
 		}
@@ -166,7 +166,7 @@ void Player::Update(Uint64 dt)
 		if (tileID == 0 and !CollisionHandler::GetInstance()->CheckCollision(*Player_Collider->getBox(), {egerX* Engine::GetInstance()->getTileSize(), egerY* Engine::GetInstance()->getTileSize(), Engine::GetInstance()->getTileSize(), Engine::GetInstance()->getTileSize()})) {
 			if (UI::GetInstance()->getTransfer()->first!=nullptr) {
 				(*colllayer)[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getItemID();
-				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getItemID();
+				//(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = UI::GetInstance()->getTransfer()->first->getItemID();
 				UI::GetInstance()->getTransfer()->second--;
 				if (UI::GetInstance()->getTransfer()->second <= 0) {
 					UI::GetInstance()->getTransfer()->first = nullptr;
@@ -174,7 +174,7 @@ void Player::Update(Uint64 dt)
 			}
 			else if (Player_Inventory[selectedInventory].second != 0) {
 				(*colllayer)[egerY][egerX] = Player_Inventory[selectedInventory].first->getItemID();
-				(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = Player_Inventory[selectedInventory].first->getItemID();
+				//(*(*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap())[egerY][egerX] = Player_Inventory[selectedInventory].first->getItemID();
 				Player_Inventory[selectedInventory].second--;
 				if (Player_Inventory[selectedInventory].second <= 0) {
 					Player_Inventory[selectedInventory].first = nullptr;

@@ -11,7 +11,6 @@
 #include "Camera.hpp"
 #include "TextureManager.hpp"
 #include "UI.hpp"
-//#include "ItemData.hpp"
 #include "mappgen.hpp"
 
 #include "Options.hpp"
@@ -217,13 +216,6 @@ void Engine::Update()
 			}
 		}
 
-
-		//auto g = Engine_LevelMap->getMapLayers();
-		//(*g)[0]->getColCount();
-
-		//Map_W = (*g)[0]->getColCount() * (*g)[0]->getTileSize();
-		//Map_H = (*g)[0]->getRowCount() * (*g)[0]->getTileSize();
-
 		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 		Camera::GetInstance()->Update();
 		UI::GetInstance()->Update();
@@ -339,36 +331,11 @@ void Engine::spawnSpecial(std::string name, double x, double y, int hp, int powe
 }
 
 void Engine::map_save() {
-
-
 	if (Engine_LevelMap->getMapLayers()) {
-		auto map = *Engine_LevelMap->getMapLayers();
-
-		std::vector<std::vector<int>> flora;
-		std::vector<std::vector<int>> background;
-		std::vector<std::vector<int>> foreground;
 
 		int width = Map_W/TileSize;
 		int height = Map_H/TileSize;
 
-		
-		for (int i = 0; i < map.size(); i++) {
-			auto k = map[i]->getTilesetVector();
-			//elvileg a tileszet vektor es a map layer vektornak meg kell egyezni a meretenek
-			if ((*k)[i].Name == "flora") {
-				flora = *map[i]->getTileMap();
-			}
-			if ((*k)[i].Name == "background") {
-				background = *map[i]->getTileMap();
-			}
-			if ((*k)[i].Name == "foreground") {
-				foreground = *map[i]->getTileMap();
-			}
-
-		}
-
-		mappgen::szoveg(loaded_map_name, width, height, &flora, &background, &foreground);
-
+		mappgen::szoveg(loaded_map_name, width, height, Engine_FloraLayerVector, Engine_BackgroundLayerVector, Engine_CollisionLayerVector);
 	}
-	
 }

@@ -319,13 +319,13 @@ void Menu::Update()
 							auto g = Engine::GetInstance()->getLevelMap()->getMapLayers();
 							Engine::GetInstance()->setMap_W((*g)[0]->getColCount()* (*g)[0]->getTileSize());
 							Engine::GetInstance()->setMap_H((*g)[0]->getRowCount()* (*g)[0]->getTileSize());
-							//ItemData::GetInstance()->ParseItemData("assets/itemdata.xml");
 							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
 							CollisionHandler::GetInstance()->reset();
-							//Engine::GetInstance()->setCollisionLayerVector(CollisionHandler::GetInstance()->getCollisionTileMap());
-							//TileLayer* bleh = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
-							//std::vector<std::vector<int>>* blah = bleh->getTileMap();
+							
 							Engine::GetInstance()->setCollisionLayerVector((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap());
+							Engine::GetInstance()->setBackgroundLayerVector((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getBackgroundLayer()]->getTileMap());
+							Engine::GetInstance()->setFloraLayerVector((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getFloraLayer()]->getTileMap());
+							
 							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 							Engine::GetInstance()->setMapName(saves[i]);
 							(*Engine::GetInstance()->getGameObjects())[0]->readInventory();
