@@ -167,18 +167,12 @@ bool TextureManager::ParseTextures(std::string source)
 }
 
 //stayonscreen = maradjon a kepernyon ugyan abban a pozicioban - szivecske hasznalja
-void TextureManager::Draw(std::string id, int x, int y, int w, int h, int srcx, int srcy, bool stayonscreen, SDL_RendererFlip flip, double ScrollRatio)
+void TextureManager::Draw(std::string id, int x, int y, int w, int h, int srcx, int srcy)
 {
 	SDL_Rect srcRect = { srcx, srcy, w, h };
-	SDL_Rect dstRect;
-	if (stayonscreen) {
-		dstRect = { x, y, w, h };
-	}
-	else {
-		Vector2D cam = Camera::GetInstance()->getPosition() * ScrollRatio;
-		dstRect = { static_cast<int>(x - cam.getX()), static_cast<int>(y - cam.getY()), w, h };
-	}
-	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, flip);
+	SDL_Rect dstRect = { x, y, w, h };
+	
+	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
 }
 
 void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip)
@@ -227,6 +221,14 @@ void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int sr
 	SDL_Rect dstRect = { x, y, w, h };
 
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
+}
+
+void TextureManager::DrawBackgroundPicture(std::string id, int x, int y, int srcw, int srch, double scrollRatio)
+{
+	SDL_Rect scrRect = { 0,0,srcw,srch };
+	Vector2D cam = Camera::GetInstance()->getPosition() * scrollRatio;
+	SDL_Rect dstRect = { static_cast<int>(x - cam.getX()), static_cast<int>(y - cam.getY()), srcw, srch };
+	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &scrRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
 }
 
 void TextureManager::Drop(std::string id)

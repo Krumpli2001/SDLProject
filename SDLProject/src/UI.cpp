@@ -63,7 +63,7 @@ void UI::Draw()
 				int w = i == 1 ? heartmeret * (seged) * (1.0 / scale) : heartmeret * (1.0 / scale);
 				int srcx = i == 1 ? heartmeret * (1.0 - (seged)) : 0;
 
-				TextureManager::GetInstance()->Draw("heart", x, 20 * (1.0 / scale), w, heartmeret * (1.0 / scale), srcx, 0, true, SDL_FLIP_NONE, 1);
+				TextureManager::GetInstance()->Draw("heart", x, 20 * (1.0 / scale), w, heartmeret * (1.0 / scale), srcx, 0);
 				kezdopixel += 40;
 			}
 		}

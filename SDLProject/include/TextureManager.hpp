@@ -36,10 +36,11 @@ public:
 
 	bool Load(std::string id, std::string filename);
 	bool ParseTextures(std::string source);
-	void Draw(std::string id, int x, int y, int w, int h, int srcx = 0, int srcy = 0, bool stayonscreen = false, SDL_RendererFlip flip = SDL_FLIP_NONE, double ScrollRatio = 0.4);
+	void Draw(std::string id, int x, int y, int w, int h, int srcx = 0, int srcy = 0);
 	void DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	void DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, int flipX = 0, int flipY = 0);
 	void DrawItem(std::string id, int x, int y, int w, int h, int srcx = 0, int srcy = 0, int srcw = 0, int srch = 0);
+	void DrawBackgroundPicture(std::string id, int x, int y, int srcw, int srch, double scrollRatio);
 	void Drop(std::string id);
 	void Clean();
 	void Clearfont();

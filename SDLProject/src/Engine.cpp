@@ -257,7 +257,7 @@ void Engine::Render()
 		SDL_RenderClear(Engine_Renderer);
 		auto ppos = Enigine_GameObjects[0]->getPosition();
 		auto t = TextureManager::GetInstance()->getTextureMap();
-		TextureManager::GetInstance()->Draw("bg", 0,0, t->find("bg")->second.second.w, t->find("bg")->second.second.h);
+		TextureManager::GetInstance()->DrawBackgroundPicture("bg", 0,0, t->find("bg")->second.second.w, t->find("bg")->second.second.h,0.4);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 
