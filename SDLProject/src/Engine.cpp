@@ -257,7 +257,11 @@ void Engine::Render()
 		SDL_RenderClear(Engine_Renderer);
 		auto ppos = Enigine_GameObjects[0]->getPosition();
 		auto t = TextureManager::GetInstance()->getTextureMap();
-		TextureManager::GetInstance()->DrawBackgroundPicture("bg", 0,0, t->find("bg")->second.second.w, t->find("bg")->second.second.h,0.4);
+		int x = (static_cast<int>(ppos->getX()) / t->find("bg")->second.second.w) * t->find("bg")->second.second.w;
+
+		//kb 55, legyen 60 x tile fel bele ha legjobban ki vagyunk zoomolva - az y pedig kb 40 tile
+
+		TextureManager::GetInstance()->DrawBackgroundPicture("bg", x, 0, t->find("bg")->second.second.w, t->find("bg")->second.second.h, 1);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 

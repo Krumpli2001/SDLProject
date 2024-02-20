@@ -226,8 +226,9 @@ void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int sr
 void TextureManager::DrawBackgroundPicture(std::string id, int x, int y, int srcw, int srch, double scrollRatio)
 {
 	SDL_Rect scrRect = { 0,0,srcw,srch };
-	Vector2D cam = Camera::GetInstance()->getPosition() * scrollRatio;
-	SDL_Rect dstRect = { static_cast<int>(x - cam.getX()), static_cast<int>(y - cam.getY()), srcw, srch };
+	Vector2D cam = Camera::GetInstance()->getPosition();
+	auto sx = cam.getX() * scrollRatio;
+	SDL_Rect dstRect = { static_cast<int>(x - sx), static_cast<int>(y-cam.getY()), srcw, srch};
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &scrRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
 }
 

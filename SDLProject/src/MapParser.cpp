@@ -171,8 +171,9 @@ bool MapParser::Load(std::string palyanev)
 
 void MapParser::Clean()
 {
-
-    MapParser_GameMap->Clean();
+    if (MapParser_GameMap) {
+        MapParser_GameMap->Clean();
+    }
     MapParser_GameMap = nullptr;
     MapParsed = false;
 }
