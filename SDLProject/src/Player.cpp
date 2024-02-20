@@ -97,7 +97,11 @@ void Player::Update(Uint64 dt)
 
 		//ez itt a blokk felvetel
 		auto egerX = UI::GetInstance()->getkepernyoX() / Engine::GetInstance()->getTileSize();
+		egerX = egerX < 0 ? 0 : egerX;
+		egerX = egerX > Engine::GetInstance()->getMap_W()/ Engine::GetInstance()->getTileSize() ? Engine::GetInstance()->getMap_W()/Engine::GetInstance()->getTileSize() : egerX;
 		auto egerY = UI::GetInstance()->getkepernyoY() / Engine::GetInstance()->getTileSize();
+		egerY = egerY < 0 ? 0 : egerY;
+		egerY = egerY > Engine::GetInstance()->getMap_H() / Engine::GetInstance()->getTileSize() ? Engine::GetInstance()->getMap_H() / Engine::GetInstance()->getTileSize() : egerY;
 		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
 		int tileID = (*colllayer)[egerY][egerX];
 		if (tileID != 0) {

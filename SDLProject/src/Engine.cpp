@@ -1,5 +1,4 @@
 #include <iostream>
-//#include <bitset>
 
 #include <SDL_image.h>
 
@@ -256,7 +255,9 @@ void Engine::Render()
 	if (!Engine_MenuShowing or mapIsLoaded) {
 		SDL_SetRenderDrawColor(Engine_Renderer, 255, 0, 247, 255);
 		SDL_RenderClear(Engine_Renderer);
-		TextureManager::GetInstance()->Draw("bg", 0, 0, 7200, 2400);
+		auto ppos = Enigine_GameObjects[0]->getPosition();
+		auto t = TextureManager::GetInstance()->getTextureMap();
+		TextureManager::GetInstance()->Draw("bg", 0,0, t->find("bg")->second.second.w, t->find("bg")->second.second.h);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 

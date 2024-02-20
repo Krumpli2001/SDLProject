@@ -166,7 +166,7 @@ bool TextureManager::ParseTextures(std::string source)
 	return true;
 }
 
-//stayonscreen = maradjon a kepernyon ugyan abban a pozicioban
+//stayonscreen = maradjon a kepernyon ugyan abban a pozicioban - szivecske hasznalja
 void TextureManager::Draw(std::string id, int x, int y, int w, int h, int srcx, int srcy, bool stayonscreen, SDL_RendererFlip flip, double ScrollRatio)
 {
 	SDL_Rect srcRect = { srcx, srcy, w, h };
