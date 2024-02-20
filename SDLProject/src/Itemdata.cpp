@@ -24,24 +24,6 @@ bool ItemData::ParseData(std::string src)
                 data = data->NextSiblingElement();
                 std::string TileName = data->GetText();
 
-                //std::string ItemType = data->GetText();
-
-                //if (ItemType == "Block") {
-                //    data = data->NextSiblingElement();
-                //    auto ItemID = std::stoi(data->GetText());
-
-                //    data = data->NextSiblingElement();
-                //    std::string Name = data->GetText();
-
-                //    data = data->NextSiblingElement();
-                //    auto TileID = std::stoi(data->GetText());
-
-                //    Block* item = new Block(ItemID, Name, TileID);
-                //    int_ItemData[ItemID] = item;
-                //    string_ItemData[Name] = item;
-                //    //int_TileData[TileID] = item;
-                //}
-
                 Item* item = new Tool(ID, TileName);
                 int_ItemData[ID] = item;
                 string_ItemData[TileName] = item;
@@ -63,6 +45,9 @@ bool ItemData::ParseData(std::string src)
                 data = data->NextSiblingElement();
                 std::string TileName = data->GetText();
 
+                //layer
+                data = data->NextSiblingElement();
+                std::string Layer = data->GetText();
 
                 //"atlatszo"
                 data = data->NextSiblingElement();
@@ -73,7 +58,7 @@ bool ItemData::ParseData(std::string src)
                 temp = data->GetText();
                 int mineTime = temp ? std::stoi(temp) : -1;
 
-                Tile* tile = new Tile(ID, TileName, isTransparent, mineTime);
+                Tile* tile = new Tile(ID, TileName, Layer, isTransparent, mineTime);
                 Item* item = new Block(ID, TileName);
 
                 int_ItemData[ID] = item;
@@ -82,8 +67,6 @@ bool ItemData::ParseData(std::string src)
                 int_TileData[ID] = tile;
                 string_TileData[TileName] = tile;
 
-                //int_TileData[ID] = tile;
-                //string_TileData[TileName] = tile;
             }
         }
     }

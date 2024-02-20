@@ -10,7 +10,6 @@ private:
 	ItemData() {}
 	std::map<int, Item*> int_ItemData;
 	std::map<std::string, Item*> string_ItemData;
-	//std::map<int, Item*> TIDData;
 
 	std::map<int, Tile*> int_TileData;
 	std::map<std::string, Tile*> string_TileData;
@@ -20,19 +19,18 @@ public:
 	ItemData(const ItemData&) = delete;
 	inline static ItemData* GetInstance()
 	{
-		static ItemData* ItemDataInstance;
-		if (ItemDataInstance == nullptr)
+		static ItemData* ItemData_Instance;
+		if (ItemData_Instance == nullptr)
 		{
-			ItemDataInstance = new ItemData();
+			ItemData_Instance = new ItemData();
 		}
-		return ItemDataInstance;
+		return ItemData_Instance;
 	}
 
 	bool ParseData(std::string src);
 	void ClearData();
 	inline Item* getItemByID(int id) { return int_ItemData.find(id)->second; }
 	inline Item* getItemByName(std::string name) { return string_ItemData.find(name)->second; }
-	//inline Item* getItemByTileID(int id) { return TIDData.find(id)->second; }
 
 	inline std::map<int, Tile*>* getTileDataByID() { return &int_TileData; }
 	inline std::map<std::string, Tile*>* getTileDataByName() { return &string_TileData; }

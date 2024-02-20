@@ -23,10 +23,10 @@ public:
 	}
 
 	inline void Clean() {
-		for (auto it = 0; it < GameMap_MapLayers.size(); it++) {
-			GameMap_MapLayers[it]->Clean();
-			delete GameMap_MapLayers[it];
-			GameMap_MapLayers[it] = nullptr;
+		for (auto i = 0; i < GameMap_MapLayers.size(); i++) {
+			GameMap_MapLayers[i]->Clean();
+			delete GameMap_MapLayers[i];
+			GameMap_MapLayers[i] = nullptr;
 		}
 		GameMap_MapLayers.clear();
 	}

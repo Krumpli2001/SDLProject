@@ -53,7 +53,7 @@ bool MapParser::Parse(std::string id, std::string source)
         }
     }
 
-    MapParser_MapDict[id] = gamemap;
+    MapParser_GameMap = gamemap;
     MapParsed = true;
     return true;
 
@@ -165,12 +165,8 @@ bool MapParser::Load(std::string palyanev)
 
 void MapParser::Clean()
 {
-    for (auto it = MapParser_MapDict.begin(); it != MapParser_MapDict.end(); it++)
-    {
-        it->second->Clean();
-        delete it->second;
-        it->second = nullptr;
-    }
-    MapParser_MapDict.clear();
+
+    MapParser_GameMap->Clean();
+    MapParser_GameMap = nullptr;
     MapParsed = false;
 }

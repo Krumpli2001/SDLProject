@@ -11,7 +11,7 @@ class MapParser
 private:
 	MapParser() {};
 	static MapParser* MapParser_Instance;
-	std::map<std::string, GameMap*> MapParser_MapDict;
+	GameMap* MapParser_GameMap;
 
 	bool MapParsed = false;
 
@@ -29,7 +29,7 @@ public:
 		return MapParser_Instance;
 	}
 
-	inline GameMap* getMap(std::string id) { return MapParser_MapDict[id]; }
+	inline GameMap* getMap(std::string id) { return MapParser_GameMap; }
 
 	bool Load(std::string palyanev);
 	void Clean();
