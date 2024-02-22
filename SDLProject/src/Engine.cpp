@@ -245,7 +245,7 @@ void Engine::Render()
 		SDL_SetRenderDrawColor(Engine_Renderer, 255, 0, 247, 255);
 		SDL_RenderClear(Engine_Renderer);
 		
-		drawBG("bg", 0);
+		drawBG("bg", 2000);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 
@@ -267,7 +267,7 @@ void Engine::Render()
 
 void Engine::drawBG(std::string id, int y)
 {
-	auto scroll = 0.1;
+	auto scroll = 0.6;
 	auto ppos = Enigine_GameObjects[0]->getPosition();
 	auto t = TextureManager::GetInstance()->getTextureMap();
 	auto dim = t->find(id)->second.second;
