@@ -11,7 +11,6 @@
 #include "TextureManager.hpp"
 #include "UI.hpp"
 #include "mappgen.hpp"
-
 #include "Options.hpp"
 
 Engine* Engine::Engine_Instance = nullptr;
@@ -59,16 +58,6 @@ bool Engine::Init()
 	Menu::GetInstance()->MenuInit();
 
 	ItemData::GetInstance()->ParseData("assets/itemdata.xml");
-
-	//map betoltese
-	//if (!MapParser::GetInstance()->Load("map"))
-	//{
-	//	std::cout << "failed to load map\n";
-	//}
-
-	////itt a map
-	//Engine_LevelMap = MapParser::GetInstance()->getMap("MAP");
-	//std::cout<<TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.h;
 
 	//lehet hogy ezt lehetne unique_ptr-el - illetve nem itt kene lennie
 	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 0, 0, 0.0, 0.0));
@@ -256,7 +245,7 @@ void Engine::Render()
 		SDL_SetRenderDrawColor(Engine_Renderer, 255, 0, 247, 255);
 		SDL_RenderClear(Engine_Renderer);
 		
-		drawBG("bg", 2000);
+		drawBG("bg", 0);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 
@@ -278,21 +267,34 @@ void Engine::Render()
 
 void Engine::drawBG(std::string id, int y)
 {
+	auto scroll = 0.1;
 	auto ppos = Enigine_GameObjects[0]->getPosition();
 	auto t = TextureManager::GetInstance()->getTextureMap();
 	auto dim = t->find(id)->second.second;
-	int x = (static_cast<int>(ppos->getX()) / dim.w) * dim.w;
-	int x2 = x - t->find(id)->second.second.w;
-	int x3 = x + t->find(id)->second.second.w;
-	auto scroll = 1;
-	//int y = 1000;
+	Vector2D cam = Camera::GetInstance()->getPosition();
 
+	int x1 = (static_cast<int>(ppos->getX()) / dim.w) * static_cast<int>(dim.w) - t->find(id)->second.second.w;
+	int x2 = x1 + t->find(id)->second.second.w;
+	int x3 = x2 + t->find(id)->second.second.w;
+	int kuka;
+
+	int x = 0;
+	int meg = (Map_W/dim.w)+1;
+	int alkalom = 0;
+
+	while (alkalom<meg) {
+		TextureManager::GetInstance()->DrawBackgroundPicture(id, x, y, dim.w, dim.h, scroll, kuka);
+		x += dim.w;
+		alkalom++;
+	}
+	std::cout << meg << "\n";
 	//kb 55, legyen 60 x tile fel bele ha legjobban ki vagyunk zoomolva - az y pedig kb 40 tile
+	//TextureManager::GetInstance()->DrawBackgroundPicture(id, x1, y, dim.w, dim.h, scroll, kuka);
+	//TextureManager::GetInstance()->DrawBackgroundPicture(id, x2, y, dim.w, dim.h, scroll, kuka);
+	//TextureManager::GetInstance()->DrawBackgroundPicture(id, x3, y, dim.w, dim.h, scroll, kuka);
 
-	TextureManager::GetInstance()->DrawBackgroundPicture(id, x, y, dim.w, dim.h, scroll);
-	TextureManager::GetInstance()->DrawBackgroundPicture(id, x2, y, dim.w, dim.h, scroll);
-	TextureManager::GetInstance()->DrawBackgroundPicture(id, x3, y, dim.w, dim.h, scroll);
-
+	//std::cout << x1 << "\t" << x2 << "\t" << x3 << "\t"<<ppos->getX()<<"\n";
+	//std::cout << "\n";
 }
 
 void Engine::Events()

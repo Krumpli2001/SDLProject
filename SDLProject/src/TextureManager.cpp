@@ -223,13 +223,15 @@ void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int sr
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
 }
 
-void TextureManager::DrawBackgroundPicture(std::string id, int x, int y, int srcw, int srch, double scrollRatio)
+void TextureManager::DrawBackgroundPicture(std::string id, int x, int y, int srcw, int srch, double scrollRatio, int &rew)
 {
 	SDL_Rect scrRect = { 0,0,srcw,srch };
 	Vector2D cam = Camera::GetInstance()->getPosition();
-	auto sx = cam.getX() * scrollRatio;
+	auto sx = (cam.getX() * scrollRatio);
 	SDL_Rect dstRect = { static_cast<int>(x - sx), static_cast<int>(y-cam.getY()), srcw, srch};
 	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &scrRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
+	rew = dstRect.w;
+	//std::cout << dstRect.x + dstRect.w << "\t";
 }
 
 void TextureManager::Drop(std::string id)

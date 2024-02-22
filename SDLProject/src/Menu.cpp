@@ -104,6 +104,7 @@ void Menu::Update()
 					enter = false;
 					Engine::GetInstance()->map_save();
 					(*Engine::GetInstance()->getGameObjects())[0]->saveInventory();
+					Engine::GetInstance()->setMenuShowing(false);
 					cc = 0;
 				}
 			}

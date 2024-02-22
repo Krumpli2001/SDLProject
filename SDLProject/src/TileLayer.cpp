@@ -9,10 +9,10 @@ TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::
 void TileLayer::Render(int x, int y)
 {
 
-	int bal = x - 100 < 0 ? 0 : x - 100;
-	int jobb = x + 100 > TileLayer_ColCount ? TileLayer_ColCount : x + 100;
-	int fel = y - 75 < 0 ? 0 : y - 75;
-	int le = y + 75 > TileLayer_RowCount ? TileLayer_RowCount : y + 75;
+	int bal = x - 40 < 0 ? 0 : x - 40;
+	int jobb = x + 40 > TileLayer_ColCount ? TileLayer_ColCount : x + 40;
+	int fel = y - 30 < 0 ? 0 : y - 30;
+	int le = y + 30 > TileLayer_RowCount ? TileLayer_RowCount : y + 30;
 
 	for (int i = fel; i < le; i++)
 	{
