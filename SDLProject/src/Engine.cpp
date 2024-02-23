@@ -245,7 +245,7 @@ void Engine::Render()
 		SDL_SetRenderDrawColor(Engine_Renderer, 255, 0, 247, 255);
 		SDL_RenderClear(Engine_Renderer);
 		
-		drawBG("bg", 2000);
+		drawBG("bg", 0);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 
@@ -279,7 +279,7 @@ void Engine::drawBG(std::string id, int y)
 	int kuka;
 
 	int x = 0;
-	int meg = (Map_W/dim.w)+1;
+	int meg = static_cast<int>( ceil( static_cast<double>(Map_W) / static_cast<double>(dim.w) * scroll)) + 1;
 	int alkalom = 0;
 
 	while (alkalom<meg) {
