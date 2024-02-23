@@ -14,6 +14,6 @@ public:
 	virtual int getColCount() = 0;
 	virtual std::vector<std::vector<int>>* getTileMap() = 0;
 
-	virtual std::vector<Tileset>* getTilesetVector() = 0;
+	//virtual std::vector<Tileset>* getTilesetVector() = 0;
 
 };

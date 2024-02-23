@@ -40,7 +40,7 @@ bool MapParser::Parse(std::string id, std::string source)
         if (e->Value() == std::string("layer"))
         {
             TileLayer* tilelayer = ParseTileLayer(e, &tilesets, tilesize, rowcount, colcount);
-            gamemap->GameMap_MapLayers.push_back(tilelayer);
+            gamemap->getMapLayers()->push_back(tilelayer);
         }
 
         if (e->Value() == std::string("layer")) {

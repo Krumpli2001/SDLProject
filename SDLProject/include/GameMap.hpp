@@ -6,7 +6,7 @@
 
 class GameMap {
 private:
-	friend class MapParser;
+	//friend class MapParser;
 	std::vector<Layer*> GameMap_MapLayers;
 
 public:

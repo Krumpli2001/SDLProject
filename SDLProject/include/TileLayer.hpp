@@ -35,6 +35,6 @@ public:
 	inline int getRowCount() { return TileLayer_RowCount; }
 	inline int getColCount() { return TileLayer_ColCount; }
 
-	virtual inline std::vector<Tileset>* getTilesetVector() { return &TileLayer_TileSets; }
+	//virtual inline std::vector<Tileset>* getTilesetVector() { return &TileLayer_TileSets; }
 
 };

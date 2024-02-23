@@ -245,7 +245,7 @@ void Engine::Render()
 		SDL_SetRenderDrawColor(Engine_Renderer, 255, 0, 247, 255);
 		SDL_RenderClear(Engine_Renderer);
 		
-		drawBG("bg", 0);
+		drawBG("bg", 2000);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 
@@ -267,34 +267,20 @@ void Engine::Render()
 
 void Engine::drawBG(std::string id, int y)
 {
-	auto scroll = 0.1;
-	auto ppos = Enigine_GameObjects[0]->getPosition();
+	auto scroll = 0.6;
 	auto t = TextureManager::GetInstance()->getTextureMap();
 	auto dim = t->find(id)->second.second;
-	Vector2D cam = Camera::GetInstance()->getPosition();
 
-	/*int x1 = (static_cast<int>(ppos->getX()) / dim.w) * static_cast<int>(dim.w) - t->find(id)->second.second.w;
-	int x2 = x1 + t->find(id)->second.second.w;
-	int x3 = x2 + t->find(id)->second.second.w;*/
-	int kuka;
 
 	int x = 0;
-	int meg = static_cast<int>( ceil( static_cast<double>(Map_W) / static_cast<double>(dim.w) * scroll)) + 1;
+	int meg = static_cast<int>(ceil(static_cast<double>(Map_W) / static_cast<double>(dim.w) * scroll)) + 1;
 	int alkalom = 0;
 
 	while (alkalom<meg) {
-		TextureManager::GetInstance()->DrawBackgroundPicture(id, x, y, dim.w, dim.h, scroll, kuka);
+		TextureManager::GetInstance()->DrawBackgroundPicture(id, x, y, dim.w, dim.h, scroll);
 		x += dim.w;
 		alkalom++;
 	}
-	//std::cout << meg << "\n";
-	//kb 55, legyen 60 x tile fel bele ha legjobban ki vagyunk zoomolva - az y pedig kb 40 tile
-	//TextureManager::GetInstance()->DrawBackgroundPicture(id, x1, y, dim.w, dim.h, scroll, kuka);
-	//TextureManager::GetInstance()->DrawBackgroundPicture(id, x2, y, dim.w, dim.h, scroll, kuka);
-	//TextureManager::GetInstance()->DrawBackgroundPicture(id, x3, y, dim.w, dim.h, scroll, kuka);
-
-	//std::cout << x1 << "\t" << x2 << "\t" << x3 << "\t"<<ppos->getX()<<"\n";
-	//std::cout << "\n";
 }
 
 void Engine::Events()
