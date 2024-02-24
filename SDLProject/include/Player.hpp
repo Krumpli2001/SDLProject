@@ -78,4 +78,5 @@ public:
 
 	void saveInventory();
 	void readInventory();
+	virtual void setTarget(int X, int Y) { return; }
 };

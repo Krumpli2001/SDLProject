@@ -9,6 +9,10 @@ void Skeleton::AnimationState() {
 
 void Skeleton::move(Uint64 dt)
 {
+	if (Enemy_dimenziok.w == 0 and Enemy_dimenziok.h == 0) {
+		Enemy_dimenziok = TextureManager::GetInstance()->getTextureMap()->find("skeleton_idle")->second.second;
+	}
+
 	if (!isAiming) {
 		//fut jobbra
 		if (Enemy_TargetPosX - 100 > GameObject_Transform->getX())
@@ -55,7 +59,7 @@ void Skeleton::attacking(Uint64 dt)
 		isAiming = true;
 		if (Enemy_AttackTimer == 3000) {
 			Enemy_AttackTimer -= dt;
-			Engine::GetInstance()->spawnSpecial("ARROW", GameObject_Transform->getX(), GameObject_Transform->getY() + 50, 1, 10);
+			Engine::GetInstance()->spawnSpecial("ARROW", GameObject_Transform->getX() + Enemy_dimenziok.w / 2, GameObject_Transform->getY() + Enemy_dimenziok.h / 2, 1, 10);
 		}
 	}
 	else {

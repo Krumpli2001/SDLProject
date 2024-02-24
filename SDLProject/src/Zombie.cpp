@@ -8,6 +8,10 @@ void Zombie::AnimationState() {
 
 void Zombie::move(Uint64 dt)
 {
+
+	if (Enemy_dimenziok.w == 0 and Enemy_dimenziok.h == 0) {
+		Enemy_dimenziok = TextureManager::GetInstance()->getTextureMap()->find("zombie_idle")->second.second;
+	}
 	//fut jobbra
 	if (Enemy_TargetPosX - 100 > GameObject_Transform->getX())
 	{

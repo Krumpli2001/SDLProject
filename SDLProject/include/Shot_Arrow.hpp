@@ -22,14 +22,14 @@ private:
 	int irany = 0;
 
 public:
-	inline Shot_Arrow(Properties* props, int TX = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getX()+190/2, int TY = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getY()+240/2) : GameObject(props) {
+	inline Shot_Arrow(Properties* props) : GameObject(props) {
 		GameObject_hp = props->Properies_hp;
 		Arrow_RigidBody = new RigidBody();
 		Arrow_RigidBody->setRigidBody_Gravity(GRAVITY);
 		Arrow_Collider = new Collider();
 		Arrow_SpriteAnimation = new SpriteAnimation();
-		TargetPosX = TX;
-		TargetPosY = TY;
+		TargetPosX = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getX() + (*Engine::GetInstance()->getGameObjects())[0]->getCollider()->getBox()->w / 2;
+		TargetPosY = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getY() + (*Engine::GetInstance()->getGameObjects())[0]->getCollider()->getBox()->h / 2;;
 		Arrow_SpriteAnimation->SetProps("shot_arrow", 0, 1, 1);
 	}
 
@@ -52,5 +52,7 @@ public:
 
 	virtual void saveInventory() { return; }
 	virtual void readInventory() { return; }
+
+	void setTarget(int X, int Y) { TargetPosX = X; TargetPosY = Y; }
 
 };

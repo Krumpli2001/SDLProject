@@ -27,6 +27,8 @@ protected:
 	bool Enemy_IsFalling = false;
 	double Enemy_JumpTime{};
 
+	dimenziok Enemy_dimenziok{ 0,0 };
+
 public:
 	Enemy(Properties* props);
 
@@ -52,6 +54,8 @@ public:
 	inline int getSelectedInventory() { return 0; }
 	void saveInventory() { return; }
 	void readInventory() { return; }
+	virtual void setTarget(int X, int Y) { return; }
+
 };
 
 class Zombie : public Enemy{
