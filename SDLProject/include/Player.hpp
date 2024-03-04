@@ -47,36 +47,70 @@ private:
 
 	dimenziok Player_Dimenziok{ 0,0 };
 
+	//animáció állapotának meghatározása
 	void AnimationState();
 public:
 
 	Player(Properties* props);
 
+	//visszaadja a player merevtestét
 	inline RigidBody* getPlayerBody() { return Player_RigidBody; }
+
+	//beállítja, hogy a player víz (vagy egyéb) folyadékban vagy hasonló blokkban van-e
 	inline void setUnderWater(bool e) { Player_IsUnderWater = e; }
+
+	//visszadja a player collidert
 	virtual inline Collider* getCollider() { return Player_Collider; }
 
-	virtual inline void setAttacking(bool e) {}; // csak enemy hasznalja
-	virtual inline void attacking(Uint64 dt) {}; // et is
 
+	virtual inline void setAttacking(bool e) {}; // csak enemy hasznalja
+	virtual inline void attacking(Uint64 dt) {}; // ezt is
+
+	//kiír
 	virtual void Draw();
+
+	//frissít
 	virtual void Update(Uint64 dt);
+
+	//töröl felszabadít
 	virtual void Clean();
+
+	//reset
 	virtual void reset();
+
+	//playerre ható gravitáció beállítása
 	virtual inline void setGravity(double G) { Player_RigidBody->setRigidBody_Gravity(G); }
 
+	//
 	virtual inline double getAttacktime() { return Player_AttackTime; }
+
+	//visszaadja az ütés ereét
 	virtual inline int getAttackPower() { return Player_AttackPower; }
+
+	//beállítja az ütés ereét
 	virtual inline void setAttackPower(int power) { Player_AttackPower = power; }
 
-	virtual inline bool isAttacking() { return Player_IsAttacking; }
+	//visszaadja, hogy a player támad-e
+	virtual inline bool getAttacking() { return Player_IsAttacking; }
+
+	//visszaadja a playerre ható gravitációt
 	inline double getPGravity() { return Player_RigidBody->getGravity(); }
 
 	//wow lehet ilyet is - ez rettenet buta lmao
+
+	//visszaadja a player inventory-t
 	inline void* getInventory() override { return &Player_Inventory; }
+
+	//visszadja a kiválasztott inventory slotot
 	inline int getSelectedInventory() { return selectedInventory; }
 
+
+	//inventory mentése fájlba
 	void saveInventory();
+
+	//inventory beolvasása fájlból
 	void readInventory();
+
+	//itt nincs jelentõsége
 	virtual void setTarget(int X, int Y) { return; }
 };

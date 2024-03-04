@@ -47,19 +47,76 @@ public:
 		return UI_Instance;
 	}
 
+	/// <summary>
+	/// inicializálás
+	/// </summary>
 	void UIInit();
+
+	/// <summary>
+	/// frissítés
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// kirajzolás
+	/// </summary>
 	void Draw();
-	void TextureReset();
-	void Clean();
+
+
+	/*void TextureReset();
+	void Clean();*/
+
+	/// <summary>
+	/// beállítja hogy kirajzoljuk-e az fps-t
+	/// </summary>
+	/// <param name="e">true/false</param>
 	inline void setFpsShowing(bool e) { FpsShowing = e; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>mutatjuk-e az fps-t</returns>
 	inline bool getFpsShowing() { return FpsShowing; }
+
+	/// <summary>
+	/// ki van-e nyitva az inventory
+	/// </summary>
+	/// <param name="e">true/false</param>
 	inline void setInventoryShowing(bool e) { showInventory = e; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>mutatva van-e az egész inventory</returns>
 	inline bool getInventoryShowing() { return showInventory; }
+
+	/// <summary>
+	/// beállítja a collision vektort
+	/// </summary>
+	/// <param name="i">a megfelelõ vektor indexe</param>
 	inline void setCollisionLayer(int i) { collisionLayer = i; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>az egér X pozíciója a map szempontjából</returns>
 	inline int getkepernyoX() { return kepernyoX; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>az egér X pozíciója a map szempontjából</returns>
 	inline int getkepernyoY() { return kepernyoY; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>a kijelölt blokk nényzete</returns>
 	inline SDL_Rect* getHLRp() { return &highlightUI; }
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>az "egérnél" levõ item adatai</returns>
 	inline std::pair<Item*, int>* getTransfer() { return &transfer; }
 };

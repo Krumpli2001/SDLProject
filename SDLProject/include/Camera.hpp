@@ -40,10 +40,18 @@ public:
 		return Camera_Instance;
 	}
 
+	//visszaadja a kamera "téglalapját" a pályához viszonyítva
+	//tehát az x, y koordináta a pályán levõ koordinátákat jelképezik
+	//a w és h pedig a kamera méretét
 	inline SDL_Rect* getCamera_ViewBox() { return &Camera_ViewBox; }
+
+	//csak a kamera viewbox x, y koordinátáit adja vissza
 	inline Vector2D getPosition() { return Camera_Position; }
+
+	//beállítja, hogy a kamera mit kövessen (általában ez egy gameObj)
 	inline void setTarget(Point* target) { Camera_Target = target; }
 
+	//kamera adatainak frissülése (minden frame-ben)
 	void Update();
 
 };

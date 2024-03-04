@@ -19,11 +19,17 @@ private:
 public:
 
 	SpriteAnimation(bool repeat = false);
+
+	//visszaadja, hogy az adott animáció hány frame-bõl áll
 	inline int getFrameCount() { return SpriteAnimation_FrameCount; }
 
-
+	//frissítés
 	virtual void Update(Uint64 dt);
+
+	//kiírás
 	void Draw(double x, double y, int spriteW, int spriteH, SDL_RendererFlip flip, double angle = 0, double scale = 1, int flipX = 0, int flipY = 0);
+
+	//adatok beállításai - lényegében mini constructor
 	void SetProps(std::string textureID, int spriteRow, int frameCount, int aniSpeed , bool startFrame = false);
 
 };

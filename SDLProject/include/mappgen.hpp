@@ -13,7 +13,7 @@
 
 namespace mappgen {
 
-	//ez jo
+	//matrixok kiirása fájlba
 	inline void fajlba_matrix(std::ofstream& file, std::vector<std::vector<int>> f, int width, int height) {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
@@ -24,6 +24,7 @@ namespace mappgen {
 		}
 	}
 
+	//forground generálása
 	inline void genForeground(std::vector<std::vector<int>>* foreground, int width, int height) {
 		auto data = ItemData::GetInstance();
 		auto rand = RNG::GetInstance();
@@ -80,6 +81,7 @@ namespace mappgen {
 		}
 	}
 
+	//background generálása
 	inline void genBackground(std::vector<std::vector<int>>* background, std::vector<std::vector<int>>* foreground, int width, int height) {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
@@ -88,6 +90,7 @@ namespace mappgen {
 		}
 	}
 
+	//flora layer generálása
 	inline void genFlora(std::vector<std::vector<int>>* flora, std::vector<std::vector<int>>* foreground, int width, int height) {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
@@ -97,7 +100,7 @@ namespace mappgen {
 	}
 
 
-	//tesztnek
+	//tesztnek, mátrix kiirása konzolra
 	inline void printMatrix(int** y, int width, int height) {
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
@@ -108,7 +111,7 @@ namespace mappgen {
 		std::cout << "\n";
 	}
 
-	//ez lesz a mentesre is
+	//megfelelõ formátum + fájlba kiirás
 	inline void szoveg(std::string fajlnev, int width, int height, std::vector<std::vector<int>>* flora, std::vector<std::vector<int>>* background, std::vector<std::vector<int>>* foreground) {
 		std::ofstream f("saves/" + fajlnev + ".tmx");
 		if (f.is_open()) {//ahol nagyreszt szamok vannak ott lehet oket kicserelni valtozokra
@@ -153,6 +156,7 @@ namespace mappgen {
 		}
 	}
 
+	//generálás
 	inline bool gen(std::string fajlnev, int width, int height) {
 
 

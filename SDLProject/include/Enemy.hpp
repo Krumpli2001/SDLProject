@@ -29,31 +29,71 @@ protected:
 
 	dimenziok Enemy_dimenziok{ 0,0 };
 
+	//enemy mozgása
+	virtual void move(Uint64 dt) = 0;
+
 public:
 	Enemy(Properties* props);
 
+	//frissíti az adott enemy állapotát
+	//dtparaméter  = eltelt idõ az elõzõ frame óta (delta time)
 	virtual void Update(Uint64 dt);
+
+	//kirajzolja az adott enemy-t a képernyõre
 	virtual void Draw();
+
+	//törli/felszabadítja az adott enemy-t
 	virtual void Clean();
+
+	//reseteli az adott enemy-t (jelenleg despawnolja õket)
 	virtual void reset();
-	virtual void attacking(Uint64 dt) = 0;
-	virtual inline void setGravity(double G) { Enemy_RigidBody->setRigidBody_Gravity(G); } 
+
+	//adott enemy támadása
+	//virtual void attacking(Uint64 dt) = 0;
+
+	//beállítja az adott enemy-re ható gravitációt
+	virtual inline void setGravity(double G) { Enemy_RigidBody->setRigidBody_Gravity(G); }
+
+	//visszaadja az enemy collider boxot
 	virtual inline Collider* getCollider() { return Enemy_Collider; }
-	virtual inline bool isAttacking() { return Enemy_IsAttacking; }
+
+	//visstaadja, hogy az adott enemy éppen támad-e
+	virtual inline bool getAttacking() { return Enemy_IsAttacking; }
+
+	//beállítja a támadás állapotát
 	virtual inline void setAttacking(bool e) { Enemy_IsAttacking = e; }
+
+	//visszaadja az adott enemy lehetséges támadási intervallumát pl. 3 másodpercenként támad akkor 3000
 	virtual inline double getAttacktime() { return Enemy_AttackTimer; }
+
+	//visszaadja a támadás ereét
 	virtual inline int getAttackPower() { return 0; }
+
+	//beállítja a megfelelõ animációt
 	virtual void AnimationState() = 0;
-	virtual void move(Uint64 dt) = 0;
+
+	//beállítja a támadás ereét
 	virtual inline void setAttackPower(int power) { Enemy_AttackPower = power; }
 
+	//enemy collisionért felelõ fv.
 	virtual inline void Enemy_Collision(Uint64 dt);
 
+	//visstaadja a játékos pozícióját
 	void getPlayerPosition();
+
+	//visszaadja az inventoryt (azaz semmi)
 	inline void* getInventory() override { return nullptr; }
+
+	//visszaadja a kivalasztott inventory slotot (azaz semmit) 
 	inline int getSelectedInventory() { return 0; }
+
+	//--
 	void saveInventory() { return; }
+
+	//--
 	void readInventory() { return; }
+
+	//beállítja az enemy célpontját
 	virtual void setTarget(int X, int Y) { return; }
 
 };
@@ -67,10 +107,20 @@ public:
 		Enemy_AttackPower = 10;
 		Enemy_AttackTimer = 1000;
 	};
+
+	//beállítja a megfelelõ animációt
 	virtual void AnimationState();
+
+	//mozgásért felelõs fv
 	virtual void move(Uint64 dt);
+
+	//támadásért felelõs fv
 	virtual void attacking(Uint64 dt);
+
+	//visszaadja a támadás ereét
 	inline int getAttackPower() { return Enemy_AttackPower; }
+
+	//visszaadja a támadás idõzítését
 	inline double getAttackTimer() { return Enemy_AttackTimer; }
 };
 
@@ -81,7 +131,13 @@ public:
 	Skeleton(Properties* props) : Enemy(props) {
 		Enemy_AttackTimer = 3000;
 	};
+
+	//beállítja a megfelelõ animációt
 	virtual void AnimationState();
+
+	//mozgásért felelõs fv
 	virtual void move(Uint64 dt);
+
+	//támadásért felelõs fv
 	virtual void attacking(Uint64 dt);
 };

@@ -23,9 +23,12 @@ public:
 		return FPS_Instance;
 	}
 
-	void Update();
+	//void Update();
+
+	//fps szám kiírása
 	void Draw();
-	void Clean();
+
+	//void Clean();
 };
 
 //////////////////////////////THIS IS KINDA DEPRECATED//////////////////////////////

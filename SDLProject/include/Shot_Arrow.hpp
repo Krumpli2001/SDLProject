@@ -21,6 +21,8 @@ private:
 	//bal=-1 jobb=1
 	int irany = 0;
 
+	int attackPower = 10;
+
 public:
 	inline Shot_Arrow(Properties* props) : GameObject(props) {
 		GameObject_hp = props->Properies_hp;
@@ -33,26 +35,55 @@ public:
 		Arrow_SpriteAnimation->SetProps("shot_arrow", 0, 1, 1);
 	}
 
+	//támadás
 	virtual void attacking(Uint64 dt);
+
+	//
 	virtual void setAttacking(bool e) {}
-	virtual bool isAttacking() { return true; }
+
+	//
+	virtual bool getAttacking() { return true; }
+
+	//visszaadja a collidert
 	virtual Collider* getCollider() { return Arrow_Collider; }
+
+	// frissítés
 	void Update(Uint64 dt);
 
+	//kiírás
 	void Draw();
+
+	//törlás/felszabadítás
 	void Clean();
+
+	//reset
 	void reset();
 
+	//beállítja a gravitációt
 	virtual void setGravity(double G) {}
+
+	//
 	virtual double getAttacktime() { return 0; }
-	int getAttackPower() { return 10; }
-	virtual void setAttackPower(int power) {}
+
+	//visszaadja a nyíl sebzését
+	int getAttackPower() { return attackPower; }
+
+	//beáállítja a sebzést
+	virtual void setAttackPower(int power) { power = attackPower; }
+
+	//
 	inline void* getInventory() override { return nullptr; }
+
+	//
 	inline int getSelectedInventory() { return 0; }
 
+	//
 	virtual void saveInventory() { return; }
+
+	//
 	virtual void readInventory() { return; }
 
+	//beállítja a célpontot
 	void setTarget(int X, int Y) { TargetPosX = X; TargetPosY = Y; }
 
 };

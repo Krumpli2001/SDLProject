@@ -12,12 +12,19 @@ private:
 	const Uint8* Input_KeyStates;
 	Uint32 Input_ClickStates{};
 	SDL_Event event{};
-	int Scroll = 0;
-	int prevScroll = 0;
+	int Scroll{};
+	int prevScroll{};
 	
+	//billentyû fel
 	void KeyUp();
+
+	//billentyû le
 	void KeyDown();
+
+	//egér klikk fel
 	void ClickUp();
+
+	//egér klikk le
 	void ClickDown();
 
 public:
@@ -30,12 +37,25 @@ public:
 		return Input_Instance;
 	}
 
+	//hallgatás
 	void Listen();
+
+	//adott billentyû le van - e nyomva
 	bool getKeyDown(SDL_Scancode key);
+
+	//egér klikk állapota
 	Uint32 getClickDown();
+
+	//irány visszatérítése
 	int getAxisKey(Axis axis);
+
+	//minden más gomb ami nem irányítással kapcsolatos
 	int getElse();
+
+	//az egyéb gombok kezelése
 	void interpret(int kod);
+
+	//egér görgõ kezelése
 	int getScroll();
 };
 

@@ -18,6 +18,8 @@ protected:
 	int ItemID;
 	std::string name;
 public:
+
+	//item ID visszatérítése
 	inline int getItemID() { return ItemID; }
 	//virtual int getTileID() = 0;
 };
@@ -27,6 +29,8 @@ class Tool : public Item
 {
 public:
 	Tool(int ID, std::string name) : Item(ID, name) {}
+
+	//nothing
 	int getTileID() { return -1; }
 };
 

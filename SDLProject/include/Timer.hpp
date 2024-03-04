@@ -32,13 +32,45 @@ public:
 		return Timer_Instance;
 	}
 
+	/// <summary>
+	/// a program indítása után eltelt ms
+	/// </summary>
 	void getTick();
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>a kettõ egymást követõ frame közötti eltelt idõ ms-ben</returns>
 	inline Uint64 getTimer_DeltaTime() { return Timer_DeltaTime; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>az egy másodperc alatti frissülések/arjzolások száma</returns>
 	inline int getFPS() { return fps; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>fps korlátozás aktivitás</returns>
 	inline bool getFPSLock() { return fpslock; }
+
+	/// <summary>
+	/// fps lock beállítása
+	/// </summary>
+	/// <param name="e">true/false</param>
 	inline void setFPSLock(bool e) { fpslock = e; }
 
+	/// <summary>
+	/// menü aktivitása
+	/// </summary>
+	/// <param name="e">true/false</param>
 	inline void setmenu(bool e) { menu = e; }
 
+	/// <summary>
+	/// megmondja, hogy mikor dolgozhatõ fel a bejövõ mnk event
+	/// </summary>
+	/// <param name="time">idõ a gomb nyomás után</param>
+	/// <returns>lenyomható e a gomb</returns>
 	bool pressable(Uint64 time);
 };

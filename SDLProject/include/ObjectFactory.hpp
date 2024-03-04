@@ -15,7 +15,11 @@ private:
 	std::map<std::string, std::function<GameObject* (Properties* props)>> ObjectFactory_TypeRegistry;
 
 public:
+
+	//gameObj létrehozása
 	GameObject* CreateObject(std::string type, Properties* props);
+
+	//adott gameObj regisztrálása (inicializálásban)
 	void RegiseterType(std::string className, std::function<GameObject* (Properties* props)> type);
 
 	static inline ObjectFactory* GetInstance()
@@ -32,6 +36,8 @@ template < class Type >
 class Registrar
 {
 public:
+
+	//regisztrálás
 	Registrar(std::string className)
 	{
 		//https://stackoverflow.com/questions/20353210/what-is-the-purpose-of-stdfunction-and-how-do-i-use-it

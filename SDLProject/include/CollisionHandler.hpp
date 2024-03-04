@@ -34,10 +34,21 @@ public:
 
 	//checkolja 2 entity kozotti atfedest
 	bool CheckCollision(SDL_Rect a, SDL_Rect b);
-	//checkolja hogy egy enteti erintkezik e a mappal
+
+	//checkolja hogy egy entety érintkezik-e a pályával
 	bool MapCollision(GameObject* g, bool* grounded = nullptr);
+
+	//viszsaad egy pointert ami a collision layer-re mutat (std::vector<std::vector<int>>*)
+	//tehát az egész pályának a tile adatait tartalmazza
 	inline std::vector<std::vector<int>>* getCollisionTileMap() { return CollisionHandler_CollitionTileMap; }
+
+	//visstaadja hogy a pályán mekkora egy négyzet
 	inline int getTileSize() { return tileSize; }
+
+	//visstaadja a collision tilelayert, ebbe beletartozik a palya matrixa (amit a getCollisionTileMap() ad vissza)
+	//de emellett még tartalmazza a pálya méreteit is
 	inline TileLayer* getCollisionLayer() { return CollisionHandler_CollisionLayer; }
+
+	//reseteli a collision layert valtozás esetén, pl. új pálya betöltése esetén
 	void reset();
 };

@@ -9,7 +9,6 @@
 
 class Menu;
 
-//recolouring sdl2 textures - stack overflow, vagy lazy foo color modulation
 struct rublika {
 
 	int x, y, w, h;
@@ -22,6 +21,7 @@ struct rublika {
 		rublika::x = x; rublika::y = y; rublika::w = w; rublika::h = h; szoveg = sz;
 	}
 
+	//az adott téglalap áthelyezése
 	inline void setRectLocation(int x, int y) { rublika::x = x; rublika::y = y; }
 };
 
@@ -68,22 +68,38 @@ public:
 		return Menu_Instance;
 	}
 
+	//inicializálás
 	void MenuInit();
+
+	//frissítés
 	void Update();
+
+	//kiírás
 	void Draw();
+
+	//törlés/felszabadítás
 	void Clean();
+
+	//reset
 	void Reset();
 
-	
+	//az aktív gomb kiválasztásának kijelölése
 	void setHighlighted(int i);
+
+	//enter gomb beállítása (highlight miatt)
 	inline void setEnter(bool e) { enter = e; }
+
+	//main menu beállítása
 	inline void setMain(bool e) { 
 		if (e) { submenu = sub::Main; }
 	}
+
+	//game over menu beállítása
 	inline void setGameOver(bool e) { 
 		if (e) { submenu = sub::GameOver; }
 	}
 
+	//index állítása
 	inline void getIndex(const char* str, int* index) {
 		int i = 0;
 		for (i; i < rublikak.size(); i++) {
@@ -94,6 +110,7 @@ public:
 		}
 	}
 
+	//rublika kiválasztása (akár gombokkal akár egérrel)
 	inline bool melyik(const char* str, int* index) {
 		getIndex(str, index);
 		auto scale = Engine::GetInstance()->getScale();
@@ -116,7 +133,7 @@ public:
 		highLighted = index;
 	}
 
-	//ellenorzes miatt van itt
+	//ellenorzes miatt van itt - konzolra
 	inline void print_map(const std::unordered_map<std::string, SDL_Color>& m)
 	{
 		for (const auto& value : m) {
@@ -128,5 +145,6 @@ public:
 		std::cout<<std::endl;
 	}
 
+	//visszaadja az aktív pálya nevét
 	inline std::string* getMapName() { return &loaded_map_name; }
 };

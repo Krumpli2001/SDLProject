@@ -57,35 +57,75 @@ public:
 		GameObject_Origin = new Point(props->Properties_X + props->Properties_Width / 2, props->Properties_Y + props->Properties_Height / 2);
 	}
 
+	//visszaadja az adott gameObj középpontját
 	inline Point* getOrigin() { return GameObject_Origin; }
+
+	//visszaadja az adott gameObj koordinátáit
 	inline Transform* getPosition() { return GameObject_Transform; }
-	inline void setPosition(double x, double y)
-	{
-		GameObject_Transform->setX(x); GameObject_Transform->setY(y);
-	}
+
+	//beállítja az adott gameObj koordinátáit - azaz teleport
+	inline void setPosition(double x, double y) { GameObject_Transform->setX(x); GameObject_Transform->setY(y); }
+
+	//beállítja, hogy az adott gameObj-nek mennyi élete van
 	inline void setHP(int newhp) { GameObject_hp = newhp; }
+
+	//visszaadja az adott gameObj életét
 	inline int getHP() { return GameObject_hp; }
+
+	//beállítja az adott gameObjeknek a lehetséges maximális életpontját
 	inline void setMaxHP(int newhp){ GameObject_MaxHP = newhp; }
+
+	//visszaadja az adott gameObjeknek a lehetséges maximális életpontját
 	inline int getMaxHP() { return GameObject_MaxHP; }
 
+	//támadás
 	virtual void attacking(Uint64 dt) = 0;
+
+	//beállítja a változót hogy támad-e az adott gameObj
 	virtual void setAttacking(bool e) = 0;
-	virtual bool isAttacking() = 0;
+
+	//visszaadja a változót hogy éppen támad-e a gameObj
+	virtual bool getAttacking() = 0;
 	
+	//visszaadja a gameObj Collidert
 	virtual Collider* getCollider() = 0;
+
+	//kirajzolja a képernyõre a gameObj-et
 	virtual void Draw() = 0;
+
+	//frissíti a gameObj állapotát
 	virtual void Update(Uint64 dt) = 0;
+
+	//törli/felszabadítja a gameObj-et
 	virtual void Clean() = 0;
+
+	//beállítja az adott gameObj-re vonatkozó gravitáviót
 	virtual void setGravity(double G) = 0;
+
+	//visszaadja az adott gameObj-re vonatkozó gravitáviót
 	virtual double getAttacktime() = 0;
+
+	//visszaadja, hogy mekkorát sebez az adott gameObj
 	virtual int getAttackPower() = 0;
+
+	//beállítja, hogy mekkorát sebez az adott gameObj
 	virtual void setAttackPower(int power) = 0;
+
+	//visszaállítja alaphelyzetbe a gameObj-et
 	virtual void reset() = 0;
+
+	//visszaadja a gameObj (jelenleg player) inventory-át
 	virtual void* getInventory() = 0;
+
+	//visszaadja a gameObj (jelenleg player) inventory-ában kiválasztott helyet
 	virtual int getSelectedInventory() = 0;
 
+	//elmenti a gameObj (jelenleg player) inventory-át
 	virtual void saveInventory() = 0;
+
+	//beolvassá a gameObj (jelenleg player) inventory-át
 	virtual void readInventory() = 0;
 
+	//beállítja az adott gameObj célpontját
 	virtual void setTarget(int X, int Y) = 0;
 };

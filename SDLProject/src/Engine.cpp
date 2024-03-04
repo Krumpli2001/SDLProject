@@ -72,7 +72,7 @@ bool Engine::Init()
 	UI::GetInstance()->UIInit();
 
 	spawnSpecial("SKELETON", 1000, 0);
-	//spawnSpecial("ZOMBIE", 1000, 0);
+	spawnSpecial("ZOMBIE", 1000, 0);
 
 	Options::GetInstance()->readSettings();
 	if (*Options::GetInstance()->getSavedScale() != -1) {
@@ -100,7 +100,7 @@ bool Engine::Clean()
 
 	TextureManager::GetInstance()->Clean();
 	TextureManager::GetInstance()->Clearfont();
-	UI::GetInstance()->Clean();
+	//UI::GetInstance()->Clean();
 	Menu::GetInstance()->Clean();
 	ItemData::GetInstance()->ClearData();
 
@@ -193,7 +193,7 @@ void Engine::Update()
 
 					if (CollisionHandler::GetInstance()->CheckCollision(*Enigine_GameObjects[0]->getCollider()->getBox(), *Enigine_GameObjects[mob]->getCollider()->getBox())) {
 						//utes (player)
-						if ((Enigine_GameObjects[0]->isAttacking()) and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)) {
+						if ((Enigine_GameObjects[0]->getAttacking()) and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)) {
 							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects[0]->getAttackPower());
 						}
 					}
@@ -245,7 +245,7 @@ void Engine::Render()
 		SDL_SetRenderDrawColor(Engine_Renderer, 255, 0, 247, 255);
 		SDL_RenderClear(Engine_Renderer);
 		
-		drawBG("bg", 2000);
+		drawBG("bg", 0);
 
 		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 

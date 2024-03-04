@@ -25,6 +25,10 @@ public:
 		return RNG_Instance;
 	}
 
+	//visszaad egy random integer-t
+	//alaphelyzetben 0 és a 2^31 - 1 között egy egész szá
+	//ELSÕ opcionális paraméter a MAXIMUM
+	//MÁSODIK a MINIMUM
 	inline int genRandomInt(int range = INT_MAX, int min = 0) {
 		std::uniform_int_distribution<int> dist(min, range);
 		return dist(rd);
