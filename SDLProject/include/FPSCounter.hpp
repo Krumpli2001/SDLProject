@@ -23,7 +23,7 @@ public:
 		return FPS_Instance;
 	}
 
-	//void Update();
+	void Update();
 
 	//fps szám kiírása
 	void Draw();

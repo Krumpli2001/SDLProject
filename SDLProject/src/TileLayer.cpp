@@ -21,7 +21,7 @@ void TileLayer::Render(int x, int y)
 			int tileID = TileLayer_TileMap[i][j];
 
 			if (tileID != 0) {
-				TextureManager::GetInstance()->DrawTile("texture_map", Engine::GetInstance()->getTileSize(), j * Engine::GetInstance()->getTileSize(), i * Engine::GetInstance()->getTileSize(), tileID/10, tileID - 1);
+				TextureManager::GetInstance()->DrawTile("texture_map", Engine::GetInstance()->getTileSize(), j * Engine::GetInstance()->getTileSize(), i * Engine::GetInstance()->getTileSize(), tileID / (TextureManager::GetInstance()->getTextureMap()->find("texture_map")->second.second.w / TileLayer_TileSize), tileID - 1);
 			}
 		}
 	}

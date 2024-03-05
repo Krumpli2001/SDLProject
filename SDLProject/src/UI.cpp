@@ -19,9 +19,9 @@ void UI::Update()
 	scale = Engine::GetInstance()->getScale();
 
 	//fps frissules
-	/*if (FpsShowing) {
+	if (FpsShowing) {
 		FPSCounter::GetInstance()->Update();
-	}*/
+	}
 
 	GameObject* player = (*Engine::GetInstance()->getGameObjects())[0];
 	
