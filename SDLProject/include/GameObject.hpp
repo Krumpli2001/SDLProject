@@ -133,7 +133,7 @@ public:
 	virtual void setTarget(int X, int Y) = 0;
 
 	//a sebzõdés efekt
-	inline void TookDMG(int kb = 0, int kbt = 0) {
+	inline void TookDMG(int kb = 2, int kbt = 50) {
 		GameObject_kbt = kbt;
 		GameObject_kb = kb;
 	}

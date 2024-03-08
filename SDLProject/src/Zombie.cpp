@@ -56,7 +56,7 @@ void Zombie::attacking(Uint64 dt)
 		if (Enemy_AttackTimer == 1000) {
 			Enemy_AttackTimer -= dt;
 			player->setHP(player->getHP() - Enemy_AttackPower);
-			player->TookDMG(FEL * 10, 500);
+			player->TookDMG(2, 50);
 		}
 	}
 

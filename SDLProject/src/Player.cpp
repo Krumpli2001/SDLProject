@@ -69,14 +69,15 @@ void Player::Update(Uint64 dt)
 		TextureManager::GetInstance()->setTextColor(TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.first, "red");
 		GameObject_kbt -= dt;
 
-		/*Player_RigidBody->ApplyForceY(FEL * GameObject_kb);
+		Player_RigidBody->ApplyForceY(FEL * GameObject_kb);
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
-		*/
+		
 	}
 	else {
 		TextureManager::GetInstance()->setTextColor(TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.first, "white");
 	}
+	GameObject_kbt = GameObject_kbt < INT_MIN / 2 ? 0 : GameObject_kbt;
 
 	//fut jobbra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and !Player_IsAttacking)
@@ -221,13 +222,13 @@ void Player::Update(Uint64 dt)
 	{
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
-		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);// * static_cast<double>(dt) );
+		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);
 	}
 
 	if (Input::GetInstance()->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0)
 	{
 		Player_JumpTime = Player_JumpTime - dt;
-		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);// * static_cast<double>(dt));
+		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);
 	}
 	else
 	{

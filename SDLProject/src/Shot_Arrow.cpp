@@ -9,7 +9,7 @@ void Shot_Arrow::attacking(Uint64 dt)
 	if (CollisionHandler::GetInstance()->CheckCollision(*this->Arrow_Collider->getBox(), *player->getCollider()->getBox())) {
 		GameObject_hp = 0;
 		player->setHP(player->getHP() - getAttackPower());
-		player->TookDMG(FEL * 100, 550);
+		player->TookDMG(2, 50);
 	}
 }
 
