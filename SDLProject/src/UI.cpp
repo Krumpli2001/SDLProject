@@ -53,18 +53,17 @@ void UI::Draw()
 	{
 		if (php > 0) {
 			int szivekSzama = std::ceil(static_cast<double>(mphp) / 20.0 * (static_cast<double>(php) / static_cast<double>(mphp)));
-			int kezdopixel /*for now*/ = 40;
-			double heartmeret = 40.0;
+			int kezdopixel = 40;
+			double heartmeret = TextureManager::GetInstance()->getTextureMap()->find("heart")->second.second.w;
 
 			for (int i = szivekSzama; i > 0; i--) {
 				double seged = php % 20 / 20.0 == 0 ? 1.0 : php % 20 / 20.0;
-				//holy shit ez a line
 				int x = i == 1 ? (*Engine::GetInstance()->getWindow_W() - kezdopixel + heartmeret * (1.0 - (seged))) * (1.0 / scale) : ((*Engine::GetInstance()->getWindow_W() - kezdopixel) / scale);
 				int w = i == 1 ? heartmeret * (seged) * (1.0 / scale) : heartmeret * (1.0 / scale);
 				int srcx = i == 1 ? heartmeret * (1.0 - (seged)) : 0;
 
 				TextureManager::GetInstance()->Draw("heart", x, 20 * (1.0 / scale), w, heartmeret * (1.0 / scale), srcx, 0);
-				kezdopixel += 40;
+				kezdopixel += heartmeret;
 			}
 		}
 		//hp szam
@@ -74,6 +73,8 @@ void UI::Draw()
 	//inventory
 	{
 
+		//vagy #DEFINE
+		//vagy constexpr
 		const int hatter_meret = 60;
 		const int item_meret = 40;
 		const int item_texture_meret = Engine::GetInstance()->getTileSize();
@@ -87,10 +88,11 @@ void UI::Draw()
 
 		klikkelhetoInventory = false;
 
-		auto kiirando_sor = 1;
-		if (showInventory) { kiirando_sor = 4; }
+		/*auto kiirando_sor = 1;
+		if (showInventory) { kiirando_sor = 4; }*/
 
-		//bleh
+		int kiirando_sor = showInventory ? 4 : 1;
+
 		auto inv = static_cast<std::array<std::pair<Item*, int>, 40>*>((*Engine::GetInstance()->getGameObjects())[0]->getInventory());		
 		auto selected = (*Engine::GetInstance()->getGameObjects())[0]->getSelectedInventory();
 		for (int sor = 0; sor < kiirando_sor; sor++) {

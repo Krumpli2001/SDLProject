@@ -9,6 +9,7 @@ void Shot_Arrow::attacking(Uint64 dt)
 	if (CollisionHandler::GetInstance()->CheckCollision(*this->Arrow_Collider->getBox(), *player->getCollider()->getBox())) {
 		GameObject_hp = 0;
 		player->setHP(player->getHP() - getAttackPower());
+		player->TookDMG(FEL * 100, 550);
 	}
 }
 
@@ -56,7 +57,7 @@ void Shot_Arrow::Update(Uint64 dt)
 	}
 
 	if (Arrow_RigidBody->getRigidBody_Velocity().getX() < 0) {
-		angle = 90 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * ( - 180) / M_PI;
+		angle = 90 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-180) / M_PI;
 	}
 	else {
 		angle = 270 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-180) / M_PI;
@@ -66,8 +67,6 @@ void Shot_Arrow::Update(Uint64 dt)
 	if (CollisionHandler::GetInstance()->MapCollision(this)) {
 		GameObject_hp = 0;
 	}
-
-
 
 	GameObject_Transform->setX(GameObject_Transform->getX() + Arrow_RigidBody->getRigidBody_Position().getX());
 	GameObject_Transform->setY(GameObject_Transform->getY() + Arrow_RigidBody->getRigidBody_Position().getY());

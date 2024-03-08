@@ -26,8 +26,8 @@ public:
 	 inline void setRigidBody_Gravity(double gravity) { RigidBody_Gravity = gravity; }
 
 	 inline void ApplyForce(Vector2D F) { RigidBody_Force = F; }
-	 inline void ApplyForceX(double Fx) { RigidBody_Force.setX(Fx); }
-	 inline void ApplyForceY(double Fy) { RigidBody_Force.setY(Fy); }
+	 inline void ApplyForceX(double Fx) { RigidBody_Force.setX(RigidBody_Force.getX() + Fx); }
+	 inline void ApplyForceY(double Fy) { RigidBody_Force.setY(RigidBody_Force.getY() + Fy); }
 	 inline void SetForceToZero() { RigidBody_Force = Vector2D(0.0, 0.0); }
 
 	 inline void ApplyFriction(Vector2D Fr) { RigidBody_Friction = Fr; }

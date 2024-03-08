@@ -191,7 +191,8 @@ void Engine::Update()
 				if (i != 0) {
 					unsigned int mob = i;
 
-					if (CollisionHandler::GetInstance()->CheckCollision(*Enigine_GameObjects[0]->getCollider()->getBox(), *Enigine_GameObjects[mob]->getCollider()->getBox())) {
+					if (CollisionHandler::GetInstance()->CheckCollision(*Enigine_GameObjects[0]->getCollider()->getBox(),
+						*Enigine_GameObjects[mob]->getCollider()->getBox())) {
 						//utes (player)
 						if ((Enigine_GameObjects[0]->getAttacking()) and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)) {
 							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects[0]->getAttackPower());

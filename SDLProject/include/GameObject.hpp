@@ -44,6 +44,9 @@ protected:
 	SDL_RendererFlip GameObject_Flip;
 	Point* GameObject_Origin;
 
+	int GameObject_kb{};
+	int GameObject_kbt{};
+
 public:
 	inline GameObject(Properties* props)
 	{
@@ -128,4 +131,10 @@ public:
 
 	//beállítja az adott gameObj célpontját
 	virtual void setTarget(int X, int Y) = 0;
+
+	//a sebzõdés efekt
+	inline void TookDMG(int kb = 0, int kbt = 0) {
+		GameObject_kbt = kbt;
+		GameObject_kb = kb;
+	}
 };

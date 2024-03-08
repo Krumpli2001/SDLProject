@@ -24,7 +24,12 @@ bool ItemData::ParseData(std::string src)
                 data = data->NextSiblingElement();
                 std::string TileName = data->GetText();
 
-                Item* item = new Tool(ID, TileName);
+                data = data->NextSiblingElement();
+                temp = data->GetText();
+                auto MS = temp ? std::stoi(temp) : -1;
+
+
+                Item* item = new Tool(ID, TileName, MS);
                 int_ItemData[ID] = item;
                 string_ItemData[TileName] = item;
 
@@ -58,8 +63,12 @@ bool ItemData::ParseData(std::string src)
                 temp = data->GetText();
                 int mineTime = temp ? std::stoi(temp) : -1;
 
-                Tile* tile = new Tile(ID, TileName, Layer, isTransparent, mineTime);
-                Item* item = new Block(ID, TileName);
+                data = data->NextSiblingElement();
+                temp = data->GetText();
+                int MS = temp ? std::stoi(temp) : -1;
+
+                Tile* tile = new Tile(ID, TileName, Layer, isTransparent, mineTime, MS);
+                Item* item = new Block(ID, TileName, MS);
 
                 int_ItemData[ID] = item;
                 string_ItemData[TileName] = item;

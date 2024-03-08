@@ -65,6 +65,19 @@ void Player::Update(Uint64 dt)
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
 
+	if (GameObject_kbt > 0) {
+		TextureManager::GetInstance()->setTextColor(TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.first, "red");
+		GameObject_kbt -= dt;
+
+		/*Player_RigidBody->ApplyForceY(FEL * GameObject_kb);
+		Player_IsJumping = true;
+		Player_IsGrounded = false;
+		*/
+	}
+	else {
+		TextureManager::GetInstance()->setTextColor(TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.first, "white");
+	}
+
 	//fut jobbra
 	if (Input::GetInstance()->getAxisKey(HORIZONTAL) == JOBBRA and !Player_IsAttacking)
 	{
