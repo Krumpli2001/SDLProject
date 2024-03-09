@@ -66,7 +66,7 @@ void Player::Update(Uint64 dt)
 	Player_RigidBody->SetForceToZero();
 
 	if (GameObject_kbt > 0) {
-		TextureManager::GetInstance()->setTextColor(TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.first, "red");
+		TextureManager::GetInstance()->setTextColor(TextureManager::GetInstance()->getTextureMap()->find(*Player_SpriteAnimation->getSpriteID())->second.first, "red");
 		GameObject_kbt -= dt;
 
 		Player_RigidBody->ApplyForceY(FEL * GameObject_kb);
@@ -75,7 +75,7 @@ void Player::Update(Uint64 dt)
 		
 	}
 	else {
-		TextureManager::GetInstance()->setTextColor(TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.first, "white");
+		TextureManager::GetInstance()->setTextColor(TextureManager::GetInstance()->getTextureMap()->find(*Player_SpriteAnimation->getSpriteID())->second.first, "white");
 	}
 	GameObject_kbt = GameObject_kbt < INT_MIN / 2 ? 0 : GameObject_kbt;
 

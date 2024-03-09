@@ -32,4 +32,6 @@ public:
 	//adatok beállításai - lényegében mini constructor
 	void SetProps(std::string textureID, int spriteRow, int frameCount, int aniSpeed , bool startFrame = false);
 
+	inline auto getSpriteID() { return &SpriteAnimation_TextureID; }
+
 };
