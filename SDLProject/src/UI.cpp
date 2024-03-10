@@ -36,7 +36,7 @@ void UI::Update()
 	kameraY = Camera::GetInstance()->getCamera_ViewBox()->y;
 	kepernyoX = kameraX + cx*(1.0/scale);
 	kepernyoY = kameraY + cy*(1.0/scale);
-	int size = Engine::GetInstance()->getTileSize();
+	//int size = Engine::GetInstance()->getTileSize();
 
 }
 
@@ -174,18 +174,27 @@ void UI::Draw()
 	{
 		auto colllayer = Engine::GetInstance()->getCollisionLayerVector();
 		int tilesize = Engine::GetInstance()->getTileSize();
-		int x = kepernyoX - kameraX - kepernyoX % tilesize;
-		int y = kepernyoY - kameraY - kepernyoY % tilesize;
-		int yv = kepernyoY / tilesize;
+		int x = kepernyoX - kameraX - (kepernyoX % tilesize);
+		int y = kepernyoY - kameraY - (kepernyoY % tilesize);
+
 		int xv = kepernyoX / tilesize;
-		yv = yv < 0 ? 0 : yv;
-		yv = yv > (*colllayer).size() - 1 ? (*colllayer).size() - 1 : yv;
+		int yv = kepernyoY / tilesize;
+
 		xv = xv < 0 ? 0 : xv;
 		xv = xv > (*colllayer)[0].size() - 1 ? (*colllayer)[0].size() - 1 : xv;
+		yv = yv < 0 ? 0 : yv;
+		yv = yv > (*colllayer).size() - 1 ? (*colllayer).size() - 1 : yv;
 
 		highlightUI = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);
-		if ((*colllayer)[yv][xv] != 0) {
+		auto attetszo = CollisionHandler::GetInstance()->getAttetszo();
+		bool at = false;
+		for (int i = 0; i < attetszo->size() && !at; i++) {
+			if ((*colllayer)[yv][xv] == (*attetszo)[i]) {
+				at = true;
+			}
+		}
+		if (!at) {
 			SDL_RenderFillRect(renderer, &highlightUI);
 		}
 	}

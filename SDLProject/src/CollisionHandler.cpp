@@ -23,6 +23,12 @@ void CollisionHandler::reset() {
     CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
     CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 
+    for (auto it = ItemData::GetInstance()->getTileDataByID()->begin(); it != ItemData::GetInstance()->getTileDataByID()->end(); it++) {
+        if (/*it->second->LayerID == "foreground" && */it->second->isTransparent) {
+            attetszo.push_back(it->second->TileID);
+        }
+    }
+
     tileSize = CollisionHandler_CollisionLayer->getTileSize();
     rowCount = CollisionHandler_CollisionLayer->getRowCount();
     colCount = CollisionHandler_CollisionLayer->getColCount();
