@@ -51,4 +51,6 @@ public:
 
 	//reseteli a collision layert valtozás esetén, pl. új pálya betöltése esetén
 	void reset();
+
+	std::vector<int>* getAttetszo() { return &attetszo; }
 };
