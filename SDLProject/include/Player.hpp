@@ -52,6 +52,7 @@ private:
 public:
 
 	Player(Properties* props);
+	~Player();
 
 	//visszaadja a player merevtestét
 	inline RigidBody* getPlayerBody() { return Player_RigidBody; }

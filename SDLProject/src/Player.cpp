@@ -42,6 +42,15 @@ Player::Player(Properties* props) : Character(props)
 	Player_Inventory.fill(std::make_pair(nullptr, 0));
 }
 
+Player::~Player()
+{
+	delete Player_Collider;
+	delete Player_RigidBody;
+	delete Player_SpriteAnimation;
+}
+
+
+
 void Player::Draw()
 {
 	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip , 0.0,1.0, Player_Dimenziok.w, Player_Dimenziok.h);
@@ -267,6 +276,8 @@ void Player::Update(Uint64 dt)
 	{
 		GameObject_Transform->setX(Player_LastSafePosition.getX());
 	}
+
+
 
 	Player_LastSafePosition.setY(GameObject_Transform->getY());
 

@@ -34,6 +34,7 @@ protected:
 
 public:
 	Enemy(Properties* props);
+	~Enemy();
 
 	//frissíti az adott enemy állapotát
 	//dtparaméter  = eltelt idõ az elõzõ frame óta (delta time)

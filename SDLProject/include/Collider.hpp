@@ -17,5 +17,7 @@ public:
 	/*beállítja a collider méreteit
 	x, y = felsõ bal sarok
 	w, h = alsó jobb sarok*/ 
-	inline void setBox(int x, int y, int w, int h) { Collider_Box = { x, y, w, h }; }
+	inline void setBox(int x, int y, int w, int h) { 
+		Collider_Box = { x, y, w, h };
+	}
 };

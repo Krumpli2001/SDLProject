@@ -35,6 +35,12 @@ public:
 		Arrow_SpriteAnimation->SetProps("shot_arrow", 0, 1, 1);
 	}
 
+	inline ~Shot_Arrow() {
+		delete Arrow_RigidBody;
+		delete Arrow_Collider;
+		delete Arrow_SpriteAnimation;
+	}
+
 	//támadás
 	virtual void attacking(Uint64 dt);
 

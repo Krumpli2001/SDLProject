@@ -11,6 +11,13 @@ Enemy::Enemy(Properties* props) : Character(props)
 
 }
 
+Enemy::~Enemy()
+{
+	delete Enemy_RigidBody;
+	delete Enemy_Collider;
+	delete Enemy_SpriteAnimation;
+}
+
 void Enemy::Update(Uint64 dt)
 {
 

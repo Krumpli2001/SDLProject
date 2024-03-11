@@ -8,6 +8,7 @@ CollisionHandler::CollisionHandler()
     CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
     CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 
+    attetszo.clear();
     for (auto it = ItemData::GetInstance()->getTileDataByID()->begin(); it != ItemData::GetInstance()->getTileDataByID()->end(); it++) {
         if (/*it->second->LayerID == "foreground" && */it->second->isTransparent) {
             attetszo.push_back(it->second->TileID);
@@ -23,6 +24,7 @@ void CollisionHandler::reset() {
     CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
     CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 
+    attetszo.clear();
     for (auto it = ItemData::GetInstance()->getTileDataByID()->begin(); it != ItemData::GetInstance()->getTileDataByID()->end(); it++) {
         if (/*it->second->LayerID == "foreground" && */it->second->isTransparent) {
             attetszo.push_back(it->second->TileID);
@@ -57,6 +59,15 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
     if (top_tile < 0) { top_tile = 0; }
     if (bottom_tile > rowCount) { bottom_tile = rowCount; }
 
+    /*std::vector<int> top;
+    std::vector<int> bottom;
+    std::vector<int> left;
+    std::vector<int> right;
+
+    for (int i = top_tile; i < bottom_tile; i += tileSize) {
+
+    }*/
+
     if ((g->getCollider()->getBox()->x < 0) || ((g->getCollider()->getBox()->x + g->getCollider()->getBox()->w) >= (colCount * tileSize)) || (g->getCollider()->getBox()->y < 0) || ((g->getCollider()->getBox()->y + g->getCollider()->getBox()->h) >= (rowCount * tileSize))) { return true; }
 
     for (int i = left_tile; i <= right_tile; i++)
@@ -67,6 +78,9 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
             {
 
                 //ezt majd kiirom, egyenlore jo itt
+
+                //ahol az adott entity felenel nezi meg azt ujra kell irni, ha van egy bazinagy valamink ez igy nem jo
+
                 auto viz = ItemData::GetInstance()->getTileIDFromName("viz");
                 if ((((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == viz and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == viz) or
                     ((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == viz and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == 0) or
@@ -76,7 +90,10 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
 
                     if (((*CollisionHandler_CollitionTileMap)[top_tile][left_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][left_tile] != viz) or
                         ((*CollisionHandler_CollitionTileMap)[top_tile][right_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][right_tile] != viz) or 
-                        ((*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != viz)) {
+                        ((*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != viz) or
+                        ((*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][left_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][left_tile] != viz) or
+                        ((*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][right_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][right_tile] != viz)) {
+
                         return true;
                     }
 
@@ -93,7 +110,7 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
                         }
                         else {
                                 if(grounded)
-                                *grounded = true;7
+                                *grounded = true;
                         }
                         return true;
                         

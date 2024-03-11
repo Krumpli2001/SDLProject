@@ -60,6 +60,11 @@ public:
 		GameObject_Origin = new Point(props->Properties_X + props->Properties_Width / 2, props->Properties_Y + props->Properties_Height / 2);
 	}
 
+	inline ~GameObject() {
+		delete GameObject_Transform;
+		delete GameObject_Origin;
+	}
+
 	//visszaadja az adott gameObj középpontját
 	inline Point* getOrigin() { return GameObject_Origin; }
 
