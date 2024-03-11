@@ -72,7 +72,7 @@ bool Engine::Init()
 	UI::GetInstance()->UIInit();
 
 	//spawnSpecial("SKELETON", 1000, 0);
-	spawnSpecial("ZOMBIE", 1000, 0);
+	//spawnSpecial("ZOMBIE", 1000, 0);
 
 	Options::GetInstance()->readSettings();
 	if (*Options::GetInstance()->getSavedScale() != -1) {

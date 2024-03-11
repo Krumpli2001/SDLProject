@@ -51,7 +51,7 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
     if (top_tile < 0) { top_tile = 0; }
     if (bottom_tile > rowCount) { bottom_tile = rowCount; }
 
-    if ((g->getCollider()->getBox()->x < 0) || ((g->getCollider()->getBox()->x + g->getCollider()->getBox()->w) >= (colCount * tileSize)) || (g->getCollider()->getBox()->y < 0) || ((g->getCollider()->getBox()->y + g->getCollider()->getBox()->h) >= (rowCount * tileSize))) { return true; }    
+    if ((g->getCollider()->getBox()->x < 0) || ((g->getCollider()->getBox()->x + g->getCollider()->getBox()->w) >= (colCount * tileSize)) || (g->getCollider()->getBox()->y < 0) || ((g->getCollider()->getBox()->y + g->getCollider()->getBox()->h) >= (rowCount * tileSize))) { return true; }
 
     for (int i = left_tile; i <= right_tile; i++)
     {
@@ -59,28 +59,37 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
         {
             if ((*CollisionHandler_CollitionTileMap)[j][i] > 0)
             {
+
                 //ezt majd kiirom, egyenlore jo itt
                 auto viz = ItemData::GetInstance()->getTileIDFromName("viz");
-                if (((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == viz and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == viz) or
+                if ((((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == viz and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == viz) or
                     ((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == viz and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == 0) or
-                    ((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == 0 and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == viz)) {
+                    ((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == 0 and (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == viz)
+                    )) {
                     g->setGravity(0.3);
+
+                    if (((*CollisionHandler_CollitionTileMap)[top_tile][left_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][left_tile] != viz) or
+                        ((*CollisionHandler_CollitionTileMap)[top_tile][right_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][right_tile] != viz) or 
+                        ((*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != viz)) {
+                        return true;
+                    }
+
                     return false;
                 }
                 else {    
-                    for (auto i = 0; i < attetszo.size(); i++) {
+                    for (auto k = 0; k < attetszo.size(); k++) {
 
-                        if ((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile + (right_tile - left_tile) / 2] == attetszo[i] and
-                            (*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == attetszo[i] and
-                            (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == attetszo[i]) {
+                        if ((*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile + (right_tile - left_tile) / 2] == attetszo[k] and
+                            (*CollisionHandler_CollitionTileMap)[bottom_tile][left_tile] == attetszo[k] and
+                            (*CollisionHandler_CollitionTileMap)[bottom_tile][right_tile] == attetszo[k]) {
                                 if(grounded)
                                 *grounded = false;
-                            }
-                            else {
+                        }
+                        else {
                                 if(grounded)
-                                *grounded = true;
-                            }
-                            return true;
+                                *grounded = true;7
+                        }
+                        return true;
                         
                     }
                 }

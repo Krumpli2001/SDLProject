@@ -28,12 +28,9 @@ namespace mappgen {
 	inline void genForeground(std::vector<std::vector<int>>* foreground, int width, int height) {
 		auto data = ItemData::GetInstance();
 		auto rand = RNG::GetInstance();
-		int genheight = height - (2*height / 3);
+		int genheight = height - (2*height / 3); // imo igy jobban atlathato lehetne height/3 is...
 
 		std::vector<std::vector<int>> p(height, std::vector<int>(width, 0));
-
-		//std::vector<std::vector<int>> tilemap(rowcount, std::vector<int>(colcount, 0));
-
 
 		auto gen_seed = rand->genRandomInt();
 		const siv::PerlinNoise perlin{ static_cast<std::uint32_t>(gen_seed) };
@@ -47,7 +44,6 @@ namespace mappgen {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				auto seged = perlin.octave2D_01((j * fx), (i * fy), octaves);
-				seged = seged < 0.3 ? 0 : 1;
 				p[j][i] = seged;
 			}
 		}
@@ -65,7 +61,7 @@ namespace mappgen {
 			int genko = rand->genRandomInt(maxko, minko);
 
 			for (int j = height-1; j > genheight; j--){
-				if (p[j][i] > 0.5) {
+				if (p[j][i] > 0.3) {
 					(*foreground)[j][i] = data->getTileIDFromName("fold");
 					if (j > genko) {
 						//proba miatt viz
@@ -73,7 +69,6 @@ namespace mappgen {
 					}
 				}
 			}
-			//for(j=)
 			if (genheight>0 && (*foreground)[genheight + 1][i] == data->getTileIDFromName("fold")) {
 				(*foreground)[genheight][i] = data->getTileIDFromName("fuvesfold");
 			}
