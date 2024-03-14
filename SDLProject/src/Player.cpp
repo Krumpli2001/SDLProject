@@ -255,15 +255,27 @@ void Player::Update(Uint64 dt)
 	}
 
 	//attack timer
-	if (Player_IsAttacking and Player_AttackTime > 0)
+	if (Player_IsAttacking and Player_AttackTime == PLAYER_ATTACK_TIME)
 	{
+		PlayerReadyAttacking = true;
 		Player_AttackTime -= dt;
 	}
 	else
 	{
-		Player_IsAttacking = false;
-		Player_IsWalkAttacking = false;
-		Player_AttackTime = PLAYER_ATTACK_TIME;
+		PlayerReadyAttacking = false;
+		
+		//Player_AttackTime-=dt;
+		Player_AttackTime = Player_AttackTime < PLAYER_ATTACK_TIME && Player_AttackTime>0 ? Player_AttackTime -= dt : PLAYER_ATTACK_TIME;
+
+		if (Player_AttackTime == PLAYER_ATTACK_TIME) {
+			Player_IsAttacking = false;
+			Player_IsWalkAttacking = false;
+		}
+		else {
+			Player_IsAttacking = true;
+			//Player_IsWalkAttacking = true;
+		}
+		
 	}
 
 

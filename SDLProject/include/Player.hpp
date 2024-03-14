@@ -11,7 +11,12 @@
 #define JUMP_TIME 200.0
 #define JUMP_FORCE 3.0
 #define RUN_FORCE 1.0
-#define UNDER_WATER_TIME 10000
+#define UNDER_WATER_TIME 10000.0
+
+//enum playerAniState {
+//	PlayerIsWalking,
+//	PlayerIsJum
+//};
 
 class Player : public Character {
 private:
@@ -24,13 +29,15 @@ private:
 
 	double Player_JumpForce;
 
-	double regenTimer = 200;
+	double regenTimer = 200.0;
 
 	bool Player_IsUnderWater{};
 	double Player_UnderWaterTime{};
 
 	double Player_ImunityTime{};
 
+
+	bool PlayerReadyAttacking;
 	double Player_JumpTime;
 	double Player_AttackTime;
 	int Player_AttackPower = 15;
@@ -92,7 +99,7 @@ public:
 	virtual inline void setAttackPower(int power) { Player_AttackPower = power; }
 
 	//visszaadja, hogy a player támad-e
-	virtual inline bool getAttacking() { return Player_IsAttacking; }
+	virtual inline bool getAttacking() { return PlayerReadyAttacking; }
 
 	//visszaadja a playerre ható gravitációt
 	inline double getPGravity() { return Player_RigidBody->getGravity(); }
