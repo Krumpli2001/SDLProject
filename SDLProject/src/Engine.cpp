@@ -65,14 +65,14 @@ bool Engine::Init()
 	Engine_PropsMap.emplace("SKELETON", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("ARROW", new Properties("arrow", 1, 20, 100, 0, 0));
 
-	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("PLAYER")->second));	//player a nulladik elem
+	//Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject("PLAYER", Engine_PropsMap.find("PLAYER")->second));	//player a nulladik elem
 																																	//Enigine_GameObjects.push_back(mob);
-	Camera::GetInstance()->setTarget(Enigine_GameObjects[0]->getOrigin());
+	//Camera::GetInstance()->setTarget(Enigine_GameObjects[0]->getOrigin());
 
 	UI::GetInstance()->UIInit();
 
 	//spawnSpecial("SKELETON", 1000, 0);
-	//spawnSpecial("ZOMBIE", 1000, 0);
+	/*spawnSpecial("ZOMBIE", 1000, 0)*/;
 
 	Options::GetInstance()->readSettings();
 	if (*Options::GetInstance()->getSavedScale() != -1) {

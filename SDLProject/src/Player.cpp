@@ -270,7 +270,7 @@ void Player::Update(Uint64 dt)
 	//collision
 	Player_LastSafePosition.setX(GameObject_Transform->getX());
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), Player_Dimenziok.w, GameObject_Height);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), Player_Dimenziok.w, Player_Dimenziok.h);
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 	{
@@ -287,7 +287,7 @@ void Player::Update(Uint64 dt)
 	if ((static_cast<int>(Player_LastSafePosition.getY()) % CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize()) >= (CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize() - dt * Player_RigidBody->getGravity())) {
 		
 		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
-		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, Player_Dimenziok.w, GameObject_Height);
+		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, Player_Dimenziok.w, Player_Dimenziok.h);
 		if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 		{
 			GameObject_Transform->setX(Player_LastSafePosition.getX());
@@ -296,7 +296,7 @@ void Player::Update(Uint64 dt)
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), Player_Dimenziok.w, GameObject_Height);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), Player_Dimenziok.w, Player_Dimenziok.h);
 
 	if (CollisionHandler::GetInstance()->MapCollision(this, &Player_IsGrounded))
 	{

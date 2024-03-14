@@ -12,7 +12,8 @@ class Camera
 private:
 	Camera() {
 		SDL_GetWindowSizeInPixels(Engine::GetInstance()->getWindow(), Engine::GetInstance()->getWindow_W(), Engine::GetInstance()->getWindow_H());
-		Camera_ViewBox = { 0, 0, *Engine::GetInstance()->getWindow_W(), *Engine::GetInstance()->getWindow_H() };
+		constexpr int kezdoX = 0; constexpr int kezdoY = 0;
+		Camera_ViewBox = { kezdoX, kezdoY, *Engine::GetInstance()->getWindow_W(), *Engine::GetInstance()->getWindow_H() };
 	}
 
 	static Camera* Camera_Instance;

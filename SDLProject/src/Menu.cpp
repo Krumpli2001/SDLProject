@@ -125,11 +125,20 @@ void Menu::Update()
 					submenu = sub::Title;
 					MapParser::GetInstance()->Clean();
 					Engine::GetInstance()->getLevelMap()->Clean();
-					
+
 					TextureManager::GetInstance()->Clean();
 					Engine::GetInstance()->setmapIsLoaded(false);
 					//ItemData::GetInstance()->ClearData();
-					Reset();
+					//Reset();
+
+					auto g = Engine::GetInstance()->getGameObjects();
+
+					for (auto obj : *g) {
+						delete obj;
+					}
+					g->clear();
+				
+
 					Engine::GetInstance()->setMenuShowing(true);
 					cc = 0;
 				}
@@ -329,6 +338,9 @@ void Menu::Update()
 							
 							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 							Engine::GetInstance()->setMapName(saves[i]);
+							Engine::GetInstance()->spawnSpecial("PLAYER", 0, 0);
+							Engine::GetInstance()->spawnSpecial("ZOMBIE", 1000, 0);
+							Camera::GetInstance()->setTarget((*Engine::GetInstance()->getGameObjects())[0]->getOrigin());
 							(*Engine::GetInstance()->getGameObjects())[0]->readInventory();
 							loaded_map_name = saves[i];
 						}

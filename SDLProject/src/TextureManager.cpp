@@ -172,7 +172,7 @@ void TextureManager::Draw(std::string id, int x, int y, int w, int h, int srcx, 
 	SDL_Rect srcRect = { srcx, srcy, w, h };
 	SDL_Rect dstRect = { x, y, w, h };
 	
-	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect);
 }
 
 void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip)
@@ -196,16 +196,15 @@ void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h,
 
 	Vector2D cam = Camera::GetInstance()->getPosition();
 
-	SDL_Rect dstRect{0,0,0,0};
+	SDL_Rect dstRect{};
 
-	if (flip == SDL_FLIP_NONE) {
+	if (flip == SDL_FLIP_NONE && flipX != 0 && flipY != 0) {
 		dstRect = { static_cast<int>(x - cam.getX()), static_cast<int>(y - cam.getY()), static_cast<int>(w * scale), static_cast<int>(h * scale) };
 	}
 	else {
-		dstRect = { static_cast<int>(x - cam.getX() - (w * scale - flipX)), static_cast<int>(y - cam.getY()), static_cast<int>(w * scale), static_cast<int>(h * scale)};
+		dstRect = { static_cast<int>(x - cam.getX() - (w * scale - flipX)), static_cast<int>(y - cam.getY() - (h * scale - flipY)), static_cast<int>(w * scale), static_cast<int>(h * scale)};
 	}
 
-	//SDL_Point point = { w * frame/2, h * row/2 };
 	if (flipX != 0 and flipY != 0) {
 		SDL_Point point{ flipX / 2, flipY / 2 };
 		SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, angle, &point, flip);
@@ -220,7 +219,7 @@ void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int sr
 	SDL_Rect srcRect = { srcx, srcy, srcw, srch };
 	SDL_Rect dstRect = { x, y, w, h };
 
-	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect);
 }
 
 void TextureManager::DrawBackgroundPicture(std::string id, int x, int y, int srcw, int srch, double scrollRatio)
@@ -229,7 +228,7 @@ void TextureManager::DrawBackgroundPicture(std::string id, int x, int y, int src
 	Vector2D cam = Camera::GetInstance()->getPosition();
 	auto sx = (cam.getX() * scrollRatio);
 	SDL_Rect dstRect = { static_cast<int>(x - sx), static_cast<int>(y-cam.getY()), srcw, srch};
-	SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &scrRect, &dstRect, 0, nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &scrRect, &dstRect);
 	//std::cout << dstRect.x + dstRect.w << "\t";
 }
 

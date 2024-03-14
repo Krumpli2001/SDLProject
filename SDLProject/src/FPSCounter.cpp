@@ -8,7 +8,7 @@ void FPSCounter::Update()
 }
 
 void FPSCounter::Draw() {
-	TextureManager::GetInstance()->TCharsOut(std::to_string(Timer::GetInstance()->getFPS()), 0, 0, 100 / scale);
+	TextureManager::GetInstance()->TCharsOut(std::to_string(Timer::GetInstance()->getFPS()), 0, 100, 100 / scale);
 }
 
 //void FPSCounter::Clean() {

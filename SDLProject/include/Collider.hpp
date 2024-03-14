@@ -8,7 +8,7 @@ class Collider
 {
 private:
 	SDL_Rect Collider_Box;
-
+	int tilesize = CollisionHandler::GetInstance()->getTileSize();
 public:
 
 	//visszaadja a collider mereteit {x, y, w, h}
