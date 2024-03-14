@@ -44,6 +44,8 @@ protected:
 	SDL_RendererFlip GameObject_Flip;
 	Point* GameObject_Origin;
 
+	short aniState{};
+
 	int GameObject_kb{};
 	int GameObject_kbt{};
 

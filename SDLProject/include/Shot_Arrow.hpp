@@ -30,8 +30,9 @@ public:
 		Arrow_RigidBody->setRigidBody_Gravity(GRAVITY);
 		Arrow_Collider = new Collider();
 		Arrow_SpriteAnimation = new SpriteAnimation();
-		TargetPosX = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getX() + (*Engine::GetInstance()->getGameObjects())[0]->getCollider()->getBox()->w / 2;
-		TargetPosY = (*Engine::GetInstance()->getGameObjects())[0]->getPosition()->getY() + (*Engine::GetInstance()->getGameObjects())[0]->getCollider()->getBox()->h / 2;;
+		auto player = (*Engine::GetInstance()->getGameObjects())[0];
+		TargetPosX = player->getPosition()->getX() + player->getCollider()->getBox()->w / 2;
+		TargetPosY = player->getPosition()->getY() + player->getCollider()->getBox()->h / 2;;
 		Arrow_SpriteAnimation->SetProps("shot_arrow", 0, 1, 1);
 	}
 

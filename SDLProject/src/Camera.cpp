@@ -4,11 +4,12 @@ Camera* Camera::Camera_Instance = nullptr;
 
 void Camera::Update()
 {
-	scale = Engine::GetInstance()->getScale();
-	M_WIDTH = Engine::GetInstance()->getMap_W();
-	M_HEIGHT = Engine::GetInstance()->getMap_H();
-	C_Width = *Engine::GetInstance()->getWindow_W();
-	C_Height = *Engine::GetInstance()->getWindow_H();
+	auto engineInstance = Engine::GetInstance();
+	scale = engineInstance->getScale();
+	M_WIDTH = engineInstance->getMap_W();
+	M_HEIGHT = engineInstance->getMap_H();
+	C_Width = *engineInstance->getWindow_W();
+	C_Height = *engineInstance->getWindow_H();
 	C_X = Camera_Target->getX() - C_Width / (2.0 * scale);
 	C_Y = Camera_Target->getY() - C_Height / (2.0 * scale);
 

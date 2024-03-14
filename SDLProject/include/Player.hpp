@@ -13,10 +13,14 @@
 #define RUN_FORCE 1.0
 #define UNDER_WATER_TIME 10000.0
 
-//enum playerAniState {
-//	PlayerIsWalking,
-//	PlayerIsJum
-//};
+enum playerAniState {
+	PlayerIsIdle,
+	PlayerIsWalking,
+	PlayerIsJumping,
+	PlayerIsFalling,
+	PlayerIsAttacking,
+	PlayerIsWalkingAndAttacking,
+};
 
 class Player : public Character {
 private:
@@ -35,6 +39,8 @@ private:
 	double Player_UnderWaterTime{};
 
 	double Player_ImunityTime{};
+
+	//short aniState;
 
 
 	bool PlayerReadyAttacking;

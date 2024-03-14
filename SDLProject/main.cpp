@@ -4,30 +4,32 @@
 
 int main(int argc, char* argv[])
 {
-
+	
 	Engine::GetInstance()->Init();
+	auto engineInstance = Engine::GetInstance();
+	auto timerInstance = Timer::GetInstance();
 
 	/*std::jthread update;
 	std::jthread render;*/
 
-	while (Engine::GetInstance()->GetIsRunning())
+	while (engineInstance->GetIsRunning())
 	{
-		Engine::GetInstance()->Events();
+		engineInstance->Events();
 
 		/*update = std::jthread([]() { Engine::GetInstance()->Update(); });
 		update.join();*/
 
-		Engine::GetInstance()->Update();
+		engineInstance->Update();
 
 		/*render = std::jthread([]() { Engine::GetInstance()->Render(); });
 		render.join();*/
 
-		Engine::GetInstance()->Render();
+		engineInstance->Render();
 
-		Timer::GetInstance()->getTick();
+		timerInstance->getTick();
 	}
 
-	Engine::GetInstance()->Clean();
+	engineInstance->Clean();
 
 	std::cout << "\nVEGE\n";
 
