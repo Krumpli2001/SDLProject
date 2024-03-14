@@ -66,7 +66,8 @@ void Menu::Update()
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
+					auto engineInstance = Engine::GetInstance();
+					engineInstance->setMenuShowing(!engineInstance->getMenuShowing());
 					cc = 0;
 				}
 			}
@@ -102,9 +103,10 @@ void Menu::Update()
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false;
-					Engine::GetInstance()->map_save();
-					(*Engine::GetInstance()->getGameObjects())[0]->saveInventory();
-					Engine::GetInstance()->setMenuShowing(false);
+					auto engineInstance = Engine::GetInstance();
+					engineInstance->map_save();
+					(*engineInstance->getGameObjects())[0]->saveInventory();
+					engineInstance->setMenuShowing(false);
 					cc = 0;
 				}
 			}
@@ -123,15 +125,13 @@ void Menu::Update()
 				if (cc == 1 or enter) {
 					enter = false;
 					submenu = sub::Title;
+					auto engineInstance = Engine::GetInstance();
 					MapParser::GetInstance()->Clean();
-					Engine::GetInstance()->getLevelMap()->Clean();
-
+					engineInstance->getLevelMap()->Clean();
 					TextureManager::GetInstance()->Clean();
-					Engine::GetInstance()->setmapIsLoaded(false);
-					//ItemData::GetInstance()->ClearData();
-					//Reset();
+					engineInstance->setmapIsLoaded(false);
 
-					auto g = Engine::GetInstance()->getGameObjects();
+					auto g = engineInstance->getGameObjects();
 
 					for (auto obj : *g) {
 						delete obj;
@@ -139,7 +139,7 @@ void Menu::Update()
 					g->clear();
 				
 
-					Engine::GetInstance()->setMenuShowing(true);
+					engineInstance->setMenuShowing(true);
 					cc = 0;
 				}
 			}
@@ -168,7 +168,8 @@ void Menu::Update()
 		}
 
 		if (code == SDL_SCANCODE_ESCAPE) {
-			Engine::GetInstance()->setMenuShowing(!Engine::GetInstance()->getMenuShowing());
+			auto engineInstance = Engine::GetInstance();
+			engineInstance->setMenuShowing(!engineInstance->getMenuShowing());
 			SDL_Delay(200);
 		}
 	}
@@ -324,28 +325,31 @@ void Menu::Update()
 					RUpdate("green", index);
 					if (cc == 1 or enter) {
 						enter = false;
+						auto engineInstance = Engine::GetInstance();
+
 						if (MapParser::GetInstance()->Load(saves[i])) {
-							Engine::GetInstance()->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
-							auto g = Engine::GetInstance()->getLevelMap()->getMapLayers();
-							Engine::GetInstance()->setMap_W((*g)[0]->getColCount()* (*g)[0]->getTileSize());
-							Engine::GetInstance()->setMap_H((*g)[0]->getRowCount()* (*g)[0]->getTileSize());
-							UI::GetInstance()->setCollisionLayer(Engine::GetInstance()->getCollisionLayer());
+
+							engineInstance->setLevelMap(MapParser::GetInstance()->getMap("MAP"));
+							auto g = engineInstance->getLevelMap()->getMapLayers();
+							engineInstance->setMap_W((*g)[0]->getColCount()* (*g)[0]->getTileSize());
+							engineInstance->setMap_H((*g)[0]->getRowCount()* (*g)[0]->getTileSize());
+							UI::GetInstance()->setCollisionLayer(engineInstance->getCollisionLayer());
 							CollisionHandler::GetInstance()->reset();
 							
-							Engine::GetInstance()->setCollisionLayerVector((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]->getTileMap());
-							Engine::GetInstance()->setBackgroundLayerVector((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getBackgroundLayer()]->getTileMap());
-							Engine::GetInstance()->setFloraLayerVector((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getFloraLayer()]->getTileMap());
+							engineInstance->setCollisionLayerVector((*engineInstance->getLevelMap()->getMapLayers())[engineInstance->getCollisionLayer()]->getTileMap());
+							engineInstance->setBackgroundLayerVector((*engineInstance->getLevelMap()->getMapLayers())[engineInstance->getBackgroundLayer()]->getTileMap());
+							engineInstance->setFloraLayerVector((*engineInstance->getLevelMap()->getMapLayers())[engineInstance->getFloraLayer()]->getTileMap());
 							
-							Engine::GetInstance()->setTileSize(CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
-							Engine::GetInstance()->setMapName(saves[i]);
-							Engine::GetInstance()->spawnSpecial("PLAYER", 0, 0);
-							Engine::GetInstance()->spawnSpecial("ZOMBIE", 1000, 0);
-							Camera::GetInstance()->setTarget((*Engine::GetInstance()->getGameObjects())[0]->getOrigin());
-							(*Engine::GetInstance()->getGameObjects())[0]->readInventory();
+							engineInstance->setTileSize(CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
+							engineInstance->setMapName(saves[i]);
+							engineInstance->spawnSpecial("PLAYER", 0, 0);
+							engineInstance->spawnSpecial("ZOMBIE", 1000, 0);
+							Camera::GetInstance()->setTarget((*engineInstance->getGameObjects())[0]->getOrigin());
+							(*engineInstance->getGameObjects())[0]->readInventory();
 							loaded_map_name = saves[i];
 						}
 						submenu = sub::Main;
-						Engine::GetInstance()->setMenuShowing(false);
+						engineInstance->setMenuShowing(false);
 
 						/*auto it = rublikak.begin();
 						for (int i = 0; i < rublikak.size(); i++) {
@@ -363,7 +367,7 @@ void Menu::Update()
 						cc = 0;
 						Camera::GetInstance()->Update();
 						UI::GetInstance()->Update();
-						Engine::GetInstance()->Update();
+						engineInstance->Update();
 						break;
 					}
 				}
@@ -448,26 +452,21 @@ void Menu::Update()
 
 void Menu::Draw()
 {
+	auto engineInstane = Engine::GetInstance();
+
 	if (submenu!=sub::Title) {
-		SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 100);
-		SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), 0);
+		SDL_SetRenderDrawColor(engineInstane->getRenderer(), 0, 0, 0, 100);
+		SDL_RenderFillRect(engineInstane->getRenderer(), 0);
 	}
 	else {
-		SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 0, 0, 0, 255);
-		SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), 0);
+		SDL_SetRenderDrawColor(engineInstane->getRenderer(), 0, 0, 0, 255);
+		SDL_RenderFillRect(engineInstane->getRenderer(), 0);
 	}
 
-	auto scale = Engine::GetInstance()->getScale();
+	auto scale = engineInstane->getScale();
 	for (int i = 0; i < options.size(); i++) {
 		TextureManager::GetInstance()->TCharsOut(rublikak[options[i]].szoveg, rublikak[options[i]].x, rublikak[options[i]].y/scale, rublikak[options[i]].h/scale, &rublikak[options[i]].w, rublikak[options[i]].color);
 	}
-
-	//melyik("Volume: ", &index);
-	//if (submenu == sub::Settings) {
-	//	SDL_Rect kockahely = { rublikak[index].w, rublikak[index].y, (*Engine::GetInstance()->getWindow_W() - rublikak[index].w) /*200*/ / scale, rublikak[index].h / scale };
-	//	SDL_SetRenderDrawColor(Engine::GetInstance()->getRenderer(), 255, 255, 255, 255);
-	//	SDL_RenderFillRect(Engine::GetInstance()->getRenderer(), &kockahely);
-	//}
 }
 
 //ez is mar teljesen feles

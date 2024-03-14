@@ -35,6 +35,7 @@ bool MapParser::Parse(std::string id, std::string source)
 
     int i = 0;
     GameMap* gamemap = new GameMap();
+    auto engineInstance = Engine::GetInstance();
     for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
     {
         if (e->Value() == std::string("layer"))
@@ -47,13 +48,13 @@ bool MapParser::Parse(std::string id, std::string source)
             std::string str;
             str = e->Attribute("name");
             if (str == "foreground") {
-                Engine::GetInstance()->setCollisionLayer(i);
+                engineInstance->setCollisionLayer(i);
             }
             if (str == "background") {
-                Engine::GetInstance()->setBackgroundLayer(i);
+                engineInstance->setBackgroundLayer(i);
             }
             if (str == "flora") {
-                Engine::GetInstance()->setFloraLayer(i);
+                engineInstance->setFloraLayer(i);
             }
             i++;
         }

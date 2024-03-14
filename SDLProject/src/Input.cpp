@@ -125,45 +125,46 @@ int Input::getElse()
 
 void Input::interpret(int kod)
 {
+	auto timerInstance = Timer::GetInstance();
 	switch (kod)
 	{
 	case SDL_SCANCODE_1:
-		if(Timer::GetInstance()->pressable(200)){ Timer::GetInstance()->setFPSLock(!Timer::GetInstance()->getFPSLock()); }
+		if(timerInstance->pressable(200)){ timerInstance->setFPSLock(!timerInstance->getFPSLock()); }
 		break;
 
 	case SDL_SCANCODE_KP_PLUS:
-		if (Timer::GetInstance()->pressable(200)) {
+		if (timerInstance->pressable(200)) {
 			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() + 0.01); 
 		}
 		break;
 
 	case SDL_SCANCODE_MINUS:
-		if (Timer::GetInstance()->pressable(200)) {
+		if (timerInstance->pressable(200)) {
 			Engine::GetInstance()->setScale(Engine::GetInstance()->getScale() - 0.01);
 		}
 
 		break;
 
 	case SDL_SCANCODE_2:
-		if (Timer::GetInstance()->pressable(200)) {
+		if (timerInstance->pressable(200)) {
 			UI::GetInstance()->setFpsShowing(!UI::GetInstance()->getFpsShowing());
 		}
 		break;
 
 	case SDL_SCANCODE_F2:
-		if (Timer::GetInstance()->pressable(40)) {
+		if (timerInstance->pressable(40)) {
 			Engine::GetInstance()->setVolume(Engine::GetInstance()->getVolume() - 1);
 		}
 		break;
 
 	case SDL_SCANCODE_F3:
-		if (Timer::GetInstance()->pressable(40)) {
+		if (timerInstance->pressable(40)) {
 			Engine::GetInstance()->setVolume(Engine::GetInstance()->getVolume() + 1);
 		}
 		break;
 
 	case SDL_SCANCODE_E:
-		if (Timer::GetInstance()->pressable(200)) {
+		if (timerInstance->pressable(200)) {
 			UI::GetInstance()->setInventoryShowing(!UI::GetInstance()->getInventoryShowing());
 		}
 	}

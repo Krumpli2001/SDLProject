@@ -72,14 +72,16 @@ bool Engine::Init()
 	UI::GetInstance()->UIInit();
 
 	//spawnSpecial("SKELETON", 1000, 0);
-	/*spawnSpecial("ZOMBIE", 1000, 0)*/;
+	/*spawnSpecial("ZOMBIE", 1000, 0);*/
 
-	Options::GetInstance()->readSettings();
-	if (*Options::GetInstance()->getSavedScale() != -1) {
-		scale = *Options::GetInstance()->getSavedScale();
+	auto options = Options::GetInstance();
+
+	options->readSettings();
+	if (*options->getSavedScale() != -1) {
+		scale = *options->getSavedScale();
 	}
-	if (*Options::GetInstance()->getSavedVolume() != -1) {
-		volume = *Options::GetInstance()->getSavedVolume();
+	if (*options->getSavedVolume() != -1) {
+		volume = *options->getSavedVolume();
 	}
 
 	Engine_IsRunning = true;
@@ -106,9 +108,10 @@ bool Engine::Clean()
 
 	//settings kiirasa fajlba
 	{
-		Options::GetInstance()->setSavedScale(scale);
-		Options::GetInstance()->setSavedVolume(volume);
-		Options::GetInstance()->saveSettings();
+		auto options = Options::GetInstance();
+		options->setSavedScale(scale);
+		options->setSavedVolume(volume);
+		options->saveSettings();
 	}
 
 	SDL_DestroyRenderer(Engine_Renderer);
@@ -136,18 +139,22 @@ void Engine::Update()
 	}
 
 	if (!Engine_MenuShowing) {
-		Uint64 dt = Timer::GetInstance()->getTimer_DeltaTime();
-		Timer::GetInstance()->setmenu(false);
+
+		auto timerInstance = Timer::GetInstance();
+
+		Uint64 dt = timerInstance->getTimer_DeltaTime();
+		timerInstance->setmenu(false);
 
 		//ez itt csak a spawnolás
 		if (Engine_SpawnTimer == SPAWN) {
-			int bal_jobb = RNG::GetInstance()->genRandomInt(1);
+			auto rngInstance = RNG::GetInstance();
+			int bal_jobb = rngInstance->genRandomInt(1);
 			//mi a rak lett ez az auto XD
 			auto iter = Engine_PropsMap.begin();
 			int randomMob;
 			do {
 				iter = Engine_PropsMap.begin();
-				randomMob = RNG::GetInstance()->genRandomInt(Engine_PropsMap.size()-1);
+				randomMob = rngInstance->genRandomInt(Engine_PropsMap.size()-1);
 				std::advance(iter, randomMob);
 			} while (iter->first == "PLAYER" || iter->first == "ARROW");
 
@@ -181,7 +188,13 @@ void Engine::Update()
 		for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 		{
 			//player meghalt
-			if (Enigine_GameObjects[0]->getHP() <= 0) { Engine_MenuShowing = true; Menu::GetInstance()->setGameOver(true);  Menu::GetInstance()->setMain(false); break; }
+			if (Enigine_GameObjects[0]->getHP() <= 0) {
+				Engine_MenuShowing = true;
+				auto menuInstance = Menu::GetInstance();
+				menuInstance->setGameOver(true);
+				menuInstance->setMain(false);
+				break;
+			}
 			//barmi mas meghalt
 			if (Enigine_GameObjects[i]->getHP() <= 0 and i != 0) {
 				Enigine_GameObjects.erase(Enigine_GameObjects.begin() + i);
@@ -205,7 +218,7 @@ void Engine::Update()
 			}
 		}
 
-		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
+		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / TileSize, static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / TileSize);
 		Camera::GetInstance()->Update();
 		UI::GetInstance()->Update();
 
@@ -248,7 +261,9 @@ void Engine::Render()
 		
 		drawBG("bg", 0);
 
-		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize(), static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
+
+
+		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / TileSize, static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / TileSize);
 
 		UI::GetInstance()->Draw();
 
@@ -260,7 +275,7 @@ void Engine::Render()
 		mapIsLoaded = true;
 	}
 	//?????????????????????????????????????????????????????????????????????
-	SDL_RenderSetScale(Engine::GetInstance()->getRenderer(), scale, scale);
+	SDL_RenderSetScale(Engine_Renderer, scale, scale);
 	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);
 
@@ -269,8 +284,8 @@ void Engine::Render()
 void Engine::drawBG(std::string id, int y)
 {
 	auto scroll = 0.6;
-	auto t = TextureManager::GetInstance()->getTextureMap();
-	auto dim = t->find(id)->second.second;
+	auto t = TextureManager::GetInstance();
+	auto dim = t->getTextureMap()->find(id)->second.second;
 
 
 	int x = 0;
@@ -278,7 +293,7 @@ void Engine::drawBG(std::string id, int y)
 	int alkalom = 0;
 
 	while (alkalom<meg) {
-		TextureManager::GetInstance()->DrawBackgroundPicture(id, x, y, dim.w, dim.h, scroll);
+		t->DrawBackgroundPicture(id, x, y, dim.w, dim.h, scroll);
 		x += dim.w;
 		alkalom++;
 	}

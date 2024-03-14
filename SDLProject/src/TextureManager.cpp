@@ -18,11 +18,13 @@ bool TextureManager::Init()
 	TTF_Font* font = TTF_OpenFont("assets/cambria.ttf", 12);
 	SDL_Color color = { 255, 255, 255 };
 
+	auto engineInstance = Engine::GetInstance();
+
 	//szamok
 	for (char i = '0'; i <= '9'; i++) {
 		std::string str{ i };
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
-		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(engineInstance->getRenderer(), surfaceMessage);
 
 		chars_map[i].first = Message;
 		chars_map[i].second = { surfaceMessage->w, surfaceMessage->h };
@@ -35,7 +37,7 @@ bool TextureManager::Init()
 	for (char i = 'a'; i <= 'z'; i++) {
 		std::string str{ i };
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
-		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(engineInstance->getRenderer(), surfaceMessage);
 
 		chars_map[i].first = Message;
 		chars_map[i].second = { surfaceMessage->w, surfaceMessage->h };
@@ -49,7 +51,7 @@ bool TextureManager::Init()
 		
 		std::string str{ i };
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, str.c_str(), color);
-		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(engineInstance->getRenderer(), surfaceMessage);
 
 		chars_map[i].first = Message;
 		chars_map[i].second = { surfaceMessage->w, surfaceMessage->h };
@@ -61,7 +63,7 @@ bool TextureManager::Init()
 	//////////////
 	{
 		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "/", color);
-		SDL_Texture* Message = SDL_CreateTextureFromSurface(Engine::GetInstance()->getRenderer(), surfaceMessage);
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(engineInstance->getRenderer(), surfaceMessage);
 
 		chars_map['/'].first = Message;
 		chars_map['/'].second = {surfaceMessage->w, surfaceMessage->h};
