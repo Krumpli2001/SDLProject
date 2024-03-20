@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Character.hpp"
-#include "ObjectFactory.hpp"
 #include "Engine.hpp"
+#include "ObjectFactory.hpp"
 
 class Enemy : public Character
 {
@@ -122,7 +122,7 @@ public:
 	inline int getAttackPower() { return Enemy_AttackPower; }
 
 	//visszaadja a támadás idõzítését
-	inline double getAttackTimer() { return Enemy_AttackTimer; }
+	inline double getAttackTimer() const { return Enemy_AttackTimer; }
 };
 
 class Skeleton : public Enemy{

@@ -10,7 +10,6 @@ class FPSCounter
 private:
 	static FPSCounter* FPS_Instance;
 	FPSCounter() {};
-
 	double scale{};
 
 public:

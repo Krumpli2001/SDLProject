@@ -67,7 +67,7 @@ void UI::Draw()
 				int srcx = i == 1 ? heartmeret * (1.0 - (seged)) : 0;
 
 				texturemanager->Draw("heart", x, 20 * (1.0 / scale), w, heartmeret * (1.0 / scale), srcx, 0);
-				kezdopixel += heartmeret;
+				kezdopixel = static_cast<int>(kezdopixel + heartmeret);
 			}
 		}
 		//hp szam

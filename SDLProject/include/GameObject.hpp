@@ -1,14 +1,13 @@
 #pragma once
 #include <SDL.h>
 
-#include "IObject.hpp"
-#include "Transform.hpp"
-#include "Point.hpp"
 #include "Collider.hpp"
+#include "IObject.hpp"
+#include "Point.hpp"
 #include "RigidBody.hpp"
 #include "SpriteAnimation.hpp"
+#include "Transform.hpp"
 
-#define PLAYER_ATTACK_TIME 300.0
 
 class Properties {
 public:
@@ -80,13 +79,13 @@ public:
 	inline void setHP(int newhp) { GameObject_hp = newhp; }
 
 	//visszaadja az adott gameObj életét
-	inline int getHP() { return GameObject_hp; }
+	inline int getHP() const { return GameObject_hp; }
 
 	//beállítja az adott gameObjeknek a lehetséges maximális életpontját
 	inline void setMaxHP(int newhp){ GameObject_MaxHP = newhp; }
 
 	//visszaadja az adott gameObjeknek a lehetséges maximális életpontját
-	inline int getMaxHP() { return GameObject_MaxHP; }
+	inline int getMaxHP() const { return GameObject_MaxHP; }
 
 	//támadás
 	virtual void attacking(Uint64 dt) = 0;

@@ -80,7 +80,7 @@ void Player::Update(Uint64 dt)
 
 	if (GameObject_kbt > 0) {
 		texturemanagerInstance->setTextColor(texturemanagerInstance->getTextureMap()->find(*Player_SpriteAnimation->getSpriteID())->second.first, "red");
-		GameObject_kbt -= dt;
+		GameObject_kbt = static_cast<int>(GameObject_kbt - dt);
 
 		Player_RigidBody->ApplyForceY(FEL * GameObject_kb);
 		Player_IsJumping = true;
@@ -140,7 +140,7 @@ void Player::Update(Uint64 dt)
 		auto colllayer = engineInstance->getCollisionLayerVector();
 		int tileID = (*colllayer)[egerY][egerX];
 		if (tileID != 0) {
-			int block_mine_timer = ItemData::GetInstance()->getTileDataFromID(tileID)->MineTime;
+			uint32_t block_mine_timer = ItemData::GetInstance()->getTileDataFromID(tileID)->MineTime;
 			//igy csak az a bak ha athuzod masik blockra akkor is hozzaadja a timerhez
 			if (block_mine_timer >= 0) {
 				minetime += dt;

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <SDL.h>
+#include <vector>
 
 #include "ItemData.hpp"
 #include "TileLayer.hpp"
@@ -43,7 +43,7 @@ public:
 	inline std::vector<std::vector<int>>* getCollisionTileMap() { return CollisionHandler_CollitionTileMap; }
 
 	//visstaadja hogy a pályán mekkora egy négyzet
-	inline int getTileSize() { return tileSize; }
+	inline int getTileSize() const { return tileSize; }
 
 	//visstaadja a collision tilelayert, ebbe beletartozik a palya matrixa (amit a getCollisionTileMap() ad vissza)
 	//de emellett még tartalmazza a pálya méreteit is

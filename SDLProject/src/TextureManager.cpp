@@ -85,10 +85,10 @@ void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* wid
 	int w{};
 	int h = chars_map[str[0]].second.h;
 	double scale = static_cast<double>(size) / static_cast<double>(h);
-	h *= scale;
+	h = static_cast<int>(h * scale);
 
 	for (int i = 0; i < str.length(); i++) {
-		SDL_Rect dstRect = { x, y, chars_map[str[i]].second.w * scale, h };
+		SDL_Rect dstRect = { x, y, static_cast<int>(chars_map[str[i]].second.w * scale), h };
 		if (szin != "") {
 			setTextColor(chars_map[str[i]].first, szin);
 			SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), chars_map[str[i]].first, NULL, &dstRect, 0, 0, SDL_FLIP_NONE);
@@ -98,11 +98,11 @@ void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* wid
 			SDL_RenderCopyEx(Engine::GetInstance()->getRenderer(), chars_map[str[i]].first, NULL, &dstRect, 0, 0, SDL_FLIP_NONE);
 		}
 
-		x += chars_map[str[i]].second.w * scale;
+		x = static_cast<int>(x + chars_map[str[i]].second.w * scale);
 
 		if (str[i] == ' ') {
 			//10 mert nincs ra okom
-			x += 10 * scale;
+			x = static_cast<int>(x + 10 * scale);
 		}
 
 		if (str[i] == '\n') {
@@ -185,7 +185,7 @@ void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y,
 
 	Vector2D cam = Camera::GetInstance()->getPosition();
 
-	SDL_Rect dstRect = { x - cam.getX(), y - cam.getY(), tilesize, tilesize};
+	SDL_Rect dstRect = { static_cast<int>(x - cam.getX()), static_cast<int>(y - cam.getY()), tilesize, tilesize };
 
 	//SDL_Rect dstRect = { x, y, tilesize, tilesize };
 	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[tilesetID].first, &srcRect, &dstRect /*0, nullptr, flip*/);
@@ -316,7 +316,7 @@ void TextureManager::fillColorMap(std::string source)
 					}
 				}
 				colors[szin] = SDL_Color{ r,g,b };
-				betu = egysor.length();
+				betu = static_cast<int>(egysor.length());
 			}
 			egysor = "";
 			szin = "";
@@ -330,7 +330,7 @@ void TextureManager::fillColorMap(std::string source)
 
 void TextureManager::setTextColor(SDL_Texture* texture, std::string szin)
 {
-	auto color = colors[szin];
+	auto& color = colors[szin];
 	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
 }
 

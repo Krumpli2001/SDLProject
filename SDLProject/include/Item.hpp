@@ -3,12 +3,12 @@
 #include <iostream>
 
 struct Tile {
-	Tile(int TID, std::string TN, std::string LID, bool iT, uint64_t MT, int MS) : TileID(TID), TileName(TN), LayerID(LID), isTransparent(iT), MineTime(MT), MaxStack(MS) {}
+	Tile(int TID, std::string TN, std::string LID, bool iT, uint32_t MT, int MS) : TileID(TID), TileName(TN), LayerID(LID), isTransparent(iT), MineTime(MT), MaxStack(MS) {}
 	int TileID;
 	std::string TileName;
 	std::string LayerID;
 	bool isTransparent;
-	uint64_t MineTime;
+	uint32_t MineTime;
 	int MaxStack;
 };
 

@@ -151,10 +151,10 @@ void Engine::Update()
 			int bal_jobb = rngInstance->genRandomInt(1);
 			//mi a rak lett ez az auto XD
 			auto iter = Engine_PropsMap.begin();
-			int randomMob;
+			unsigned int randomMob;
 			do {
 				iter = Engine_PropsMap.begin();
-				randomMob = rngInstance->genRandomInt(Engine_PropsMap.size()-1);
+				randomMob = static_cast<unsigned int>(rngInstance->genRandomInt(Engine_PropsMap.size() - 1));
 				std::advance(iter, randomMob);
 			} while (iter->first == "PLAYER" || iter->first == "ARROW");
 
@@ -164,13 +164,13 @@ void Engine::Update()
 			int y = 0;
 
 				if (bal_jobb == BAL) {
-					x = Enigine_GameObjects[0]->getPosition()->getX() - (50 * TileSize);
+					x = static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX() - (50 * TileSize));
 					if (x > 0 && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
 						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 				if (bal_jobb == JOBB) {
-					x = Enigine_GameObjects[0]->getPosition()->getX() + (50 * TileSize);
+					x = static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX() + (50 * TileSize));
 					if (x < Map_W && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
 						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
@@ -268,14 +268,14 @@ void Engine::Render()
 		UI::GetInstance()->Draw();
 
 		//azert megy hatrafele hogy a player legyen legfelul
-		for (int i = Enigine_GameObjects.size() - 1; i >= 0; i--) {
+		for (int i = static_cast<int>(Enigine_GameObjects.size() - 1); i >= 0; i--) {
 			Enigine_GameObjects[i]->Draw();
 		}
 
 		mapIsLoaded = true;
 	}
 	//?????????????????????????????????????????????????????????????????????
-	SDL_RenderSetScale(Engine_Renderer, scale, scale);
+	SDL_RenderSetScale(Engine_Renderer, static_cast<float>(scale), static_cast<float>(scale));
 	if (getMenuShowing()) { Menu::GetInstance()->Draw(); }
 	SDL_RenderPresent(Engine_Renderer);
 

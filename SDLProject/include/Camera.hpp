@@ -2,9 +2,9 @@
 
 #include <SDL.h>
 
+#include "Engine.hpp"
 #include "Point.hpp"
 #include "Vector2D.hpp"
-#include "Engine.hpp"
 
 
 class Camera
@@ -48,7 +48,7 @@ public:
 	inline SDL_Rect* getCamera_ViewBox() { return &Camera_ViewBox; }
 
 	//csak a kamera viewbox x, y koordinátáit adja vissza
-	inline Vector2D getPosition() { return Camera_Position; }
+	inline Vector2D getPosition() const { return Camera_Position; }
 
 	//beállítja, hogy a kamera mit kövessen (általában ez egy gameObj)
 	inline void setTarget(Point* target) { Camera_Target = target; }

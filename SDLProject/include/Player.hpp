@@ -12,6 +12,7 @@
 #define JUMP_FORCE 3.0
 #define RUN_FORCE 1.0
 #define UNDER_WATER_TIME 10000.0
+#define PLAYER_ATTACK_TIME 300.0
 
 enum playerAniState {
 	PlayerIsIdle,
@@ -43,7 +44,7 @@ private:
 	//short aniState;
 
 
-	bool PlayerReadyAttacking;
+	bool PlayerReadyAttacking{};
 	double Player_JumpTime;
 	double Player_AttackTime;
 	int Player_AttackPower = 15;

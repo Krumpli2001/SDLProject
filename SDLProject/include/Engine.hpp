@@ -1,9 +1,9 @@
 #pragma once
 
+#include <fstream>
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <unordered_map>
-#include <fstream>
 
 #include "GameMap.hpp"
 #include "GameObject.hpp"
@@ -12,7 +12,7 @@
 #define CREATION_WIDTH 1280
 #define CREATION_HEIGHT 720
 
-#define SPAWN 1000
+//#define SPAWN 1000
 
 class Engine
 {
@@ -33,8 +33,9 @@ private:
 
 	std::unordered_map<std::string, Properties*> Engine_PropsMap;
 
-	double Engine_SpawnTimer = SPAWN;
-	
+	//double Engine_SpawnTimer = SPAWN;
+	double SPAWN = 0; //ezt az erteket kell majd randomizalni
+	double Engine_SpawnTimer = 10000;
 
 	int Window_W{};
 	int Window_H{};
@@ -68,7 +69,7 @@ public:
 	}
 
 	//a main loopnak van, hogy fusson-e még a program 
-	inline bool GetIsRunning() { return Engine_IsRunning; }
+	inline bool GetIsRunning() const { return Engine_IsRunning; }
 
 	//renderer pointert ad vissza
 	inline SDL_Renderer* getRenderer() { return Engine_Renderer; }
@@ -86,10 +87,10 @@ public:
 	inline int* getWindow_H() { return &Window_H; }
 
 	//a palya szélesseget adja vissza, pixelekben
-	inline int getMap_W() { return Map_W; }
+	inline int getMap_W() const { return Map_W; }
 
 	//a palya magassagat adja vissza, pixelekben
-	inline int getMap_H() { return Map_H; }
+	inline int getMap_H() const { return Map_H; }
 
 	//a palya szélességét alítja be, pixelekben
 	inline void setMap_W(int e) { Map_W = e; }
@@ -98,7 +99,7 @@ public:
 	inline void setMap_H(int e) { Map_H = e; }
 
 	//visszaadja hogy a menu aktív-e
-	inline bool getMenuShowing() { return Engine_MenuShowing; }
+	inline bool getMenuShowing() const { return Engine_MenuShowing; }
 
 	//beállítja, hogy a menu aktív-e
 	inline void setMenuShowing(bool set) { Engine_MenuShowing = set; }
@@ -110,7 +111,7 @@ public:
 	inline std::unordered_map<std::string, Properties*>* getPropsMap() { return &Engine_PropsMap; }
 
 	//visszaadja a reset flag-et
-	inline bool getResetFlag() { return Engine_ResetFlag; }
+	inline bool getResetFlag() const { return Engine_ResetFlag; }
 
 	//beállítja a reset flag-et
 	inline void setResetFlag(bool e) { Engine_ResetFlag = e; }
@@ -119,13 +120,13 @@ public:
 	inline void setCollisionLayer(int e) { Engine_CollisionLayer = e; }
 
 	//visszaadja a collision layer indexét
-	inline int getCollisionLayer() { return Engine_CollisionLayer; }
+	inline int getCollisionLayer() const { return Engine_CollisionLayer; }
 
 	//beállítja a zoom skalárt
 	inline void setScale(double s) { scale = s; }
 
 	//visszaadja a zoom skalárt
-	inline double getScale() { return scale; }
+	inline double getScale() const { return scale; }
 
 	//beállítja, hogy van e aktív map betöltve
 	inline void setmapIsLoaded(bool e) { mapIsLoaded = e; }
@@ -143,7 +144,7 @@ public:
 	inline void setTileSize(int i) { TileSize = i; }
 
 	//visszaadja a blokkok méretét
-	inline int getTileSize() { return TileSize; }
+	inline int getTileSize() const { return TileSize; }
 
 	//kiszámolja adott x koordinátára a legmagasabb y koordinátát
 	int legmamasabbBlock(int x);
@@ -159,7 +160,7 @@ public:
 
 
 	//visszaadja a hangerõt
-	inline int getVolume() { return volume; }
+	inline int getVolume() const { return volume; }
 
 	//beállítja a hangerõt
 	inline void setVolume(int e) { volume = e; }
@@ -171,10 +172,10 @@ public:
 	inline void setBackgroundLayer(int e) { background_layer = e; }
 
 	//visszaadja a flora layer indexét
-	inline int getFloraLayer() { return flora_layer; }
+	inline int getFloraLayer() const { return flora_layer; }
 
 	//visszaadja a background layer indexét
-	inline int getBackgroundLayer() { return background_layer; }
+	inline int getBackgroundLayer() const { return background_layer; }
 
 	//beállítja a flora layer vektorát
 	inline void setFloraLayerVector(std::vector<std::vector<int>>* p) { Engine_FloraLayerVector = p; }
