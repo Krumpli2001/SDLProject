@@ -1,8 +1,8 @@
-#include "Input.hpp"
-#include "Engine.hpp"
 #include "Camera.hpp"
-#include "Timer.hpp" // ez kesobb majd valami settinges lesz
+#include "Engine.hpp"
+#include "Input.hpp"
 #include "Menu.hpp"
+#include "Timer.hpp" // ez kesobb majd valami settinges lesz
 #include "UI.hpp"
 
 Input* Input::Input_Instance = nullptr;

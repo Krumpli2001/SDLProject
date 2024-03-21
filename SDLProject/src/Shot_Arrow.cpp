@@ -31,8 +31,8 @@ void Shot_Arrow::Update(Uint64 dt)
 	irany = irany == 0 ? irany = TargetPosX < GameObject_Transform->getX() ? -1 : 1:irany;
 
 	if (OriginalX == -1 and OriginalY == -1) {
-		OriginalX = GameObject_Transform->getX();
-		OriginalY = GameObject_Transform->getY();
+		OriginalX = static_cast<int>(GameObject_Transform->getX());
+		OriginalY = static_cast<int>(GameObject_Transform->getY());
 	}
 
 	int distX = abs(OriginalX - TargetPosX);

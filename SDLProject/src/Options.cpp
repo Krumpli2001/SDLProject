@@ -2,8 +2,8 @@
 
 #include "tinyxml.h"
 
-#include "Options.hpp"
 #include "Engine.hpp"
+#include "Options.hpp"
 
 void Options::readSettings(std::string source)
 {

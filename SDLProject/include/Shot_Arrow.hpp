@@ -31,8 +31,8 @@ public:
 		Arrow_Collider = new Collider();
 		Arrow_SpriteAnimation = new SpriteAnimation();
 		auto player = (*Engine::GetInstance()->getGameObjects())[0];
-		TargetPosX = player->getPosition()->getX() + player->getCollider()->getBox()->w / 2.0;
-		TargetPosY = player->getPosition()->getY() + player->getCollider()->getBox()->h / 2.0;
+		TargetPosX = static_cast<int>(player->getPosition()->getX() + player->getCollider()->getBox()->w / 2.0);
+		TargetPosY = static_cast<int>(player->getPosition()->getY() + player->getCollider()->getBox()->h / 2.0);
 		Arrow_SpriteAnimation->SetProps("shot_arrow", 0, 1, 1);
 	}
 

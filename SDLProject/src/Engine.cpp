@@ -2,16 +2,16 @@
 
 #include <SDL_image.h>
 
-#include "Engine.hpp"
-#include "MapParser.hpp"
-#include "ObjectFactory.hpp"
-#include "Input.hpp"
-#include "Menu.hpp"
 #include "Camera.hpp"
+#include "Engine.hpp"
+#include "Input.hpp"
+#include "MapParser.hpp"
+#include "mappgen.hpp"
+#include "Menu.hpp"
+#include "ObjectFactory.hpp"
+#include "Options.hpp"
 #include "TextureManager.hpp"
 #include "UI.hpp"
-#include "mappgen.hpp"
-#include "Options.hpp"
 
 Engine* Engine::Engine_Instance = nullptr;
 

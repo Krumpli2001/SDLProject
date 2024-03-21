@@ -1,6 +1,6 @@
-#include "TileLayer.hpp"
-#include "TextureManager.hpp"
 #include "Engine.hpp"
+#include "TextureManager.hpp"
+#include "TileLayer.hpp"
 
 TileLayer::TileLayer(int tilesize, int rowcount, int colcount, std::vector<std::vector<int>> tilemap, std::vector<Tileset>* tilesets) :
 	TileLayer_TileSize(tilesize), TileLayer_ColCount(colcount), TileLayer_RowCount(rowcount), TileLayer_TileMap(tilemap), TileLayer_TileSets(*tilesets)

@@ -1,11 +1,11 @@
-#include <fstream>
 #include <format>
+#include <fstream>
 
 #include "SDL_ttf.h"
 
-#include "TextureManager.hpp"
-#include "Engine.hpp"
 #include "Camera.hpp"
+#include "Engine.hpp"
+#include "TextureManager.hpp"
 #include "tinyxml.h"
 
 TextureManager* TextureManager::TextureManager_Instance = nullptr;

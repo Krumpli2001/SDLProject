@@ -3,11 +3,11 @@
 #include <SDL.h>
 #include <tinyxml.h>
 
-#include "Player.hpp"
-#include "ObjectFactory.hpp"
+#include "Engine.hpp"
 #include "Input.hpp"
 #include "ItemData.hpp"
-#include "Engine.hpp"
+#include "ObjectFactory.hpp"
+#include "Player.hpp"
 #include "UI.hpp"
 
 

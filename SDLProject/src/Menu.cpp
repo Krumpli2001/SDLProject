@@ -1,17 +1,16 @@
+#include <cstring>
 #include <fstream>
 #include <string>
-#include <cstring>
 
-#include "Menu.hpp"
-#include "Input.hpp"
-#include "Timer.hpp"
-#include "MapParser.hpp"
-#include "TextureManager.hpp"
-#include "UI.hpp"
-//#include "Tiles.hpp"
-#include "Itemdata.hpp"
 #include "Camera.hpp"
+#include "Input.hpp"
+#include "Itemdata.hpp"
+#include "MapParser.hpp"
 #include "mappgen.hpp"
+#include "Menu.hpp"
+#include "TextureManager.hpp"
+#include "Timer.hpp"
+#include "UI.hpp"
 
 Menu* Menu::Menu_Instance = nullptr;
 

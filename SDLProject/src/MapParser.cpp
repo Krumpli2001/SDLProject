@@ -1,5 +1,5 @@
-#include "MapParser.hpp"
 #include "Engine.hpp"
+#include "MapParser.hpp"
 
 MapParser* MapParser::MapParser_Instance = nullptr;
 

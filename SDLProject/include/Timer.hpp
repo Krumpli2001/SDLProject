@@ -72,5 +72,5 @@ public:
 	/// </summary>
 	/// <param name="time">idõ a gomb nyomás után</param>
 	/// <returns>lenyomható e a gomb</returns>
-	bool pressable(Uint64 time);
+	bool pressable(Uint32 time);
 };

@@ -1,11 +1,11 @@
 #include <format>
 
-#include "UI.hpp"
-#include "FPSCounter.hpp"
-#include "TextureManager.hpp"
 #include "Camera.hpp"
-#include "TileLayer.hpp"
+#include "FPSCounter.hpp"
 #include "Input.hpp"
+#include "TextureManager.hpp"
+#include "TileLayer.hpp"
+#include "UI.hpp"
 
 
 void UI::UIInit()
@@ -37,8 +37,8 @@ void UI::Update()
 	SDL_GetMouseState(&cx, &cy);
 	kameraX = camera->getCamera_ViewBox()->x;
 	kameraY = camera->getCamera_ViewBox()->y;
-	kepernyoX = kameraX + cx*(1.0/scale);
-	kepernyoY = kameraY + cy*(1.0/scale);
+	kepernyoX = static_cast<int>(kameraX + cx / scale);
+	kepernyoY = static_cast<int>(kameraY + cy / scale);
 	//int size = Engine::GetInstance()->getTileSize();
 
 }
@@ -56,7 +56,7 @@ void UI::Draw()
 	//ez itt a szivecskek
 	{
 		if (php > 0) {
-			int szivekSzama = std::ceil(static_cast<double>(mphp) / 20.0 * (static_cast<double>(php) / static_cast<double>(mphp)));
+			int szivekSzama = static_cast<int>(std::ceil(static_cast<double>(mphp) / 20.0 * (static_cast<double>(php) / static_cast<double>(mphp))));
 			int kezdopixel = 40;
 			double heartmeret = texturemanager->getTextureMap()->find("heart")->second.second.w;
 
@@ -114,7 +114,7 @@ void UI::Draw()
 				//itemek
 				if ((*inv)[sor * 10 + oszlop].first) {
 					//textura kiirasa
-					texturemanager->DrawItem("texture_map", xi, yi, item_meret * (1 / scale), item_meret * (1 / scale),
+					texturemanager->DrawItem("texture_map", xi, yi, static_cast<int>(item_meret / scale), item_meret / scale,
 					((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * item_texture_meret, 0, item_texture_meret, item_texture_meret);
 				}
 				if ((*inv)[sor * 10 + oszlop].second>0) {
