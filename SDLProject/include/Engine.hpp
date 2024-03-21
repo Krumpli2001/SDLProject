@@ -9,10 +9,9 @@
 #include "GameObject.hpp"
 #include "Timer.hpp"
 
-#define CREATION_WIDTH 1280
-#define CREATION_HEIGHT 720
+constexpr auto CREATION_WIDTH = 1280;
+constexpr auto CREATION_HEIGHT = 720;
 
-//#define SPAWN 1000
 
 class Engine
 {

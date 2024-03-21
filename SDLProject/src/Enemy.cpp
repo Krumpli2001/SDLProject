@@ -20,15 +20,17 @@ Enemy::~Enemy()
 
 void Enemy::Update(Uint64 dt)
 {
-
 	Enemy_RigidBody->SetForceToZero();
 	getPlayerPosition();
 	move(dt);
 	Enemy_Collision(dt);
+
+	GameObject_Origin->setX(GameObject_Transform->getX());
+	GameObject_Origin->setY(GameObject_Transform->getY());
+
 	AnimationState();
 	Enemy_RigidBody->Update(dt);
 	Enemy_SpriteAnimation->Update(dt);
-
 }
 
 void Enemy::Draw()

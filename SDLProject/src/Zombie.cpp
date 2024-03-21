@@ -56,7 +56,8 @@ void Zombie::attacking(Uint64 dt)
 		if (Enemy_AttackTimer == 1000) {
 			Enemy_AttackTimer -= dt;
 			player->setHP(player->getHP() - Enemy_AttackPower);
-			player->TookDMG(2, 50);
+			auto irany = player->getOrigin()->getX() < GameObject_Origin->getX() ? BALRA : JOBBRA;
+			player->TookDMG(irany, 2, 50);
 		}
 	}
 

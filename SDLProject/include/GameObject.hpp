@@ -47,6 +47,7 @@ protected:
 
 	int GameObject_kb{};
 	int GameObject_kbt{};
+	int Gameobject_kb_direction{};
 
 public:
 	inline GameObject(Properties* props)
@@ -139,8 +140,9 @@ public:
 	virtual void setTarget(int X, int Y) = 0;
 
 	//a sebzõdés efekt
-	inline void TookDMG(int kb = 2, int kbt = 50) {
+	inline void TookDMG(int irany, int kb = 2, int kbt = 50) {
 		GameObject_kbt = kbt;
 		GameObject_kb = kb;
+		Gameobject_kb_direction = irany;
 	}
 };

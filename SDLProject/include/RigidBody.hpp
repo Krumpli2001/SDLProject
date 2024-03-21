@@ -2,12 +2,12 @@
 
 #include "Vector2D.hpp"
 
-#define UNIT_MASS 1.0
-#define GRAVITY 1
-#define JOBBRA 1
-#define BALRA -1
-#define FEL -1
-#define LE 1
+constexpr auto UNIT_MASS = 1.0;
+constexpr auto GRAVITY = 1;
+constexpr auto JOBBRA = 1;
+constexpr auto BALRA = -1;
+constexpr auto FEL = -1;
+constexpr auto LE = 1;
 
 class RigidBody
 {

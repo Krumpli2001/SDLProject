@@ -83,6 +83,7 @@ void Player::Update(Uint64 dt)
 		GameObject_kbt = static_cast<int>(GameObject_kbt - dt);
 
 		Player_RigidBody->ApplyForceY(FEL * GameObject_kb);
+		Player_RigidBody->ApplyForceX(Gameobject_kb_direction * GameObject_kb);
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
 		

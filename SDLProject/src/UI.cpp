@@ -77,8 +77,6 @@ void UI::Draw()
 	//inventory
 	{
 
-		//vagy #DEFINE
-		//vagy constexpr
 		const int hatter_meret = 60;
 		const int item_meret = 40;
 		const int item_texture_meret = engine->getTileSize();

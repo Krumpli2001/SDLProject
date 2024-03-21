@@ -8,11 +8,11 @@
 #include "Timer.hpp"
 
 //az ido ms
-#define JUMP_TIME 200.0
-#define JUMP_FORCE 3.0
-#define RUN_FORCE 1.0
-#define UNDER_WATER_TIME 10000.0
-#define PLAYER_ATTACK_TIME 300.0
+constexpr auto JUMP_TIME = 200.0;
+constexpr auto JUMP_FORCE = 3.0;
+constexpr auto RUN_FORCE = 1.0;
+constexpr auto UNDER_WATER_TIME = 10000.0;
+constexpr auto PLAYER_ATTACK_TIME = 300.0;
 
 enum playerAniState {
 	PlayerIsIdle,
