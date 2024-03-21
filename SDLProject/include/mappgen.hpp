@@ -35,16 +35,14 @@ namespace mappgen {
 		auto gen_seed = rand->genRandomInt();
 		const siv::PerlinNoise perlin{ static_cast<std::uint32_t>(gen_seed) };
 
-		const double frequency = 15; //0,1..64
-		const int octaves = 10; //1..16
+		constexpr double frequency = 15; //0,1..64
+		constexpr int octaves = 10; //1..16
 
 		const double fx = (frequency / width);
 		const double fy = (frequency / height);
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				//auto seged = perlin.octave2D_01((j * fx), (i * fy), octaves);
-				//p[j][i] = seged;
 				p[j][i] = perlin.octave2D_01((j * fx), (i * fy), octaves);
 			}
 		}
@@ -52,17 +50,25 @@ namespace mappgen {
 		//int genheight = height-10;
 		for (int i = 0; i < width; i++) {
 
-			int minheight = genheight - 2;
-			int maxheight = genheight + 2;
+			constexpr auto increment = 2;
+
+			int minheight = genheight - increment;
+			int maxheight = genheight + increment;
 			genheight = rand->genRandomInt(maxheight, minheight);
-			genheight = genheight < 0 ? 0 : genheight;
+
+			constexpr auto magassag_limit = 0;
+			genheight = genheight < magassag_limit ? magassag_limit : genheight;
+
 			genheight = genheight > height - 1 ? height - 1 : genheight;
+
 			int minko = genheight + 4;
 			int maxko = genheight + 7;
+
 			int genko = rand->genRandomInt(maxko, minko);
 
+			constexpr auto perlin_limit = 0.3;
 			for (int j = height-1; j > genheight; j--){
-				if (p[j][i] > 0.3) {
+				if (p[j][i] > perlin_limit) {
 					(*foreground)[j][i] = data->getTileIDFromName("fold");
 					if (j > genko) {
 						//proba miatt viz
