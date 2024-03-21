@@ -11,7 +11,7 @@ class MapParser
 private:
 	MapParser() {};
 	static MapParser* MapParser_Instance;
-	GameMap* MapParser_GameMap;
+	GameMap* MapParser_GameMap{};
 
 	bool MapParsed = false;
 

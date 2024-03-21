@@ -1,10 +1,10 @@
 #pragma once
 
 #include <iostream>
-#include <string>
+#include <map>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <map>
+#include <string>
 #include <unordered_map>
 
 struct dimenziok {

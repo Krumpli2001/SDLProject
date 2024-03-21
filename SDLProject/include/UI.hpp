@@ -76,7 +76,7 @@ public:
 	/// 
 	/// </summary>
 	/// <returns>mutatjuk-e az fps-t</returns>
-	inline bool getFpsShowing() { return FpsShowing; }
+	inline bool getFpsShowing() const { return FpsShowing; }
 
 	/// <summary>
 	/// ki van-e nyitva az inventory
@@ -88,7 +88,7 @@ public:
 	/// 
 	/// </summary>
 	/// <returns>mutatva van-e az egész inventory</returns>
-	inline bool getInventoryShowing() { return showInventory; }
+	inline bool getInventoryShowing() const { return showInventory; }
 
 	/// <summary>
 	/// beállítja a collision vektort
@@ -100,13 +100,13 @@ public:
 	/// 
 	/// </summary>
 	/// <returns>az egér X pozíciója a map szempontjából</returns>
-	inline int getkepernyoX() { return kepernyoX; }
+	inline int getkepernyoX() const { return kepernyoX; }
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <returns>az egér X pozíciója a map szempontjából</returns>
-	inline int getkepernyoY() { return kepernyoY; }
+	inline int getkepernyoY() const { return kepernyoY; }
 
 	/// <summary>
 	/// 

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Character.hpp"
-#include "SpriteAnimation.hpp"
-#include "RigidBody.hpp"
-#include "Timer.hpp"
-#include "Itemdata.hpp"
 #include "array"
+#include "Character.hpp"
+#include "Itemdata.hpp"
+#include "RigidBody.hpp"
+#include "SpriteAnimation.hpp"
+#include "Timer.hpp"
 
 //az ido ms
 #define JUMP_TIME 200.0

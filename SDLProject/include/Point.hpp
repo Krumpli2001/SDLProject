@@ -10,8 +10,8 @@ private:
 public:
 	inline Point(double x = 0, double y = 0) : Point_X(x), Point_Y(y) {};
 
-	inline double getX() { return Point_X; }
-	inline double getY() { return Point_Y; }
+	inline double getX() const { return Point_X; }
+	inline double getY() const { return Point_Y; }
 
 	inline double setX(double x) { return Point_X = x; }
 	inline double setY(double y) { return Point_Y = y; }
@@ -41,7 +41,7 @@ public:
 		return Point(Point_X * scalar, Point_Y * scalar);
 	}
 
-	inline void Log(std::string msg) {
+	inline void Log(std::string msg) const {
 		std::cout << msg << "(X, Y) = (" << Point_X << " " << Point_Y << ")\n";
 	}
 };

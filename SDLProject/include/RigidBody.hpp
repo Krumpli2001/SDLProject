@@ -33,11 +33,11 @@ public:
 	 inline void ApplyFriction(Vector2D Fr) { RigidBody_Friction = Fr; }
 	 inline void SetFrictionToZero() { RigidBody_Friction = Vector2D(0.0, 0.0); }
 
-	 inline double getGravity() { return RigidBody_Gravity; }
-	 inline double getRigidBody_Mass() { return RigidBody_Mass; }
-	 inline Vector2D getRigidBody_Position() { return RigidBody_Position; }
-	 inline Vector2D getRigidBody_Velocity() { return RigidBody_Velocity; }
-	 inline Vector2D getRigidBody_Accelaration() { return RigidBody_Accelaration; }
+	 inline double getGravity() const { return RigidBody_Gravity; }
+	 inline double getRigidBody_Mass() const { return RigidBody_Mass; }
+	 inline Vector2D getRigidBody_Position() const { return RigidBody_Position; }
+	 inline Vector2D getRigidBody_Velocity() const { return RigidBody_Velocity; }
+	 inline Vector2D getRigidBody_Accelaration() const { return RigidBody_Accelaration; }
 
 
 	 inline void Update(Uint64 dt)

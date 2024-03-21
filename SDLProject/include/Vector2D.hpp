@@ -12,8 +12,8 @@ public:
 	inline void setX(double x) {  Vector2D_X = x; }
 	inline void setY(double y) {  Vector2D_Y = y; }
 
-	inline double getX() { return Vector2D_X; }
-	inline double getY() { return Vector2D_Y; }
+	inline double getX() const { return Vector2D_X; }
+	inline double getY() const { return Vector2D_Y; }
 
 	//muveletek
 	inline Vector2D operator+(const Vector2D v2) const
@@ -31,7 +31,7 @@ public:
 		return Vector2D(Vector2D_X * szorzat, Vector2D_Y * szorzat);
 	}
 
-	inline void log(std::string msg)
+	inline void log(std::string msg) const
 	{
 		std::cout << msg << "(X, Y) = " << Vector2D_X << ", " << Vector2D_Y << std::endl;
 	}

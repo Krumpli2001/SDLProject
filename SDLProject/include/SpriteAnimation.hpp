@@ -21,7 +21,7 @@ public:
 	SpriteAnimation(bool repeat = false);
 
 	//visszaadja, hogy az adott animáció hány frame-bõl áll
-	inline int getFrameCount() { return SpriteAnimation_FrameCount; }
+	inline int getFrameCount() const { return SpriteAnimation_FrameCount; }
 
 	//frissítés
 	virtual void Update(Uint64 dt);

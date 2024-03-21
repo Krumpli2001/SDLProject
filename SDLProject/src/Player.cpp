@@ -125,7 +125,7 @@ void Player::Update(Uint64 dt)
 	if ((SDL_BUTTON(inputInstance->getClickDown()) == 1) or (inputInstance->getKeyDown(SDL_SCANCODE_K)))
 	{
 		Player_IsAttacking = true;
-		aniState = playerAniState::PlayerIsAttacking;
+		//aniState = playerAniState::PlayerIsAttacking;
 
 		auto uiInstance = UI::GetInstance();
 		auto engineInstance = Engine::GetInstance();
@@ -229,7 +229,7 @@ void Player::Update(Uint64 dt)
 	//jobbra fut / ut
 	if (inputInstance->getAxisKey(HORIZONTAL) == JOBBRA and Player_IsAttacking)
 	{
-		aniState = playerAniState::PlayerIsWalkingAndAttacking;
+		//aniState = playerAniState::PlayerIsWalkingAndAttacking;
 		//Player_IsWalkAttacking = true;
 		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE);// * dt);
 		GameObject_Flip = SDL_FLIP_NONE;
@@ -238,7 +238,7 @@ void Player::Update(Uint64 dt)
 	//balra fut / ut
 	if (inputInstance->getAxisKey(HORIZONTAL) == BALRA and Player_IsAttacking)
 	{
-		aniState = playerAniState::PlayerIsWalkingAndAttacking;
+		//aniState = playerAniState::PlayerIsWalkingAndAttacking;
 		//Player_IsWalkAttacking = true;
 		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE);// * dt);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
@@ -320,7 +320,7 @@ void Player::Update(Uint64 dt)
 	if ((static_cast<int>(Player_LastSafePosition.getY()) % collhandlerInstance->getCollisionLayer()->getTileSize()) >= (collhandlerInstance->getCollisionLayer()->getTileSize() - dt * Player_RigidBody->getGravity())) {
 		
 		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % collhandlerInstance->getCollisionLayer()->getTileSize());
-		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Player_RigidBody->getGravity() - szam, Player_Dimenziok.w, Player_Dimenziok.h);
+		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam), Player_Dimenziok.w, Player_Dimenziok.h);
 		if (collhandlerInstance->MapCollision(this, &Player_IsGrounded))
 		{
 			GameObject_Transform->setX(Player_LastSafePosition.getX());
@@ -386,16 +386,17 @@ void Player::AnimationState()
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_jumping")->second.second.h;
 	}
 
-	if (aniState == playerAniState::PlayerIsAttacking) {
-		Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true);
+	if (aniState == playerAniState::PlayerIsAttacking or Player_IsAttacking) {
+		Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, static_cast<int>(PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount()), true);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_stand_hit")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_stand_hit")->second.second.h;
 	}
 
-	if (aniState == playerAniState::PlayerIsWalkingAndAttacking) {
-		Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount(), true);
+	if (aniState == playerAniState::PlayerIsWalking and Player_IsAttacking) {
+		Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, static_cast<int>(PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount()), true);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_walk_hit")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_walk_hit")->second.second.h;
+		//std::cout << 'b';
 	}
 
 }
@@ -444,7 +445,7 @@ void Player::readInventory()
 		std::cout << "Failde to load: " << source << std::endl;
 		std::cout << "setting to default loc\n";
 		GameObject_Transform->setX(engineInstance->getMap_W() / 2);
-		GameObject_Transform->setY(engineInstance->legmamasabbBlock(GameObject_Transform->getX()) - TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w);
+		GameObject_Transform->setY(engineInstance->legmamasabbBlock(static_cast<int>(GameObject_Transform->getX()) - TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w));
 		return;
 	}
 	TiXmlElement* root = xml.RootElement();

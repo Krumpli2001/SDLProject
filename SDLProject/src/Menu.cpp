@@ -62,7 +62,7 @@ void Menu::Update()
 		//continue
 		{
 			if (melyik("Continue", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false;
@@ -72,7 +72,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -81,7 +81,7 @@ void Menu::Update()
 		//options
 		{
 			if (melyik("Options", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					submenu = sub::Settings;
@@ -90,7 +90,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -99,7 +99,7 @@ void Menu::Update()
 		//save
 		{
 			if (melyik("Save", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false;
@@ -111,7 +111,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -120,7 +120,7 @@ void Menu::Update()
 		//title screen
 		{
 			if (melyik("Title screen", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					enter = false;
@@ -144,7 +144,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -153,7 +153,7 @@ void Menu::Update()
 		//quit
 		{
 			if (melyik("Quit", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					Engine::GetInstance()->Quit();
@@ -161,7 +161,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -179,7 +179,7 @@ void Menu::Update()
 		//reset
 		{
 			if (melyik("Retry", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("gold", index);
 				if (cc == 1 or enter) {
 					enter = false; Reset();
@@ -189,7 +189,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -198,7 +198,7 @@ void Menu::Update()
 		//quit
 		{
 			if (melyik("Quit", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					Engine::GetInstance()->Quit();
@@ -206,7 +206,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -219,7 +219,7 @@ void Menu::Update()
 		//load
 		{
 			if (melyik("Load", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					TextureManager::GetInstance()->ParseTextures("assets/textures.xml");
@@ -229,7 +229,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -238,7 +238,7 @@ void Menu::Update()
 		//mapgen
 		{
 			if (melyik("Generate", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					enter = false;
@@ -251,7 +251,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -260,7 +260,7 @@ void Menu::Update()
 		//options
 		{
 			if (melyik("Options", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					submenu = sub::Settings;
@@ -269,7 +269,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -278,7 +278,7 @@ void Menu::Update()
 		//quit
 		{
 			if (melyik("Quit", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					Engine::GetInstance()->Quit();
@@ -286,7 +286,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -306,12 +306,12 @@ void Menu::Update()
 					if (ext == "tmx") {
 						temp.erase(temp.length() - 4, temp.length());
 
-						int len = temp.length();
+						int len = static_cast<int>(temp.length());
 						char* c = new char[temp.length() + 1];
 						strcpy_s(c, temp.length() + 1, temp.c_str());
 
 						saves.push_back(c);
-						rublikak.push_back(rublika(saves[i], 0, (saves.size() - 1) * 150, temp.length() * 60, 150));
+						rublikak.push_back(rublika(saves[i], 0, static_cast<int>((saves.size() - 1) * 150), static_cast<int>(temp.length() * 60), 150));
 						i++;
 					}
 				}
@@ -381,7 +381,7 @@ void Menu::Update()
 		//vissza
 		{
 			if (melyik("Back", &index)) {
-				rublikak[index].setRectLocation(0, saves.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(saves.size() * 150));
 				RUpdate("green", index);
 				if (cc == 1 or enter) {
 					enter = false;
@@ -392,7 +392,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, saves.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(saves.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -403,11 +403,11 @@ void Menu::Update()
 		//hang
 		{
 			if(melyik("Volume: ", &index)){
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("red", index);
 			}
 			else {
-				rublikak[index].setRectLocation(0, saves.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(saves.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -416,7 +416,7 @@ void Menu::Update()
 		//vissza
 		{
 			if (melyik("Back", &index)) {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				RUpdate("red", index);
 				if (cc == 1 or enter) {
 					enter = false;
@@ -425,7 +425,7 @@ void Menu::Update()
 				}
 			}
 			else {
-				rublikak[index].setRectLocation(0, options.size() * 150);
+				rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 				doelse("white", index);
 			}
 			options.push_back(index);
@@ -465,7 +465,7 @@ void Menu::Draw()
 
 	auto scale = engineInstane->getScale();
 	for (int i = 0; i < options.size(); i++) {
-		TextureManager::GetInstance()->TCharsOut(rublikak[options[i]].szoveg, rublikak[options[i]].x, rublikak[options[i]].y/scale, rublikak[options[i]].h/scale, &rublikak[options[i]].w, rublikak[options[i]].color);
+		TextureManager::GetInstance()->TCharsOut(rublikak[options[i]].szoveg, rublikak[options[i]].x, static_cast<int>(rublikak[options[i]].y / scale), static_cast<int>(rublikak[options[i]].h / scale), &rublikak[options[i]].w, rublikak[options[i]].color);
 	}
 }
 
@@ -489,7 +489,7 @@ void Menu::setHighlighted(int i) {
 			prevHol = index;
 			index -= 1;
 			if (index <= -1) {
-				index = options.size() - 1;
+				index = static_cast<int>(options.size() - 1);
 			}
 		}
 		if (i == -1) {
@@ -509,6 +509,6 @@ void Menu::Reset()
 {
 	Engine::GetInstance()->setResetFlag(true);
 	std::ignore = melyik("Quit", &index);
-	rublikak[index].setRectLocation(0, options.size() * 150);
+	rublikak[index].setRectLocation(0, static_cast<int>(options.size() * 150));
 }
 

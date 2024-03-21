@@ -78,7 +78,7 @@ void Enemy::Enemy_Collision(Uint64 dt) {
 	if ((static_cast<int>(Enemy_LastSafePosition.getY()) % collisionHandlerInstance->getCollisionLayer()->getTileSize()) >= (collisionHandlerInstance->getCollisionLayer()->getTileSize() - dt * Enemy_RigidBody->getGravity())) {
 	
 		auto szam = ((static_cast<int>(Enemy_LastSafePosition.getY()) + GameObject_Height) % collisionHandlerInstance->getCollisionLayer()->getTileSize());
-		Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()) + dt * Enemy_RigidBody->getGravity() - szam, Enemy_dimenziok.w, Enemy_dimenziok.h);
+		Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY() + dt * Enemy_RigidBody->getGravity() - szam), Enemy_dimenziok.w, Enemy_dimenziok.h);
 		if (collisionHandlerInstance->MapCollision(this, &Enemy_IsGrounded))
 		{
 			GameObject_Transform->setX(Enemy_LastSafePosition.getX());

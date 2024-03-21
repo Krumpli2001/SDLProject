@@ -41,19 +41,19 @@ public:
 	/// 
 	/// </summary>
 	/// <returns>a kettõ egymást követõ frame közötti eltelt idõ ms-ben</returns>
-	inline Uint64 getTimer_DeltaTime() { return Timer_DeltaTime; }
+	inline Uint64 getTimer_DeltaTime() const { return Timer_DeltaTime; }
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <returns>az egy másodperc alatti frissülések/arjzolások száma</returns>
-	inline int getFPS() { return fps; }
+	inline int getFPS() const { return fps; }
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <returns>fps korlátozás aktivitás</returns>
-	inline bool getFPSLock() { return fpslock; }
+	inline bool getFPSLock() const { return fpslock; }
 
 	/// <summary>
 	/// fps lock beállítása

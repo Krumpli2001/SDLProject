@@ -2,8 +2,8 @@
 
 //////////////////////////////THIS IS KINDA DEPRECATED//////////////////////////////
 
-#include "Timer.hpp"
 #include "Engine.hpp"
+#include "Timer.hpp"
 
 class FPSCounter
 {

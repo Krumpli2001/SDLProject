@@ -154,7 +154,7 @@ void Engine::Update()
 			unsigned int randomMob;
 			do {
 				iter = Engine_PropsMap.begin();
-				randomMob = static_cast<unsigned int>(rngInstance->genRandomInt(Engine_PropsMap.size() - 1));
+				randomMob = static_cast<unsigned int>(rngInstance->genRandomInt(static_cast<int>(Engine_PropsMap.size()) - 1));
 				std::advance(iter, randomMob);
 			} while (iter->first == "PLAYER" || iter->first == "ARROW");
 

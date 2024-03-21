@@ -1,6 +1,6 @@
 #pragma once
 
-struct Tileset;
+//struct Tileset;
 
 class Layer {
 private:

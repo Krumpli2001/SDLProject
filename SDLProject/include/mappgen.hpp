@@ -1,12 +1,12 @@
  #pragma once
 
+#include <fstream>
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <vector>
 
-#include "Rng.hpp"
 #include "ItemData.hpp"
+#include "Rng.hpp"
 
 #include "PerlinNoise.hpp"
 
@@ -30,7 +30,7 @@ namespace mappgen {
 		auto rand = RNG::GetInstance();
 		int genheight = height - (2*height / 3); // imo igy jobban atlathato lehetne height/3 is...
 
-		std::vector<std::vector<int>> p(height, std::vector<int>(width, 0));
+		std::vector<std::vector<double>> p(height, std::vector<double>(width, 0));
 
 		auto gen_seed = rand->genRandomInt();
 		const siv::PerlinNoise perlin{ static_cast<std::uint32_t>(gen_seed) };
@@ -43,8 +43,9 @@ namespace mappgen {
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				auto seged = perlin.octave2D_01((j * fx), (i * fy), octaves);
-				p[j][i] = seged;
+				//auto seged = perlin.octave2D_01((j * fx), (i * fy), octaves);
+				//p[j][i] = seged;
+				p[j][i] = perlin.octave2D_01((j * fx), (i * fy), octaves);
 			}
 		}
 
