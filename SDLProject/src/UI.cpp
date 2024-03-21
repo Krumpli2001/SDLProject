@@ -62,16 +62,16 @@ void UI::Draw()
 
 			for (int i = szivekSzama; i > 0; i--) {
 				double seged = php % 20 / 20.0 == 0 ? 1.0 : php % 20 / 20.0;
-				int x = i == 1 ? (*engine->getWindow_W() - kezdopixel + heartmeret * (1.0 - (seged))) * (1.0 / scale) : ((*engine->getWindow_W() - kezdopixel) / scale);
-				int w = i == 1 ? heartmeret * (seged) * (1.0 / scale) : heartmeret * (1.0 / scale);
-				int srcx = i == 1 ? heartmeret * (1.0 - (seged)) : 0;
+				int x = i == 1 ? static_cast<int>((*engine->getWindow_W() - kezdopixel + heartmeret * (1.0 - (seged))) / scale) : static_cast<int>((*engine->getWindow_W() - kezdopixel) / scale);
+				int w = i == 1 ? static_cast<int>(heartmeret * seged / scale) : static_cast<int>(heartmeret / scale);
+				int srcx = i == 1 ? static_cast<int>(heartmeret * (1.0 - seged)) : 0;
 
-				texturemanager->Draw("heart", x, 20 * (1.0 / scale), w, heartmeret * (1.0 / scale), srcx, 0);
+				texturemanager->Draw("heart", x, static_cast<int>(20.0 / scale), w, static_cast<int>(heartmeret / scale), srcx, 0);
 				kezdopixel = static_cast<int>(kezdopixel + heartmeret);
 			}
 		}
 		//hp szam
-		texturemanager->TCharsOut(str_hp, static_cast<int>((*engine->getWindow_W() - 150) * 1 / scale), 0, 25.0 / scale);
+		texturemanager->TCharsOut(str_hp, static_cast<int>((*engine->getWindow_W() - 150) / scale), 0, static_cast<int>(25.0 / scale));
 	}
 
 	//inventory
@@ -84,8 +84,8 @@ void UI::Draw()
 		const int item_texture_meret = engine->getTileSize();
 		int x = 20;
 		int y = 20;
-		int xi = x + (10.0/scale);
-		int yi = y + (10.0/scale);
+		int xi = static_cast<int>(x + (10.0 / scale));
+		int yi = static_cast<int>(y + (10.0 / scale));
 
 		int kepernyoX = 20;
 		int kepernyoY = 20;
@@ -114,12 +114,12 @@ void UI::Draw()
 				//itemek
 				if ((*inv)[sor * 10 + oszlop].first) {
 					//textura kiirasa
-					texturemanager->DrawItem("texture_map", xi, yi, static_cast<int>(item_meret / scale), item_meret / scale,
+					texturemanager->DrawItem("texture_map", xi, yi, static_cast<int>(item_meret / scale), static_cast<int>(item_meret / scale),
 					((*inv)[sor * 10 + oszlop].first->getItemID() - 1) * item_texture_meret, 0, item_texture_meret, item_texture_meret);
 				}
 				if ((*inv)[sor * 10 + oszlop].second>0) {
 					//szam kiirasa
-					texturemanager->TCharsOut(std::to_string((*inv)[sor * 10 + oszlop].second), x, y, 35.0/scale);
+					texturemanager->TCharsOut(std::to_string((*inv)[sor * 10 + oszlop].second), x, y, static_cast<int>(35.0 / scale));
 				}
 
 				if(Timer::GetInstance()->pressable(75)){
@@ -156,7 +156,7 @@ void UI::Draw()
 				if (transfer.first) {
 					int cx, cy;
 					SDL_GetMouseState(&cx, &cy);
-					texturemanager->DrawItem("texture_map", cx/scale,cy/scale, item_meret * (1 / scale), item_meret * (1 / scale),
+					texturemanager->DrawItem("texture_map", static_cast<int>(cx / scale), static_cast<int>(cy / scale), static_cast<int>(item_meret / scale), static_cast<int>(item_meret / scale),
 					(transfer.first->getItemID() - 1) * item_texture_meret, 0, item_texture_meret, item_texture_meret);
 				}
 				
@@ -166,7 +166,7 @@ void UI::Draw()
 			}
 
 			x = 20;
-			xi = x + (10.0 / scale);
+			xi = static_cast<int>(x + (10.0 / scale));
 			kepernyoX = 20;
 			y += static_cast<int>(20 * (1 / scale)) + static_cast<int>(hatter_meret * (1 / scale));
 			kepernyoY += 20 + hatter_meret;
@@ -185,9 +185,9 @@ void UI::Draw()
 		int yv = kepernyoY / tilesize;
 
 		xv = xv < 0 ? 0 : xv;
-		xv = xv > (*colllayer)[0].size() - 1 ? (*colllayer)[0].size() - 1 : xv;
+		xv = xv > (*colllayer)[0].size() - 1 ? static_cast<int>((*colllayer)[0].size() - 1) : xv;
 		yv = yv < 0 ? 0 : yv;
-		yv = yv > (*colllayer).size() - 1 ? (*colllayer).size() - 1 : yv;
+		yv = yv > (*colllayer).size() - 1 ? static_cast<int>((*colllayer).size() - 1) : yv;
 
 		highlightUI = { x, y, tilesize, tilesize };
 		SDL_SetRenderDrawColor(renderer, 245, 225, 35, 150);

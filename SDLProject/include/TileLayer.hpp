@@ -6,12 +6,12 @@
 #include "Layer.hpp"
 
 struct Tileset {
-	int FirstID;
-	int LastID;
-	int RowCount;
-	int ColCount;
-	int TileCount;
-	int TileSize;
+	int FirstID{};
+	int LastID{};
+	int RowCount{};
+	int ColCount{};
+	int TileCount{};
+	int TileSize{};
 	std::string Name;
 	std::string Source;
 };
