@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ranges>
 
 #include <SDL_image.h>
 
@@ -292,7 +293,20 @@ void Engine::Render()
 
 		//vagy
 		
-		std::for_each(Enigine_GameObjects.rbegin(), Enigine_GameObjects.rend(), [](auto n) { (*n).Draw(); });
+		//std::for_each(Enigine_GameObjects.rbegin(), Enigine_GameObjects.rend(), [](auto n) { (*n).Draw(); });
+
+		//vagy
+
+		/*std::ranges::reverse_view rGameObj{ Enigine_GameObjects };
+		for (auto it : rGameObj) {
+			it->Draw();
+		}*/
+
+		//vagy
+
+		for (auto it : Enigine_GameObjects | std::views::reverse) {
+			it->Draw();
+		}
 		
 
 		mapIsLoaded = true;
