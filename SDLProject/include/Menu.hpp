@@ -119,7 +119,7 @@ public:
 			cy <= rublikak[*index].h + rublikak[*index].y) and eger or rublikak[*index].isHighlighted) {
 			return true;
 		}
-		else { return false; }
+		return false;
 	}
 
 	//csak siman kiirja a sort

@@ -50,10 +50,10 @@ namespace mappgen {
 		//int genheight = height-10;
 		for (int i = 0; i < width; i++) {
 
-			constexpr auto increment = 2;
+			constexpr auto height_increment = 2;
 
-			int minheight = genheight - increment;
-			int maxheight = genheight + increment;
+			int minheight = genheight - height_increment;
+			int maxheight = genheight + height_increment;
 			genheight = rand->genRandomInt(maxheight, minheight);
 
 			constexpr auto magassag_limit = 0;
@@ -61,8 +61,10 @@ namespace mappgen {
 
 			genheight = genheight > height - 1 ? height - 1 : genheight;
 
-			int minko = genheight + 4;
-			int maxko = genheight + 7;
+			constexpr auto min_ko_increment = 4;
+			constexpr auto max_ko_increment = 7;
+			int minko = genheight + min_ko_increment;
+			int maxko = genheight + max_ko_increment;
 
 			int genko = rand->genRandomInt(maxko, minko);
 

@@ -42,6 +42,7 @@ protected:
 	std::string GameObject_TextureID;
 	SDL_RendererFlip GameObject_Flip;
 	Point* GameObject_Origin;
+	dimenziok GameObject_Dimenziok{};
 
 	short aniState{};
 

@@ -9,7 +9,7 @@ void Shot_Arrow::attacking(Uint64 dt)
 	if (CollisionHandler::GetInstance()->CheckCollision(*this->Arrow_Collider->getBox(), *player->getCollider()->getBox())) {
 		GameObject_hp = 0;
 		player->setHP(player->getHP() - getAttackPower());
-		auto irany = player->getOrigin()->getX() < GameObject_Origin->getX() ? BALRA : JOBBRA;
+		//auto irany = player->getOrigin()->getX() < GameObject_Origin->getX() ? BALRA : JOBBRA;
 		player->TookDMG(irany, 2, 50);
 	}
 }
@@ -29,7 +29,7 @@ void Shot_Arrow::Update(Uint64 dt)
 	}*/
 
 	//ez aztan a c, a felso resz a magyarazat XD
-	irany = irany == 0 ? irany = TargetPosX < GameObject_Transform->getX() ? -1 : 1:irany;
+	irany = irany == 0 ? irany = TargetPosX < GameObject_Transform->getX() ? BALRA : JOBBRA : irany;
 
 	if (OriginalX == -1 and OriginalY == -1) {
 		OriginalX = static_cast<int>(GameObject_Transform->getX());
@@ -64,14 +64,14 @@ void Shot_Arrow::Update(Uint64 dt)
 		angle = 270 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-180) / M_PI;
 	}
 
+	GameObject_Transform->setX(GameObject_Transform->getX() + Arrow_RigidBody->getRigidBody_Position().getX());
+	GameObject_Transform->setY(GameObject_Transform->getY() + Arrow_RigidBody->getRigidBody_Position().getY());
+	//w és h 1, hogy ne akadjanak fent dolgokban
+	Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 1, 1);
 
 	if (CollisionHandler::GetInstance()->MapCollision(this)) {
 		GameObject_hp = 0;
 	}
-
-	GameObject_Transform->setX(GameObject_Transform->getX() + Arrow_RigidBody->getRigidBody_Position().getX());
-	GameObject_Transform->setY(GameObject_Transform->getY() + Arrow_RigidBody->getRigidBody_Position().getY());
-	Arrow_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), 20, 100);
 
 	GameObject_Origin->setX(GameObject_Transform->getX());
 	GameObject_Origin->setY(GameObject_Transform->getY());

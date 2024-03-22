@@ -9,8 +9,8 @@ void Skeleton::AnimationState() {
 
 void Skeleton::move(Uint64 dt)
 {
-	if (Enemy_dimenziok.w == 0 and Enemy_dimenziok.h == 0) {
-		Enemy_dimenziok = TextureManager::GetInstance()->getTextureMap()->find("skeleton_idle")->second.second;
+	if (GameObject_Dimenziok.w == 0 and GameObject_Dimenziok.h == 0) {
+		GameObject_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("skeleton_idle")->second.second;
 	}
 
 	if (!isAiming) {
@@ -59,7 +59,7 @@ void Skeleton::attacking(Uint64 dt)
 		isAiming = true;
 		if (Enemy_AttackTimer == 3000) {
 			Enemy_AttackTimer -= dt;
-			Engine::GetInstance()->spawnSpecial("ARROW", GameObject_Transform->getX() + Enemy_dimenziok.w / 2, GameObject_Transform->getY() + Enemy_dimenziok.h / 2, 1, 10);
+			Engine::GetInstance()->spawnSpecial("ARROW", GameObject_Transform->getX() + GameObject_Dimenziok.w / 2, GameObject_Transform->getY() + GameObject_Dimenziok.h / 2, 1, 10);
 		}
 	}
 	else {

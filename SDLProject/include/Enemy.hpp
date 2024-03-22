@@ -27,8 +27,6 @@ protected:
 	bool Enemy_IsFalling = false;
 	double Enemy_JumpTime{};
 
-	dimenziok Enemy_dimenziok{ 0,0 };
-
 	//enemy mozgása
 	virtual void move(Uint64 dt) = 0;
 

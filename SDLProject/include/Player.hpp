@@ -8,6 +8,8 @@
 #include "Timer.hpp"
 
 //az ido ms
+//ezek kesobb lehetnek az osztalyban is, ha valamin buffolni akarunk
+//vagy marad ez az alap és a bubb item csak egy szorzo lesz
 constexpr auto JUMP_TIME = 200.0;
 constexpr auto JUMP_FORCE = 3.0;
 constexpr auto RUN_FORCE = 1.0;
@@ -58,8 +60,6 @@ private:
 	int inventoryplace = 0;
 	std::array<std::pair<Item*, int>, 40> Player_Inventory;
 	int selectedInventory = 0;
-
-	dimenziok Player_Dimenziok{ 0,0 };
 
 	//animáció állapotának meghatározása
 	void AnimationState();

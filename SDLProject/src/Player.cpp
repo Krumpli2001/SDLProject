@@ -53,7 +53,7 @@ Player::~Player()
 
 void Player::Draw()
 {
-	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip , 0.0,1.0, Player_Dimenziok.w, Player_Dimenziok.h);
+	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip , 0.0,1.0, GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 }
 
 void Player::Update(Uint64 dt)
@@ -62,8 +62,8 @@ void Player::Update(Uint64 dt)
 
 	auto texturemanagerInstance = TextureManager::GetInstance();
 
-	if (Player_Dimenziok.w == 0 and Player_Dimenziok.h == 0) {
-		Player_Dimenziok = texturemanagerInstance->getTextureMap()->find("player_idle")->second.second;
+	if (GameObject_Dimenziok.w == 0 and GameObject_Dimenziok.h == 0) {
+		GameObject_Dimenziok = texturemanagerInstance->getTextureMap()->find("player_idle")->second.second;
 	}
 
 	//regen
@@ -302,7 +302,7 @@ void Player::Update(Uint64 dt)
 	//collision
 	Player_LastSafePosition.setX(GameObject_Transform->getX());
 	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), Player_Dimenziok.w, Player_Dimenziok.h);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
 	auto collhandlerInstance = CollisionHandler::GetInstance();
 
@@ -321,7 +321,7 @@ void Player::Update(Uint64 dt)
 	if ((static_cast<int>(Player_LastSafePosition.getY()) % collhandlerInstance->getCollisionLayer()->getTileSize()) >= (collhandlerInstance->getCollisionLayer()->getTileSize() - dt * Player_RigidBody->getGravity())) {
 		
 		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % collhandlerInstance->getCollisionLayer()->getTileSize());
-		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam), Player_Dimenziok.w, Player_Dimenziok.h);
+		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 		if (collhandlerInstance->MapCollision(this, &Player_IsGrounded))
 		{
 			GameObject_Transform->setX(Player_LastSafePosition.getX());
@@ -330,7 +330,7 @@ void Player::Update(Uint64 dt)
 	}
 
 	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), Player_Dimenziok.w, Player_Dimenziok.h);
+	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
 	if (collhandlerInstance->MapCollision(this, &Player_IsGrounded))
 	{
@@ -358,8 +358,8 @@ void Player::Update(Uint64 dt)
 		Player_UnderWaterTime = UNDER_WATER_TIME;
 	}
 
-	GameObject_Origin->setX(GameObject_Transform->getX());
-	GameObject_Origin->setY(GameObject_Transform->getY());
+	GameObject_Origin->setX(GameObject_Transform->getX() + GameObject_Dimenziok.w);
+	GameObject_Origin->setY(GameObject_Transform->getY() + GameObject_Dimenziok.h);
 
 	AnimationState();
 	Player_RigidBody->Update(dt);

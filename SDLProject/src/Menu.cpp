@@ -342,7 +342,7 @@ void Menu::Update()
 							engineInstance->setTileSize(CollisionHandler::GetInstance()->getCollisionLayer()->getTileSize());
 							engineInstance->setMapName(saves[i]);
 							engineInstance->spawnSpecial("PLAYER", 0, 0);
-							engineInstance->spawnSpecial("ZOMBIE", 1000, 0);
+							engineInstance->spawnSpecial("SKELETON", 1000, 0);
 							Camera::GetInstance()->setTarget((*engineInstance->getGameObjects())[0]->getOrigin());
 							(*engineInstance->getGameObjects())[0]->readInventory();
 							loaded_map_name = saves[i];
