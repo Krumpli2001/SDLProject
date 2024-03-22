@@ -59,8 +59,8 @@ bool Engine::Init()
 
 	ItemData::GetInstance()->ParseData("assets/itemdata.xml");
 
-	//lehet hogy ezt lehetne unique_ptr-el - illetve nem itt kene lennie
-	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 0, 0, 0.0, 0.0));
+	//ezt majd le lehet egyszerusiteni itt, mindenek mar van sajat dimenzioi amit maga alit be, csak a hp kene
+ 	Engine_PropsMap.emplace("PLAYER", new Properties("player_idle", 100, 0, 0, 0.0, 0.0));
 	Engine_PropsMap.emplace("ZOMBIE", new Properties("zombie_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("SKELETON", new Properties("skeleton_idle", 100, 240, 240, 0.0, 0.0));
 	Engine_PropsMap.emplace("ARROW", new Properties("arrow", 1, 20, 100, 0, 0));
@@ -93,7 +93,7 @@ bool Engine::Clean()
 {
 
 
-	for (unsigned int i = 0; i != Enigine_GameObjects.size(); i++)
+	for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 	{
 		Enigine_GameObjects[i]->Clean();
 	}
@@ -133,8 +133,7 @@ void Engine::Update()
 	Mix_VolumeMusic(volume);
 
 	if (Engine_ResetFlag) {
-		Enigine_GameObjects[0]->reset();
-		//Engine_MenuShowing = false;
+		Enigine_GameObjects.front()->reset();
 		Engine_ResetFlag = false;
 	}
 
@@ -163,14 +162,16 @@ void Engine::Update()
 			int x = 0;
 			int y = 0;
 
+			constexpr auto spawn_tav = 50;
+
 				if (bal_jobb == BAL) {
-					x = static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX() - (50 * TileSize));
+					x = static_cast<int>(Enigine_GameObjects.front()->getPosition()->getX() - (spawn_tav * TileSize));
 					if (x > 0 && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
 						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
 				}
 				if (bal_jobb == JOBB) {
-					x = static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX() + (50 * TileSize));
+					x = static_cast<int>(Enigine_GameObjects.front()->getPosition()->getX() + (spawn_tav * TileSize));
 					if (x < Map_W && spawnolhat(x, &y, iter->second->Properties_Width, iter->second->Properties_Height)) {
 						//spawnSpecial(iter->first, x, legmamasabbBlock(x) - iter->second->Properties_Height, iter->second->Properies_hp, 10);
 					}
@@ -188,7 +189,7 @@ void Engine::Update()
 		for (unsigned int i = 0; i < Enigine_GameObjects.size(); i++)
 		{
 			//player meghalt
-			if (Enigine_GameObjects[0]->getHP() <= 0) {
+			if (Enigine_GameObjects.front()->getHP() <= 0) {
 				Engine_MenuShowing = true;
 				auto menuInstance = Menu::GetInstance();
 				menuInstance->setGameOver(true);
@@ -204,11 +205,11 @@ void Engine::Update()
 				if (i != 0) {
 					unsigned int mob = i;
 
-					if (CollisionHandler::GetInstance()->CheckCollision(*Enigine_GameObjects[0]->getCollider()->getBox(),
+					if (CollisionHandler::GetInstance()->CheckCollision(*Enigine_GameObjects.front()->getCollider()->getBox(),
 						*Enigine_GameObjects[mob]->getCollider()->getBox())) {
 						//utes (player)
-						if ((Enigine_GameObjects[0]->getAttacking())/* and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)*/) {
-							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects[0]->getAttackPower());
+						if ((Enigine_GameObjects.front()->getAttacking())/* and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)*/) {
+							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects.front()->getAttackPower());
 						}
 					}
 					Enigine_GameObjects[mob]->attacking(dt);
@@ -218,7 +219,8 @@ void Engine::Update()
 			}
 		}
 
-		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / TileSize, static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / TileSize);
+		Engine_LevelMap->Update(static_cast<int>(Enigine_GameObjects.front()->getPosition()->getX()) / TileSize,
+			static_cast<int>(Enigine_GameObjects.front()->getPosition()->getY()) / TileSize);
 		Camera::GetInstance()->Update();
 		UI::GetInstance()->Update();
 
@@ -231,7 +233,7 @@ void Engine::Update()
 			Mix_PlayMusic(Engine_Music, -1);
 		}
 
-		if (Input::GetInstance()->getElse() == SDL_SCANCODE_ESCAPE) {
+		if (Input::GetInstance()->getElse() == SDL_SCANCODE_ESCAPE /*and Timer::GetInstance()->pressable(200)*/) {
 			setMenuShowing(!getMenuShowing());
 			SDL_Delay(200);
 		}
@@ -244,9 +246,12 @@ void Engine::Update()
 	}
 
 	Input::GetInstance()->interpret(Input::GetInstance()->getElse());
-	scale = scale < 0.2 ? 0.2 : scale;
-	scale = scale > 1 ? 1 : scale;
-	volume = volume < 0 ? 0 : volume;
+	constexpr auto min_scale = 0.2;
+	scale = scale < min_scale ? min_scale : scale;
+	constexpr auto max_scale = 1.0;
+	scale = scale > max_scale ? max_scale : scale;
+	constexpr auto min_volume = 0; // habar el ha minuszba van az sdl akkor is felhuzza 0ra
+	volume = volume < min_volume ? min_volume : volume;
 	volume = volume > SDL_MIX_MAXVOLUME ? MIX_MAX_VOLUME : volume;
 
 
@@ -256,21 +261,39 @@ void Engine::Render()
 {
 
 	if (!Engine_MenuShowing or mapIsLoaded) {
-		SDL_SetRenderDrawColor(Engine_Renderer, 255, 0, 247, 255);
+		constexpr auto r = 255;
+		constexpr auto g = 0;
+		constexpr auto b = 247;
+		constexpr auto a = 255;
+		SDL_SetRenderDrawColor(Engine_Renderer, r, g, b, a);
 		SDL_RenderClear(Engine_Renderer);
 		
 		drawBG("bg", 0);
 
 
 
-		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects[0]->getPosition()->getX()) / TileSize, static_cast<int>(Enigine_GameObjects[0]->getPosition()->getY()) / TileSize);
+		Engine_LevelMap->Render(static_cast<int>(Enigine_GameObjects.front()->getPosition()->getX()) / TileSize,
+			static_cast<int>(Enigine_GameObjects.front()->getPosition()->getY()) / TileSize);
 
 		UI::GetInstance()->Draw();
 
 		//azert megy hatrafele hogy a player legyen legfelul
-		for (int i = static_cast<int>(Enigine_GameObjects.size() - 1); i >= 0; i--) {
+
+		//ez a legroszabb, nem tudom h a foreach gyorsabb e vagy az iteratoros
+		/*for (int i = static_cast<int>(Enigine_GameObjects.size() - 1); i >= 0; i--) {
 			Enigine_GameObjects[i]->Draw();
-		}
+		}*/
+
+		//vagy
+
+		/*for (auto it = Enigine_GameObjects.rbegin(); it != Enigine_GameObjects.rend(); it++) {
+			(*it)->Draw();
+		}*/
+
+		//vagy
+		
+		std::for_each(Enigine_GameObjects.rbegin(), Enigine_GameObjects.rend(), [](auto n) { (*n).Draw(); });
+		
 
 		mapIsLoaded = true;
 	}
@@ -283,7 +306,7 @@ void Engine::Render()
 
 void Engine::drawBG(std::string id, int y)
 {
-	auto scroll = 0.6;
+	constexpr auto scroll = 0.6;
 	auto t = TextureManager::GetInstance();
 	auto dim = t->getTextureMap()->find(id)->second.second;
 
@@ -334,7 +357,8 @@ bool Engine::spawnolhat(int x, int* y, int w, int h) {
 	x /= TileSize;
 
 	int magassagblock = (*y - h) / TileSize + 1;
-	magassagblock = magassagblock < 0 ? 0 : magassagblock;
+	constexpr auto world_height_limit = 0;
+	magassagblock = magassagblock < world_height_limit ? world_height_limit : magassagblock;
 
 	if ((*Engine_CollisionLayerVector)[magassagblock][x] == 0) { return true; }
 	return false;
@@ -348,9 +372,9 @@ void Engine::spawn(std::string name) {
 void Engine::spawnSpecial(std::string name, double x, double y, int hp, int power)
 {
 	spawn(name);
-	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setHP(hp);
-	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setPosition(x, y);
-	Enigine_GameObjects[Enigine_GameObjects.size() - 1]->setAttackPower(power);
+	Enigine_GameObjects.back()->setHP(hp);
+	Enigine_GameObjects.back()->setPosition(x, y);
+	Enigine_GameObjects.back()->setAttackPower(power);
 }
 
 void Engine::map_save() {

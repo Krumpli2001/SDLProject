@@ -25,7 +25,7 @@ void UI::Update()
 		FPSCounter::GetInstance()->Update();
 	}
 
-	GameObject* player = (*engine->getGameObjects())[0];
+	GameObject* player = (*engine->getGameObjects()).front();
 	
 	//hp szamolas + felette a szoveg letrehozasa
 	php = player->getHP();
@@ -95,8 +95,8 @@ void UI::Draw()
 
 		int kiirando_sor = showInventory ? 4 : 1;
 
-		auto inv = static_cast<std::array<std::pair<Item*, int>, 40>*>((*engine->getGameObjects())[0]->getInventory());		
-		auto selected = (*engine->getGameObjects())[0]->getSelectedInventory();
+		auto inv = static_cast<std::array<std::pair<Item*, int>, 40>*>((*engine->getGameObjects()).front()->getInventory());
+		auto selected = (*engine->getGameObjects()).front()->getSelectedInventory();
 		for (int sor = 0; sor < kiirando_sor; sor++) {
 			for (int oszlop = 0; oszlop < 10; oszlop++) {
 

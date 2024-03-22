@@ -5,7 +5,7 @@ static Registrar < Shot_Arrow > registrararrow("ARROW");
 
 void Shot_Arrow::attacking(Uint64 dt)
 {
-	auto player = (*Engine::GetInstance()->getGameObjects())[0];
+	auto player = (*Engine::GetInstance()->getGameObjects()).front();
 	if (CollisionHandler::GetInstance()->CheckCollision(*this->Arrow_Collider->getBox(), *player->getCollider()->getBox())) {
 		GameObject_hp = 0;
 		player->setHP(player->getHP() - getAttackPower());

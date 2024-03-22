@@ -104,7 +104,7 @@ void Menu::Update()
 					enter = false;
 					auto engineInstance = Engine::GetInstance();
 					engineInstance->map_save();
-					(*engineInstance->getGameObjects())[0]->saveInventory();
+					(*engineInstance->getGameObjects()).front()->saveInventory();
 					engineInstance->setMenuShowing(false);
 					cc = 0;
 				}
@@ -343,8 +343,8 @@ void Menu::Update()
 							engineInstance->setMapName(saves[i]);
 							engineInstance->spawnSpecial("PLAYER", 0, 0);
 							engineInstance->spawnSpecial("SKELETON", 1000, 0);
-							Camera::GetInstance()->setTarget((*engineInstance->getGameObjects())[0]->getOrigin());
-							(*engineInstance->getGameObjects())[0]->readInventory();
+							Camera::GetInstance()->setTarget((*engineInstance->getGameObjects()).front()->getOrigin());
+							(*engineInstance->getGameObjects()).front()->readInventory();
 							loaded_map_name = saves[i];
 						}
 						submenu = sub::Main;
@@ -478,7 +478,11 @@ void Menu::Clean()
 void Menu::setHighlighted(int i) {
 
 	int index=0;
-	for(int j = 0; j<options.size();j++){if(options[j]==highLighted){ index = j; } }
+	for(int j = 0; j<options.size();j++){
+		if(options[j]==highLighted){
+			index = j;
+		}
+	}
 	int prevHol = index;
 
 	eger = false;

@@ -68,7 +68,8 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
 
     }*/
 
-    if ((g->getCollider()->getBox()->x < 0) || ((g->getCollider()->getBox()->x + g->getCollider()->getBox()->w) >= (colCount * tileSize)) || (g->getCollider()->getBox()->y < 0) || ((g->getCollider()->getBox()->y + g->getCollider()->getBox()->h) >= (rowCount * tileSize))) { return true; }
+    if ((g->getCollider()->getBox()->x < 0) || ((g->getCollider()->getBox()->x + g->getCollider()->getBox()->w) >= (colCount * tileSize)) ||
+        (g->getCollider()->getBox()->y < 0) || ((g->getCollider()->getBox()->y + g->getCollider()->getBox()->h) >= (rowCount * tileSize))) { return true; }
 
     for (int i = left_tile; i <= right_tile; i++)
     {
@@ -88,11 +89,17 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
                     )) {
                     g->setGravity(0.3);
 
+                    //bleeeeeeeeeeh
                     if (((*CollisionHandler_CollitionTileMap)[top_tile][left_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][left_tile] != viz) or
                         ((*CollisionHandler_CollitionTileMap)[top_tile][right_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][right_tile] != viz) or 
-                        ((*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != viz) or
-                        ((*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][left_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][left_tile] != viz) or
-                        ((*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][right_tile] != 0 and (*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][right_tile] != viz)) {
+                        ((*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != 0 and
+                            (*CollisionHandler_CollitionTileMap)[top_tile][left_tile + (right_tile - left_tile) / 2] != viz) or
+
+                        ((*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][left_tile] != 0 and
+                            (*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][left_tile] != viz) or
+
+                        ((*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][right_tile] != 0 and
+                            (*CollisionHandler_CollitionTileMap)[top_tile + (bottom_tile - top_tile) / 2][right_tile] != viz)) {
 
                         return true;
                     }
