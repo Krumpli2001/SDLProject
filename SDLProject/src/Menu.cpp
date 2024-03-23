@@ -18,20 +18,20 @@ void Menu::MenuInit() {
 
 	constexpr auto r_height = 150;
 
-	rublikak.push_back(rublika("Continue", 0, 0, 500, r_height));
-	rublikak.push_back(rublika("Options", 0, 150, 500, r_height));
-	rublikak.push_back(rublika("Save", 0, 300, 250, r_height));
-	rublikak.push_back(rublika("Title screen", 0, 450, 600, r_height));
-	rublikak.push_back(rublika("Quit", 0, 600, 250, r_height));
+	rublikak.push_back(rublika("Continue",		0, 0, r_height));
+	rublikak.push_back(rublika("Options",		0, 150, r_height));
+	rublikak.push_back(rublika("Save",			0, 300, r_height));
+	rublikak.push_back(rublika("Title screen",	0, 450, r_height));
+	rublikak.push_back(rublika("Quit",			0, 600, r_height));
 
-	rublikak.push_back(rublika("Retry", 0, 0, 300, r_height));
+	rublikak.push_back(rublika("Retry",			0, 0, r_height));
 
-	rublikak.push_back(rublika("Load", 0, 0, 250, r_height));
-	rublikak.push_back(rublika("Generate", 0, 150, 500, r_height));
+	rublikak.push_back(rublika("Load",			0, 0, r_height));
+	rublikak.push_back(rublika("Generate",		0, 150, r_height));
 
-	rublikak.push_back(rublika("Back", 0, 0, 250, r_height));
+	rublikak.push_back(rublika("Back",			0, 0, r_height));
 
-	rublikak.push_back(rublika("Volume: ", 0, 0, 0, r_height));
+	rublikak.push_back(rublika("Volume: ",		0, 0, r_height));
 
 }
 
@@ -313,7 +313,7 @@ void Menu::Update()
 						strcpy_s(c, temp.length() + 1, temp.c_str());
 
 						saves.push_back(c);
-						rublikak.push_back(rublika(saves[i], 0, static_cast<int>((saves.size() - 1) * r_height), static_cast<int>(temp.length() * 60), r_height));
+						rublikak.push_back(rublika(saves[i], 0, static_cast<int>((saves.size() - 1) * r_height), r_height));
 						i++;
 					}
 				}
@@ -353,20 +353,16 @@ void Menu::Update()
 						submenu = sub::Main;
 						engineInstance->setMenuShowing(false);
 
-						/*auto it = rublikak.begin();
-						for (int i = 0; i < rublikak.size(); i++) {
-							for (int j = 0; j < saves.size(); j++) {
-								if (rublikak[i].szoveg == saves[j])
-									rublikak.erase(it);
-							}
-							it++;
-						}*/
+						for (int i = 0; i < saves.size(); i++) {
+							rublikak.erase(rublikak.end()-1);
+						}
 
 						for (int j = 0; j < saves.size(); j++) {
 							delete saves[j];
 						}
 						saves.clear();
 						cc = 0;
+						highLighted = 0;
 						Camera::GetInstance()->Update();
 						UI::GetInstance()->Update();
 						engineInstance->Update();
@@ -434,19 +430,20 @@ void Menu::Update()
 		}
 	}
 
+	constexpr auto delay = 100;
 	switch (code)
 	{
 	case SDL_SCANCODE_DOWN:
 		setHighlighted(-1);
-		SDL_Delay(100);
+		SDL_Delay(delay);
 		break;
 	case SDL_SCANCODE_UP:
 		setHighlighted(1);
-		SDL_Delay(100);
+		SDL_Delay(delay);
 		break;
 	case SDL_SCANCODE_RETURN:
 		setEnter(true);
-		SDL_Delay(100);
+		SDL_Delay(delay);
 		break;
 	}
 
@@ -456,12 +453,16 @@ void Menu::Draw()
 {
 	auto engineInstane = Engine::GetInstance();
 
+	constexpr auto rgb = 0;
+	constexpr auto atlatszo = 100;
+	constexpr auto nem_atlatszo = 255;
+
 	if (submenu!=sub::Title) {
-		SDL_SetRenderDrawColor(engineInstane->getRenderer(), 0, 0, 0, 100);
+		SDL_SetRenderDrawColor(engineInstane->getRenderer(), rgb, rgb, rgb, 100);
 		SDL_RenderFillRect(engineInstane->getRenderer(), 0);
 	}
 	else {
-		SDL_SetRenderDrawColor(engineInstane->getRenderer(), 0, 0, 0, 255);
+		SDL_SetRenderDrawColor(engineInstane->getRenderer(), rgb, rgb, rgb, 255);
 		SDL_RenderFillRect(engineInstane->getRenderer(), 0);
 	}
 
