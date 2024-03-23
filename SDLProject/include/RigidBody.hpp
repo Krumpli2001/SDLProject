@@ -35,6 +35,7 @@ public:
 
 	 inline double getGravity() const { return RigidBody_Gravity; }
 	 inline double getRigidBody_Mass() const { return RigidBody_Mass; }
+	 inline Vector2D getRigidBody_Force() const { return RigidBody_Force; }
 	 inline Vector2D getRigidBody_Position() const { return RigidBody_Position; }
 	 inline Vector2D getRigidBody_Velocity() const { return RigidBody_Velocity; }
 	 inline Vector2D getRigidBody_Accelaration() const { return RigidBody_Accelaration; }
@@ -43,7 +44,7 @@ public:
 	 inline void Update(Uint64 dt)
 	 {
 		 RigidBody_Accelaration.setX((RigidBody_Force.getX() + RigidBody_Friction.getX()) / RigidBody_Mass);
-		 RigidBody_Accelaration.setY(((RigidBody_Gravity + RigidBody_Force.getY()) / RigidBody_Mass)); // szerintem ez itt rossz
+		 RigidBody_Accelaration.setY(((RigidBody_Gravity + RigidBody_Force.getY() + RigidBody_Friction.getY()) / RigidBody_Mass)); // szerintem ez itt rossz
 		 Vector2D voltpos = RigidBody_Position;
 		 RigidBody_Velocity = RigidBody_Accelaration;
 		 RigidBody_Position = RigidBody_Accelaration * static_cast<double>(dt);

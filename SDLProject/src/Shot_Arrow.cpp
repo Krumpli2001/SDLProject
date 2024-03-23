@@ -9,8 +9,7 @@ void Shot_Arrow::attacking(Uint64 dt)
 	if (CollisionHandler::GetInstance()->CheckCollision(*this->Arrow_Collider->getBox(), *player->getCollider()->getBox())) {
 		GameObject_hp = 0;
 		player->setHP(player->getHP() - getAttackPower());
-		//auto irany = player->getOrigin()->getX() < GameObject_Origin->getX() ? BALRA : JOBBRA;
-		player->TookDMG(irany, 2, 50);
+		player->TookDMG(irany);
 	}
 }
 
@@ -36,32 +35,29 @@ void Shot_Arrow::Update(Uint64 dt)
 		OriginalY = static_cast<int>(GameObject_Transform->getY());
 	}
 
-	int distX = abs(OriginalX - TargetPosX);
-	int distY = abs(OriginalY - TargetPosY);
+	double distX = abs(OriginalX - TargetPosX);
+	double distY = abs(OriginalY - TargetPosY);
 
-	double maxY = 2;
-	int distPerKetto = distX / 2;
+	constexpr double maxY = 2;
+	double distPerKetto = distX / 2;
 
 	double ForceY = maxY - ((abs(GameObject_Transform->getX() - OriginalX)) / distPerKetto);
 
-	if (irany==-1) {
+	if (irany==BALRA) {
 		Arrow_RigidBody->ApplyForceX(BALRA * 2);
-		if (OriginalX - GameObject_Transform->getX() < distX / 2) {
-			Arrow_RigidBody->ApplyForceY(FEL * ForceY);
-		}
+		Arrow_RigidBody->ApplyForceY(FEL * ForceY);
 	}
 	else {
 		Arrow_RigidBody->ApplyForceX(JOBBRA * 2);
-		if (OriginalX - GameObject_Transform->getX() < distX / 2) {
-			Arrow_RigidBody->ApplyForceY(FEL * ForceY);
-		}
+		Arrow_RigidBody->ApplyForceY(FEL * ForceY);
 	}
 
-	if (Arrow_RigidBody->getRigidBody_Velocity().getX() < 0) {
-		angle = 90 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-180) / M_PI;
+	constexpr auto radian /*ha jol emlekszem*/ = 180;
+	if (irany==BALRA) {
+		angle = 90  - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-radian) / M_PI;
 	}
 	else {
-		angle = 270 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-180) / M_PI;
+		angle = 270 - atan(Arrow_RigidBody->getRigidBody_Velocity().getY() / Arrow_RigidBody->getRigidBody_Velocity().getX()) * (-radian) / M_PI;
 	}
 
 	GameObject_Transform->setX(GameObject_Transform->getX() + Arrow_RigidBody->getRigidBody_Position().getX());

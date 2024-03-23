@@ -37,7 +37,7 @@ Player::Player(Properties* props) : Character(props)
 	Player_RigidBody->setRigidBody_Gravity(GRAVITY);
 
 	Player_SpriteAnimation = new SpriteAnimation();
-	Player_SpriteAnimation->SetProps(GameObject_TextureID, 0, 6, 100);
+	Player_SpriteAnimation->SetProps(GameObject_TextureID, 0, 0, 0);
 
 	Player_Inventory.fill(std::make_pair(nullptr, 0));
 }
@@ -53,7 +53,9 @@ Player::~Player()
 
 void Player::Draw()
 {
-	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip , 0.0,1.0, GameObject_Dimenziok.w, GameObject_Dimenziok.h);
+	constexpr auto angle = 0;
+	constexpr auto scale = 1;
+	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip , angle, scale, GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 }
 
 void Player::Update(Uint64 dt)
@@ -67,8 +69,9 @@ void Player::Update(Uint64 dt)
 	}
 
 	//regen
-	regenTimer = regenTimer > 0 ? regenTimer -= dt : 200;
-	if (regenTimer == 200){
+	constexpr auto RTime = 200;
+	regenTimer = regenTimer > 0 ? regenTimer -= dt : RTime;
+	if (regenTimer == RTime){
 		GameObject_hp = GameObject_hp < GameObject_MaxHP ? GameObject_hp += 1 : GameObject_hp;
 		regenTimer -= dt;
 	}
