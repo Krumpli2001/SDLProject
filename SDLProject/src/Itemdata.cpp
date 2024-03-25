@@ -15,19 +15,25 @@ bool ItemData::ParseData(std::string src)
 			TiXmlElement* data = e->FirstChildElement();
 
 			//ID
-			auto temp = data->GetText();
-			int ID = temp ? std::stoi(temp) : -1;
+			int ID = std::stoi(data->GetText());
 
 			//tile nev
 			data = data->NextSiblingElement();
 			std::string TileName = data->GetText();
 
+			//AttackPower
 			data = data->NextSiblingElement();
-			temp = data->GetText();
-			auto MS = temp ? std::stoi(temp) : -1;
+			int AttackPower = std::stoi(data->GetText());
+
+			//Heal
+			data = data->NextSiblingElement();
+			int Heal = std::stoi(data->GetText());
+
+			data = data->NextSiblingElement();
+			auto MS = std::stoi(data->GetText());
 
 
-			Item* item = new Tool(ID, TileName, MS);
+			Item* item = new Tool(ID, TileName, AttackPower, Heal, MS);
 			int_ItemData[ID] = item;
 			string_ItemData[TileName] = item;
 

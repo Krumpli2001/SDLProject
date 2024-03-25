@@ -12,6 +12,11 @@ struct Tile {
 	int MaxStack;
 };
 
+enum tipus {
+	tool,
+	block,
+};
+
 class Item
 {
 protected:
@@ -19,21 +24,29 @@ protected:
 	int ItemID;
 	std::string name;
 	int MaxStack;
+	short type{};
 public:
 
 	//item ID visszatérítése
 	inline int getItemID() { return ItemID; }
-	//virtual int getTileID() = 0;
+	inline std::string getName() { return name; }
+	virtual short getType() = 0;
 };
 
 
 class Tool : public Item
 {
+private:
+	int AttackPower{};
+	int Heal{};
 public:
-	Tool(int ID, std::string name, int MS) : Item(ID, name, MS) {}
+	inline Tool(int ID, std::string name, int attack, int heal,  int MS) : Item(ID, name, MS), AttackPower(attack), Heal(heal) {}
 
 	//nothing
-	int getTileID() { return -1; }
+	inline int getTileID() { return -1; }
+	inline int getAttackPower() { return AttackPower; }
+	inline int getHealing() { return Heal; }
+	inline short getType() override { return tipus::tool; }
 };
 
 class Block : public Item
@@ -41,6 +54,6 @@ class Block : public Item
 private:
 	//int TileID;
 public:
-	Block(int IID, std::string name, int MS) : Item(IID, name, MS) {}
-	//int getTileID() { return TileID; }
+	inline Block(int IID, std::string name, int MS) : Item(IID, name, MS) {}
+	inline short getType() override { return tipus::block; }
 };

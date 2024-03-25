@@ -15,6 +15,7 @@ constexpr auto JUMP_FORCE = 3.0;
 constexpr auto RUN_FORCE = 1.0;
 constexpr auto UNDER_WATER_TIME = 10000.0;
 constexpr auto PLAYER_ATTACK_TIME = 300.0;
+constexpr auto PLAYER_ATTACK_POWER = 15;
 
 enum playerAniState {
 	PlayerIsIdle,
@@ -49,7 +50,7 @@ private:
 	bool PlayerReadyAttacking{};
 	double Player_JumpTime;
 	double Player_AttackTime;
-	int Player_AttackPower = 15;
+	int Player_AttackPower = 0;
 	double minetime = 0;
 
 	Collider* Player_Collider;

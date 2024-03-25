@@ -119,12 +119,14 @@
         <MaxStack>999</MaxStack>
     </block>
 
-   <!-- 
+   
     <item>
-        <ID>
-        <TileName>
-        <MaxStack>999</MaxStack>
+        <ID>13</ID>
+        <TileName>Wooden sword</TileName>
+        <AttackPower>20</AttackPower>
+        <Heal>0</Heal>
+        <MaxStack>1</MaxStack>
     </item>
-   -->
+  
 
 </stuff>

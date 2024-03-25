@@ -165,7 +165,7 @@ void Player::Update(Uint64 dt)
 						}
 						inventoryplace++;
 					}
-					inventoryplace = 0;
+						inventoryplace = 0;
 
 					if (!found) {
 						while (inventoryplace < 40) {
@@ -194,6 +194,26 @@ void Player::Update(Uint64 dt)
 			minetime = 0;
 		}
 
+		if (Player_Inventory[selectedInventory].second != 0 and Player_Inventory[selectedInventory].first->getType() == tipus::tool) {
+			if (dynamic_cast<Tool*>(Player_Inventory[selectedInventory].first)) {
+				auto tool = dynamic_cast<Tool*>(Player_Inventory[selectedInventory].first);
+				if (tool->getAttackPower() > 0) {
+					Player_AttackPower = tool->getAttackPower();
+				}
+				else {
+					Player_AttackPower = PLAYER_ATTACK_POWER;
+				}
+
+				if (tool->getHealing() > 0) {
+					GameObject_hp += tool->getHealing();
+					Player_Inventory[selectedInventory].second--;
+					if (Player_Inventory[selectedInventory].second <= 0) {
+						Player_Inventory[selectedInventory].first = nullptr;
+					}
+				}
+			}
+		}
+
 	}
 
 
@@ -212,14 +232,14 @@ void Player::Update(Uint64 dt)
 			{egerX * engineInstance->getTileSize(), egerY * engineInstance->getTileSize(), engineInstance->getTileSize(), engineInstance->getTileSize()}
 		))
 		{
-			if (uiInstance->getTransfer()->first!=nullptr) {
+			if (uiInstance->getTransfer()->first!=nullptr and uiInstance->getTransfer()->first->getType() == tipus::block) {
 				(*colllayer)[egerY][egerX] = uiInstance->getTransfer()->first->getItemID();
 				uiInstance->getTransfer()->second--;
 				if (uiInstance->getTransfer()->second <= 0) {
 					uiInstance->getTransfer()->first = nullptr;
 				}
 			}
-			else if (Player_Inventory[selectedInventory].second != 0) {
+			else if (Player_Inventory[selectedInventory].second != 0 and Player_Inventory[selectedInventory].first->getType() == tipus::block) {
 				(*colllayer)[egerY][egerX] = Player_Inventory[selectedInventory].first->getItemID();
 				Player_Inventory[selectedInventory].second--;
 				if (Player_Inventory[selectedInventory].second <= 0) {
