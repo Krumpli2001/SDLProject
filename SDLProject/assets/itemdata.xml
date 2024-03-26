@@ -125,7 +125,17 @@
         <TileName>Wooden sword</TileName>
         <AttackPower>20</AttackPower>
         <Heal>0</Heal>
+        <Consumable>0</Consumable>
         <MaxStack>1</MaxStack>
+    </item>
+
+    <item>
+        <ID>14</ID>
+        <TileName>Max Potion</TileName>
+        <AttackPower>0</AttackPower>
+        <Heal>100</Heal>
+        <Consumable>1</Consumable>
+        <MaxStack>999</MaxStack>
     </item>
   
 

@@ -16,6 +16,7 @@ constexpr auto RUN_FORCE = 1.0;
 constexpr auto UNDER_WATER_TIME = 10000.0;
 constexpr auto PLAYER_ATTACK_TIME = 300.0;
 constexpr auto PLAYER_ATTACK_POWER = 15;
+constexpr auto POTION_CD = 60000;
 
 enum playerAniState {
 	PlayerIsIdle,
@@ -37,11 +38,11 @@ private:
 
 	double Player_JumpForce;
 
-	double regenTimer = 200.0;
+	double regenTimer = 1000.0;
+	double potiTimer = POTION_CD;
 
 	bool Player_IsUnderWater{};
 	double Player_UnderWaterTime{};
-
 	double Player_ImunityTime{};
 
 	//short aniState;

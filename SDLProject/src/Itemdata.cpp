@@ -30,10 +30,13 @@ bool ItemData::ParseData(std::string src)
 			int Heal = std::stoi(data->GetText());
 
 			data = data->NextSiblingElement();
+			bool Cons = data->GetText() == "0" ? false : true;
+
+			data = data->NextSiblingElement();
 			auto MS = std::stoi(data->GetText());
 
 
-			Item* item = new Tool(ID, TileName, AttackPower, Heal, MS);
+			Item* item = new Tool(ID, TileName, AttackPower, Heal, Cons, MS);
 			int_ItemData[ID] = item;
 			string_ItemData[TileName] = item;
 

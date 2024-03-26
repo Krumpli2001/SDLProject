@@ -39,14 +39,16 @@ class Tool : public Item
 private:
 	int AttackPower{};
 	int Heal{};
+	bool Consumable{};
 public:
-	inline Tool(int ID, std::string name, int attack, int heal,  int MS) : Item(ID, name, MS), AttackPower(attack), Heal(heal) {}
+	inline Tool(int ID, std::string name, int attack, int heal, bool Cons,  int MS) : Item(ID, name, MS), AttackPower(attack), Heal(heal), Consumable(Cons) {}
 
 	//nothing
 	inline int getTileID() { return -1; }
 	inline int getAttackPower() { return AttackPower; }
 	inline int getHealing() { return Heal; }
 	inline short getType() override { return tipus::tool; }
+	inline bool getCons() { return Consumable; }
 };
 
 class Block : public Item
