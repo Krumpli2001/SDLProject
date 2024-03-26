@@ -55,9 +55,11 @@ void Skeleton::move(Uint64 dt)
 
 void Skeleton::attacking(Uint64 dt)
 {
-	if (abs(Enemy_TargetPosX - GameObject_Transform->getX()) < 10 * Engine::GetInstance()->getTileSize()) {
+	constexpr auto attack_tavolsag = 10;
+	constexpr auto skeleton_attackTimer = 3000;
+	if (abs(Enemy_TargetPosX - GameObject_Transform->getX()) < attack_tavolsag * Engine::GetInstance()->getTileSize()) {
 		isAiming = true;
-		if (Enemy_AttackTimer == 3000) {
+		if (Enemy_AttackTimer == skeleton_attackTimer) {
 			Enemy_AttackTimer -= dt;
 			Engine::GetInstance()->spawnSpecial("ARROW", GameObject_Transform->getX() + GameObject_Dimenziok.w / 2, GameObject_Transform->getY() + GameObject_Dimenziok.h / 2, 1, 10);
 		}
@@ -65,6 +67,6 @@ void Skeleton::attacking(Uint64 dt)
 	else {
 		isAiming = false;
 	}
-	Enemy_AttackTimer = Enemy_AttackTimer < 0 ? 3000 : Enemy_AttackTimer;
-	Enemy_AttackTimer = Enemy_AttackTimer != 3000 ? Enemy_AttackTimer -= dt : Enemy_AttackTimer;
+	Enemy_AttackTimer = Enemy_AttackTimer < 0 ? skeleton_attackTimer : Enemy_AttackTimer;
+	Enemy_AttackTimer = Enemy_AttackTimer != skeleton_attackTimer ? Enemy_AttackTimer -= dt : Enemy_AttackTimer;
 }

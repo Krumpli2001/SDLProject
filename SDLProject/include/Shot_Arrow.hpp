@@ -20,6 +20,7 @@ private:
 	double angle = 0;
 	//bal=-1 jobb=1
 	int irany = 0;
+	double maxY = 2;
 
 	int attackPower = 10;
 
@@ -34,6 +35,10 @@ public:
 		TargetPosX = static_cast<int>(player->getPosition()->getX() + player->getCollider()->getBox()->w / 2.0);
 		TargetPosY = static_cast<int>(player->getPosition()->getY() + player->getCollider()->getBox()->h / 2.0);
 		Arrow_SpriteAnimation->SetProps("shot_arrow", 0, 1, 1);
+		//maxmax=3
+		//az elso tizes az a skelli max tavja (perpill az is 10);
+		/*maxY = 1 + 10.0 / (abs(OriginalX - TargetPosX) / Engine::GetInstance()->getTileSize());
+		std::cout << 1 + 10.0 / (abs(OriginalX - TargetPosX) / Engine::GetInstance()->getTileSize()) << "\n";*/
 	}
 
 	inline ~Shot_Arrow() {

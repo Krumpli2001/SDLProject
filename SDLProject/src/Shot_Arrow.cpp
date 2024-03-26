@@ -38,7 +38,7 @@ void Shot_Arrow::Update(Uint64 dt)
 	double distX = abs(OriginalX - TargetPosX);
 	double distY = abs(OriginalY - TargetPosY);
 
-	constexpr double maxY = 2;
+	//double maxY = 2;
 	double distPerKetto = distX / 2;
 
 	double ForceY = maxY - ((abs(GameObject_Transform->getX() - OriginalX)) / distPerKetto);
