@@ -169,6 +169,12 @@ void UI::Draw()
 			y += static_cast<int>(20 * (1 / scale)) + static_cast<int>(hatter_meret * (1 / scale));
 			kepernyoY += 20 + hatter_meret;
 			yi += static_cast<int>(item_meret * (1 / scale)) + static_cast<int>(item_meret * (1 / scale));
+
+				
+		}
+		auto player = dynamic_cast<Player*>((*engine->getGameObjects()).front());
+		if (player->getPotionDebuff() < POTION_CD) {
+			texturemanager->TCharsOut("Potion CD\n" + std::to_string(static_cast<int>(player->getPotionDebuff() / 1000)), x + 10, y + 10, static_cast<int>(40.0 / scale), nullptr, "red");
 		}
 	}
 
@@ -200,9 +206,6 @@ void UI::Draw()
 			SDL_RenderFillRect(renderer, &highlightUI);
 		}
 	}
-
-
-	//TextureReset();
 }
 
 //void UI::TextureReset()

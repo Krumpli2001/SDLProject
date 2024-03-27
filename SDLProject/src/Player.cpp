@@ -198,7 +198,6 @@ void Player::Update(Uint64 dt)
 
 		//csak itt van dynamic cast, leginkabb kivancsisagbol
 		if (Player_Inventory[selectedInventory].second != 0 and Player_Inventory[selectedInventory].first->getType() == tipus::tool) {
-			if (dynamic_cast<Tool*>(Player_Inventory[selectedInventory].first)) {
 				auto tool = dynamic_cast<Tool*>(Player_Inventory[selectedInventory].first);
 				if (tool->getAttackPower() > 0) {
 					Player_AttackPower = tool->getAttackPower();
@@ -211,14 +210,16 @@ void Player::Update(Uint64 dt)
 					if (tool->getCons(), potiTimer==POTION_CD) {
 						GameObject_hp += tool->getHealing();
 						GameObject_hp = GameObject_hp > GameObject_MaxHP ? GameObject_MaxHP : GameObject_hp;
-						Player_Inventory[selectedInventory].second--;
+						if (tool->getCons()) {
+							Player_Inventory[selectedInventory].second--;
+						}
 						potiTimer -= dt;
 					}
 					if (Player_Inventory[selectedInventory].second <= 0) {
 						Player_Inventory[selectedInventory].first = nullptr;
 					}
 				}
-			}
+			
 		}
 
 	}

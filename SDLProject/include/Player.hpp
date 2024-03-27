@@ -130,4 +130,6 @@ public:
 
 	//itt nincs jelentõsége
 	virtual void setTarget(int X, int Y) { return; }
+
+	inline double getPotionDebuff() { return potiTimer; }
 };

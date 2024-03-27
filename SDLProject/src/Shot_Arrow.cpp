@@ -36,12 +36,11 @@ void Shot_Arrow::Update(Uint64 dt)
 	}
 
 	double distX = abs(OriginalX - TargetPosX);
-	double distY = abs(OriginalY - TargetPosY);
+	//double distY = abs(OriginalY - TargetPosY);
 
-	//double maxY = 2;
-	double distPerKetto = distX / 2;
+	//double distPerKetto = distX / 2;
 
-	double ForceY = maxY - ((abs(GameObject_Transform->getX() - OriginalX)) / distPerKetto);
+	double ForceY = maxY - ((abs(GameObject_Transform->getX() - OriginalX)) / (distX / 2.0));
 
 	if (irany==BALRA) {
 		Arrow_RigidBody->ApplyForceX(BALRA * 2);
