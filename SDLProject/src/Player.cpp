@@ -196,9 +196,8 @@ void Player::Update(Uint64 dt)
 			minetime = 0;
 		}
 
-		//csak itt van dynamic cast, leginkabb kivancsisagbol
 		if (Player_Inventory[selectedInventory].second != 0 and Player_Inventory[selectedInventory].first->getType() == tipus::tool) {
-				auto tool = dynamic_cast<Tool*>(Player_Inventory[selectedInventory].first);
+				auto tool = static_cast<Tool*>(Player_Inventory[selectedInventory].first);
 				if (tool->getAttackPower() > 0) {
 					Player_AttackPower = tool->getAttackPower();
 				}

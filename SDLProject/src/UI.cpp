@@ -172,7 +172,9 @@ void UI::Draw()
 
 				
 		}
-		auto player = dynamic_cast<Player*>((*engine->getGameObjects()).front());
+
+		//azt se tudtam h ilyet lehet
+		auto player = static_cast<Player*>((*engine->getGameObjects()).front());
 		if (player->getPotionDebuff() < POTION_CD) {
 			texturemanager->TCharsOut("Potion CD\n" + std::to_string(static_cast<int>(player->getPotionDebuff() / 1000)), x + 10, y + 10, static_cast<int>(40.0 / scale), nullptr, "red");
 		}
