@@ -24,10 +24,6 @@ void Zombie::AnimationState() {
 
 void Zombie::move(Uint64 dt)
 {
-
-	if (GameObject_Dimenziok.w == 0 and GameObject_Dimenziok.h == 0) {
-		GameObject_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("zombie_idle")->second.second;
-	}
 	//fut jobbra
 	if (Enemy_TargetPosX - 50 > GameObject_Origin->getX())
 	{
@@ -65,8 +61,6 @@ void Zombie::move(Uint64 dt)
 	{
 		Enemy_IsFalling = false;
 	}
-
-	std::cout << Enemy_AttackTimer << "\n";
 }
 
 void Zombie::attacking(Uint64 dt)

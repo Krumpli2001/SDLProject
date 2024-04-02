@@ -31,7 +31,9 @@ Player::Player(Properties* props) : Character(props)
 	Player_AttackTime = PLAYER_ATTACK_TIME;
 	Player_UnderWaterTime = UNDER_WATER_TIME;
 
-	Player_Collider = new Collider();
+	GameObject_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second;
+
+	Player_Collider = new Collider(GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
 	Player_RigidBody = new RigidBody();
 	Player_RigidBody->setRigidBody_Gravity(GRAVITY);
@@ -40,6 +42,7 @@ Player::Player(Properties* props) : Character(props)
 	Player_SpriteAnimation->SetProps(GameObject_TextureID, 0, 0, 0);
 
 	Player_Inventory.fill(std::make_pair(nullptr, 0));
+
 }
 
 Player::~Player()
@@ -64,9 +67,9 @@ void Player::Update(Uint64 dt)
 
 	auto texturemanagerInstance = TextureManager::GetInstance();
 
-	if (GameObject_Dimenziok.w == 0 and GameObject_Dimenziok.h == 0) {
+	/*if (GameObject_Dimenziok.w == 0 and GameObject_Dimenziok.h == 0) {
 		GameObject_Dimenziok = texturemanagerInstance->getTextureMap()->find("player_idle")->second.second;
-	}
+	}*/
 
 	//regen
 	constexpr auto RTime = 1000;

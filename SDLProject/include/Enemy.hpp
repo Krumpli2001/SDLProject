@@ -107,6 +107,7 @@ public:
 	inline Zombie(Properties* props) : Enemy(props) {
 		Enemy_AttackPower = 10;
 		Enemy_AttackTimer = zombieAttacktimer;
+		GameObject_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("zombie_idle")->second.second;
 	};
 
 	//beállítja a megfelelõ animációt
@@ -131,6 +132,7 @@ private:
 public:
 	Skeleton(Properties* props) : Enemy(props) {
 		Enemy_AttackTimer = 3000;
+		GameObject_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("skeleton_idle")->second.second;
 	};
 
 	//beállítja a megfelelõ animációt

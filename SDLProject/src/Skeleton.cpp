@@ -9,9 +9,6 @@ void Skeleton::AnimationState() {
 
 void Skeleton::move(Uint64 dt)
 {
-	if (GameObject_Dimenziok.w == 0 and GameObject_Dimenziok.h == 0) {
-		GameObject_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("skeleton_idle")->second.second;
-	}
 
 	if (!isAiming) {
 		//fut jobbra
