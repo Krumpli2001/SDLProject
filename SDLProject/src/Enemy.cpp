@@ -5,7 +5,7 @@ Enemy::Enemy(Properties* props) : Character(props)
 	GameObject_hp = props->Properies_hp;
 	Enemy_RigidBody = new RigidBody();
 	Enemy_RigidBody->setRigidBody_Gravity(GRAVITY);
-	Enemy_Collider = new Collider();
+	Enemy_Collider = new Collider(GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
 	Enemy_SpriteAnimation = new SpriteAnimation();
 

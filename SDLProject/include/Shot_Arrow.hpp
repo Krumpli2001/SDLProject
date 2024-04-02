@@ -29,7 +29,7 @@ public:
 		GameObject_hp = props->Properies_hp;
 		Arrow_RigidBody = new RigidBody();
 		Arrow_RigidBody->setRigidBody_Gravity(GRAVITY);
-		Arrow_Collider = new Collider();
+		Arrow_Collider = new Collider(1,1);
 		Arrow_SpriteAnimation = new SpriteAnimation();
 		auto player = (*Engine::GetInstance()->getGameObjects()).front();
 		TargetPosX = static_cast<int>(player->getPosition()->getX() + player->getCollider()->getBox()->w / 2.0);
