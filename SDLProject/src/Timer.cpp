@@ -17,7 +17,7 @@ void Timer::getTick()
 	}
 	else if (Timer_DeltaTime < (egy_masodperc / maxFPS)) {
 		SDL_Delay(static_cast<Uint32>((egy_masodperc / maxFPS) - Timer_DeltaTime));
-		Timer_DeltaTime = egy_masodperc / maxFPS;
+		Timer_DeltaTime = static_cast<Uint64>(egy_masodperc / maxFPS);
 		countedframes++;
 	}
 	else { countedframes++; }

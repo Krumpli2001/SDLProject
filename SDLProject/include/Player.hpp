@@ -18,15 +18,6 @@ constexpr auto PLAYER_ATTACK_TIME = 300.0;
 constexpr auto PLAYER_ATTACK_POWER = 15;
 constexpr auto POTION_CD = 60000;
 
-enum playerAniState {
-	PlayerIsIdle,
-	PlayerIsWalking,
-	PlayerIsJumping,
-	PlayerIsFalling,
-	PlayerIsAttacking,
-	PlayerIsWalkingAndAttacking,
-};
-
 class Player : public Character {
 private:
 	bool Player_IsWalking;

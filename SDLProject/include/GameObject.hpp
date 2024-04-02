@@ -44,8 +44,6 @@ protected:
 	Point* GameObject_Origin;
 	dimenziok GameObject_Dimenziok{};
 
-	short aniState{};
-
 	int GameObject_kb{};
 	int GameObject_kbt{};
 	int Gameobject_kb_direction{};

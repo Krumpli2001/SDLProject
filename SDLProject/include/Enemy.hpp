@@ -97,6 +97,8 @@ public:
 
 };
 
+constexpr auto zombieAttacktimer = 1000;
+
 class Zombie : public Enemy{
 private:
 	
@@ -104,7 +106,7 @@ private:
 public:
 	inline Zombie(Properties* props) : Enemy(props) {
 		Enemy_AttackPower = 10;
-		Enemy_AttackTimer = 1000;
+		Enemy_AttackTimer = zombieAttacktimer;
 	};
 
 	//beállítja a megfelelõ animációt

@@ -25,8 +25,8 @@ void Enemy::Update(Uint64 dt)
 	move(dt);
 	Enemy_Collision(dt);
 
-	GameObject_Origin->setX(GameObject_Transform->getX());
-	GameObject_Origin->setY(GameObject_Transform->getY());
+	GameObject_Origin->setX(GameObject_Transform->getX()+GameObject_Width/2);
+	GameObject_Origin->setY(GameObject_Transform->getY() + GameObject_Height / 2);
 
 	AnimationState();
 	Enemy_RigidBody->Update(dt);

@@ -11,6 +11,9 @@
     <texture id="bg" source="assets/Forest_background_1.png" frames="1"/>
 
     <texture id="zombie_idle" source="assets/z_idle.png" frames="4"/>
+    <texture id="zombie_stand_hit" source="assets/z_stand_hit.png" frames="4"/>
+    <texture id="zombie_walk" source="assets/z_walking.png" frames="6" />
+
     <texture id="skeleton_idle" source="assets/s_idle.png" frames="4"/>
 
     <texture id="shot_arrow" source="assets/nyil.png" frames="1"/>
