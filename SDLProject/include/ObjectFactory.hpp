@@ -22,8 +22,15 @@ public:
 	//adott gameObj regisztrálása (inicializálásban)
 	void RegiseterType(std::string className, std::function<GameObject* (Properties* props)> type);
 
-	static inline ObjectFactory* GetInstance()
+	static inline ObjectFactory* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (ObjectFaclory_Instance) {
+				delete ObjectFaclory_Instance;
+			}
+			ObjectFaclory_Instance = nullptr;
+			return nullptr;
+		}
 		if (ObjectFaclory_Instance == nullptr)
 		{
 			ObjectFaclory_Instance = new ObjectFactory();

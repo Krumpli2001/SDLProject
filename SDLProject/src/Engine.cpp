@@ -103,7 +103,7 @@ bool Engine::Clean()
 
 	TextureManager::GetInstance()->Clean();
 	TextureManager::GetInstance()->Clearfont();
-	//UI::GetInstance()->Clean();
+	UI::GetInstance()->Clean();
 	Menu::GetInstance()->Clean();
 	ItemData::GetInstance()->ClearData();
 
@@ -114,6 +114,21 @@ bool Engine::Clean()
 		options->setSavedVolume(volume);
 		options->saveSettings();
 	}
+
+
+	//singletonok torlese
+	Camera::GetInstance(true);
+	CollisionHandler::GetInstance(true);
+	Input::GetInstance(true);
+	ItemData::GetInstance(true);
+	MapParser::GetInstance(true);
+	Menu::GetInstance(true);
+	ObjectFactory::GetInstance(true);
+	Options::GetInstance(true);
+	RNG::GetInstance(true);
+	TextureManager::GetInstance(true);
+	Timer::GetInstance(true);
+	UI::GetInstance(true);
 
 	SDL_DestroyRenderer(Engine_Renderer);
 	SDL_DestroyWindow(Engine_Window);

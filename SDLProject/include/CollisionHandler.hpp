@@ -23,8 +23,15 @@ private:
 	int colCount;
 public:
 
-	static inline CollisionHandler* GetInstance()
+	static inline CollisionHandler* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (CollisionHandler_Instance) {
+				delete CollisionHandler_Instance;
+			}
+			CollisionHandler_Instance = nullptr;
+			return nullptr;
+		}
 		if (CollisionHandler_Instance == nullptr)
 		{
 			CollisionHandler_Instance = new CollisionHandler();

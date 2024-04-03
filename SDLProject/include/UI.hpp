@@ -37,9 +37,16 @@ private:
 	std::pair<Item*, int> transfer{ nullptr, 0 };
 
 public:
-	inline static UI* GetInstance()
+	inline static UI* GetInstance(bool del = false)
 	{
 		static UI* UI_Instance;
+		if (del) {
+			if (UI_Instance) {
+				delete UI_Instance;
+			}
+			UI_Instance = nullptr;
+			return nullptr;
+		}
 		if (UI_Instance == nullptr)
 		{
 			UI_Instance = new UI();
@@ -63,8 +70,8 @@ public:
 	void Draw();
 
 
-	/*void TextureReset();
-	void Clean();*/
+	/*void TextureReset();*/
+	void Clean();
 
 	/// <summary>
 	/// beállítja hogy kirajzoljuk-e az fps-t

@@ -21,8 +21,15 @@ private:
 	int frames{};
 public:
 	TextureManager() {};
-	static inline TextureManager* GetInstance()
+	static inline TextureManager* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (TextureManager_Instance) {
+				delete TextureManager_Instance;
+			}
+			TextureManager_Instance = nullptr;
+			return nullptr;
+		}
 		if (TextureManager_Instance == nullptr)
 		{
 			TextureManager_Instance = new TextureManager();

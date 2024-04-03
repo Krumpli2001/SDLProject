@@ -25,8 +25,16 @@ private:
 	TileLayer* ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset>* tilesets, int tilesize, int rowcount, int colcount);
 
 public:
-	static inline MapParser* GetInstance()
+	static inline MapParser* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (MapParser_Instance)
+			{
+				delete MapParser_Instance;
+			}
+			MapParser_Instance = nullptr;
+			return nullptr;
+		}
 		if (MapParser_Instance == nullptr)
 		{
 			MapParser_Instance = new MapParser();

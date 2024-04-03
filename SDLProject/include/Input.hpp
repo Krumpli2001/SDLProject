@@ -28,8 +28,15 @@ private:
 	void ClickDown();
 
 public:
-	static inline Input* GetInstance()
+	static inline Input* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (Input_Instance) {
+				delete Input_Instance;
+			}
+			Input_Instance = nullptr;
+			return nullptr;
+		}
 		if (Input_Instance == nullptr)
 		{
 			Input_Instance = new Input();

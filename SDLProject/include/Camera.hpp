@@ -33,8 +33,16 @@ private:
 	double scale{};
 
 public:
-	static inline Camera* GetInstance()
+	static inline Camera* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (Camera_Instance) {
+				delete Camera_Instance;
+			}
+			Camera_Instance = nullptr;
+			return nullptr;
+		}
+
 		if (Camera_Instance == nullptr)
 		{
 			Camera_Instance = new Camera();

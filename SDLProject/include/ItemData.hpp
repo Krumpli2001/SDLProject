@@ -17,9 +17,16 @@ private:
 public:
 
 	ItemData(const ItemData&) = delete;
-	inline static ItemData* GetInstance()
+	inline static ItemData* GetInstance(bool del = false)
 	{
 		static ItemData* ItemData_Instance;
+		if (del) {
+			if (ItemData_Instance) {
+				delete ItemData_Instance;
+			}
+			ItemData_Instance = nullptr;
+			return nullptr;
+		}
 		if (ItemData_Instance == nullptr)
 		{
 			ItemData_Instance = new ItemData();

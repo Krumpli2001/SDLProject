@@ -15,9 +15,16 @@ public:
 
 	RNG(const RNG&) = delete;
 
-	inline static RNG* GetInstance()
+	inline static RNG* GetInstance(bool del = false)
 	{
 		static RNG* RNG_Instance;
+		if (del) {
+			if (RNG_Instance) {
+				delete RNG_Instance;
+			}
+			RNG_Instance = nullptr;
+			return nullptr;
+		}
 		if (RNG_Instance == nullptr)
 		{
 			RNG_Instance = new RNG();

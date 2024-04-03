@@ -59,18 +59,12 @@ bool CollisionHandler::MapCollision(GameObject* g, bool* grounded)
     if (top_tile < 0) { top_tile = 0; }
     if (bottom_tile > rowCount) { bottom_tile = rowCount; }
 
-    /*std::vector<int> top;
-    std::vector<int> bottom;
-    std::vector<int> left;
-    std::vector<int> right;
 
-    for (int i = top_tile; i < bottom_tile; i += tileSize) {
-
-    }*/
-
+    //pálya szélei
     if ((g->getCollider()->getBox()->x < 0) || ((g->getCollider()->getBox()->x + g->getCollider()->getBox()->w) >= (colCount * tileSize)) ||
         (g->getCollider()->getBox()->y < 0) || ((g->getCollider()->getBox()->y + g->getCollider()->getBox()->h) >= (rowCount * tileSize))) { return true; }
 
+    //minden más
     for (int i = left_tile; i <= right_tile; i++)
     {
         for (int j = top_tile; j <= bottom_tile; j++)

@@ -217,9 +217,7 @@ void UI::Draw()
 //	}*/
 //}
 
-//void UI::Clean()
-//{
-//	/*if (FpsShowing) {
-//		FPSCounter::GetInstance()->Clean();
-//	}*/
-//}
+void UI::Clean()
+{
+	FPSCounter::GetInstance(true);
+}

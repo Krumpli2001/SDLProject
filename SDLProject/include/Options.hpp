@@ -9,9 +9,16 @@ private:
 public:
 	Options(const Options&) = delete;
 
-	inline static Options* GetInstance()
+	inline static Options* GetInstance(bool del = false)
 	{
 		static Options* Options_Instance;
+		if (del) {
+			if (Options_Instance) {
+				delete Options_Instance;
+			}
+			Options_Instance = nullptr;
+			return nullptr;
+		}
 		if (Options_Instance == nullptr)
 		{
 			Options_Instance = new Options();

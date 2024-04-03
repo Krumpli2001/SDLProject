@@ -13,8 +13,15 @@ private:
 	double scale{};
 
 public:
-	static inline FPSCounter* GetInstance()
+	static inline FPSCounter* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (FPS_Instance) {
+				delete FPS_Instance;
+			}
+			FPS_Instance = nullptr;
+			return nullptr;
+		}
 		if (FPS_Instance == nullptr)
 		{
 			FPS_Instance = new FPSCounter();

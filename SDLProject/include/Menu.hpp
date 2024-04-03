@@ -59,8 +59,15 @@ private:
 	std::unordered_map<std::string, SDL_Color>* colors = TextureManager::GetInstance()->getColors();
 
 public:
-	static inline Menu* GetInstance()
+	static inline Menu* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (Menu_Instance) {
+				delete Menu_Instance;
+			}
+			Menu_Instance = nullptr;
+			return nullptr;
+		}
 		if (Menu_Instance == nullptr)
 		{
 			Menu_Instance = new Menu();

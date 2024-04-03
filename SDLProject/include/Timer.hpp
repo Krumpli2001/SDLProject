@@ -23,8 +23,15 @@ private:
 
 	bool menu = false;
 public:
-	static inline Timer* GetInstance()
+	static inline Timer* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (Timer_Instance) {
+				delete Timer_Instance;
+			}
+			Timer_Instance = nullptr;
+			return nullptr;
+		}
 		if (Timer_Instance == nullptr)
 		{
 			Timer_Instance = new Timer();

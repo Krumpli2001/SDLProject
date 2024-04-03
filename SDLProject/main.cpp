@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 	}
 
 	engineInstance->Clean();
-
+	Engine::GetInstance(true);
 	std::cout << "\nVEGE\n";
 
 	return 0;

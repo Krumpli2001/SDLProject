@@ -58,8 +58,15 @@ private:
 	std::string loaded_map_name;
 
 public:
-	static inline Engine* GetInstance()
+	static inline Engine* GetInstance(bool del = false)
 	{
+		if (del) {
+			if (Engine_Instance) {
+				delete Engine_Instance;
+			}
+			Engine_Instance = nullptr;
+			return nullptr;
+		}
 		if (Engine_Instance == nullptr)
 		{
 			Engine_Instance = new Engine();
