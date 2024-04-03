@@ -9,8 +9,8 @@ void Zombie::AnimationState() {
 	GameObject_Width = texturemanagerInstance->getTextureMap()->find("zombie_idle")->second.second.w;
 	GameObject_Height = texturemanagerInstance->getTextureMap()->find("zombie_idle")->second.second.h;
 
-	if (aniState == IsWalking) {
-		Enemy_SpriteAnimation->SetProps("zombie_walk", 0, 4, 400);
+	if (Character_AnimationState == IsWalking) {
+		Enemy_SpriteAnimation->SetProps("zombie_walk", 0, 6, 400);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("zombie_walk")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("zombie_walk")->second.second.h;
 	}
@@ -29,7 +29,7 @@ void Zombie::move(Uint64 dt)
 	{
 		Enemy_RigidBody->ApplyForceX(JOBBRA * 0.3);
 		GameObject_Flip = SDL_FLIP_NONE;
-		aniState = IsWalking;
+		Character_AnimationState = IsWalking;
 	}
 
 	//fut balra
@@ -37,7 +37,7 @@ void Zombie::move(Uint64 dt)
 	{
 		Enemy_RigidBody->ApplyForceX(BALRA * 0.3);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
-		aniState = IsWalking;
+		Character_AnimationState = IsWalking;
 	}
 
 	//jump

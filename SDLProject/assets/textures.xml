@@ -15,6 +15,8 @@
     <texture id="zombie_walk" source="assets/z_walking.png" frames="6" />
 
     <texture id="skeleton_idle" source="assets/s_idle.png" frames="4"/>
+    <texture id="skeleton_stand_hit" source="assets/s_attacking.png" frames="4"/>
+    <texture id="skeleton_walk" source="assets/s_walking.png" frames="6"/>
 
     <texture id="shot_arrow" source="assets/nyil.png" frames="1"/>
 

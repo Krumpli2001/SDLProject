@@ -63,7 +63,7 @@ void Player::Draw()
 
 void Player::Update(Uint64 dt)
 {
-	aniState = playerAniState::IsIdle;
+	Character_AnimationState = playerAniState::IsIdle;
 
 	auto texturemanagerInstance = TextureManager::GetInstance();
 
@@ -109,7 +109,7 @@ void Player::Update(Uint64 dt)
 		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE);
 		GameObject_Flip = SDL_FLIP_NONE;
 		//Player_IsWalking = true;
-		aniState = playerAniState::IsWalking;
+		Character_AnimationState = playerAniState::IsWalking;
 	}
 
 	//fut balra
@@ -118,7 +118,7 @@ void Player::Update(Uint64 dt)
 		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 		//Player_IsWalking = true;
-		aniState = playerAniState::IsWalking;
+		Character_AnimationState = playerAniState::IsWalking;
 	}
 
 	//scroll
@@ -299,7 +299,7 @@ void Player::Update(Uint64 dt)
 	if (Player_RigidBody->getRigidBody_Velocity().getY() > 0 and !Player_IsGrounded)
 	{
 		Player_IsFalling = true;
-		aniState = playerAniState::IsFalling;
+		Character_AnimationState = playerAniState::IsFalling;
 	}
 	else
 	{
@@ -401,13 +401,13 @@ void Player::Update(Uint64 dt)
 void Player::AnimationState()
 {
 	auto texturemanagerInstance = TextureManager::GetInstance();
-	if (aniState == playerAniState::IsIdle) {
+	if (Character_AnimationState == playerAniState::IsIdle) {
 		Player_SpriteAnimation->SetProps("player_idle", 0, 4, 400);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_idle")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_idle")->second.second.h;
 	}
 
-	if (aniState == playerAniState::IsWalking) {
+	if (Character_AnimationState == playerAniState::IsWalking) {
 		Player_SpriteAnimation->SetProps("player_walking", 0, 6, 500);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_walking")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_walking")->second.second.h;
@@ -419,13 +419,13 @@ void Player::AnimationState()
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_jumping")->second.second.h;
 	}
 
-	if (aniState == playerAniState::IsAttacking or Player_IsAttacking) {
+	if (Character_AnimationState == playerAniState::IsAttacking or Player_IsAttacking) {
 		Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, static_cast<int>(PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount()), true);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_stand_hit")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_stand_hit")->second.second.h;
 	}
 
-	if (aniState == playerAniState::IsWalking and Player_IsAttacking) {
+	if (Character_AnimationState == playerAniState::IsWalking and Player_IsAttacking) {
 		Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, static_cast<int>(PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount()), true);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_walk_hit")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_walk_hit")->second.second.h;

@@ -20,6 +20,7 @@ Enemy::~Enemy()
 
 void Enemy::Update(Uint64 dt)
 {
+	Character_AnimationState = IsIdle;
 	Enemy_RigidBody->SetForceToZero();
 	getPlayerPosition();
 	move(dt);

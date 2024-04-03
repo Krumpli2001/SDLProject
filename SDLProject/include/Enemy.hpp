@@ -126,12 +126,14 @@ public:
 	inline double getAttackTimer() const { return Enemy_AttackTimer; }
 };
 
+constexpr auto skeleton_attackTimer = 3000;
+
 class Skeleton : public Enemy{
 private:
 	bool isAiming = false;
 public:
 	Skeleton(Properties* props) : Enemy(props) {
-		Enemy_AttackTimer = 3000;
+		Enemy_AttackTimer = skeleton_attackTimer;
 		GameObject_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("skeleton_idle")->second.second;
 	};
 

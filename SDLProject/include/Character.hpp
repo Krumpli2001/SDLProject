@@ -14,7 +14,7 @@ enum playerAniState {
 class Character : public GameObject {
 protected:
 	std::string Character_Name;
-	short aniState{};
+	short Character_AnimationState{};
 public:
 	inline Character(Properties* props) : GameObject(props) {}
 	virtual void AnimationState() = 0;
