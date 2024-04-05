@@ -81,7 +81,7 @@ public:
 	void getPlayerPosition();
 
 	//visszaadja az inventoryt (azaz semmi)
-	inline void* getInventory() override { return nullptr; }
+	//inline void* getInventory() override { return nullptr; }
 
 	//visszaadja a kivalasztott inventory slotot (azaz semmit) 
 	inline int getSelectedInventory() { return 0; }

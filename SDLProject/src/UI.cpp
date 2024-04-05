@@ -95,7 +95,7 @@ void UI::Draw()
 
 		int kiirando_sor = showInventory ? 4 : 1;
 
-		auto inv = static_cast<std::array<std::pair<Item*, int>, 40>*>((*engine->getGameObjects()).front()->getInventory());
+		auto inv = static_cast<Player*>((*engine->getGameObjects()).front())->getInventory();
 		auto selected = (*engine->getGameObjects()).front()->getSelectedInventory();
 		for (int sor = 0; sor < kiirando_sor; sor++) {
 			for (int oszlop = 0; oszlop < 10; oszlop++) {

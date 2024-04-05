@@ -84,7 +84,7 @@ public:
 	virtual void setAttackPower(int power) { power = attackPower; }
 
 	//
-	inline void* getInventory() override { return nullptr; }
+	//inline void* getInventory() override { return nullptr; }
 
 	//
 	inline int getSelectedInventory() { return 0; }
