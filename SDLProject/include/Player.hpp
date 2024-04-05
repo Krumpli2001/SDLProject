@@ -72,7 +72,7 @@ public:
 
 
 	virtual inline void setAttacking(bool e) {}; // csak enemy hasznalja
-	virtual inline void attacking(Uint64 dt) {}; // ezt is
+	virtual inline bool attacking(Uint64 dt) { return false; } // ezt is
 
 	//kiír
 	virtual void Draw();

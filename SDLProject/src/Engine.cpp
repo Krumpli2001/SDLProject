@@ -221,14 +221,20 @@ void Engine::Update()
 				if (i != 0) {
 					unsigned int mob = i;
 
+					auto irany = Enigine_GameObjects.front()->getOrigin()->getX() < Enigine_GameObjects[mob]->getOrigin()->getX() ? BALRA : JOBBRA;
+
 					if (CollisionHandler::GetInstance()->CheckCollision(*Enigine_GameObjects.front()->getCollider()->getBox(),
 						*Enigine_GameObjects[mob]->getCollider()->getBox())) {
 						//utes (player)
 						if ((Enigine_GameObjects.front()->getAttacking())/* and (Enigine_GameObjects[0]->getAttacktime() == PLAYER_ATTACK_TIME - dt)*/) {
 							Enigine_GameObjects[mob]->setHP(Enigine_GameObjects[mob]->getHP() - Enigine_GameObjects.front()->getAttackPower());
+							Enigine_GameObjects[mob]->TookDMG(-irany);
 						}
 					}
-					Enigine_GameObjects[mob]->attacking(dt);
+
+					if (Enigine_GameObjects[mob]->attacking(dt)) {
+						Enigine_GameObjects.front()->TookDMG(irany);
+					}
 
 				}
 				Enigine_GameObjects[i]->Update(dt);

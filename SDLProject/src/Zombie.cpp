@@ -63,7 +63,7 @@ void Zombie::move(Uint64 dt)
 	}
 }
 
-void Zombie::attacking(Uint64 dt)
+bool Zombie::attacking(Uint64 dt)
 {
 	auto player = (*Engine::GetInstance()->getGameObjects())[0];
 	if (CollisionHandler::GetInstance()->CheckCollision(*this->Enemy_Collider->getBox(), *player->getCollider()->getBox())) {
@@ -71,9 +71,11 @@ void Zombie::attacking(Uint64 dt)
 			Enemy_AttackTimer -= dt;
 			player->setHP(player->getHP() - Enemy_AttackPower);
 			auto irany = player->getOrigin()->getX() < GameObject_Origin->getX() ? BALRA : JOBBRA;
-			player->TookDMG(irany, 2, 50);
+			return true;
+			//player->TookDMG(irany, 2, 50);
 		}
 	}
 
 	Enemy_AttackTimer = Enemy_AttackTimer < 0 or Enemy_AttackTimer == zombieAttacktimer ? zombieAttacktimer : Enemy_AttackTimer -= dt;
+	return false;
 }

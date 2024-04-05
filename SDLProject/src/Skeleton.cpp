@@ -69,7 +69,7 @@ void Skeleton::move(Uint64 dt)
 	}
 }
 
-void Skeleton::attacking(Uint64 dt)
+bool Skeleton::attacking(Uint64 dt)
 {
 	constexpr auto attack_tavolsag = 10;
 	if (abs(Enemy_TargetPosX - GameObject_Transform->getX()) < attack_tavolsag * Engine::GetInstance()->getTileSize()) {
@@ -85,4 +85,5 @@ void Skeleton::attacking(Uint64 dt)
 	}
 	Enemy_AttackTimer = Enemy_AttackTimer < 0 ? skeleton_attackTimer : Enemy_AttackTimer;
 	Enemy_AttackTimer = Enemy_AttackTimer != skeleton_attackTimer ? Enemy_AttackTimer -= dt : Enemy_AttackTimer;
+	return false;
 }

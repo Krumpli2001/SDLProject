@@ -88,7 +88,7 @@ public:
 	inline int getMaxHP() const { return GameObject_MaxHP; }
 
 	//támadás
-	virtual void attacking(Uint64 dt) = 0;
+	virtual bool attacking(Uint64 dt) = 0;
 
 	//beállítja a változót hogy támad-e az adott gameObj
 	virtual void setAttacking(bool e) = 0;

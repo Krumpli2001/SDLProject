@@ -117,7 +117,7 @@ public:
 	virtual void move(Uint64 dt);
 
 	//támadásért felelõs fv
-	virtual void attacking(Uint64 dt);
+	virtual bool attacking(Uint64 dt);
 
 	//visszaadja a támadás ereét
 	inline int getAttackPower() { return Enemy_AttackPower; }
@@ -144,5 +144,5 @@ public:
 	virtual void move(Uint64 dt);
 
 	//támadásért felelõs fv
-	virtual void attacking(Uint64 dt);
+	virtual bool attacking(Uint64 dt);
 };

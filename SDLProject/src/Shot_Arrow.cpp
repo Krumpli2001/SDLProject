@@ -3,14 +3,16 @@
 
 static Registrar < Shot_Arrow > registrararrow("ARROW");
 
-void Shot_Arrow::attacking(Uint64 dt)
+bool Shot_Arrow::attacking(Uint64 dt)
 {
 	auto player = (*Engine::GetInstance()->getGameObjects()).front();
 	if (CollisionHandler::GetInstance()->CheckCollision(*this->Arrow_Collider->getBox(), *player->getCollider()->getBox())) {
 		GameObject_hp = 0;
 		player->setHP(player->getHP() - getAttackPower());
-		player->TookDMG(irany);
+		//player->TookDMG(irany);
+		return true;
 	}
+	return false;
 }
 
 void Shot_Arrow::Update(Uint64 dt)

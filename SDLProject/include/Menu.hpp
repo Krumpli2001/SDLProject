@@ -17,8 +17,8 @@ struct rublika {
 	bool isHighlighted = false;
 
 
-	rublika(const char* sz, int x, int y, int h) {
-		rublika::x = x; rublika::y = y; rublika::h = h; szoveg = sz;
+	rublika(const char* SZ, int X, int Y, int H) : x(X), y(Y), h(H), szoveg(SZ) {
+		//rublika::x = x; rublika::y = y; rublika::h = h; szoveg = sz;
 	}
 
 	//az adott téglalap áthelyezése

@@ -7,7 +7,7 @@
 class Collider
 {
 private:
-	SDL_Rect Collider_Box;
+	SDL_Rect Collider_Box{};
 	int tilesize = CollisionHandler::GetInstance()->getTileSize();
 	std::vector<std::vector<std::pair<int, int>>> koords;
 	std::vector<std::vector<std::pair<int, int>>> segedkoords;
@@ -20,15 +20,15 @@ public:
 		int i = 0;
 		int j = 0;
 		//Y
-		koords.resize(std::ceil((double)h / tilesize) + 1);
+		koords.resize(static_cast<size_t>(std::ceil(static_cast<double>(h) / tilesize) + 1));
 		//felso oldal
 		for (int Y = 0; Y < h+tilesize; Y += tilesize) {
 			//X
 			if (Y == 0) {
-				koords[i].resize(std::ceil((double)w / tilesize) + 1);
+				koords[i].resize(static_cast<size_t>(std::ceil(static_cast<double>(w) / tilesize) + 1));
 			}
 			else if (Y >= h) {
-				koords[i].resize(std::ceil((double)w / tilesize) + 1);
+				koords[i].resize(static_cast<size_t>(std::ceil(static_cast<double>(w) / tilesize) + 1));
 			}
 			else {
 				koords[i].resize(2);

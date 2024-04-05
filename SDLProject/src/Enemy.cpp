@@ -8,7 +8,7 @@ Enemy::Enemy(Properties* props) : Character(props)
 	Enemy_Collider = new Collider(GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
 	Enemy_SpriteAnimation = new SpriteAnimation();
-
+	Enemy_SpriteAnimation->SetProps(GameObject_TextureID, 0, 0, 0);
 }
 
 Enemy::~Enemy()
@@ -22,6 +22,10 @@ void Enemy::Update(Uint64 dt)
 {
 	Character_AnimationState = IsIdle;
 	Enemy_RigidBody->SetForceToZero();
+	if (gotHit(*Enemy_SpriteAnimation->getSpriteID(), dt, Enemy_RigidBody)) {
+		Enemy_IsJumping = true;
+		Enemy_IsGrounded = false;
+	}
 	getPlayerPosition();
 	move(dt);
 	Enemy_Collision(dt);

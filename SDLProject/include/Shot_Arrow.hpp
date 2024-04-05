@@ -48,7 +48,7 @@ public:
 	}
 
 	//támadás
-	virtual void attacking(Uint64 dt);
+	virtual bool attacking(Uint64 dt);
 
 	//
 	virtual void setAttacking(bool e) {}

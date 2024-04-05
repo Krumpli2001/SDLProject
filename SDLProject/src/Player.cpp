@@ -86,7 +86,7 @@ void Player::Update(Uint64 dt)
 	Player_IsWalking = false;
 	Player_RigidBody->SetForceToZero();
 
-	if (GameObject_kbt > 0) {
+	/*if (GameObject_kbt > 0) {
 		texturemanagerInstance->setTextColor(texturemanagerInstance->getTextureMap()->find(*Player_SpriteAnimation->getSpriteID())->second.first, "red");
 		GameObject_kbt = static_cast<int>(GameObject_kbt - dt);
 
@@ -99,7 +99,12 @@ void Player::Update(Uint64 dt)
 	else {
 		texturemanagerInstance->setTextColor(texturemanagerInstance->getTextureMap()->find(*Player_SpriteAnimation->getSpriteID())->second.first, "white");
 	}
-	GameObject_kbt = GameObject_kbt < INT_MIN / 2 ? 0 : GameObject_kbt;
+	GameObject_kbt = GameObject_kbt < INT_MIN / 2 ? 0 : GameObject_kbt;*/
+
+	if (gotHit(*Player_SpriteAnimation->getSpriteID(), dt, Player_RigidBody)) {
+		Player_IsJumping = true;
+		Player_IsGrounded = false;
+	}
 
 	auto inputInstance = Input::GetInstance();
 
