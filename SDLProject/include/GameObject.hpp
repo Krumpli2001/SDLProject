@@ -124,7 +124,7 @@ public:
 	virtual void reset() = 0;
 
 	//visszaadja a gameObj (jelenleg player) inventory-át
-	//virtual void* getInventory() = 0;
+	virtual void* getInventory() = 0;
 
 	//visszaadja a gameObj (jelenleg player) inventory-ában kiválasztott helyet
 	virtual int getSelectedInventory() = 0;

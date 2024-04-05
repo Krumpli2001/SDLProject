@@ -107,7 +107,7 @@ public:
 	//wow lehet ilyet is - ez rettenet buta lmao
 
 	//visszaadja a player inventory-t
-	inline auto getInventory() { return &Player_Inventory; }
+	inline void* getInventory() override { return &Player_Inventory; }
 
 	//visszadja a kiválasztott inventory slotot
 	inline int getSelectedInventory() { return selectedInventory; }
