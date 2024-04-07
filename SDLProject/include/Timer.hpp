@@ -2,6 +2,8 @@
 
 #include <SDL.h>
 
+#include <map>
+
 class Timer
 {
 private:
@@ -13,8 +15,8 @@ private:
 	const double TARGET_FPS = 60;
 	const double TARGET_DELTATIME = 1000 / TARGET_FPS;
 
-	bool pressed = false;
-	int pressedtimer = 0;
+	//bool pressed = false;
+	std::map<uint16_t, std::pair<int, bool>> pressedtimer;
 
 	Uint64 countedframes=0;
 	Uint64 sec = 0;
@@ -79,5 +81,5 @@ public:
 	/// </summary>
 	/// <param name="time">idõ a gomb nyomás után</param>
 	/// <returns>lenyomható e a gomb</returns>
-	bool pressable(Uint32 time);
+	bool pressable(Uint32 time, uint16_t index = 0);
 };

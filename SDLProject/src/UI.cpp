@@ -120,7 +120,7 @@ void UI::Draw()
 					texturemanager->TCharsOut(std::to_string((*inv)[sor * 10 + oszlop].second), x, y, static_cast<int>(35.0 / scale));
 				}
 
-				if(Timer::GetInstance()->pressable(75)){
+				if(Timer::GetInstance()->pressable(75, 1)){
 
 					if (transfer.first == nullptr and (*inv)[sor * 10 + oszlop].first and Input::GetInstance()->getClickDown() and
 						static_cast<double>(cx) / scale > inventoryKockaHely.x and static_cast<double>(cx) / scale < inventoryKockaHely.x + inventoryKockaHely.w and
@@ -220,4 +220,7 @@ void UI::Draw()
 void UI::Clean()
 {
 	FPSCounter::GetInstance(true);
+	if (transfer.first) {
+		delete transfer.first;
+	}
 }

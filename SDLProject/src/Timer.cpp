@@ -27,18 +27,20 @@ void Timer::getTick()
 	sec = sec > egy_masodperc ? 0 : sec;
 	countedframes = sec == 0 ? 0 : countedframes;
 
-	pressedtimer = !pressed ? 0 : pressedtimer -= static_cast<int>(Timer_DeltaTime);
-	pressed = pressedtimer <= 0?false : true;
+	for (auto it = pressedtimer.begin(); it != pressedtimer.end(); it++) {
+		it->second.first = !it->second.second ? 0 : it->second.first -= static_cast<int>(Timer_DeltaTime);
+		it->second.second = it->second.first <= 0 ? false : true;
+	}
 
 	Timer_LastTime = SDL_GetTicks64();
 }
 
-bool Timer::pressable(Uint32 time)
+bool Timer::pressable(Uint32 time, uint16_t index)
 {
-	pressedtimer = pressedtimer == 0 ? static_cast<int>(time) : pressedtimer;
+	pressedtimer[index].first = pressedtimer[index].first == 0 ? static_cast<int>(time) : pressedtimer[index].first;
 
-	if (pressedtimer == time) {
-		pressed = true;
+	if (pressedtimer[index].first == time) {
+		pressedtimer[index].second = true;
 		return true;
 	}
 	else {
