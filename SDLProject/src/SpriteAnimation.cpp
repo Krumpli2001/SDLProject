@@ -21,7 +21,7 @@ void SpriteAnimation::Draw(double x, double y, int spriteW, int spriteH, SDL_Ren
 	TextureManager::GetInstance()->DrawFrame(SpriteAnimation_TextureID, x, y, spriteW, spriteH, SpriteAnimation_SpriteRow, SpriteAnimation_CurrentFrame, SpriteAnimation_StartFrame, scale, angle, flip, flipX, flipY);
 }
 
-void SpriteAnimation::SetProps(std::string textureID, int spriteRow, int frameCount, int aniSpeed, bool startFrame)
+void SpriteAnimation::SetProps(const std::string& textureID, int spriteRow, int frameCount, int aniSpeed, bool startFrame)
 {
 	SpriteAnimation_StartFrame = startFrame;
 	SpriteAnimation_TextureID = textureID;

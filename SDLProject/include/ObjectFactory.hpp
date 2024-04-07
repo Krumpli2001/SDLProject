@@ -17,10 +17,10 @@ private:
 public:
 
 	//gameObj létrehozása
-	GameObject* CreateObject(std::string type, Properties* props);
+	GameObject* CreateObject(const std::string& type, Properties* props);
 
 	//adott gameObj regisztrálása (inicializálásban)
-	void RegiseterType(std::string className, std::function<GameObject* (Properties* props)> type);
+	void RegiseterType(const std::string& className, std::function<GameObject* (Properties* props)> type);
 
 	static inline ObjectFactory* GetInstance(bool del = false)
 	{
@@ -45,7 +45,7 @@ class Registrar
 public:
 
 	//regisztrálás
-	Registrar(std::string className)
+	Registrar(const std::string& className)
 	{
 		//https://stackoverflow.com/questions/20353210/what-is-the-purpose-of-stdfunction-and-how-do-i-use-it
 		//ezt att kene irni hogy erthetobb legyen + sajat szavakkal (btw jo igy is)

@@ -2,7 +2,7 @@
 
 ObjectFactory* ObjectFactory::ObjectFaclory_Instance = nullptr;
 
-GameObject* ObjectFactory::CreateObject(std::string type, Properties* props)
+GameObject* ObjectFactory::CreateObject(const std::string& type, Properties* props)
 {
 	GameObject* object = nullptr;
 	auto it = ObjectFactory_TypeRegistry.find(type);
@@ -10,7 +10,7 @@ GameObject* ObjectFactory::CreateObject(std::string type, Properties* props)
 	return object;
 }
 
-void ObjectFactory::RegiseterType(std::string className, std::function<GameObject* (Properties* props)> type)
+void ObjectFactory::RegiseterType(const std::string& className, std::function<GameObject* (Properties* props)> type)
 {
 	ObjectFactory_TypeRegistry[className] = type;
 }

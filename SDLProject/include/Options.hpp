@@ -39,7 +39,7 @@ public:
 	void setSavedVolume(int e) { savedVolume = e; }
 
 	//elmentett beállítások beolvasása
-	void readSettings(std::string source = "saves/settings.set");
+	void readSettings(const std::string& source = "saves/settings.set");
 
 	//beállítások mentése
 	void saveSettings();

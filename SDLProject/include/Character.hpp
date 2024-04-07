@@ -21,7 +21,7 @@ public:
 	inline Character(Properties* props) : GameObject(props) {}
 	virtual void AnimationState() = 0;
 
-	inline bool gotHit(std::string texture, Uint64 dt, RigidBody* rigidBody) {
+	inline bool gotHit(const std::string& texture, Uint64 dt, RigidBody* rigidBody) {
 		auto texturemanagerInstance = TextureManager::GetInstance();
 		bool r{};
 		if (GameObject_kbt > 0) {

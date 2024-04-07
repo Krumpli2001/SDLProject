@@ -1,7 +1,7 @@
 #include "Itemdata.hpp"
 #include "tinyxml.h"
 
-bool ItemData::ParseData(std::string src)
+bool ItemData::ParseData(const std::string& src)
 {
 	TiXmlDocument xml;
 	xml.LoadFile(src);
@@ -88,12 +88,12 @@ bool ItemData::ParseData(std::string src)
 	return true;
 }
 
-std::string ItemData::getTileNameFromID(int key)
+std::string& ItemData::getTileNameFromID(int key)
 {
 	return int_TileData.find(key)->second->TileName;
 }
 
-int ItemData::getTileIDFromName(std::string key) {
+int ItemData::getTileIDFromName(const std::string& key) {
 	return string_TileData.find(key)->second->TileID;
 }
 
@@ -101,7 +101,7 @@ Tile* ItemData::getTileDataFromID(int key) {
 	return int_TileData.find(key)->second;
 }
 
-Tile* ItemData::getTileDataFromName(std::string key) {
+Tile* ItemData::getTileDataFromName(const std::string& key) {
 	return string_TileData.find(key)->second;
 }
 

@@ -5,7 +5,7 @@
 #include "Engine.hpp"
 #include "Options.hpp"
 
-void Options::readSettings(std::string source)
+void Options::readSettings(const std::string& source)
 {
 	TiXmlDocument xml;
 	xml.LoadFile(source);

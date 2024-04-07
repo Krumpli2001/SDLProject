@@ -453,7 +453,7 @@ void Player::reset()
 
 void Player::saveInventory()
 {
-	std::string str = "saves/" + Engine::GetInstance()->getMapName() + ".xml";
+	std::string str = "saves/" + *Engine::GetInstance()->getMapName() + ".xml";
 	std::ofstream f(str);
 	if (f.is_open()) {
 		f << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -476,7 +476,7 @@ void Player::readInventory()
 {
 	TiXmlDocument xml;
 	auto engineInstance = Engine::GetInstance();
-	std::string source = "saves/" + engineInstance->getMapName() + ".xml";
+	std::string source = "saves/" + *engineInstance->getMapName() + ".xml";
 	xml.LoadFile(source);
 	if (xml.Error()) {
 

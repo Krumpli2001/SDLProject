@@ -3,7 +3,7 @@
 #include <iostream>
 
 struct Tile {
-	Tile(int TID, std::string TN, std::string LID, bool iT, uint32_t MT, int MS) : TileID(TID), TileName(TN), LayerID(LID), isTransparent(iT), MineTime(MT), MaxStack(MS) {}
+	Tile(int TID, const std::string& TN, const std::string& LID, bool iT, uint32_t MT, int MS) : TileID(TID), TileName(TN), LayerID(LID), isTransparent(iT), MineTime(MT), MaxStack(MS) {}
 	int TileID;
 	std::string TileName;
 	std::string LayerID;
@@ -20,7 +20,7 @@ enum tipus {
 class Item
 {
 protected:
-	Item(int IID, std::string name, int MS) : ItemID(IID), name(name), MaxStack(MS) {}
+	Item(int IID, const std::string& name, int MS) : ItemID(IID), name(name), MaxStack(MS) {}
 	int ItemID;
 	std::string name;
 	int MaxStack;
@@ -29,7 +29,7 @@ public:
 
 	//item ID visszatérítése
 	inline int getItemID() { return ItemID; }
-	inline std::string getName() { return name; }
+	inline std::string* getName() { return &name; }
 	virtual short getType() = 0;
 };
 
@@ -41,7 +41,7 @@ private:
 	int Heal{};
 	bool Consumable{};
 public:
-	inline Tool(int ID, std::string name, int attack, int heal, bool Cons,  int MS) : Item(ID, name, MS), AttackPower(attack), Heal(heal), Consumable(Cons) {}
+	inline Tool(int ID, const std::string& name, int attack, int heal, bool Cons,  int MS) : Item(ID, name, MS), AttackPower(attack), Heal(heal), Consumable(Cons) {}
 
 	//nothing
 	inline int getTileID() { return -1; }
@@ -56,6 +56,6 @@ class Block : public Item
 private:
 	//int TileID;
 public:
-	inline Block(int IID, std::string name, int MS) : Item(IID, name, MS) {}
+	inline Block(int IID, const std::string& name, int MS) : Item(IID, name, MS) {}
 	inline short getType() override { return tipus::block; }
 };

@@ -30,7 +30,7 @@ public:
 	void Draw(double x, double y, int spriteW, int spriteH, SDL_RendererFlip flip, double angle = 0, double scale = 1, int flipX = 0, int flipY = 0);
 
 	//adatok beállításai - lényegében mini constructor
-	void SetProps(std::string textureID, int spriteRow, int frameCount, int aniSpeed , bool startFrame = false);
+	void SetProps(const std::string& textureID, int spriteRow, int frameCount, int aniSpeed , bool startFrame = false);
 
 	inline auto getSpriteID() { return &SpriteAnimation_TextureID; }
 

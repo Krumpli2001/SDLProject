@@ -79,7 +79,7 @@ bool TextureManager::Init()
 }
 
 //a scale-elesbe nem nyul bele, se a meretbe, se a pozicioba
-void TextureManager::TCharsOut(std::string str, int x, int y, int size, int* width, std::string szin)
+void TextureManager::TCharsOut(const std::string& str, int x, int y, int size, int* width, const std::string& szin)
 {
 	int originalX = x;
 	int w{};
@@ -169,7 +169,7 @@ bool TextureManager::ParseTextures(std::string source)
 }
 
 //stayonscreen = maradjon a kepernyon ugyan abban a pozicioban - szivecske hasznalja
-void TextureManager::Draw(std::string id, int x, int y, int w, int h, int srcx, int srcy)
+void TextureManager::Draw(const std::string& id, int x, int y, int w, int h, int srcx, int srcy)
 {
 	SDL_Rect srcRect = { srcx, srcy, w, h };
 	SDL_Rect dstRect = { x, y, w, h };
@@ -177,7 +177,7 @@ void TextureManager::Draw(std::string id, int x, int y, int w, int h, int srcx, 
 	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect);
 }
 
-void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip)
+void TextureManager::DrawTile(const std::string& tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip)
 {
 	//+1, -1 azert kell mert az sdl scaling valamit elcsesz a szamolasokba (vagy en cseszek el valamit)
 	//a bal oldali tilet egy pixellel kesoob kezdjuk es jobbrol elobb hagyjuk abba
@@ -191,7 +191,7 @@ void TextureManager::DrawTile(std::string tilesetID, int tilesize, int x, int y,
 	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[tilesetID].first, &srcRect, &dstRect /*0, nullptr, flip*/);
 }
 
-void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, double angle, SDL_RendererFlip flip, int flipX, int flipY)
+void TextureManager::DrawFrame(const std::string& id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, double angle, SDL_RendererFlip flip, int flipX, int flipY)
 {
 	//ez is a scale/clip miatt van, marmint a -1ek
 	SDL_Rect srcRect = { w * frame, h * row, w-1, h-1 };
@@ -216,7 +216,7 @@ void TextureManager::DrawFrame(std::string id, double x, double y, int w, int h,
 	}
 }
 
-void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int srcx, int srcy, int srcw, int srch)
+void TextureManager::DrawItem(const std::string& id, int x, int y, int w, int h, int srcx, int srcy, int srcw, int srch)
 {
 	SDL_Rect srcRect = { srcx, srcy, srcw, srch };
 	SDL_Rect dstRect = { x, y, w, h };
@@ -224,7 +224,7 @@ void TextureManager::DrawItem(std::string id, int x, int y, int w, int h, int sr
 	SDL_RenderCopy(Engine::GetInstance()->getRenderer(), TextureManager_TextureMap[id].first, &srcRect, &dstRect);
 }
 
-void TextureManager::DrawBackgroundPicture(std::string id, int x, int y, int srcw, int srch, double scrollRatio)
+void TextureManager::DrawBackgroundPicture(const std::string& id, int x, int y, int srcw, int srch, double scrollRatio)
 {
 	SDL_Rect scrRect = { 0,0,srcw,srch };
 	Vector2D cam = Camera::GetInstance()->getPosition();
@@ -234,7 +234,7 @@ void TextureManager::DrawBackgroundPicture(std::string id, int x, int y, int src
 	//std::cout << dstRect.x + dstRect.w << "\t";
 }
 
-void TextureManager::Drop(std::string id)
+void TextureManager::Drop(const std::string& id)
 {
 	SDL_DestroyTexture(TextureManager_TextureMap[id].first);
 	TextureManager_TextureMap.erase(id);
@@ -328,7 +328,7 @@ void TextureManager::fillColorMap(std::string source)
 	}
 }
 
-void TextureManager::setTextColor(SDL_Texture* texture, std::string szin)
+void TextureManager::setTextColor(SDL_Texture* texture, const std::string& szin)
 {
 	auto& color = colors[szin];
 	SDL_SetTextureColorMod(texture, color.r, color.g, color.b);

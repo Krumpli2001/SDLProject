@@ -49,7 +49,7 @@ public:
 	/// <param name="size">betüméret</param>
 	/// <param name="width">opcionális: ebbe a változóba kiírja, hogy mi lett a szöveg szélessége a képernyõn</param>
 	/// <param name="szin">opcionális: a szöveg színe</param>
-	void TCharsOut(std::string str, int x, int y, int size, int* width = nullptr, std::string szin="");
+	void TCharsOut(const std::string& str, int x, int y, int size, int* width = nullptr, const std::string& szin = "");
 
 	/// <summary>
 	/// textúrák betöltése a képfájlokból
@@ -76,7 +76,7 @@ public:
 	/// <param name="h">a kép kirajzolni kívánt magassága</param>
 	/// <param name="srcx">a forrásképbõl kirajzolandó x koordináta (alapesetben 0)</param>
 	/// <param name="srcy">a forrásképbõl kirajzolandó x koordináta (alapesetben 0)</param>
-	void Draw(std::string id, int x, int y, int w, int h, int srcx = 0, int srcy = 0);
+	void Draw(const std::string& id, int x, int y, int w, int h, int srcx = 0, int srcy = 0);
 
 	/// <summary>
 	/// egy blokk kirajzolásáéert felelõs függvény
@@ -88,7 +88,7 @@ public:
 	/// <param name="row">a texture map sora (lényegében scrX)</param>
 	/// <param name="frame">a texture map oszlopa (lényegében scrY)</param>
 	/// <param name="flip">textúra flippelése</param>
-	void DrawTile(std::string tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip = SDL_FLIP_NONE);
+	void DrawTile(const std::string& tilesetID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	
 	/// <summary>
 	/// a gameObj-ért felelõs függvény
@@ -106,7 +106,7 @@ public:
 	/// <param name="flip">flip</param>
 	/// <param name="flipX">flipX az eltérõ animáció méretek miatt</param>
 	/// <param name="flipY">flipY az eltérõ animáció méretek miatt</param>
-	void DrawFrame(std::string id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, int flipX = 0, int flipY = 0);
+	void DrawFrame(const std::string& id, double x, double y, int w, int h, int row, int frame, bool startFrame, double scale, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE, int flipX = 0, int flipY = 0);
 	
 	/// <summary>
 	/// Az item-ek kirajzolásáért felelõs függvény
@@ -120,7 +120,7 @@ public:
 	/// <param name="srcy">forrás Y koordinátája</param>
 	/// <param name="srcw">forrás szélessége</param>
 	/// <param name="srch">forrás magassága</param>
-	void DrawItem(std::string id, int x, int y, int w, int h, int srcx = 0, int srcy = 0, int srcw = 0, int srch = 0);
+	void DrawItem(const std::string& id, int x, int y, int w, int h, int srcx = 0, int srcy = 0, int srcw = 0, int srch = 0);
 	
 	/// <summary>
 	/// background kép kirajzolása (a háttér)
@@ -131,13 +131,13 @@ public:
 	/// <param name="srcw">a textúra szélessége</param>
 	/// <param name="srch">a textúra magassága</param>
 	/// <param name="scrollRatio">meghatározza, hogy milyen gyorsan mozogjon a háttéer a kamerával (pl. 0.5 akkor a háttér fele olyan gyorsan mozog)</param>
-	void DrawBackgroundPicture(std::string id, int x, int y, int srcw, int srch, double scrollRatio);
+	void DrawBackgroundPicture(const std::string& id, int x, int y, int srcw, int srch, double scrollRatio);
 
 	/// <summary>
 	/// töröl/felszabadít
 	/// </summary>
 	/// <param name="id">törölni kívánt textúra</param>
-	void Drop(std::string id);
+	void Drop(const std::string& id);
 
 	/// <summary>
 	/// minden törlése/felszabadítása
@@ -174,5 +174,5 @@ public:
 	/// </summary>
 	/// <param name="texture">a színezni kívánt textúra</param>
 	/// <param name="szin">a kívánt szín</param>
-	void setTextColor(SDL_Texture* texture, std::string szin);
+	void setTextColor(SDL_Texture* texture, const std::string& szin);
 };

@@ -53,7 +53,7 @@ private:
 	std::vector<std::vector<int>>* Engine_BackgroundLayerVector = nullptr;
 	int TileSize{};
 
-	void spawn(std::string name);
+	void spawn(const std::string& name);
 
 	std::string loaded_map_name;
 
@@ -159,10 +159,10 @@ public:
 	bool spawnolhat(int x, int* y, int w, int h);
 
 	//beállítja a pálya nevét
-	inline void setMapName(std::string str) { loaded_map_name = str; }
+	inline void setMapName(const std::string& str) { loaded_map_name = str; }
 
 	//visszaadja a pálya nevét
-	inline std::string getMapName() { return loaded_map_name; }
+	inline std::string* getMapName() { return &loaded_map_name; }
 
 
 	//visszaadja a hangerõt
@@ -207,7 +207,7 @@ public:
 	//minden kiírása
 	void Render();
 	//háttér megjelenítése
-	void drawBG(std::string id, int y);
+	void drawBG(const std::string& id, int y);
 	//eventek hallgatása (mnk, stb.)
 	void Events();
 
@@ -218,7 +218,7 @@ public:
 	hp mennyisége
 	ütése ereje
 	*/
-	void spawnSpecial(std::string name, double x, double y, int hp = 100, int power = 10);
+	void spawnSpecial(const std::string& name, double x, double y, int hp = 100, int power = 10);
 
 	//map mentése
 	void map_save();

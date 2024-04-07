@@ -339,7 +339,7 @@ void Engine::Render()
 
 }
 
-void Engine::drawBG(std::string id, int y)
+void Engine::drawBG(const std::string& id, int y)
 {
 	constexpr auto scroll = 0.6;
 	auto t = TextureManager::GetInstance();
@@ -400,11 +400,11 @@ bool Engine::spawnolhat(int x, int* y, int w, int h) {
 }
 
 //ez inkabb tesztkent szolgal, mert igy mindig a bal felso sarokba spawnol
-void Engine::spawn(std::string name) {
+void Engine::spawn(const std::string& name) {
 	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject(name, Engine_PropsMap.find(name)->second));
 }
 
-void Engine::spawnSpecial(std::string name, double x, double y, int hp, int power)
+void Engine::spawnSpecial(const std::string& name, double x, double y, int hp, int power)
 {
 	spawn(name);
 	Enigine_GameObjects.back()->setHP(hp);

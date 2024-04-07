@@ -130,12 +130,12 @@ public:
 	}
 
 	//csak siman kiirja a sort
-	inline void doelse(std::string str, int index) {
+	inline void doelse(const std::string& str, int index) {
 		rublikak[index].color = str;
 	}
 
 	//kiirja es kivalasztja a highlight-ot
-	inline void RUpdate(std::string str, int index) {
+	inline void RUpdate(const std::string& str, int index) {
 		rublikak[index].color = str;
 		highLighted = index;
 	}

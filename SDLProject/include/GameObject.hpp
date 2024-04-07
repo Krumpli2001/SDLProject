@@ -19,7 +19,7 @@ public:
 	double Properties_Y;
 	SDL_RendererFlip Properties_Flip;
 
-	inline Properties(std::string textureID, int hp, int width, int height, double x, double y, SDL_RendererFlip flip = SDL_FLIP_NONE)
+	inline Properties(const std::string& textureID, int hp, int width, int height, double x, double y, SDL_RendererFlip flip = SDL_FLIP_NONE)
 	{
 		Properties_TextureID = textureID;
 		Properies_hp = hp;
