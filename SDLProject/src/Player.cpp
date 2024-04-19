@@ -45,12 +45,12 @@ Player::Player(Properties* props) : Character(props)
 
 }
 
-Player::~Player()
-{
-	delete Player_Collider;
-	delete Player_RigidBody;
-	delete Player_SpriteAnimation;
-}
+//Player::~Player()
+//{
+//	delete Player_Collider;
+//	delete Player_RigidBody;
+//	delete Player_SpriteAnimation;
+//}
 
 
 
@@ -442,6 +442,11 @@ void Player::AnimationState()
 void Player::Clean()
 {
 	TextureManager::GetInstance()->Drop(GameObject_TextureID);
+	delete Player_Collider;
+	delete Player_RigidBody;
+	delete Player_SpriteAnimation;
+	delete GameObject_Transform;
+	delete GameObject_Origin;
 }
 
 void Player::reset()

@@ -84,6 +84,11 @@ void Shot_Arrow::Draw()
 void Shot_Arrow::Clean()
 {
 	TextureManager::GetInstance()->Drop(GameObject_TextureID);
+	delete Arrow_RigidBody;
+	delete Arrow_Collider;
+	delete Arrow_SpriteAnimation;
+	delete GameObject_Transform;
+	delete GameObject_Origin;
 }
 
 void Shot_Arrow::reset()

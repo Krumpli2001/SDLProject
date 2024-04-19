@@ -11,12 +11,12 @@ Enemy::Enemy(Properties* props) : Character(props)
 	Enemy_SpriteAnimation->SetProps(GameObject_TextureID, 0, 0, 0);
 }
 
-Enemy::~Enemy()
-{
-	delete Enemy_RigidBody;
-	delete Enemy_Collider;
-	delete Enemy_SpriteAnimation;
-}
+//Enemy::~Enemy()
+//{
+//	delete Enemy_RigidBody;
+//	delete Enemy_Collider;
+//	delete Enemy_SpriteAnimation;
+//}
 
 void Enemy::Update(Uint64 dt)
 {
@@ -47,6 +47,12 @@ void Enemy::Draw()
 void Enemy::Clean()
 {
 	TextureManager::GetInstance()->Drop(GameObject_TextureID);
+	delete Enemy_RigidBody;
+	delete Enemy_Collider;
+	delete Enemy_SpriteAnimation;
+
+	delete GameObject_Transform;
+	delete GameObject_Origin;
 }
 
 void Enemy::reset()

@@ -41,11 +41,11 @@ public:
 		std::cout << 1 + 10.0 / (abs(OriginalX - TargetPosX) / Engine::GetInstance()->getTileSize()) << "\n";*/
 	}
 
-	inline ~Shot_Arrow() {
+	/*inline ~Shot_Arrow() {
 		delete Arrow_RigidBody;
 		delete Arrow_Collider;
 		delete Arrow_SpriteAnimation;
-	}
+	}*/
 
 	//támadás
 	virtual bool attacking(Uint64 dt);
