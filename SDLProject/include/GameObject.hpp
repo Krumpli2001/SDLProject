@@ -2,7 +2,7 @@
 #include <SDL.h>
 
 #include "Collider.hpp"
-#include "IObject.hpp"
+//#include "IObject.hpp"
 #include "Point.hpp"
 #include "RigidBody.hpp"
 #include "SpriteAnimation.hpp"
@@ -31,7 +31,7 @@ public:
 	}
 };
 
-class GameObject : public IObject {
+class GameObject/* : public IObject */{
 private:
 protected:
 	int GameObject_hp;
@@ -42,7 +42,7 @@ protected:
 	std::string GameObject_TextureID;
 	SDL_RendererFlip GameObject_Flip;
 	Point* GameObject_Origin;
-	dimenziok GameObject_Dimenziok{};
+	Dimenziok GameObject_Dimenziok{};
 
 	int GameObject_kb{};
 	int GameObject_kbt{};

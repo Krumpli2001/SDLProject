@@ -39,25 +39,19 @@ public:
 		//az elso tizes az a skelli max tavja (perpill az is 10);
 		/*maxY = 1 + 10.0 / (abs(OriginalX - TargetPosX) / Engine::GetInstance()->getTileSize());
 		std::cout << 1 + 10.0 / (abs(OriginalX - TargetPosX) / Engine::GetInstance()->getTileSize()) << "\n";*/
-	}
-
-	/*inline ~Shot_Arrow() {
-		delete Arrow_RigidBody;
-		delete Arrow_Collider;
-		delete Arrow_SpriteAnimation;
-	}*/
+	}	
 
 	//támadás
-	virtual bool attacking(Uint64 dt);
+	virtual bool attacking(Uint64 dt) override;
 
 	//
-	virtual void setAttacking(bool e) {}
+	virtual void setAttacking(bool e) override {};
 
 	//
-	virtual bool getAttacking() { return true; }
+	virtual bool getAttacking() override { return true; }
 
 	//visszaadja a collidert
-	virtual Collider* getCollider() { return Arrow_Collider; }
+	virtual Collider* getCollider() override { return Arrow_Collider; }
 
 	// frissítés
 	void Update(Uint64 dt);
@@ -72,16 +66,16 @@ public:
 	void reset();
 
 	//beállítja a gravitációt
-	virtual void setGravity(double G) {}
+	virtual void setGravity(double G) override {}
 
 	//
-	virtual double getAttacktime() { return 0; }
+	virtual double getAttacktime() override { return 0; }
 
 	//visszaadja a nyíl sebzését
 	int getAttackPower() { return attackPower; }
 
 	//beáállítja a sebzést
-	virtual void setAttackPower(int power) { power = attackPower; }
+	virtual void setAttackPower(int power) override { power = attackPower; }
 
 	//
 	inline void* getInventory() override { return nullptr; }
@@ -90,10 +84,10 @@ public:
 	inline int getSelectedInventory() { return 0; }
 
 	//
-	virtual void saveInventory() { return; }
+	virtual void saveInventory() override { return; }
 
 	//
-	virtual void readInventory() { return; }
+	virtual void readInventory() override { return; }
 
 	//beállítja a célpontot
 	void setTarget(int X, int Y) { TargetPosX = X; TargetPosY = Y; }

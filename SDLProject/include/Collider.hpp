@@ -10,7 +10,6 @@ private:
 	SDL_Rect Collider_Box{};
 	int tilesize = CollisionHandler::GetInstance()->getTileSize();
 	std::vector<std::vector<std::pair<int, int>>> koords;
-	std::vector<std::vector<std::pair<int, int>>> segedkoords;
 
 public:
 	Collider() {};
@@ -106,5 +105,4 @@ public:
 		Collider_Box = { x, y, w, h };
 	}
 	inline auto getCollOldalak() { return &koords; }
-	inline auto getSegedCollOldalak() { return &segedkoords; }
 };

@@ -32,25 +32,25 @@ public:
 	/// </summary>
 	/// <param name="x">x koordináta</param>
 	/// <param name="y">y koordináta</param>
-	virtual void Render(int x, int y);
+	virtual void Render(int x, int y) override;
 
 	///// <summary>
 	///// egy kocka frissítése
 	///// </summary>
 	///// <param name="x"></param>
 	///// <param name="y"></param>
-	virtual void Update(int x, int y);
+	virtual void Update(int x, int y) override;
 
 	/// <summary>
 	/// tile layer törlésefelszabadítása
 	/// </summary>
-	virtual void Clean();
+	virtual void Clean() override;
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <returns>az adott layer matrixát</returns>
-	inline std::vector<std::vector<int>>* getTileMap() { return &TileLayer_TileMap; }
+	inline std::vector<std::vector<int>>& getTileMap() { return TileLayer_TileMap; }
 
 	/// <summary>
 	/// 
@@ -67,7 +67,5 @@ public:
 	/// </summary>
 	/// <returns>a pálya oszlopainak száma</returns>
 	inline int getColCount() { return TileLayer_ColCount; }
-
-	//virtual inline std::vector<Tileset>* getTilesetVector() { return &TileLayer_TileSets; }
 
 };

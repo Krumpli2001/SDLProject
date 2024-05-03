@@ -29,7 +29,7 @@ public:
 
 	//item ID visszatérítése
 	inline int getItemID() { return ItemID; }
-	inline std::string* getName() { return &name; }
+	inline  const std::string& getName() { return name; }
 	virtual short getType() = 0;
 };
 

@@ -36,46 +36,46 @@ public:
 
 	//frissíti az adott enemy állapotát
 	//dtparaméter  = eltelt idõ az elõzõ frame óta (delta time)
-	virtual void Update(Uint64 dt);
+	virtual void Update(Uint64 dt) override;
 
 	//kirajzolja az adott enemy-t a képernyõre
-	virtual void Draw();
+	virtual void Draw() override;
 
 	//törli/felszabadítja az adott enemy-t
-	virtual void Clean();
+	virtual void Clean() override;
 
 	//reseteli az adott enemy-t (jelenleg despawnolja õket)
-	virtual void reset();
+	virtual void reset() override;
 
 	//adott enemy támadása
 	//virtual void attacking(Uint64 dt) = 0;
 
 	//beállítja az adott enemy-re ható gravitációt
-	virtual inline void setGravity(double G) { Enemy_RigidBody->setRigidBody_Gravity(G); }
+	virtual inline void setGravity(double G) override { Enemy_RigidBody->setRigidBody_Gravity(G); }
 
 	//visszaadja az enemy collider boxot
-	virtual inline Collider* getCollider() { return Enemy_Collider; }
+	virtual inline Collider* getCollider() override { return Enemy_Collider; }
 
 	//visstaadja, hogy az adott enemy éppen támad-e
-	virtual inline bool getAttacking() { return Enemy_IsAttacking; }
+	virtual inline bool getAttacking() override { return Enemy_IsAttacking; }
 
 	//beállítja a támadás állapotát
-	virtual inline void setAttacking(bool e) { Enemy_IsAttacking = e; }
+	virtual inline void setAttacking(bool e) override { Enemy_IsAttacking = e; }
 
 	//visszaadja az adott enemy lehetséges támadási intervallumát pl. 3 másodpercenként támad akkor 3000
-	virtual inline double getAttacktime() { return Enemy_AttackTimer; }
+	virtual inline double getAttacktime() override { return Enemy_AttackTimer; }
 
 	//visszaadja a támadás ereét
-	virtual inline int getAttackPower() { return 0; }
+	virtual inline int getAttackPower() override { return 0; }
 
 	//beállítja a megfelelõ animációt
 	virtual void AnimationState() = 0;
 
 	//beállítja a támadás ereét
-	virtual inline void setAttackPower(int power) { Enemy_AttackPower = power; }
+	virtual inline void setAttackPower(int power) override { Enemy_AttackPower = power; }
 
 	//enemy collisionért felelõ fv.
-	virtual inline void Enemy_Collision(Uint64 dt);
+	inline void Enemy_Collision(Uint64 dt);
 
 	//visstaadja a játékos pozícióját
 	void getPlayerPosition();
@@ -93,7 +93,7 @@ public:
 	void readInventory() { return; }
 
 	//beállítja az enemy célpontját
-	virtual void setTarget(int X, int Y) { return; }
+	virtual void setTarget(int X, int Y) override { return; }
 
 };
 
@@ -111,13 +111,13 @@ public:
 	};
 
 	//beállítja a megfelelõ animációt
-	virtual void AnimationState();
+	virtual void AnimationState() override;
 
 	//mozgásért felelõs fv
-	virtual void move(Uint64 dt);
+	virtual void move(Uint64 dt) override;
 
 	//támadásért felelõs fv
-	virtual bool attacking(Uint64 dt);
+	virtual bool attacking(Uint64 dt) override;
 
 	//visszaadja a támadás ereét
 	inline int getAttackPower() { return Enemy_AttackPower; }
@@ -138,11 +138,11 @@ public:
 	};
 
 	//beállítja a megfelelõ animációt
-	virtual void AnimationState();
+	virtual void AnimationState() override;
 
 	//mozgásért felelõs fv
-	virtual void move(Uint64 dt);
+	virtual void move(Uint64 dt) override;
 
 	//támadásért felelõs fv
-	virtual bool attacking(Uint64 dt);
+	virtual bool attacking(Uint64 dt) override;
 };

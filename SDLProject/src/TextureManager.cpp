@@ -131,7 +131,7 @@ bool TextureManager::Load(std::string id, std::string filename)
 		return false;
 	}
 
-	dimenziok d = { surface->w/frames, surface->h };
+	Dimenziok d = { surface->w/frames, surface->h };
 
 	auto data = std::make_pair(texture, d);
 

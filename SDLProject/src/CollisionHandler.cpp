@@ -5,7 +5,7 @@ CollisionHandler* CollisionHandler::CollisionHandler_Instance = nullptr;
 
 CollisionHandler::CollisionHandler()
 {
-    CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
+    CollisionHandler_CollisionLayer = reinterpret_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
     CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 
     attetszo.clear();
@@ -21,7 +21,7 @@ CollisionHandler::CollisionHandler()
 }
 
 void CollisionHandler::reset() {
-    CollisionHandler_CollisionLayer = static_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
+    CollisionHandler_CollisionLayer = reinterpret_cast<TileLayer*>((*Engine::GetInstance()->getLevelMap()->getMapLayers())[Engine::GetInstance()->getCollisionLayer()]);
     CollisionHandler_CollitionTileMap = CollisionHandler_CollisionLayer->getTileMap();
 
     attetszo.clear();

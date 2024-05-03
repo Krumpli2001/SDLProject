@@ -55,7 +55,7 @@ private:
 	int selectedInventory = 0;
 
 	//animáció állapotának meghatározása
-	void AnimationState();
+	virtual void AnimationState() override;
 public:
 
 	Player(Properties* props);
@@ -68,43 +68,41 @@ public:
 	inline void setUnderWater(bool e) { Player_IsUnderWater = e; }
 
 	//visszadja a player collidert
-	virtual inline Collider* getCollider() { return Player_Collider; }
+	virtual inline Collider* getCollider() override { return Player_Collider; }
 
 
-	virtual inline void setAttacking(bool e) {}; // csak enemy hasznalja
-	virtual inline bool attacking(Uint64 dt) { return false; } // ezt is
+	virtual inline void setAttacking(bool e) override {}; // csak enemy hasznalja
+	virtual inline bool attacking(Uint64 dt) override { return false; } // ezt is
 
 	//kiír
-	virtual void Draw();
+	virtual void Draw() override;
 
 	//frissít
-	virtual void Update(Uint64 dt);
+	virtual void Update(Uint64 dt) override;
 
 	//töröl felszabadít
-	virtual void Clean();
+	virtual void Clean() override;
 
 	//reset
-	virtual void reset();
+	virtual void reset() override;
 
 	//playerre ható gravitáció beállítása
-	virtual inline void setGravity(double G) { Player_RigidBody->setRigidBody_Gravity(G); }
+	virtual inline void setGravity(double G) override { Player_RigidBody->setRigidBody_Gravity(G); }
 
 	//
-	virtual inline double getAttacktime() { return Player_AttackTime; }
+	virtual inline double getAttacktime() override { return Player_AttackTime; }
 
 	//visszaadja az ütés ereét
-	virtual inline int getAttackPower() { return Player_AttackPower; }
+	virtual inline int getAttackPower() override { return Player_AttackPower; }
 
 	//beállítja az ütés ereét
-	virtual inline void setAttackPower(int power) { Player_AttackPower = power; }
+	virtual inline void setAttackPower(int power) override { Player_AttackPower = power; }
 
 	//visszaadja, hogy a player támad-e
-	virtual inline bool getAttacking() { return PlayerReadyAttacking; }
+	virtual inline bool getAttacking() override { return PlayerReadyAttacking; }
 
 	//visszaadja a playerre ható gravitációt
 	inline double getPGravity() { return Player_RigidBody->getGravity(); }
-
-	//wow lehet ilyet is - ez rettenet buta lmao
 
 	//visszaadja a player inventory-t
 	inline void* getInventory() override { return &Player_Inventory; }
@@ -120,7 +118,7 @@ public:
 	void readInventory();
 
 	//itt nincs jelentõsége
-	virtual void setTarget(int X, int Y) { return; }
+	virtual void setTarget(int X, int Y) override { return; }
 
 	inline double getPotionDebuff() { return potiTimer; }
 };

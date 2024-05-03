@@ -7,7 +7,7 @@
 #include <string>
 #include <unordered_map>
 
-struct dimenziok {
+struct Dimenziok {
 	int w, h;
 };
 
@@ -15,8 +15,8 @@ class TextureManager
 {
 private:
 	static TextureManager* TextureManager_Instance;
-	std::map<std::string, std::pair<SDL_Texture*, dimenziok>> TextureManager_TextureMap;
-	std::map<char, std::pair<SDL_Texture*, dimenziok>> chars_map;
+	std::map<std::string, std::pair<SDL_Texture*, Dimenziok>> TextureManager_TextureMap;
+	std::map<char, std::pair<SDL_Texture*, Dimenziok>> chars_map;
 	std::unordered_map<std::string, SDL_Color> colors;
 	int frames{};
 public:
@@ -160,7 +160,7 @@ public:
 	/// 
 	/// </summary>
 	/// <returns>a texturemap pointert</returns>
-	inline std::map<std::string, std::pair<SDL_Texture*, dimenziok>>* getTextureMap() { return &TextureManager_TextureMap; }
+	inline std::map<std::string, std::pair<SDL_Texture*, Dimenziok>>* getTextureMap() { return &TextureManager_TextureMap; }
 	
 
 	/// <summary>
