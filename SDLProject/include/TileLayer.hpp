@@ -50,7 +50,7 @@ public:
 	/// 
 	/// </summary>
 	/// <returns>az adott layer matrixát</returns>
-	inline std::vector<std::vector<int>>& getTileMap() { return TileLayer_TileMap; }
+	inline std::vector<std::vector<int>>* getTileMap() { return &TileLayer_TileMap; }
 
 	/// <summary>
 	/// 
