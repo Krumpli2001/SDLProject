@@ -401,7 +401,7 @@ bool Engine::spawnolhat(int x, int* y, int w, int h) {
 
 //ez inkabb tesztkent szolgal, mert igy mindig a bal felso sarokba spawnol
 void Engine::spawn(const std::string& name) {
-	Enigine_GameObjects.push_back(ObjectFactory::GetInstance()->CreateObject(name, Engine_PropsMap.find(name)->second));
+	Enigine_GameObjects.emplace_back(ObjectFactory::GetInstance()->CreateObject(name, Engine_PropsMap.find(name)->second));
 }
 
 void Engine::spawnSpecial(const std::string& name, double x, double y, int hp, int power)

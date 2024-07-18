@@ -18,7 +18,7 @@ void Menu::MenuInit() {
 
 	constexpr auto r_height = 150;
 
-	rublikak.push_back(rublika("Continue",		0, 0, r_height));
+	rublikak.push_back({ "Continue",		0, 0, r_height });
 	rublikak.push_back(rublika("Options",		0, 150, r_height));
 	rublikak.push_back(rublika("Save",			0, 300, r_height));
 	rublikak.push_back(rublika("Title screen",	0, 450, r_height));

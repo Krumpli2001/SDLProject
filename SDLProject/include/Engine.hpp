@@ -7,7 +7,6 @@
 
 #include "GameMap.hpp"
 #include "GameObject.hpp"
-#include "Timer.hpp"
 
 constexpr auto CREATION_WIDTH = 1280;
 constexpr auto CREATION_HEIGHT = 720;

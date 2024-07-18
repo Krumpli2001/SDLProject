@@ -12,12 +12,12 @@
 class Properties {
 public:
 	int Properies_hp;
+	SDL_RendererFlip Properties_Flip;
 	std::string Properties_TextureID;
 	int Properties_Width;
 	int Properties_Height;
 	double Properties_X;
 	double Properties_Y;
-	SDL_RendererFlip Properties_Flip;
 
 	inline Properties(const std::string& textureID, int hp, int width, int height, double x, double y, SDL_RendererFlip flip = SDL_FLIP_NONE)
 	{
