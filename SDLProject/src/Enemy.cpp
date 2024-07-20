@@ -3,12 +3,12 @@
 Enemy::Enemy(Properties* props) : Character(props)
 {
 	GameObject_hp = props->Properies_hp;
-	Enemy_RigidBody = new RigidBody();
-	Enemy_RigidBody->setRigidBody_Gravity(GRAVITY);
-	Enemy_Collider = new Collider(GameObject_Dimenziok.w, GameObject_Dimenziok.h);
+	//Enemy_RigidBody = new RigidBody();
+	Enemy_RigidBody.setRigidBody_Gravity(GRAVITY);
+	Enemy_Collider = Collider(GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
-	Enemy_SpriteAnimation = new SpriteAnimation();
-	Enemy_SpriteAnimation->SetProps(GameObject_TextureID, 0, 0, 0);
+	//Enemy_SpriteAnimation = new SpriteAnimation();
+	Enemy_SpriteAnimation.SetProps(GameObject_TextureID, 0, 0, 0);
 }
 
 //Enemy::~Enemy()
@@ -21,8 +21,8 @@ Enemy::Enemy(Properties* props) : Character(props)
 void Enemy::Update(Uint64 dt)
 {
 	Character_AnimationState = IsIdle;
-	Enemy_RigidBody->SetForceToZero();
-	if (gotHit(*Enemy_SpriteAnimation->getSpriteID(), dt, Enemy_RigidBody)) {
+	Enemy_RigidBody.SetForceToZero();
+	if (gotHit(*Enemy_SpriteAnimation.getSpriteID(), dt, &Enemy_RigidBody)) {
 		Enemy_IsJumping = true;
 		Enemy_IsGrounded = false;
 	}
@@ -30,29 +30,29 @@ void Enemy::Update(Uint64 dt)
 	move(dt);
 	Enemy_Collision(dt);
 
-	GameObject_Origin->setX(GameObject_Transform->getX()+GameObject_Width/2);
-	GameObject_Origin->setY(GameObject_Transform->getY() + GameObject_Height / 2);
+	GameObject_Origin.setX(GameObject_Transform.getX()+GameObject_Width/2);
+	GameObject_Origin.setY(GameObject_Transform.getY() + GameObject_Height / 2);
 
 	AnimationState();
-	Enemy_RigidBody->Update(dt);
-	Enemy_SpriteAnimation->Update(dt);
+	Enemy_RigidBody.Update(dt);
+	Enemy_SpriteAnimation.Update(dt);
 }
 
 void Enemy::Draw()
 {
-	Enemy_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height,
+	Enemy_SpriteAnimation.Draw(GameObject_Transform.getX(), GameObject_Transform.getY(), GameObject_Width, GameObject_Height,
 		GameObject_Flip, 0.0, 1.0, GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 }
 
 void Enemy::Clean()
 {
 	TextureManager::GetInstance()->Drop(GameObject_TextureID);
-	delete Enemy_RigidBody;
-	delete Enemy_Collider;
-	delete Enemy_SpriteAnimation;
+	/*delete Enemy_RigidBody;
+	delete Enemy_Collider;*/
+	//delete Enemy_SpriteAnimation;
 
-	delete GameObject_Transform;
-	delete GameObject_Origin;
+	/*delete GameObject_Transform;
+	delete GameObject_Origin;*/
 }
 
 void Enemy::reset()
@@ -70,16 +70,16 @@ void Enemy::getPlayerPosition()
 void Enemy::Enemy_Collision(Uint64 dt) {
 
 	//x axis collision
-	Enemy_LastSafePosition.setX(GameObject_Transform->getX());
-	GameObject_Transform->setX(GameObject_Transform->getX() + Enemy_RigidBody->getRigidBody_Position().getX());
-	Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()),
+	Enemy_LastSafePosition.setX(GameObject_Transform.getX());
+	GameObject_Transform.setX(GameObject_Transform.getX() + Enemy_RigidBody.getRigidBody_Position().getX());
+	Enemy_Collider.setBox(static_cast<int>(GameObject_Transform.getX()), static_cast<int>(GameObject_Transform.getY()),
 		GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
 	auto collisionHandlerInstance = CollisionHandler::GetInstance();
 
 	if (collisionHandlerInstance->MapCollision(this, &Enemy_IsGrounded))
 	{
-		GameObject_Transform->setX(Enemy_LastSafePosition.getX());
+		GameObject_Transform.setX(Enemy_LastSafePosition.getX());
 		fal = true;
 	}
 	else {
@@ -87,32 +87,32 @@ void Enemy::Enemy_Collision(Uint64 dt) {
 	}
 
 	//y axis collision
-	Enemy_LastSafePosition.setY(GameObject_Transform->getY());
+	Enemy_LastSafePosition.setY(GameObject_Transform.getY());
 	//levitalas miatt van itt
 
-	if ((static_cast<int>(Enemy_LastSafePosition.getY()) % collisionHandlerInstance->getCollisionLayer()->getTileSize()) >= (collisionHandlerInstance->getCollisionLayer()->getTileSize() - dt * Enemy_RigidBody->getGravity())) {
+	if ((static_cast<int>(Enemy_LastSafePosition.getY()) % collisionHandlerInstance->getCollisionLayer()->getTileSize()) >= (collisionHandlerInstance->getCollisionLayer()->getTileSize() - dt * Enemy_RigidBody.getGravity())) {
 	
 		auto szam = ((static_cast<int>(Enemy_LastSafePosition.getY()) + GameObject_Height) % collisionHandlerInstance->getCollisionLayer()->getTileSize());
-		Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()),
-			static_cast<int>(GameObject_Transform->getY() + dt * Enemy_RigidBody->getGravity() - szam), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
+		Enemy_Collider.setBox(static_cast<int>(GameObject_Transform.getX()),
+			static_cast<int>(GameObject_Transform.getY() + dt * Enemy_RigidBody.getGravity() - szam), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 		if (collisionHandlerInstance->MapCollision(this, &Enemy_IsGrounded))
 		{
-			GameObject_Transform->setX(Enemy_LastSafePosition.getX());
+			GameObject_Transform.setX(Enemy_LastSafePosition.getX());
 		}
-		Enemy_LastSafePosition.setY(GameObject_Transform->getY());
+		Enemy_LastSafePosition.setY(GameObject_Transform.getY());
 
 	}
 
-	GameObject_Transform->setY(GameObject_Transform->getY() + Enemy_RigidBody->getRigidBody_Position().getY());
-	Enemy_Collider->setBox(static_cast<int>(GameObject_Transform->getX()),
-		static_cast<int>(GameObject_Transform->getY()), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
+	GameObject_Transform.setY(GameObject_Transform.getY() + Enemy_RigidBody.getRigidBody_Position().getY());
+	Enemy_Collider.setBox(static_cast<int>(GameObject_Transform.getX()),
+		static_cast<int>(GameObject_Transform.getY()), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
 	if (collisionHandlerInstance->MapCollision(this, &Enemy_IsGrounded))
 	{
 		if (Enemy_IsGrounded) {
 			Enemy_JumpTime = 200;
 		}
-		GameObject_Transform->setY(Enemy_LastSafePosition.getY());
+		GameObject_Transform.setY(Enemy_LastSafePosition.getY());
 	}
 	else
 	{

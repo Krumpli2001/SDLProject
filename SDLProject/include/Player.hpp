@@ -45,9 +45,9 @@ private:
 	int Player_AttackPower = 0;
 	double minetime = 0;
 
-	Collider* Player_Collider;
-	SpriteAnimation* Player_SpriteAnimation;
-	RigidBody* Player_RigidBody;
+	Collider Player_Collider;
+	SpriteAnimation Player_SpriteAnimation;
+	RigidBody Player_RigidBody;
 	Vector2D Player_LastSafePosition;
 
 	int inventoryplace = 0;
@@ -62,13 +62,13 @@ public:
 	//~Player();
 
 	//visszaadja a player merevtestét
-	inline RigidBody* getPlayerBody() { return Player_RigidBody; }
+	inline RigidBody* getPlayerBody() { return &Player_RigidBody; }
 
 	//beállítja, hogy a player víz (vagy egyéb) folyadékban vagy hasonló blokkban van-e
 	inline void setUnderWater(bool e) { Player_IsUnderWater = e; }
 
 	//visszadja a player collidert
-	virtual inline Collider* getCollider() override { return Player_Collider; }
+	virtual inline Collider* getCollider() override { return &Player_Collider; }
 
 
 	virtual inline void setAttacking(bool e) override {}; // csak enemy hasznalja
@@ -87,7 +87,7 @@ public:
 	virtual void reset() override;
 
 	//playerre ható gravitáció beállítása
-	virtual inline void setGravity(double G) override { Player_RigidBody->setRigidBody_Gravity(G); }
+	virtual inline void setGravity(double G) override { Player_RigidBody.setRigidBody_Gravity(G); }
 
 	//
 	virtual inline double getAttacktime() override { return Player_AttackTime; }
@@ -102,7 +102,7 @@ public:
 	virtual inline bool getAttacking() override { return PlayerReadyAttacking; }
 
 	//visszaadja a playerre ható gravitációt
-	inline double getPGravity() { return Player_RigidBody->getGravity(); }
+	inline double getPGravity() { return Player_RigidBody.getGravity(); }
 
 	//visszaadja a player inventory-t
 	inline void* getInventory() override { return &Player_Inventory; }

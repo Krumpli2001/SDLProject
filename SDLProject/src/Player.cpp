@@ -33,13 +33,13 @@ Player::Player(Properties* props) : Character(props)
 
 	GameObject_Dimenziok = TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second;
 
-	Player_Collider = new Collider(GameObject_Dimenziok.w, GameObject_Dimenziok.h);
+	Player_Collider = Collider(GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
-	Player_RigidBody = new RigidBody();
-	Player_RigidBody->setRigidBody_Gravity(GRAVITY);
+	//Player_RigidBody = RigidBody();
+	Player_RigidBody.setRigidBody_Gravity(GRAVITY);
 
-	Player_SpriteAnimation = new SpriteAnimation();
-	Player_SpriteAnimation->SetProps(GameObject_TextureID, 0, 0, 0);
+	//Player_SpriteAnimation = new SpriteAnimation();
+	Player_SpriteAnimation.SetProps(GameObject_TextureID, 0, 0, 0);
 
 	Player_Inventory.fill(std::make_pair(nullptr, 0));
 
@@ -58,7 +58,7 @@ void Player::Draw()
 {
 	constexpr auto angle = 0;
 	constexpr auto scale = 1;
-	Player_SpriteAnimation->Draw(GameObject_Transform->getX(), GameObject_Transform->getY(), GameObject_Width, GameObject_Height, GameObject_Flip , angle, scale, GameObject_Dimenziok.w, GameObject_Dimenziok.h);
+	Player_SpriteAnimation.Draw(GameObject_Transform.getX(), GameObject_Transform.getY(), GameObject_Width, GameObject_Height, GameObject_Flip , angle, scale, GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 }
 
 void Player::Update(Uint64 dt)
@@ -84,7 +84,7 @@ void Player::Update(Uint64 dt)
 	potiTimer = potiTimer < POTION_CD and potiTimer > 0 ? potiTimer - dt : POTION_CD;
 
 	Player_IsWalking = false;
-	Player_RigidBody->SetForceToZero();
+	Player_RigidBody.SetForceToZero();
 
 	/*if (GameObject_kbt > 0) {
 		texturemanagerInstance->setTextColor(texturemanagerInstance->getTextureMap()->find(*Player_SpriteAnimation->getSpriteID())->second.first, "red");
@@ -101,7 +101,7 @@ void Player::Update(Uint64 dt)
 	}
 	GameObject_kbt = GameObject_kbt < INT_MIN / 2 ? 0 : GameObject_kbt;*/
 
-	if (gotHit(*Player_SpriteAnimation->getSpriteID(), dt, Player_RigidBody)) {
+	if (gotHit(*Player_SpriteAnimation.getSpriteID(), dt, &Player_RigidBody)) {
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
 	}
@@ -111,7 +111,7 @@ void Player::Update(Uint64 dt)
 	//fut jobbra
 	if (inputInstance->getAxisKey(HORIZONTAL) == JOBBRA and !Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE);
+		Player_RigidBody.ApplyForceX(JOBBRA * RUN_FORCE);
 		GameObject_Flip = SDL_FLIP_NONE;
 		//Player_IsWalking = true;
 		Character_AnimationState = playerAniState::IsWalking;
@@ -120,7 +120,7 @@ void Player::Update(Uint64 dt)
 	//fut balra
 	if (inputInstance->getAxisKey(HORIZONTAL) == BALRA and !Player_IsAttacking)
 	{
-		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE);
+		Player_RigidBody.ApplyForceX(BALRA * RUN_FORCE);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 		//Player_IsWalking = true;
 		Character_AnimationState = playerAniState::IsWalking;
@@ -243,7 +243,7 @@ void Player::Update(Uint64 dt)
 		auto egerY = uiInstance->getkepernyoY() / engineInstance->getTileSize();
 		auto colllayer = engineInstance->getCollisionLayerVector();
 		int tileID = (*colllayer)[egerY][egerX];
-		if (tileID == 0 and !CollisionHandler::GetInstance()->CheckCollision(*Player_Collider->getBox(),
+		if (tileID == 0 and !CollisionHandler::GetInstance()->CheckCollision(*Player_Collider.getBox(),
 			{egerX * engineInstance->getTileSize(), egerY * engineInstance->getTileSize(), engineInstance->getTileSize(), engineInstance->getTileSize()}
 		))
 		{
@@ -269,7 +269,7 @@ void Player::Update(Uint64 dt)
 	{
 		//aniState = playerAniState::PlayerIsWalkingAndAttacking;
 		//Player_IsWalkAttacking = true;
-		Player_RigidBody->ApplyForceX(JOBBRA * RUN_FORCE);// * dt);
+		Player_RigidBody.ApplyForceX(JOBBRA * RUN_FORCE);// * dt);
 		GameObject_Flip = SDL_FLIP_NONE;
 	}
 
@@ -278,7 +278,7 @@ void Player::Update(Uint64 dt)
 	{
 		//aniState = playerAniState::PlayerIsWalkingAndAttacking;
 		//Player_IsWalkAttacking = true;
-		Player_RigidBody->ApplyForceX(BALRA * RUN_FORCE);// * dt);
+		Player_RigidBody.ApplyForceX(BALRA * RUN_FORCE);// * dt);
 		GameObject_Flip = SDL_FLIP_HORIZONTAL;
 	}
 
@@ -287,13 +287,13 @@ void Player::Update(Uint64 dt)
 	{
 		Player_IsJumping = true;
 		Player_IsGrounded = false;
-		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);
+		Player_RigidBody.ApplyForceY(FEL * Player_JumpForce);
 	}
 
 	if (inputInstance->getKeyDown(SDL_SCANCODE_SPACE) and Player_IsJumping and Player_JumpTime > 0)
 	{
 		Player_JumpTime = Player_JumpTime - dt;
-		Player_RigidBody->ApplyForceY(FEL * Player_JumpForce);
+		Player_RigidBody.ApplyForceY(FEL * Player_JumpForce);
 	}
 	else
 	{
@@ -301,7 +301,7 @@ void Player::Update(Uint64 dt)
 	}
 
 	//zuhanas
-	if (Player_RigidBody->getRigidBody_Velocity().getY() > 0 and !Player_IsGrounded)
+	if (Player_RigidBody.getRigidBody_Velocity().getY() > 0 and !Player_IsGrounded)
 	{
 		Player_IsFalling = true;
 		Character_AnimationState = playerAniState::IsFalling;
@@ -337,44 +337,44 @@ void Player::Update(Uint64 dt)
 
 
 	//collision
-	Player_LastSafePosition.setX(GameObject_Transform->getX());
-	GameObject_Transform->setX(GameObject_Transform->getX() + Player_RigidBody->getRigidBody_Position().getX());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
+	Player_LastSafePosition.setX(GameObject_Transform.getX());
+	GameObject_Transform.setX(GameObject_Transform.getX() + Player_RigidBody.getRigidBody_Position().getX());
+	Player_Collider.setBox(static_cast<int>(GameObject_Transform.getX()), static_cast<int>(GameObject_Transform.getY()), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
 	auto collhandlerInstance = CollisionHandler::GetInstance();
 
 	if (collhandlerInstance->MapCollision(this, &Player_IsGrounded))
 	{
-		GameObject_Transform->setX(Player_LastSafePosition.getX());
+		GameObject_Transform.setX(Player_LastSafePosition.getX());
 	}
 
 
 
-	Player_LastSafePosition.setY(GameObject_Transform->getY());
+	Player_LastSafePosition.setY(GameObject_Transform.getY());
 
 	//erre majd ra kell kerdezni...
 
 	//levitalas miatt van itt
-	if ((static_cast<int>(Player_LastSafePosition.getY()) % collhandlerInstance->getCollisionLayer()->getTileSize()) >= (collhandlerInstance->getCollisionLayer()->getTileSize() - dt * Player_RigidBody->getGravity())) {
+	if ((static_cast<int>(Player_LastSafePosition.getY()) % collhandlerInstance->getCollisionLayer()->getTileSize()) >= (collhandlerInstance->getCollisionLayer()->getTileSize() - dt * Player_RigidBody.getGravity())) {
 		
 		auto szam = ((static_cast<int>(Player_LastSafePosition.getY()) + GameObject_Height) % collhandlerInstance->getCollisionLayer()->getTileSize());
-		Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY() + dt * Player_RigidBody->getGravity() - szam), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
+		Player_Collider.setBox(static_cast<int>(GameObject_Transform.getX()), static_cast<int>(GameObject_Transform.getY() + dt * Player_RigidBody.getGravity() - szam), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 		if (collhandlerInstance->MapCollision(this, &Player_IsGrounded))
 		{
-			GameObject_Transform->setX(Player_LastSafePosition.getX());
+			GameObject_Transform.setX(Player_LastSafePosition.getX());
 		}
-		Player_LastSafePosition.setY(GameObject_Transform->getY());
+		Player_LastSafePosition.setY(GameObject_Transform.getY());
 	}
 
-	GameObject_Transform->setY(GameObject_Transform->getY() + Player_RigidBody->getRigidBody_Position().getY());
-	Player_Collider->setBox(static_cast<int>(GameObject_Transform->getX()), static_cast<int>(GameObject_Transform->getY()), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
+	GameObject_Transform.setY(GameObject_Transform.getY() + Player_RigidBody.getRigidBody_Position().getY());
+	Player_Collider.setBox(static_cast<int>(GameObject_Transform.getX()), static_cast<int>(GameObject_Transform.getY()), GameObject_Dimenziok.w, GameObject_Dimenziok.h);
 
 	if (collhandlerInstance->MapCollision(this, &Player_IsGrounded))
 	{
 		if (Player_IsGrounded) {
 			Player_JumpTime = JUMP_TIME;
 		}
-		GameObject_Transform->setY(Player_LastSafePosition.getY());
+		GameObject_Transform.setY(Player_LastSafePosition.getY());
 	}
 	else
 	{
@@ -395,43 +395,43 @@ void Player::Update(Uint64 dt)
 		Player_UnderWaterTime = UNDER_WATER_TIME;
 	}
 
-	GameObject_Origin->setX(GameObject_Transform->getX() + GameObject_Dimenziok.w/2);
-	GameObject_Origin->setY(GameObject_Transform->getY() + GameObject_Dimenziok.h/2);
+	GameObject_Origin.setX(GameObject_Transform.getX() + GameObject_Dimenziok.w/2);
+	GameObject_Origin.setY(GameObject_Transform.getY() + GameObject_Dimenziok.h/2);
 
 	AnimationState();
-	Player_RigidBody->Update(dt);
-	Player_SpriteAnimation->Update(dt);
+	Player_RigidBody.Update(dt);
+	Player_SpriteAnimation.Update(dt);
 }
 
 void Player::AnimationState()
 {
 	auto texturemanagerInstance = TextureManager::GetInstance();
 	if (Character_AnimationState == playerAniState::IsIdle) {
-		Player_SpriteAnimation->SetProps("player_idle", 0, 4, 400);
+		Player_SpriteAnimation.SetProps("player_idle", 0, 4, 400);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_idle")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_idle")->second.second.h;
 	}
 
 	if (Character_AnimationState == playerAniState::IsWalking) {
-		Player_SpriteAnimation->SetProps("player_walking", 0, 6, 500);
+		Player_SpriteAnimation.SetProps("player_walking", 0, 6, 500);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_walking")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_walking")->second.second.h;
 	}
 
 	if (Player_IsFalling or !Player_IsGrounded) {
-		Player_SpriteAnimation->SetProps("player_jumping", 0, 1, 1);
+		Player_SpriteAnimation.SetProps("player_jumping", 0, 1, 1);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_jumping")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_jumping")->second.second.h;
 	}
 
 	if (Character_AnimationState == playerAniState::IsAttacking or Player_IsAttacking) {
-		Player_SpriteAnimation->SetProps("player_stand_hit", 0, 4, static_cast<int>(PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount()), true);
+		Player_SpriteAnimation.SetProps("player_stand_hit", 0, 4, static_cast<int>(PLAYER_ATTACK_TIME / Player_SpriteAnimation.getFrameCount()), true);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_stand_hit")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_stand_hit")->second.second.h;
 	}
 
 	if (Character_AnimationState == playerAniState::IsWalking and Player_IsAttacking) {
-		Player_SpriteAnimation->SetProps("player_walk_hit", 0, 4, static_cast<int>(PLAYER_ATTACK_TIME / Player_SpriteAnimation->getFrameCount()), true);
+		Player_SpriteAnimation.SetProps("player_walk_hit", 0, 4, static_cast<int>(PLAYER_ATTACK_TIME / Player_SpriteAnimation.getFrameCount()), true);
 		GameObject_Width = texturemanagerInstance->getTextureMap()->find("player_walk_hit")->second.second.w;
 		GameObject_Height = texturemanagerInstance->getTextureMap()->find("player_walk_hit")->second.second.h;
 		//std::cout << 'b';
@@ -442,18 +442,18 @@ void Player::AnimationState()
 void Player::Clean()
 {
 	TextureManager::GetInstance()->Drop(GameObject_TextureID);
-	delete Player_Collider;
+	/*delete Player_Collider;
 	delete Player_RigidBody;
-	delete Player_SpriteAnimation;
-	delete GameObject_Transform;
-	delete GameObject_Origin;
+	delete Player_SpriteAnimation;*/
+	/*delete GameObject_Transform;
+	delete GameObject_Origin;*/
 }
 
 void Player::reset()
 {
 	GameObject_hp = 100;
-	GameObject_Transform->setX(0);
-	GameObject_Transform->setY(0);
+	GameObject_Transform.setX(0);
+	GameObject_Transform.setY(0);
 }
 
 void Player::saveInventory()
@@ -463,7 +463,7 @@ void Player::saveInventory()
 	if (f.is_open()) {
 		f << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		f << "<player>\n";
-		f << "<coords X=\"" << GameObject_Transform->getX() << "\" Y=\"" << GameObject_Transform->getY() << "\" />\n";
+		f << "<coords X=\"" << GameObject_Transform.getX() << "\" Y=\"" << GameObject_Transform.getY() << "\" />\n";
 		for (int i = 0; i < Player_Inventory.size(); i++) {
 			if (Player_Inventory[i].first) {
 				f << "<slot ItemID=\"" << Player_Inventory[i].first->getItemID() << "\" Amount=\"" << Player_Inventory[i].second << "\" />\n";
@@ -487,8 +487,8 @@ void Player::readInventory()
 
 		std::cout << "Failde to load: " << source << std::endl;
 		std::cout << "setting to default loc\n";
-		GameObject_Transform->setX(engineInstance->getMap_W() / 2);
-		GameObject_Transform->setY(engineInstance->legmamasabbBlock(static_cast<int>(GameObject_Transform->getX()) - TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w));
+		GameObject_Transform.setX(engineInstance->getMap_W() / 2);
+		GameObject_Transform.setY(engineInstance->legmamasabbBlock(static_cast<int>(GameObject_Transform.getX()) - TextureManager::GetInstance()->getTextureMap()->find("player_idle")->second.second.w));
 		return;
 	}
 	TiXmlElement* root = xml.RootElement();
@@ -496,8 +496,8 @@ void Player::readInventory()
 	int i = 0;
 	for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement()) {
 		if (e->Value() == std::string("coords")) {
-			GameObject_Transform->setX(std::stoi(e->Attribute("X")));
-			GameObject_Transform->setY(std::stoi(e->Attribute("Y")));
+			GameObject_Transform.setX(std::stoi(e->Attribute("X")));
+			GameObject_Transform.setY(std::stoi(e->Attribute("Y")));
 		}
 		if (e->Value() == std::string("slot")) {
 			int ItemID = std::stoi(e->Attribute("ItemID"));

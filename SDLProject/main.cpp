@@ -1,6 +1,7 @@
 //#include <thread>
 
 #include "Engine.hpp"
+#include "Timer.hpp"
 
 int main(int argc, char* argv[])
 {

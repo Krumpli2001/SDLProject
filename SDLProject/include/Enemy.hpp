@@ -7,11 +7,11 @@
 class Enemy : public Character
 {
 protected:
-	Collider* Enemy_Collider;
-	RigidBody* Enemy_RigidBody;
+	Collider Enemy_Collider;
+	RigidBody Enemy_RigidBody;
 	Vector2D Enemy_LastSafePosition;
 
-	SpriteAnimation* Enemy_SpriteAnimation;
+	SpriteAnimation Enemy_SpriteAnimation;
 
 	bool Enemy_IsAttacking = true;
 	int Enemy_AttackPower{};
@@ -51,10 +51,10 @@ public:
 	//virtual void attacking(Uint64 dt) = 0;
 
 	//beállítja az adott enemy-re ható gravitációt
-	virtual inline void setGravity(double G) override { Enemy_RigidBody->setRigidBody_Gravity(G); }
+	virtual inline void setGravity(double G) override { Enemy_RigidBody.setRigidBody_Gravity(G); }
 
 	//visszaadja az enemy collider boxot
-	virtual inline Collider* getCollider() override { return Enemy_Collider; }
+	virtual inline Collider* getCollider() override { return &Enemy_Collider; }
 
 	//visstaadja, hogy az adott enemy éppen támad-e
 	virtual inline bool getAttacking() override { return Enemy_IsAttacking; }

@@ -346,7 +346,8 @@ void Menu::Update()
 							engineInstance->setMapName(saves[i]);
 							engineInstance->spawnSpecial("PLAYER", 0, 0);
 							engineInstance->spawnSpecial("SKELETON", 1000, 0);
-							Camera::GetInstance()->setTarget((*engineInstance->getGameObjects()).front()->getOrigin());
+							//Camera::GetInstance()->setTarget((*engineInstance->getGameObjects()).front()->getOrigin());
+							Camera::GetInstance()->setTarget(*engineInstance->getGameObjects()->front()->getOrigin());
 							(*engineInstance->getGameObjects()).front()->readInventory();
 							loaded_map_name = saves[i];
 						}

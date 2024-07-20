@@ -36,12 +36,12 @@ private:
 protected:
 	int GameObject_hp;
 	int GameObject_MaxHP;
-	Transform* GameObject_Transform;
+	Transform GameObject_Transform;
 	int GameObject_Width;
 	int GameObject_Height;
 	std::string GameObject_TextureID;
 	SDL_RendererFlip GameObject_Flip;
-	Point* GameObject_Origin;
+	Point GameObject_Origin;
 	Dimenziok GameObject_Dimenziok{};
 
 	int GameObject_kb{};
@@ -57,8 +57,8 @@ public:
 		GameObject_Width = props->Properties_Width;
 		GameObject_Height = props->Properties_Height;
 		GameObject_Flip = props->Properties_Flip;
-		GameObject_Transform = new Transform(props->Properties_X, props->Properties_Y);
-		GameObject_Origin = new Point(props->Properties_X + props->Properties_Width / 2, props->Properties_Y + props->Properties_Height / 2);
+		GameObject_Transform = Transform(props->Properties_X, props->Properties_Y);
+		GameObject_Origin = Point(props->Properties_X + props->Properties_Width / 2, props->Properties_Y + props->Properties_Height / 2);
 	}
 
 	/*inline ~GameObject() {
@@ -67,13 +67,13 @@ public:
 	}*/
 
 	//visszaadja az adott gameObj középpontját
-	inline Point* getOrigin() { return GameObject_Origin; }
+	inline Point* getOrigin() { return &GameObject_Origin; }
 
 	//visszaadja az adott gameObj koordinátáit
-	inline Transform* getPosition() { return GameObject_Transform; }
+	inline Transform* getPosition() { return &GameObject_Transform; }
 
 	//beállítja az adott gameObj koordinátáit - azaz teleport
-	inline void setPosition(double x, double y) { GameObject_Transform->setX(x); GameObject_Transform->setY(y); }
+	inline void setPosition(double x, double y) { GameObject_Transform.setX(x); GameObject_Transform.setY(y); }
 
 	//beállítja, hogy az adott gameObj-nek mennyi élete van
 	inline void setHP(int newhp) { GameObject_hp = newhp; }
